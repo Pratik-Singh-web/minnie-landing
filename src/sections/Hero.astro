@@ -43,7 +43,7 @@ import WaitlistForm from "../components/WaitlistForm.astro";
       <div class="absolute w-72 h-72 rounded-full bg-[var(--color-coral)] opacity-20 blur-3xl -z-10"></div>
       
       <!-- Interactive Frame / macOS mockup container -->
-      <div class="card w-full max-w-sm aspect-[4/3] p-8 flex flex-col justify-between shadow-2xl border-white/5 relative overflow-hidden group">
+      <div class="card w-full max-w-sm aspect-[4/3] p-8 flex flex-col justify-between shadow-2xl border-[var(--clay-edge)] relative overflow-hidden group">
         <!-- Window Controls -->
         <div class="flex items-center gap-1.5 absolute top-4 left-4">
           <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
@@ -52,7 +52,7 @@ import WaitlistForm from "../components/WaitlistForm.astro";
         </div>
 
         <div class="absolute top-4 right-4 flex gap-1">
-          <span class="chip py-0.5 px-2 text-[9px] border-none bg-white/5">Minnie.app</span>
+          <span class="chip py-0.5 px-2 text-[9px] border-none bg-[var(--clay-inset)]">Minnie.app</span>
         </div>
 
         <!-- Center Image content with mood hover interaction -->
@@ -66,7 +66,7 @@ import WaitlistForm from "../components/WaitlistForm.astro";
               class="max-w-full max-h-full object-contain filter drop-shadow-[0_10px_20px_rgba(255,107,157,0.3)] transition-all duration-300"
             />
             <!-- Ambient Speach/waveform representation -->
-            <div class="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 flex items-center gap-1 bg-black/40 px-3 py-1 rounded-full border border-white/5 backdrop-blur">
+            <div class="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 flex items-center gap-1 bg-[var(--terminal-bg)] px-3 py-1 rounded-full border border-[var(--clay-edge)] backdrop-blur">
               <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-mint)]"></span>
               <span class="text-[9px] font-mono text-[var(--color-ink-dim)]">Status: Idle</span>
             </div>

@@ -83,6 +83,21 @@ const faqLd = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script is:inline>
+      (function () {
+        try {
+          var s = localStorage.getItem("theme");
+          document.documentElement.setAttribute(
+            "data-theme",
+            s || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark")
+          );
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
     <meta name="theme-color" content="#1B1030" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />

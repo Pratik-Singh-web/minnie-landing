@@ -27,7 +27,7 @@
             id="custom-name-input"
             value="Minnie"
             maxlength="12"
-            class="w-full max-w-md px-4 py-3 rounded-xl border border-[var(--hairline)] bg-white/5 text-[var(--color-ink)] focus:outline-none focus:border-[var(--color-coral)] transition-colors text-sm"
+            class="w-full max-w-md px-4 py-3 rounded-xl border border-[var(--hairline)] bg-[var(--clay-inset)] text-[var(--color-ink)] focus:outline-none focus:border-[var(--color-coral)] transition-colors text-sm"
           />
         </div>
 
@@ -37,7 +37,7 @@
             2. Choose Species
           </label>
           <div class="flex flex-wrap gap-2">
-            <button class="species-btn chip active border-[var(--color-coral)] text-white" data-species="minnie">
+            <button class="species-btn chip active" data-species="minnie">
               🌸 Minnie (Mascot)
             </button>
             <button class="species-btn chip" data-species="panda">
@@ -58,7 +58,7 @@
             3. Set Personality
           </label>
           <div class="flex flex-wrap gap-2">
-            <button class="personality-btn chip active border-[var(--color-coral)] text-white" data-personality="chill">
+            <button class="personality-btn chip active" data-personality="chill">
               ☕ Chill + Witty
             </button>
             <button class="personality-btn chip" data-personality="cheerful">
@@ -79,7 +79,7 @@
       <div id="preview-glow" class="absolute w-56 h-56 rounded-full bg-[var(--color-coral)] opacity-10 blur-3xl -z-10 transition-all duration-300"></div>
 
       <!-- Preview Window -->
-      <div class="card p-8 w-full max-w-sm border-white/5 flex flex-col justify-between items-center min-h-[350px]">
+      <div class="card p-8 w-full max-w-sm border-[var(--clay-edge)] flex flex-col justify-between items-center min-h-[350px]">
         <!-- Mascot Image -->
         <div class="flex-1 flex items-center justify-center relative">
           <div class="w-32 h-32 flex items-center justify-center">
@@ -93,9 +93,9 @@
         </div>
 
         <!-- Custom Speech Bubble -->
-        <div class="w-full bg-white/5 border border-white/5 p-4 rounded-xl text-xs text-[var(--color-ink-dim)] mt-4">
+        <div class="w-full bg-[var(--clay-inset)] border border-[var(--clay-edge)] p-4 rounded-xl text-xs text-[var(--color-ink-dim)] mt-4">
           <div class="flex justify-between items-center mb-2">
-            <span id="preview-badge-name" class="font-bold text-white">Minnie</span>
+            <span id="preview-badge-name" class="font-bold text-[var(--color-ink)]">Minnie</span>
             <span id="preview-badge-spec" class="chip py-0.5 px-2 text-[8px] bg-pink-500/10 border-none text-[var(--color-coral)]">Minnie</span>
           </div>
           <p id="preview-quote" class="italic leading-relaxed">
@@ -185,10 +185,10 @@
   speciesBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       // Remove active from peers
-      speciesBtns.forEach(p => p.classList.remove('active', 'border-[var(--color-coral)]', 'text-white'));
+      speciesBtns.forEach(p => p.classList.remove('active'));
       
       // Set active
-      btn.classList.add('active', 'border-[var(--color-coral)]', 'text-white');
+      btn.classList.add('active');
       
       const species = btn.getAttribute('data-species');
       if (species) {
@@ -202,10 +202,10 @@
   personalityBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       // Remove active from peers
-      personalityBtns.forEach(p => p.classList.remove('active', 'border-[var(--color-coral)]', 'text-white'));
+      personalityBtns.forEach(p => p.classList.remove('active'));
       
       // Set active
-      btn.classList.add('active', 'border-[var(--color-coral)]', 'text-white');
+      btn.classList.add('active');
       
       const personality = btn.getAttribute('data-personality');
       if (personality) {
