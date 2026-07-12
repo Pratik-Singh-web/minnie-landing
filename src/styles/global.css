@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /* ─── Brand tokens ───────────────────────────────────────────────────────
-   Accents + fonts are shared across themes. The ink / bg / clay tokens are
-   redefined per theme below (dark clay = default, light clay = opt-in).      */
+   Cartoon-clay design. Accents + fonts are shared; ink / surface / clay
+   tokens are redefined per theme (dark clay = default, light clay = opt-in). */
 @theme {
   /* Accent palette (identical in both themes) */
   --color-coral: #ff6b9d;
@@ -28,96 +28,91 @@
   --font-display: "Fredoka", "SF Pro Rounded", ui-rounded, system-ui, sans-serif;
   --font-sans: "Nunito", "SF Pro Text", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+
+  /* Bouncy easing for the toy-like feel */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ═══════════════ DARK CLAY (default / brand) ═══════════════ */
+/* ═══════════════ DARK CLAY (default) ═══════════════ */
 :root,
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --color-ink: #efeafb;
-  --color-ink-dim: #c3bcd6;
+  --color-ink: #f3eefc;
+  --color-ink-dim: #c7bfdc;
   --color-lilac-muted: #a89fc0;
-  --color-bg0: #1b1030;
-  --color-bg1: #150e28;
-  --color-bg2: #0c0a17;
+  --color-bg0: #241a3c;
+  --color-bg1: #1e1533;
+  --color-bg2: #171025;
 
   /* Clay surfaces */
-  --clay: #251a3f;
-  --clay-2: #2d2150;
+  --clay: #2c2048;
+  --clay-2: #362857;
   --clay-inset: rgba(255, 255, 255, 0.05);
-  --clay-edge: rgba(255, 255, 255, 0.09);
-  --clay-edge-strong: rgba(255, 255, 255, 0.16);
+  --clay-edge: rgba(255, 255, 255, 0.10);
+  --clay-edge-strong: rgba(255, 255, 255, 0.18);
   --hairline: rgba(255, 255, 255, 0.10);
-  --terminal-bg: #0e0a1c;
+  --terminal-bg: #100a1f;
 
-  /* Gradients */
+  /* Flat, calm backdrop — no aurora glows */
   --grad-primary: linear-gradient(135deg, #ff6b9d, #ffb877);
   --grad-cta: linear-gradient(135deg, #ff6b9d, #ff8f5e);
-  --grad-backdrop: linear-gradient(165deg, #1b1030, #150e28, #0c0a17);
+  --grad-backdrop: linear-gradient(180deg, #241a3c 0%, #1b1330 100%);
   --grad-cloud: linear-gradient(#ffffff, #ffe3ee);
-  --backdrop-glows:
-    radial-gradient(60% 40% at 20% 15%, rgba(255, 107, 157, 0.20), transparent 60%),
-    radial-gradient(55% 45% at 80% 30%, rgba(139, 124, 255, 0.18), transparent 60%),
-    radial-gradient(50% 40% at 50% 100%, rgba(255, 184, 119, 0.10), transparent 60%);
 
-  /* Claymorphic shadows: outer drop + light rim + inset highlight + inset core */
+  /* Puffy cartoon-clay shadows: soft drop + rim light + inner highlight + inner shade */
   --clay-shadow:
-    10px 12px 26px -6px rgba(0, 0, 0, 0.6),
-    -6px -6px 18px -8px rgba(255, 255, 255, 0.06),
-    inset 2px 2px 3px rgba(255, 255, 255, 0.08),
-    inset -5px -7px 14px rgba(0, 0, 0, 0.45);
+    14px 18px 34px -8px rgba(0, 0, 0, 0.62),
+    -8px -8px 22px -10px rgba(255, 255, 255, 0.06),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.10),
+    inset -7px -9px 16px rgba(0, 0, 0, 0.5);
   --clay-shadow-sm:
-    5px 6px 14px -4px rgba(0, 0, 0, 0.55),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.07),
-    inset -3px -4px 9px rgba(0, 0, 0, 0.4);
+    7px 9px 18px -6px rgba(0, 0, 0, 0.55),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.09),
+    inset -4px -5px 11px rgba(0, 0, 0, 0.42);
   --clay-pressed:
-    inset 4px 4px 10px rgba(0, 0, 0, 0.6),
-    inset -3px -3px 8px rgba(255, 255, 255, 0.05);
+    inset 7px 7px 14px rgba(0, 0, 0, 0.62),
+    inset -5px -5px 12px rgba(255, 255, 255, 0.06);
 }
 
 /* ═══════════════ LIGHT CLAY ═══════════════ */
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --color-ink: #3b2a52;
-  --color-ink-dim: #6d5f83;
+  --color-ink: #3a2952;
+  --color-ink-dim: #6b5c82;
   --color-lilac-muted: #8f7fa8;
-  --color-ink-softcoral: #b8477a;
-  --color-bg0: #efe6fb;
-  --color-bg1: #e9e0f7;
-  --color-bg2: #f4eefb;
+  --color-ink-softcoral: #c04a7e;
+  --color-bg0: #f1eafb;
+  --color-bg1: #eae1f7;
+  --color-bg2: #f6f1fc;
 
-  --clay: #f7f1ff;
-  --clay-2: #efe6fb;
-  --clay-inset: rgba(120, 86, 168, 0.07);
-  --clay-edge: rgba(120, 86, 168, 0.14);
-  --clay-edge-strong: rgba(120, 86, 168, 0.22);
-  --hairline: rgba(120, 86, 168, 0.16);
+  --clay: #fdfaff;
+  --clay-2: #f2ebfc;
+  --clay-inset: rgba(123, 88, 173, 0.08);
+  --clay-edge: rgba(123, 88, 173, 0.13);
+  --clay-edge-strong: rgba(123, 88, 173, 0.22);
+  --hairline: rgba(123, 88, 173, 0.15);
   --terminal-bg: #241a3a;
 
   --grad-primary: linear-gradient(135deg, #ff6b9d, #ffb877);
   --grad-cta: linear-gradient(135deg, #ff6b9d, #ff8f5e);
-  --grad-backdrop: linear-gradient(165deg, #f1e8fb, #ece3f8, #f6f0fc);
+  --grad-backdrop: linear-gradient(180deg, #f4edfb 0%, #ece3f7 100%);
   --grad-cloud: linear-gradient(#ffffff, #ffe3ee);
-  --backdrop-glows:
-    radial-gradient(60% 40% at 18% 12%, rgba(255, 107, 157, 0.14), transparent 60%),
-    radial-gradient(55% 45% at 82% 26%, rgba(139, 124, 255, 0.13), transparent 60%),
-    radial-gradient(50% 40% at 50% 100%, rgba(255, 184, 119, 0.10), transparent 60%);
 
   --clay-shadow:
-    10px 12px 26px -6px rgba(155, 125, 190, 0.5),
-    -8px -8px 20px -6px rgba(255, 255, 255, 0.9),
-    inset 2px 2px 4px rgba(255, 255, 255, 0.95),
-    inset -5px -7px 14px rgba(168, 140, 200, 0.28);
+    14px 18px 32px -8px rgba(150, 118, 190, 0.5),
+    -10px -10px 24px -8px rgba(255, 255, 255, 1),
+    inset 3px 3px 6px rgba(255, 255, 255, 1),
+    inset -7px -9px 16px rgba(158, 128, 196, 0.3);
   --clay-shadow-sm:
-    5px 6px 14px -4px rgba(155, 125, 190, 0.45),
-    -4px -4px 10px -4px rgba(255, 255, 255, 0.85),
-    inset 1px 1px 3px rgba(255, 255, 255, 0.95),
-    inset -3px -4px 9px rgba(168, 140, 200, 0.22);
+    7px 9px 18px -6px rgba(150, 118, 190, 0.42),
+    -5px -5px 12px -5px rgba(255, 255, 255, 0.95),
+    inset 2px 2px 5px rgba(255, 255, 255, 1),
+    inset -4px -5px 11px rgba(158, 128, 196, 0.24);
   --clay-pressed:
-    inset 4px 4px 10px rgba(168, 140, 200, 0.4),
-    inset -3px -3px 8px rgba(255, 255, 255, 0.9);
+    inset 7px 7px 14px rgba(158, 128, 196, 0.45),
+    inset -5px -5px 12px rgba(255, 255, 255, 0.95);
 }
 
 html {
@@ -127,21 +122,11 @@ html {
 
 body {
   background: var(--grad-backdrop);
+  background-attachment: fixed;
   color: var(--color-ink);
   font-family: var(--font-sans);
   min-height: 100vh;
-  background-attachment: fixed;
   transition: background 0.4s ease, color 0.3s ease;
-}
-
-/* Soft radial brand glows over the backdrop */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background: var(--backdrop-glows);
 }
 
 @layer components {
@@ -156,63 +141,57 @@ body::before {
     font-size: 0.75rem;
   }
 
-  /* ── Claymorphic primary button — puffy coral ── */
+  /* ── Puffy primary button — bouncy coral clay ── */
   .btn-primary {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.9rem 1.6rem;
+    padding: 0.95rem 1.7rem;
     border-radius: 999px;
     background: var(--grad-cta);
     color: #fff;
     font-weight: 700;
     box-shadow:
-      7px 9px 20px -5px rgba(255, 107, 157, 0.55),
-      inset 2px 2px 4px rgba(255, 255, 255, 0.5),
-      inset -3px -5px 11px rgba(190, 60, 105, 0.45);
-    transition: transform 0.14s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.22s;
+      8px 11px 22px -5px rgba(255, 107, 157, 0.6),
+      inset 3px 3px 5px rgba(255, 255, 255, 0.55),
+      inset -4px -6px 12px rgba(188, 58, 104, 0.5);
+    transition: transform 0.18s var(--ease-bounce), box-shadow 0.2s;
   }
   .btn-primary:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.03);
     box-shadow:
-      9px 13px 26px -5px rgba(255, 107, 157, 0.6),
-      inset 2px 2px 4px rgba(255, 255, 255, 0.55),
-      inset -3px -5px 11px rgba(190, 60, 105, 0.45);
+      10px 16px 30px -5px rgba(255, 107, 157, 0.65),
+      inset 3px 3px 5px rgba(255, 255, 255, 0.6),
+      inset -4px -6px 12px rgba(188, 58, 104, 0.5);
   }
   .btn-primary:active {
-    transform: translateY(1px);
+    transform: translateY(1px) scale(0.97);
     box-shadow:
-      inset 4px 4px 10px rgba(190, 60, 105, 0.5),
-      inset -2px -2px 6px rgba(255, 255, 255, 0.4);
+      inset 5px 5px 11px rgba(188, 58, 104, 0.55),
+      inset -2px -2px 7px rgba(255, 255, 255, 0.4);
   }
 
-  /* ── Claymorphic ghost / neutral clay button ── */
+  /* ── Neutral clay button ── */
   .btn-ghost {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.9rem 1.6rem;
+    padding: 0.95rem 1.7rem;
     border-radius: 999px;
     background: var(--clay);
     color: var(--color-ink);
     font-weight: 700;
     box-shadow: var(--clay-shadow-sm);
-    transition: transform 0.14s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.22s;
+    transition: transform 0.18s var(--ease-bounce), color 0.2s;
   }
-  .btn-ghost:hover {
-    transform: translateY(-2px);
-    color: var(--color-coral);
-  }
-  .btn-ghost:active {
-    transform: translateY(1px);
-    box-shadow: var(--clay-pressed);
-  }
+  .btn-ghost:hover { transform: translateY(-3px) scale(1.03); color: var(--color-coral); }
+  .btn-ghost:active { transform: translateY(1px) scale(0.97); box-shadow: var(--clay-pressed); }
 
-  /* ── Claymorphic card ── */
+  /* ── Puffy clay card ── */
   .card {
     background: var(--clay);
     border: 1px solid var(--clay-edge);
-    border-radius: 30px;
+    border-radius: 32px;
     box-shadow: var(--clay-shadow);
   }
 
@@ -221,23 +200,28 @@ body::before {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    padding: 0.4rem 0.85rem;
+    padding: 0.4rem 0.9rem;
     border-radius: 999px;
     background: var(--clay);
     box-shadow: var(--clay-shadow-sm);
     font-family: var(--font-mono);
     font-size: 0.72rem;
     color: var(--color-ink-dim);
+    transition: transform 0.16s var(--ease-bounce);
   }
+  .chip:hover { transform: translateY(-2px) scale(1.04); }
   .chip.active {
     background: var(--grad-cta);
     color: #fff;
-    box-shadow: var(--clay-shadow-sm);
+    box-shadow:
+      5px 7px 14px -4px rgba(255, 107, 157, 0.5),
+      inset 2px 2px 4px rgba(255, 255, 255, 0.5),
+      inset -3px -4px 9px rgba(188, 58, 104, 0.45);
   }
 
-  /* ── Clay inset input (pressed-in) ── */
+  /* ── Pressed-in clay well (inputs) ── */
   .clay-input {
-    background: var(--clay);
+    background: var(--clay-2);
     border: 1px solid var(--clay-edge);
     border-radius: 999px;
     box-shadow: var(--clay-pressed);
@@ -248,29 +232,28 @@ body::before {
   .clay-input:focus {
     outline: none;
     border-color: var(--color-coral);
-    box-shadow: var(--clay-pressed), 0 0 0 3px rgba(255, 107, 157, 0.18);
+    box-shadow: var(--clay-pressed), 0 0 0 4px rgba(255, 107, 157, 0.2);
   }
 
-  /* Raised clay surface helper + pressed-in well */
-  .clay-raised { background: var(--clay); box-shadow: var(--clay-shadow); border-radius: 24px; }
-  .clay-well { background: var(--clay); box-shadow: var(--clay-pressed); border-radius: 24px; }
+  .clay-raised { background: var(--clay); box-shadow: var(--clay-shadow); border-radius: 28px; }
+  .clay-well { background: var(--clay-2); box-shadow: var(--clay-pressed); border-radius: 24px; }
 
   /* Icon button (theme toggle) */
   .clay-icon-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     border-radius: 999px;
     background: var(--clay);
     color: var(--color-ink);
     box-shadow: var(--clay-shadow-sm);
-    transition: transform 0.14s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform 0.18s var(--ease-bounce);
     cursor: pointer;
   }
-  .clay-icon-btn:hover { transform: translateY(-2px); color: var(--color-coral); }
-  .clay-icon-btn:active { transform: translateY(1px); box-shadow: var(--clay-pressed); }
+  .clay-icon-btn:hover { transform: translateY(-2px) scale(1.08) rotate(-8deg); color: var(--color-coral); }
+  .clay-icon-btn:active { transform: translateY(1px) scale(0.95); box-shadow: var(--clay-pressed); }
 }
 
 /* Theme-toggle icon swap: dark shows a sun (→ go light), light shows a moon (→ go dark) */
