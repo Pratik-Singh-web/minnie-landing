@@ -72,7 +72,7 @@
           <!-- Pet Mascot -->
           <div class="w-36 h-36 flex items-center justify-center relative">
             <img
-              src="/media/idle.png"
+              src={`${import.meta.env.BASE_URL}media/idle.png`}
               alt="Minnie Mascot"
               id="demo-pet-img"
               class="max-w-full max-h-full object-contain filter drop-shadow-[0_8px_16px_rgba(255,107,157,0.2)] transition-all duration-300"
@@ -147,7 +147,7 @@
       `,
       speech: "Let me take a look at your tests right now...",
       mood: "Thinking",
-      image: "/media/thinking.png",
+      image: import.meta.env.BASE_URL + "media/thinking.png",
       glowColor: "rgba(139, 124, 255, 0.2)", // Periwinkle glow
       btnText: "Watch Minnie run tools",
       hasConsent: false
@@ -166,7 +166,7 @@
       `,
       speech: "Running pytest. Oh! Looks like we have a failing assertion in your authentication test suite.",
       mood: "Walking",
-      image: "/media/thinking.png", // continues diagnostic
+      image: import.meta.env.BASE_URL + "media/thinking.png", // continues diagnostic
       glowColor: "rgba(255, 194, 75, 0.15)", // Amber glow
       btnText: "Proceed to validation",
       hasConsent: false
@@ -184,7 +184,7 @@
       `,
       speech: "I need to apply the fix to mock_users.py. I want to execute the edit. Ok?",
       mood: "Thinking",
-      image: "/media/thinking.png",
+      image: import.meta.env.BASE_URL + "media/thinking.png",
       glowColor: "rgba(255, 107, 157, 0.2)",
       btnText: "",
       hasConsent: true,
@@ -207,7 +207,7 @@
       `,
       speech: "Applying the edit to line 42... Done. Now running pytest again to verify.",
       mood: "Walking",
-      image: "/media/thinking.png",
+      image: import.meta.env.BASE_URL + "media/thinking.png",
       glowColor: "rgba(139, 124, 255, 0.2)",
       btnText: "See results",
       hasConsent: false
@@ -224,7 +224,7 @@
       `,
       speech: "All tests are passing now! I added the missing userId parameter. We are good to go! ✨",
       mood: "Happy",
-      image: "/media/idle.png",
+      image: import.meta.env.BASE_URL + "media/idle.png",
       glowColor: "rgba(61, 220, 151, 0.25)", // Mint/Success glow
       btnText: "Demo Finished",
       hasConsent: false,
@@ -320,7 +320,7 @@
       `;
     }
     if (speechBubble) speechBubble.textContent = 'Hey there! Click "Start Demo" below to see how I help you code.';
-    if (petImg) petImg.src = '/media/idle.png';
+    if (petImg) petImg.src = import.meta.env.BASE_URL + 'media/idle.png';
     if (moodBadge) moodBadge.textContent = 'Mood: Idle';
     if (moodGlow) moodGlow.style.backgroundColor = 'rgba(255, 107, 157, 0.1)';
     if (nextBtn) {
@@ -345,7 +345,7 @@
   if (denyBtn) {
     denyBtn.addEventListener('click', () => {
       if (speechBubble) speechBubble.textContent = "No problem! I skipped that edit. Trust stays intact. Click reset to try again.";
-      if (petImg) petImg.src = '/media/idle.png';
+      if (petImg) petImg.src = import.meta.env.BASE_URL + 'media/idle.png';
       if (moodBadge) moodBadge.textContent = 'Mood: Sad';
       if (moodGlow) moodGlow.style.backgroundColor = 'rgba(255, 107, 107, 0.15)'; // Red glow for skip
       if (consentOptions) consentOptions.classList.add('hidden');

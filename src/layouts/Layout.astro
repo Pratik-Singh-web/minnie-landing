@@ -11,10 +11,13 @@ const {
   description = "Minnie is a native macOS desktop pet that runs your AI coding agent — talk to it, it executes real tasks, asks permission with its voice, and stays fully local. Zero extra AI cost.",
 } = Astro.props;
 
-// TODO(pratik): set the real domain once chosen (minnie.app / getminnie.app / …).
-const site = "https://minnie.app";
-const canonical = new URL(Astro.url.pathname, site).href;
-const ogImage = new URL("/og-image.png", site).href;
+// Live URL derives from astro.config `site` + `base` (GitHub Pages today).
+// TODO(pratik): when the custom domain is chosen (minnie.app / getminnie.app / …),
+// update `site` in astro.config.mjs, drop `base`, and add public/CNAME.
+const base = import.meta.env.BASE_URL;
+const site = Astro.site?.href ?? "https://pratik-singh-web.github.io/minnie-landing/";
+const canonical = new URL(base, site).href;
+const ogImage = new URL(`${base}og-image.png`, site).href;
 
 // Structured data (§12) — SoftwareApplication + FAQPage for rich results.
 const softwareLd = {
@@ -78,7 +81,7 @@ const faqLd = {
     <meta name="theme-color" content="#1B1030" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
 
     <!-- Open Graph / Twitter -->
     <meta property="og:title" content={title} />

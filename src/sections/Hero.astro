@@ -60,7 +60,7 @@ import WaitlistForm from "../components/WaitlistForm.astro";
           <div class="relative w-40 h-40 flex items-center justify-center transition-all duration-300 transform group-hover:scale-105">
             <!-- Idle Pet -->
             <img
-              src="/media/idle.png"
+              src={`${import.meta.env.BASE_URL}media/idle.png`}
               alt="Minnie Mascot"
               id="hero-pet-img"
               class="max-w-full max-h-full object-contain filter drop-shadow-[0_10px_20px_rgba(255,107,157,0.3)] transition-all duration-300"
@@ -90,10 +90,10 @@ import WaitlistForm from "../components/WaitlistForm.astro";
   const heroPet = document.getElementById('hero-pet-img') as HTMLImageElement;
   if (heroCard && heroPet) {
     heroCard.addEventListener('mouseenter', () => {
-      heroPet.src = '/media/thinking.png';
+      heroPet.src = import.meta.env.BASE_URL + 'media/thinking.png';
     });
     heroCard.addEventListener('mouseleave', () => {
-      heroPet.src = '/media/idle.png';
+      heroPet.src = import.meta.env.BASE_URL + 'media/idle.png';
     });
   }
 </script>
