@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,6 +11,7 @@ export default defineConfig({
   // remove `base`, and add a public/CNAME file containing the domain.
   site: 'https://pratik-singh-web.github.io',
   base: '/minnie-landing/',
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]
   }

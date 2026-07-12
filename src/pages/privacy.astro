@@ -1,0 +1,119 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+const base = import.meta.env.BASE_URL;
+const updated = "12 July 2026";
+const contactEmail = "hello@minnie.app";
+
+const h2 = "text-xl md:text-2xl font-[family-name:var(--font-display)] font-semibold text-[var(--color-ink)] mt-10 mb-3";
+const p = "text-[var(--color-ink-dim)] leading-relaxed mb-4";
+const ul = "list-disc pl-6 text-[var(--color-ink-dim)] leading-relaxed mb-4 space-y-1.5";
+const link = "text-[var(--color-coral)] underline hover:text-[var(--color-coral-hover)] transition-colors";
+---
+
+<Layout
+  title="Privacy Policy — Minnie"
+  description="How Minnie handles the information you share when you join the waitlist. Privacy-first: minimal data, no tracking cookies, and you stay in control."
+>
+  <Navbar />
+
+  <main class="mx-auto w-full max-w-3xl px-6 md:px-10 py-16 md:py-24">
+    <a href={base} class={`${link} text-sm no-underline hover:underline`}>← Back to home</a>
+
+    <h1 class="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-bold tracking-tight text-[var(--color-ink)] mt-6">
+      Privacy Policy
+    </h1>
+    <p class="text-sm text-[var(--color-lilac-muted)] mt-3">Last updated: {updated}</p>
+
+    <p class={`${p} mt-8`}>
+      Minnie ("we", "us") builds a native macOS desktop pet that runs your AI coding
+      agent locally. This policy explains what information this website collects when
+      you join the waitlist, how we use it, and the choices you have. Privacy is core
+      to the product, and it applies to this site too: we collect the minimum needed
+      and never sell your data.
+    </p>
+
+    <h2 class={h2}>What we collect</h2>
+    <p class={p}>When you submit the waitlist form, we collect only:</p>
+    <ul class={ul}>
+      <li>Your <strong>email address</strong>.</li>
+      <li>The <strong>form source</strong> (which section you signed up from, e.g. hero or final CTA) — so we understand what resonates.</li>
+      <li>The <strong>submission timestamp</strong>, added automatically when your entry is recorded.</li>
+    </ul>
+    <p class={p}>
+      We do not ask for your name, and we do not use tracking cookies, fingerprinting,
+      or advertising pixels. We do not collect anything from you unless you choose to
+      submit the form.
+    </p>
+
+    <h2 class={h2}>How your information is stored</h2>
+    <p class={p}>
+      Waitlist entries are sent to a private Google Sheet via Google Apps Script and
+      stored there. Google LLC processes and stores this data on our behalf as an
+      infrastructure provider; their handling is governed by
+      <a class={link} href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
+    </p>
+
+    <h2 class={h2}>How we use your information</h2>
+    <ul class={ul}>
+      <li>To notify you when Minnie launches and when early access opens.</li>
+      <li>To honor founder pricing for people on the waitlist.</li>
+      <li>To send occasional, relevant product updates about Minnie.</li>
+    </ul>
+    <p class={p}>We will not use your email for unrelated marketing, and we will not add you to lists you didn't sign up for.</p>
+
+    <h2 class={h2}>Analytics</h2>
+    <p class={p}>
+      We use <a class={link} href="https://www.cloudflare.com/web-analytics/" target="_blank" rel="noopener noreferrer">Cloudflare Web Analytics</a>,
+      a privacy-first, cookieless analytics tool. It reports aggregate traffic (like
+      page views and referrers) without cookies, without cross-site tracking, and
+      without building a profile of you. It does not identify individual visitors.
+    </p>
+
+    <h2 class={h2}>Sharing &amp; disclosure</h2>
+    <p class={p}>
+      We do not sell or rent your information. We share it only with the service
+      providers that operate this site and store our data — currently Google (waitlist
+      storage), GitHub (hosting), and Cloudflare (analytics) — and only to the extent
+      needed to provide the service. We may disclose information if required by law.
+    </p>
+
+    <h2 class={h2}>Data retention</h2>
+    <p class={p}>
+      We keep waitlist entries until Minnie has launched and for a reasonable period
+      afterward, or until you ask us to remove you — whichever comes first. Ask any
+      time and we'll delete your entry.
+    </p>
+
+    <h2 class={h2}>Your rights &amp; choices</h2>
+    <p class={p}>
+      You can ask us to access, correct, or delete the information we hold about you,
+      and you can unsubscribe from updates at any time. To make a request, email
+      <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a>. Depending on
+      where you live (for example, the EEA/UK under GDPR, or California under the CCPA),
+      you may have additional rights; we honor these requests regardless of location.
+    </p>
+
+    <h2 class={h2}>Children's privacy</h2>
+    <p class={p}>
+      This site is intended for developers and is not directed at children under 16.
+      We do not knowingly collect information from children.
+    </p>
+
+    <h2 class={h2}>Changes to this policy</h2>
+    <p class={p}>
+      We may update this policy as the product evolves. Material changes will be posted
+      here with a new "last updated" date.
+    </p>
+
+    <h2 class={h2}>Contact</h2>
+    <p class={p}>
+      Questions about this policy or your data? Email
+      <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+    </p>
+  </main>
+
+  <Footer />
+</Layout>

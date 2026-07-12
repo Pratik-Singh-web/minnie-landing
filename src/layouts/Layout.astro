@@ -16,8 +16,13 @@ const {
 // update `site` in astro.config.mjs, drop `base`, and add public/CNAME.
 const base = import.meta.env.BASE_URL;
 const site = Astro.site?.href ?? "https://pratik-singh-web.github.io/minnie-landing/";
-const canonical = new URL(base, site).href;
+const canonical = new URL(Astro.url.pathname, site).href;
 const ogImage = new URL(`${base}og-image.png`, site).href;
+
+// Cloudflare Web Analytics (cookieless, privacy-first). To enable:
+//   Cloudflare dashboard → Analytics & Logs → Web Analytics → "Add a site" →
+//   copy the beacon token → paste it below. The script loads only once it's set.
+const CF_ANALYTICS_TOKEN = ""; // ← paste your Cloudflare Web Analytics beacon token
 
 // Structured data (§12) — SoftwareApplication + FAQPage for rich results.
 const softwareLd = {
@@ -110,6 +115,15 @@ const faqLd = {
     />
 
     <title>{title}</title>
+
+    <!-- Cloudflare Web Analytics — cookieless; loads only when a token is configured -->
+    {CF_ANALYTICS_TOKEN && (
+      <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={`{"token": "${CF_ANALYTICS_TOKEN}"}`}
+      />
+    )}
   </head>
   <body>
     <slot />
