@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* ─── Aurora brand tokens — direct from Minnie/docs/WEBSITE_BRIEF.md §7 ───── */
+@theme {
+  /* Palette */
+  --color-coral: #ff6b9d;
+  --color-coral-hover: #ff8fb4;
+  --color-peach: #ffb877;
+  --color-peach-warm: #ff8f5e;
+  --color-periwinkle: #8b7cff;
+  --color-mint: #3ddc97;
+  --color-amber: #ffc24b;
+  --color-danger: #ff6b6b;
+
+  --color-ink: #efeafb;
+  --color-ink-dim: #c3bcd6;
+  --color-ink-onlight: #3a0f1e;
+  --color-ink-softcoral: #ffc8de;
+  --color-lilac-muted: #a89fc0;
+
+  --color-bg0: #1b1030;
+  --color-bg1: #150e28;
+  --color-bg2: #0c0a17;
+
+  /* Fonts */
+  --font-display: "Fredoka", "SF Pro Rounded", ui-rounded, system-ui, sans-serif;
+  --font-sans: "Nunito", "SF Pro Text", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+}
+
+:root {
+  --grad-primary: linear-gradient(135deg, #ff6b9d, #ffb877);
+  --grad-cta: linear-gradient(135deg, #ff6b9d, #ff8f5e);
+  --grad-backdrop: linear-gradient(165deg, #1b1030, #150e28, #0c0a17);
+  --grad-cloud: linear-gradient(#ffffff, #ffe3ee);
+  --hairline: rgba(255, 255, 255, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--grad-backdrop);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+
+/* Soft coral + periwinkle radial "blob" glows over the backdrop */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(60% 40% at 20% 15%, rgba(255, 107, 157, 0.20), transparent 60%),
+    radial-gradient(55% 45% at 80% 30%, rgba(139, 124, 255, 0.18), transparent 60%),
+    radial-gradient(50% 40% at 50% 100%, rgba(255, 184, 119, 0.10), transparent 60%);
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-6 md:px-10;
+  }
+  .eyebrow {
+    color: var(--color-lilac-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 800;
+    font-size: 0.75rem;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    background: var(--grad-cta);
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 20px 40px -20px rgba(255, 107, 157, 0.6);
+    transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.22s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 24px 50px -18px rgba(255, 107, 157, 0.7);
+  }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--hairline);
+    color: var(--color-ink);
+    font-weight: 600;
+    transition: border-color 0.22s, color 0.22s;
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-coral);
+    color: var(--color-coral-hover);
+  }
+  .card {
+    border: 1px solid var(--hairline);
+    background: rgba(28, 22, 46, 0.60);
+    backdrop-filter: blur(36px) saturate(150%);
+    -webkit-backdrop-filter: blur(36px) saturate(150%);
+    border-radius: 22px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--hairline);
+    background: rgba(255, 255, 255, 0.04);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-ink-dim);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

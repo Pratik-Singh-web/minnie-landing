@@ -1,0 +1,217 @@
+---
+---
+
+<section id="customize" class="py-16 md:py-24 border-b border-[var(--hairline)]">
+  <div class="mx-auto max-w-6xl px-6 md:px-10 grid gap-12 md:grid-cols-12 items-center">
+    
+    <!-- Left: Customization controls (7 cols) -->
+    <div class="md:col-span-7 text-left">
+      <span class="eyebrow">Personalization</span>
+      <h2 class="font-[family-name:var(--font-display)] text-3xl md:text-5xl font-bold mt-2 text-[var(--color-ink)] leading-tight">
+        She's your pet. Not a corporate assistant.
+      </h2>
+      <p class="text-[var(--color-ink-dim)] mt-4 leading-relaxed">
+        Customize species, voices, and personalities. Minnie adapts to your vibe, not the other way around.
+      </p>
+
+      <!-- Customization Panel -->
+      <div class="mt-8 space-y-6">
+        
+        <!-- Rename Input -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-[var(--color-lilac-muted)] mb-2">
+            1. Rename your companion
+          </label>
+          <input
+            type="text"
+            id="custom-name-input"
+            value="Minnie"
+            maxlength="12"
+            class="w-full max-w-md px-4 py-3 rounded-xl border border-[var(--hairline)] bg-white/5 text-[var(--color-ink)] focus:outline-none focus:border-[var(--color-coral)] transition-colors text-sm"
+          />
+        </div>
+
+        <!-- Species Selection -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-[var(--color-lilac-muted)] mb-2">
+            2. Choose Species
+          </label>
+          <div class="flex flex-wrap gap-2">
+            <button class="species-btn chip active border-[var(--color-coral)] text-white" data-species="minnie">
+              🌸 Minnie (Mascot)
+            </button>
+            <button class="species-btn chip" data-species="panda">
+              🐼 Panda
+            </button>
+            <button class="species-btn chip" data-species="raccoon">
+              🦝 Raccoon
+            </button>
+            <button class="species-btn chip" data-species="dog">
+              🐶 Dog
+            </button>
+          </div>
+        </div>
+
+        <!-- Personality Selection -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-[var(--color-lilac-muted)] mb-2">
+            3. Set Personality
+          </label>
+          <div class="flex flex-wrap gap-2">
+            <button class="personality-btn chip active border-[var(--color-coral)] text-white" data-personality="chill">
+              ☕ Chill + Witty
+            </button>
+            <button class="personality-btn chip" data-personality="cheerful">
+              ☀️ Cheerful + Curious
+            </button>
+            <button class="personality-btn chip" data-personality="earnest">
+              💼 Earnest Helper
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Right: Live Preview Card (5 cols) -->
+    <div class="md:col-span-5 relative flex justify-center">
+      <!-- Glow background -->
+      <div id="preview-glow" class="absolute w-56 h-56 rounded-full bg-[var(--color-coral)] opacity-10 blur-3xl -z-10 transition-all duration-300"></div>
+
+      <!-- Preview Window -->
+      <div class="card p-8 w-full max-w-sm border-white/5 flex flex-col justify-between items-center min-h-[350px]">
+        <!-- Mascot Image -->
+        <div class="flex-1 flex items-center justify-center relative">
+          <div class="w-32 h-32 flex items-center justify-center">
+            <img
+              src="/media/idle.png"
+              alt="Minnie Mascot"
+              id="preview-pet-img"
+              class="max-w-full max-h-full object-contain filter drop-shadow-md transition-all duration-300"
+            />
+          </div>
+        </div>
+
+        <!-- Custom Speech Bubble -->
+        <div class="w-full bg-white/5 border border-white/5 p-4 rounded-xl text-xs text-[var(--color-ink-dim)] mt-4">
+          <div class="flex justify-between items-center mb-2">
+            <span id="preview-badge-name" class="font-bold text-white">Minnie</span>
+            <span id="preview-badge-spec" class="chip py-0.5 px-2 text-[8px] bg-pink-500/10 border-none text-[var(--color-coral)]">Minnie</span>
+          </div>
+          <p id="preview-quote" class="italic leading-relaxed">
+            "Oh, another error? Let me guess, typo on line 42 again?"
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // UI Quotes Mapping
+  const quotes = {
+    chill: {
+      minnie: '"Oh, another error? Let me guess, typo on line 42 again?"',
+      panda: '"Mmm... I was eating bamboo. Do I really have to run this compile?"',
+      raccoon: '"I found some trash files in your build directory. Can I throw them out?"',
+      dog: '"I dug up a missing export keyword! Look, look, I fetched it!"'
+    },
+    cheerful: {
+      minnie: '"Hello! Let\'s check out this file! Can I run pytest now? Please?!"',
+      panda: '"Yay! Code time! I\'m ready to help you write tests!"',
+      raccoon: '"A new task! Oh, I love investigating import cycles!"',
+      dog: '"Bark! Let\'s play with the database schema! I\'ll go fetch the logs!"'
+    },
+    earnest: {
+      minnie: '"Ready to assist. I can perform a full codebase audit or debug the current tests."',
+      panda: '"Diagnostics are running. I\'m verifying structural integrity of the project."',
+      raccoon: '"Refactoring plan compiled. Awaiting your permission to commit adjustments."',
+      dog: '"Test suite is failing. Proposing verification sequence for routing endpoints."'
+    }
+  };
+
+  // Glow map
+  const glowColors = {
+    minnie: 'rgba(255, 107, 157, 0.15)', // Coral
+    panda: 'rgba(195, 188, 214, 0.12)', // White/grey
+    raccoon: 'rgba(139, 124, 255, 0.12)', // Periwinkle
+    dog: 'rgba(255, 184, 119, 0.12)' // Peach
+  };
+
+  // State
+  let activeSpecies = 'minnie';
+  let activePersonality = 'chill';
+
+  // DOM Elements
+  const nameInput = document.getElementById('custom-name-input') as HTMLInputElement;
+  const badgeName = document.getElementById('preview-badge-name');
+  const badgeSpec = document.getElementById('preview-badge-spec');
+  const quotePara = document.getElementById('preview-quote');
+  const previewImg = document.getElementById('preview-pet-img') as HTMLImageElement;
+  const previewGlow = document.getElementById('preview-glow');
+
+  const speciesBtns = document.querySelectorAll('.species-btn');
+  const personalityBtns = document.querySelectorAll('.personality-btn');
+
+  // Name Input updates badge
+  if (nameInput && badgeName) {
+    nameInput.addEventListener('input', () => {
+      badgeName.textContent = nameInput.value || 'Minnie';
+    });
+  }
+
+  // Update quote & visuals
+  function updatePreview() {
+    // Update quote
+    if (quotePara) {
+      // @ts-ignore
+      quotePara.textContent = quotes[activePersonality][activeSpecies];
+    }
+
+    // Update species badge
+    if (badgeSpec) {
+      badgeSpec.textContent = activeSpecies.charAt(0).toUpperCase() + activeSpecies.slice(1);
+    }
+
+    // Update background glow
+    if (previewGlow) {
+      // @ts-ignore
+      previewGlow.style.backgroundColor = glowColors[activeSpecies];
+    }
+  }
+
+  // Handle Species buttons
+  speciesBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active from peers
+      speciesBtns.forEach(p => p.classList.remove('active', 'border-[var(--color-coral)]', 'text-white'));
+      
+      // Set active
+      btn.classList.add('active', 'border-[var(--color-coral)]', 'text-white');
+      
+      const species = btn.getAttribute('data-species');
+      if (species) {
+        activeSpecies = species;
+        updatePreview();
+      }
+    });
+  });
+
+  // Handle Personality buttons
+  personalityBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active from peers
+      personalityBtns.forEach(p => p.classList.remove('active', 'border-[var(--color-coral)]', 'text-white'));
+      
+      // Set active
+      btn.classList.add('active', 'border-[var(--color-coral)]', 'text-white');
+      
+      const personality = btn.getAttribute('data-personality');
+      if (personality) {
+        activePersonality = personality;
+        updatePreview();
+      }
+    });
+  });
+</script>

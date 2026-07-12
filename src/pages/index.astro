@@ -1,17 +1,60 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../sections/Hero.astro";
+import Benefits from "../sections/Benefits.astro";
+import Demo from "../sections/Demo.astro";
+import Trust from "../sections/Trust.astro";
+import Privacy from "../sections/Privacy.astro";
+import Customize from "../sections/Customize.astro";
+import MCP from "../sections/MCP.astro";
+import Comparison from "../sections/Comparison.astro";
+import Pricing from "../sections/Pricing.astro";
+import FAQ from "../sections/FAQ.astro";
+import FinalCTA from "../sections/FinalCTA.astro";
+import Footer from "../components/Footer.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+  <!-- Navigation Header -->
+  <Navbar />
+
+  <!-- Main Scrollable Content -->
+  <main class="w-full">
+    <!-- Hero Block with waitlist signup -->
+    <Hero />
+
+    <!-- 3 Core Benefit Cards + works with agent strip -->
+    <Benefits />
+
+    <!-- Interactive timeline tool-execution simulator -->
+    <Demo />
+
+    <!-- Trust Permission speech-cloud explainer -->
+    <Trust />
+
+    <!-- Local & private: on-device voice, local CLI, no telemetry -->
+    <Privacy />
+
+    <!-- Species & Personality Customization previewer -->
+    <Customize />
+
+    <!-- Connect your tools: MCP catalog & Google OAuth -->
+    <MCP />
+
+    <!-- Table comparison mapping Minnie vs Chatbot vs CLI -->
+    <Comparison />
+
+    <!-- Centered pricing card showing founder details -->
+    <Pricing />
+
+    <!-- Interactive Accordion FAQ list -->
+    <FAQ />
+
+    <!-- Final waitlist CTA + tagline before the footer -->
+    <FinalCTA />
+  </main>
+
+  <!-- Page Footer -->
+  <Footer />
+</Layout>

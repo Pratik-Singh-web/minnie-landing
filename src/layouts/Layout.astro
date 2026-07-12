@@ -1,0 +1,114 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Minnie — Give your AI agent a body | macOS AI desktop pet",
+  description = "Minnie is a native macOS desktop pet that runs your AI coding agent — talk to it, it executes real tasks, asks permission with its voice, and stays fully local. Zero extra AI cost.",
+} = Astro.props;
+
+// TODO(pratik): set the real domain once chosen (minnie.app / getminnie.app / …).
+const site = "https://minnie.app";
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImage = new URL("/og-image.png", site).href;
+
+// Structured data (§12) — SoftwareApplication + FAQPage for rich results.
+const softwareLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Minnie",
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "macOS",
+  description,
+  offers: {
+    "@type": "Offer",
+    price: "19",
+    priceCurrency: "USD",
+    description: "One-time purchase. Founder price $9 for the first 500 developers.",
+  },
+};
+
+const faqs = [
+  {
+    q: "Does Minnie cost extra to run the AI?",
+    a: "No. Minnie drives the agent CLI you already use; it holds its own auth and does the reasoning. Zero extra AI cost.",
+  },
+  {
+    q: "Which agents work?",
+    a: "Claude Code today (full experience). Gemini CLI, Codex, Antigravity, and custom command-line agents are supported (they run more autonomously — the voice-consent flow is Claude Code for now).",
+  },
+  {
+    q: "Is my code / are my conversations private?",
+    a: "Yes — on-device voice by default, a local agent CLI, no screen capture, no telemetry. Secrets live in your macOS Keychain. Nothing leaves your Mac unless a tool you approved sends it.",
+  },
+  {
+    q: "Do I need to set anything up?",
+    a: "Install the agent CLI once (e.g. Claude Code) and log in; Minnie's onboarding walks you through it.",
+  },
+  {
+    q: "Can I connect my own tools?",
+    a: "Yes — a one-click MCP catalog (GitHub, Notion, Slack, Postgres, Figma…), custom servers, and native Sign in with Google for Gmail / Calendar / Chat.",
+  },
+  {
+    q: "Does it work on Windows?",
+    a: "macOS first. Windows is on the roadmap.",
+  },
+];
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1B1030" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Minnie" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured data (rich results) -->
+    <script type="application/ld+json" set:html={JSON.stringify(softwareLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+
+    <!-- Fonts: Fredoka (display), Nunito (body), JetBrains Mono (code) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

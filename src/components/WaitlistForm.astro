@@ -1,0 +1,110 @@
+---
+// Reusable email-capture form (Hero + Final CTA share this).
+// Signups save straight to YOUR Google Sheet via a Google Apps Script web app —
+// free, no third party, you own the data. Setup + the script live in
+// WAITLIST_SETUP.md; paste your /exec deployment URL into WAITLIST_ENDPOINT below.
+// Until then it falls back to an optimistic success so the page stays usable.
+interface Props {
+  size?: "lg" | "sm";
+  source?: string;
+}
+const { size = "lg", source = "hero" } = Astro.props;
+const pad = size === "lg" ? "py-3.5" : "py-3";
+---
+
+<div class="waitlist w-full max-w-md">
+  <form class="waitlist-form flex flex-col sm:flex-row gap-2" novalidate>
+    <input type="hidden" name="source" value={source} />
+    <input
+      type="email"
+      name="email"
+      required
+      autocomplete="email"
+      placeholder="Enter your developer email..."
+      class={`flex-1 px-4 ${pad} rounded-full border border-[var(--hairline)] bg-white/5 text-[var(--color-ink)] placeholder-[var(--color-lilac-muted)] focus:outline-none focus:border-[var(--color-coral)] focus:ring-1 focus:ring-[var(--color-coral)] transition-colors text-sm`}
+    />
+    <button
+      type="submit"
+      class={`btn-primary cursor-pointer justify-center text-sm ${pad} px-6 shrink-0`}
+    >
+      <span class="wl-label">Join the waitlist →</span>
+      <span class="wl-spinner hidden">Joining…</span>
+    </button>
+  </form>
+  <p class="wl-success hidden mt-3 text-sm text-[var(--color-mint)] font-semibold">
+    ✓ You're on the list — founder price locked ($9 instead of $19).
+  </p>
+  <p class="wl-error hidden mt-3 text-sm text-[var(--color-danger)] font-semibold">
+    Hmm, that didn't go through. Mind trying again?
+  </p>
+</div>
+
+<script>
+  // ─────────────────────────────────────────────────────────────────────────
+  // Emails save to YOUR Google Sheet. One-time setup (~3 min) in WAITLIST_SETUP.md:
+  //   create the Sheet → Extensions ▸ Apps Script → paste Code.gs →
+  //   Deploy ▸ Web app ▸ Execute as: Me ▸ Who has access: Anyone → copy /exec URL.
+  // Paste that URL here:
+  // ─────────────────────────────────────────────────────────────────────────
+  const WAITLIST_ENDPOINT =
+    "https://script.google.com/macros/s/PASTE_YOUR_DEPLOYMENT_ID/exec";
+  const isPlaceholder = WAITLIST_ENDPOINT.includes("PASTE_YOUR_DEPLOYMENT_ID");
+
+  document.querySelectorAll<HTMLFormElement>(".waitlist-form").forEach((form) => {
+    const wrap = form.closest(".waitlist");
+    const successMsg = wrap?.querySelector(".wl-success");
+    const errorMsg = wrap?.querySelector(".wl-error");
+    const btn = form.querySelector("button");
+    const label = btn?.querySelector(".wl-label");
+    const spinner = btn?.querySelector(".wl-spinner");
+    const input = form.querySelector<HTMLInputElement>('input[type="email"]');
+    const sourceEl = form.querySelector<HTMLInputElement>('input[name="source"]');
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!input || !input.checkValidity()) {
+        input?.reportValidity();
+        return;
+      }
+
+      errorMsg?.classList.add("hidden");
+      label?.classList.add("hidden");
+      spinner?.classList.remove("hidden");
+      btn?.setAttribute("disabled", "true");
+
+      const finish = (ok: boolean) => {
+        spinner?.classList.add("hidden");
+        if (ok) {
+          form.classList.add("opacity-50", "pointer-events-none");
+          successMsg?.classList.remove("hidden");
+        } else {
+          label?.classList.remove("hidden");
+          btn?.removeAttribute("disabled");
+          errorMsg?.classList.remove("hidden");
+        }
+      };
+
+      // No endpoint configured yet → optimistic success so the demo works.
+      if (isPlaceholder) {
+        setTimeout(() => finish(true), 400);
+        return;
+      }
+
+      try {
+        // Form-encoded body = a "simple" CORS request (no preflight) — the
+        // reliable way to POST to an Apps Script web app from the browser.
+        const res = await fetch(WAITLIST_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+          body: new URLSearchParams({
+            email: input.value,
+            source: sourceEl?.value || "",
+          }).toString(),
+        });
+        finish(res.ok);
+      } catch {
+        finish(false);
+      }
+    });
+  });
+</script>
