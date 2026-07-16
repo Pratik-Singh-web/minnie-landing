@@ -262,6 +262,12 @@ body {
 :root[data-theme="dark"] .theme-sun { display: block; }
 :root[data-theme="light"] .theme-moon { display: block; }
 
+/* Product Hunt badge: show the theme-matched variant */
+.ph-light,
+.ph-dark { display: none; }
+:root[data-theme="light"] .ph-light { display: inline-block; }
+:root[data-theme="dark"] .ph-dark { display: inline-block; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
