@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title = "Minnie — Give your AI agent a body | macOS AI desktop pet",
-  description = "Minnie is a native macOS desktop pet that runs your AI coding agent — talk to it, it executes real tasks, asks permission with its voice, and stays fully local. Zero extra AI cost.",
+  description = "Minnie is a native macOS desktop pet that runs your AI coding agent — talk to her, she executes real tasks, asks permission out loud, and stays fully local. Zero extra AI cost.",
 } = Astro.props;
 
 // Live URL derives from astro.config `site` + `base` (GitHub Pages today).
@@ -43,23 +43,23 @@ const softwareLd = {
 const faqs = [
   {
     q: "Does Minnie cost extra to run the AI?",
-    a: "No. Minnie drives the agent CLI you already use; it holds its own auth and does the reasoning. Zero extra AI cost.",
+    a: "No. She drives the agent CLI you already use; it holds its own auth and does the reasoning. Zero extra AI cost.",
   },
   {
     q: "Which agents work?",
-    a: "Claude Code today (full experience). Gemini CLI, Codex, Antigravity, and custom command-line agents are supported (they run more autonomously — the voice-consent flow is Claude Code for now).",
+    a: "Claude Code today, with the full experience. Gemini CLI, Codex, Antigravity and custom command-line agents work too — they run more autonomously, since the voice-consent flow is Claude Code only for now.",
   },
   {
-    q: "Is my code / are my conversations private?",
-    a: "Yes — on-device voice by default, a local agent CLI, no screen capture, no telemetry. Secrets live in your macOS Keychain. Nothing leaves your Mac unless a tool you approved sends it.",
+    q: "Is my code private?",
+    a: "Yes. On-device voice by default, a local agent CLI, no screen capture, no telemetry. Secrets live in your macOS Keychain, and nothing leaves your Mac unless a tool you approved sends it.",
   },
   {
     q: "Do I need to set anything up?",
-    a: "Install the agent CLI once (e.g. Claude Code) and log in; Minnie's onboarding walks you through it.",
+    a: "Install the agent CLI once (Claude Code, say) and log in. Minnie's onboarding walks you through the rest.",
   },
   {
     q: "Can I connect my own tools?",
-    a: "Yes — a one-click MCP catalog (GitHub, Notion, Slack, Postgres, Figma…), custom servers, and native Sign in with Google for Gmail / Calendar / Chat.",
+    a: "Yes — a one-click MCP catalog (GitHub, Notion, Slack, Postgres, Figma…), custom servers, and native Sign in with Google for Gmail, Calendar and Chat.",
   },
   {
     q: "Does it work on Windows?",
@@ -84,21 +84,27 @@ const faqLd = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <!-- Set theme before paint to avoid a flash of the wrong theme. Paper-light
+         is the design's default; a stored choice always wins. -->
     <script is:inline>
       (function () {
         try {
-          var s = localStorage.getItem("theme");
+          var s = localStorage.getItem("minnie-theme");
           document.documentElement.setAttribute(
             "data-theme",
-            s || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark")
+            s === "dark" || s === "light"
+              ? s
+              : window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light"
           );
         } catch (e) {
-          document.documentElement.setAttribute("data-theme", "dark");
+          document.documentElement.setAttribute("data-theme", "light");
         }
       })();
     </script>
-    <meta name="theme-color" content="#1B1030" />
+    <meta name="theme-color" content="#f4efe2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101a12" media="(prefers-color-scheme: dark)" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
@@ -121,12 +127,12 @@ const faqLd = {
     <script type="application/ld+json" set:html={JSON.stringify(softwareLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
 
-    <!-- Fonts: Fredoka (display), Nunito (body), JetBrains Mono (code) -->
+    <!-- Fonts: Outfit (display), Karla (body), Space Mono (code) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;900&family=Karla:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap"
     />
 
     <title>{title}</title>

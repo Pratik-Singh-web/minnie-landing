@@ -1,64 +1,138 @@
 ---
+import Pet from "./Pet.astro";
+const base = import.meta.env.BASE_URL;
+const year = new Date().getFullYear();
 ---
 
-<footer class="w-full border-t border-[var(--hairline)] bg-[var(--color-bg2)] py-12 text-[var(--color-ink-dim)]">
-  <div class="mx-auto w-full max-w-6xl px-6 md:px-10">
-    <div class="grid gap-10 md:grid-cols-4">
-      <!-- Info -->
-      <div class="md:col-span-2">
-        <div class="flex items-center gap-2 mb-4">
-          <img
-            src={`${import.meta.env.BASE_URL}favicon.svg`}
-            alt="Minnie logo"
-            width="24"
-            height="24"
-            class="h-6 w-6 rounded"
-          />
-          <span class="font-[family-name:var(--font-display)] text-lg font-semibold tracking-tight text-[var(--color-ink)]">
-            Minnie
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__cols">
+      <div>
+        <div class="foot__brand">
+          <span class="foot__mark">
+            <Pet size={22} />
           </span>
+          <span class="foot__word">Minnie</span>
         </div>
-        <p class="text-sm max-w-sm mb-4 leading-relaxed">
-          Minnie is a native macOS companion that brings your AI coding agent to life. She listens, runs your agent, asks permission, and reacts.
+        <p class="foot__blurb">
+          A native macOS companion that brings your AI coding agent to life. She listens, runs your
+          agent, asks permission, and reacts.
         </p>
-        <span class="text-xs text-[var(--color-lilac-muted)]">
-          🔒 On-device voice · runs on your Mac · local-only positioning
-        </span>
+        <span class="foot__meta mono">on-device voice · runs on your mac · local-only</span>
       </div>
 
-      <!-- Links -->
       <div>
-        <h4 class="text-sm font-bold text-[var(--color-ink)] mb-4 uppercase tracking-wider">Product</h4>
-        <ul class="space-y-2 text-sm">
-          <li><a href="#features" class="hover:text-[var(--color-coral)] transition-colors">Features</a></li>
-          <li><a href="#customize" class="hover:text-[var(--color-coral)] transition-colors">Customize</a></li>
-          <li><a href="#mcp" class="hover:text-[var(--color-coral)] transition-colors">MCP Catalog</a></li>
-          <li><a href="#pricing" class="hover:text-[var(--color-coral)] transition-colors">Pricing</a></li>
-        </ul>
+        <h4 class="foot__h">Product</h4>
+        <div class="foot__links">
+          <a href="#features">Features</a>
+          <a href="#customize">Customize</a>
+          <a href="#mcp">MCP catalog</a>
+          <a href="#pricing">Pricing</a>
+        </div>
       </div>
 
-      <!-- Community/Socials -->
       <div>
-        <h4 class="text-sm font-bold text-[var(--color-ink)] mb-4 uppercase tracking-wider">Connect</h4>
-        <ul class="space-y-2 text-sm">
-          <li><a href="https://x.com/Sym6ol_" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-coral)] transition-colors">X (Twitter)</a></li>
-          <li><a href="https://github.com/Pratik-Singh-web/Minnie" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-coral)] transition-colors">GitHub</a></li>
-          <li><a href="#faq" class="hover:text-[var(--color-coral)] transition-colors">FAQ</a></li>
-          <li><a href="mailto:pratiksingh30701@gmail.com" class="hover:text-[var(--color-coral)] transition-colors">Send Feedback</a></li>
-        </ul>
+        <h4 class="foot__h">Connect</h4>
+        <div class="foot__links">
+          <a href="https://x.com/Sym6ol_" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+          <a href="https://github.com/Pratik-Singh-web/Minnie" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="#faq">FAQ</a>
+          <a href="mailto:pratiksingh30701@gmail.com">Send feedback</a>
+        </div>
       </div>
     </div>
 
-    <!-- Divider -->
-    <div class="mt-12 pt-8 border-t border-[var(--hairline)] flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
-      <div class="flex items-center gap-4">
-        <span>&copy; {new Date().getFullYear()} Minnie. All rights reserved.</span>
-        <a href={`${import.meta.env.BASE_URL}privacy`} class="hover:text-[var(--color-coral)] transition-colors">Privacy Policy</a>
-      </div>
-      <div class="flex items-center gap-1">
-        <span>Made with love by an indie developer.</span>
-        <span class="text-[var(--color-coral)]">Deny is a hug, not a scold.</span>
-      </div>
+    <div class="foot__rule mono">
+      <span>© {year} Minnie</span>
+      <span class="foot__links foot__legal"><a href={`${base}privacy`}>Privacy</a></span>
+      <span class="foot__tag">Deny is a hug, not a scold</span>
     </div>
   </div>
 </footer>
+
+<style>
+  .foot {
+    width: 100%;
+    background: var(--green-deep);
+    color: #b9cfc0;
+    padding: 52px 0 32px;
+  }
+
+  .foot__cols {
+    display: grid;
+    gap: 36px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 800px) {
+    .foot__cols { grid-template-columns: 2fr 1fr 1fr; }
+  }
+
+  .foot__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .foot__mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 3px solid #f4efe2;
+    background: var(--pink);
+    flex-shrink: 0;
+  }
+  .foot__word {
+    font-family: Outfit, sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: #f4efe2;
+    text-transform: uppercase;
+  }
+
+  .foot__blurb {
+    margin: 0 0 14px;
+    font-size: 14px;
+    max-width: 26rem;
+    line-height: 1.6;
+  }
+  .foot__meta {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #8ba393;
+  }
+
+  .foot__h {
+    margin: 0 0 14px;
+    font-family: Outfit, sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .foot__links {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    font-size: 14px;
+  }
+  .foot__links a { color: #b9cfc0; }
+  .foot__links a:hover { color: var(--yellow); }
+
+  .foot__rule {
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 3px solid #f4efe2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+  .foot__legal { flex-direction: row; }
+  .foot__tag { color: var(--yellow); }
+</style>

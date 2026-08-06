@@ -1,118 +1,68 @@
 @import "tailwindcss";
 
-/* ─── Brand tokens ───────────────────────────────────────────────────────
-   Cartoon-clay design. Accents + fonts are shared; ink / surface / clay
-   tokens are redefined per theme (dark clay = default, light clay = opt-in). */
+/* ═══════════════════════════════════════════════════════════════════════════
+   Minnie — neo-brutalist "paper & ink" design system.
+
+   Everything is built from four ingredients: a cream paper ground, a 3px ink
+   outline, a hard offset shadow (no blur), and four flat accents
+   (green / yellow / pink / red). Nothing is rounded, nothing is soft, and
+   hover = the element slides into its own shadow.
+
+   Light is the default; dark inverts paper/ink and brightens the accents.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @theme {
-  /* Accent palette (identical in both themes) */
-  --color-coral: #ff6b9d;
-  --color-coral-hover: #ff8fb4;
-  --color-peach: #ffb877;
-  --color-peach-warm: #ff8f5e;
-  --color-periwinkle: #8b7cff;
-  --color-mint: #3ddc97;
-  --color-amber: #ffc24b;
-  --color-danger: #ff6b6b;
-  --color-ink-onlight: #3a0f1e;
-  --color-ink-softcoral: #ffc8de;
-
-  /* Theme-switched defaults (dark) — real values live in the :root blocks */
-  --color-ink: #efeafb;
-  --color-ink-dim: #c3bcd6;
-  --color-lilac-muted: #a89fc0;
-  --color-bg0: #1b1030;
-  --color-bg1: #150e28;
-  --color-bg2: #0c0a17;
-
-  /* Fonts */
-  --font-display: "Fredoka", "SF Pro Rounded", ui-rounded, system-ui, sans-serif;
-  --font-sans: "Nunito", "SF Pro Text", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
-
-  /* Bouncy easing for the toy-like feel */
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --font-display: Outfit, "SF Pro Rounded", ui-rounded, system-ui, sans-serif;
+  --font-sans: Karla, system-ui, sans-serif;
+  --font-mono: "Space Mono", "SF Mono", ui-monospace, monospace;
 }
 
-/* ═══════════════ DARK CLAY (default) ═══════════════ */
 :root,
-:root[data-theme="dark"] {
-  color-scheme: dark;
-
-  --color-ink: #f3eefc;
-  --color-ink-dim: #c7bfdc;
-  --color-lilac-muted: #a89fc0;
-  --color-bg0: #241a3c;
-  --color-bg1: #1e1533;
-  --color-bg2: #171025;
-
-  /* Clay surfaces */
-  --clay: #2c2048;
-  --clay-2: #362857;
-  --clay-inset: rgba(255, 255, 255, 0.05);
-  --clay-edge: rgba(255, 255, 255, 0.10);
-  --clay-edge-strong: rgba(255, 255, 255, 0.18);
-  --hairline: rgba(255, 255, 255, 0.10);
-  --terminal-bg: #100a1f;
-
-  /* Flat, calm backdrop — no aurora glows */
-  --grad-primary: linear-gradient(135deg, #ff6b9d, #ffb877);
-  --grad-cta: linear-gradient(135deg, #ff6b9d, #ff8f5e);
-  --grad-backdrop: linear-gradient(180deg, #241a3c 0%, #1b1330 100%);
-  --grad-cloud: linear-gradient(#ffffff, #ffe3ee);
-
-  /* Puffy cartoon-clay shadows: soft drop + rim light + inner highlight + inner shade */
-  --clay-shadow:
-    14px 18px 34px -8px rgba(0, 0, 0, 0.62),
-    -8px -8px 22px -10px rgba(255, 255, 255, 0.06),
-    inset 3px 3px 6px rgba(255, 255, 255, 0.10),
-    inset -7px -9px 16px rgba(0, 0, 0, 0.5);
-  --clay-shadow-sm:
-    7px 9px 18px -6px rgba(0, 0, 0, 0.55),
-    inset 2px 2px 4px rgba(255, 255, 255, 0.09),
-    inset -4px -5px 11px rgba(0, 0, 0, 0.42);
-  --clay-pressed:
-    inset 7px 7px 14px rgba(0, 0, 0, 0.62),
-    inset -5px -5px 12px rgba(255, 255, 255, 0.06);
-}
-
-/* ═══════════════ LIGHT CLAY ═══════════════ */
 :root[data-theme="light"] {
   color-scheme: light;
+  --paper: #f4efe2;
+  --card: #fffdf5;
+  --band: #173d28;
+  --line: #101a12;
+  --ink: #101a12;
+  --ink-dim: #4a5b4e;
+  --ink-soft: #6e7f71;
+  --green: #1f7a45;
+  --green-deep: #0f3d24;
+  --yellow: #ffd23f;
+  --pink: #ff5f9e;
+  --red: #e03a2f;
+  --on-band: #f4efe2;
+  --on-band-dim: #b9cfc0;
+  --on-green: #f4efe2;
+  --sh: 6px 6px 0 var(--line);
+  --sh-sm: 4px 4px 0 var(--line);
+  --sh-lg: 10px 10px 0 var(--line);
+}
 
-  --color-ink: #3a2952;
-  --color-ink-dim: #6b5c82;
-  --color-lilac-muted: #8f7fa8;
-  --color-ink-softcoral: #c04a7e;
-  --color-bg0: #f1eafb;
-  --color-bg1: #eae1f7;
-  --color-bg2: #f6f1fc;
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #101a12;
+  --card: #18271b;
+  --band: #ffd23f;
+  --line: #f4efe2;
+  --ink: #f4efe2;
+  --ink-dim: #b9cfc0;
+  --ink-soft: #8ba393;
+  --green: #3fd07a;
+  --green-deep: #0b2415;
+  --yellow: #ffd23f;
+  --pink: #ff5f9e;
+  --red: #ff6b5e;
+  --on-band: #101a12;
+  --on-band-dim: #3a4a3d;
+  --on-green: #0b2415;
+}
 
-  --clay: #fdfaff;
-  --clay-2: #f2ebfc;
-  --clay-inset: rgba(123, 88, 173, 0.08);
-  --clay-edge: rgba(123, 88, 173, 0.13);
-  --clay-edge-strong: rgba(123, 88, 173, 0.22);
-  --hairline: rgba(123, 88, 173, 0.15);
-  --terminal-bg: #241a3a;
-
-  --grad-primary: linear-gradient(135deg, #ff6b9d, #ffb877);
-  --grad-cta: linear-gradient(135deg, #ff6b9d, #ff8f5e);
-  --grad-backdrop: linear-gradient(180deg, #f4edfb 0%, #ece3f7 100%);
-  --grad-cloud: linear-gradient(#ffffff, #ffe3ee);
-
-  --clay-shadow:
-    14px 18px 32px -8px rgba(150, 118, 190, 0.5),
-    -10px -10px 24px -8px rgba(255, 255, 255, 1),
-    inset 3px 3px 6px rgba(255, 255, 255, 1),
-    inset -7px -9px 16px rgba(158, 128, 196, 0.3);
-  --clay-shadow-sm:
-    7px 9px 18px -6px rgba(150, 118, 190, 0.42),
-    -5px -5px 12px -5px rgba(255, 255, 255, 0.95),
-    inset 2px 2px 5px rgba(255, 255, 255, 1),
-    inset -4px -5px 11px rgba(158, 128, 196, 0.24);
-  --clay-pressed:
-    inset 7px 7px 14px rgba(158, 128, 196, 0.45),
-    inset -5px -5px 12px rgba(255, 255, 255, 0.95);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
@@ -120,158 +70,380 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+/* The tilted cards and offset shadows poke past the viewport edge by design.
+   `clip` trims that without creating a scroll container, so the sticky nav and
+   the scroll-driven reveals keep working. */
+html,
 body {
-  background: var(--grad-backdrop);
-  background-repeat: no-repeat;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  min-height: 100vh;
-  transition: background 0.4s ease, color 0.3s ease;
+  overflow-x: clip;
 }
 
-@layer components {
-  .container-x {
-    @apply mx-auto w-full max-w-6xl px-6 md:px-10;
-  }
-  .eyebrow {
-    color: var(--color-coral);
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-weight: 800;
-    font-size: 0.75rem;
-  }
-
-  /* ── Puffy primary button — bouncy coral clay ── */
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.95rem 1.7rem;
-    border-radius: 999px;
-    background: var(--grad-cta);
-    color: #fff;
-    font-weight: 700;
-    box-shadow:
-      8px 11px 22px -5px rgba(255, 107, 157, 0.6),
-      inset 3px 3px 5px rgba(255, 255, 255, 0.55),
-      inset -4px -6px 12px rgba(188, 58, 104, 0.5);
-    transition: transform 0.18s var(--ease-bounce), box-shadow 0.2s;
-  }
-  .btn-primary:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow:
-      10px 16px 30px -5px rgba(255, 107, 157, 0.65),
-      inset 3px 3px 5px rgba(255, 255, 255, 0.6),
-      inset -4px -6px 12px rgba(188, 58, 104, 0.5);
-  }
-  .btn-primary:active {
-    transform: translateY(1px) scale(0.97);
-    box-shadow:
-      inset 5px 5px 11px rgba(188, 58, 104, 0.55),
-      inset -2px -2px 7px rgba(255, 255, 255, 0.4);
-  }
-
-  /* ── Neutral clay button ── */
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.95rem 1.7rem;
-    border-radius: 999px;
-    background: var(--clay);
-    color: var(--color-ink);
-    font-weight: 700;
-    box-shadow: var(--clay-shadow-sm);
-    transition: transform 0.18s var(--ease-bounce), color 0.2s;
-  }
-  .btn-ghost:hover { transform: translateY(-3px) scale(1.03); color: var(--color-coral); }
-  .btn-ghost:active { transform: translateY(1px) scale(0.97); box-shadow: var(--clay-pressed); }
-
-  /* ── Puffy clay card ── */
-  .card {
-    background: var(--clay);
-    border: 1px solid var(--clay-edge);
-    border-radius: 32px;
-    box-shadow: var(--clay-shadow);
-  }
-
-  /* ── Clay chip / pill ── */
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.4rem 0.9rem;
-    border-radius: 999px;
-    background: var(--clay);
-    box-shadow: var(--clay-shadow-sm);
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--color-ink-dim);
-    transition: transform 0.16s var(--ease-bounce);
-  }
-  .chip:hover { transform: translateY(-2px) scale(1.04); }
-  .chip.active {
-    background: var(--grad-cta);
-    color: #fff;
-    box-shadow:
-      5px 7px 14px -4px rgba(255, 107, 157, 0.5),
-      inset 2px 2px 4px rgba(255, 255, 255, 0.5),
-      inset -3px -4px 9px rgba(188, 58, 104, 0.45);
-  }
-
-  /* ── Pressed-in clay well (inputs) ── */
-  .clay-input {
-    background: var(--clay-2);
-    border: 1px solid var(--clay-edge);
-    border-radius: 999px;
-    box-shadow: var(--clay-pressed);
-    color: var(--color-ink);
-    transition: box-shadow 0.2s, border-color 0.2s;
-  }
-  .clay-input::placeholder { color: var(--color-lilac-muted); }
-  .clay-input:focus {
-    outline: none;
-    border-color: var(--color-coral);
-    box-shadow: var(--clay-pressed), 0 0 0 4px rgba(255, 107, 157, 0.2);
-  }
-
-  .clay-raised { background: var(--clay); box-shadow: var(--clay-shadow); border-radius: 28px; }
-  .clay-well { background: var(--clay-2); box-shadow: var(--clay-pressed); border-radius: 24px; }
-
-  /* Icon button (theme toggle) */
-  .clay-icon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: 999px;
-    background: var(--clay);
-    color: var(--color-ink);
-    box-shadow: var(--clay-shadow-sm);
-    transition: transform 0.18s var(--ease-bounce);
-    cursor: pointer;
-  }
-  .clay-icon-btn:hover { transform: translateY(-2px) scale(1.08) rotate(-8deg); color: var(--color-coral); }
-  .clay-icon-btn:active { transform: translateY(1px) scale(0.95); box-shadow: var(--clay-pressed); }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Karla, system-ui, sans-serif;
 }
 
-/* Theme-toggle icon swap: dark shows a sun (→ go light), light shows a moon (→ go dark) */
+a {
+  color: var(--ink);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--green);
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--yellow);
+  color: #101a12;
+}
+
+/* ─── Keyframes ──────────────────────────────────────────────────────────
+   Deliberately stepped (steps(n)) so motion reads as stop-motion, not easing. */
+@keyframes slam {
+  0% { opacity: 0; transform: translateY(-70px) rotate(-5deg) scale(1.12); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes slamUp {
+  0% { opacity: 0; transform: translateY(70px) rotate(3deg); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes slideL {
+  0% { opacity: 0; transform: translateX(-90px); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes slideR {
+  0% { opacity: 0; transform: translateX(90px); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes stamp {
+  0% { opacity: 0; transform: scale(1.6) rotate(-8deg); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes jitter {
+  0% { transform: rotate(-1.5deg) translate(0, 0); }
+  50% { transform: rotate(1.5deg) translate(1px, -2px); }
+  100% { transform: rotate(-1.5deg) translate(0, 0); }
+}
+@keyframes hop {
+  0% { transform: translateY(0) scaleY(1); }
+  40% { transform: translateY(-14px) scaleY(1.06); }
+  60% { transform: translateY(-14px) scaleY(1.06); }
+  100% { transform: translateY(0) scaleY(0.94); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marqueeRev {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+@keyframes blinkHard {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes barJump {
+  0%, 100% { height: 5px; }
+  50% { height: 18px; }
+}
+
+/* Scroll-linked entrances. Where `view()` is unsupported the animation has no
+   duration, so `both` pins the 100% keyframe — content is simply visible. */
+.reveal-slam,
+.reveal-up,
+.reveal-l,
+.reveal-r {
+  animation-timeline: view();
+  animation-range: entry 0% cover 24%;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+.reveal-slam { animation-name: slam; animation-range: entry 0% cover 22%; }
+.reveal-up { animation-name: slamUp; }
+.reveal-l { animation-name: slideL; }
+.reveal-r { animation-name: slideR; }
+
+.hop { animation: hop 1.1s steps(4, end) infinite; }
+.jitter { animation: jitter 1.4s steps(2, end) infinite; }
+.blink { animation: blinkHard 1s steps(1, end) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ─── Layout ─────────────────────────────────────────────────────────────── */
+.wrap {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1180px;
+  padding: 0 24px;
+}
+
+.sec {
+  padding: 76px 0;
+  border-bottom: 3px solid var(--line);
+}
+
+/* Sections painted in a flat colour.
+   On green-deep only the section *heading* flips to cream — the panels inside
+   stay ordinary light cards, which is what makes them pop off the band. */
+.sec--deep {
+  background: var(--green-deep);
+}
+.sec--deep .sec-head {
+  --ink: #f4efe2;
+  --ink-dim: #b9cfc0;
+  --ink-soft: #8ba393;
+}
+/* Yellow is yellow in both themes, so ink is pinned dark for the whole band. */
+.sec--yellow {
+  background: var(--yellow);
+  --ink: #101a12;
+  --ink-dim: #101a12;
+  --ink-soft: #3a4a3d;
+  --line: #101a12;
+  --card: #f4efe2;
+}
+
+/* ─── Type ───────────────────────────────────────────────────────────────── */
+.eyebrow {
+  display: inline-block;
+  border: 3px solid var(--line);
+  background: var(--yellow);
+  color: #101a12;
+  padding: 4px 12px;
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: var(--sh-sm);
+}
+.eyebrow--pink { background: var(--pink); }
+.eyebrow--green { background: var(--green); color: var(--on-green); }
+.eyebrow--card { background: var(--card); color: var(--ink); }
+.eyebrow--ink { background: #101a12; color: var(--yellow); border-color: #101a12; box-shadow: none; }
+/* On the green-deep bands the outline and shadow become cream. */
+.sec--deep .eyebrow { border-color: #f4efe2; box-shadow: 6px 6px 0 #f4efe2; }
+
+.h1 {
+  margin: 20px 0 0;
+  font-family: Outfit, sans-serif;
+  font-size: clamp(46px, 7.4vw, 86px);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.h2 {
+  margin: 16px 0 0;
+  font-family: Outfit, sans-serif;
+  font-size: clamp(34px, 5vw, 60px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.94;
+  color: var(--ink);
+}
+
+/* The rotated, outlined highlight block inside a headline. */
+.slab {
+  display: inline-block;
+  background: var(--pink);
+  color: #101a12;
+  border: 3px solid var(--line);
+  box-shadow: var(--sh);
+  padding: 0 14px;
+}
+
+.lede {
+  margin: 18px 0 0;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-dim);
+  text-wrap: pretty;
+}
+
+.mono {
+  font-family: "Space Mono", ui-monospace, monospace;
+}
+
+.sec-head {
+  max-width: 44rem;
+  margin-bottom: 44px;
+}
+
+/* ─── Surfaces ───────────────────────────────────────────────────────────── */
+.card {
+  background: var(--card);
+  border: 3px solid var(--line);
+  box-shadow: var(--sh);
+}
+
+/* Lift on hover by sliding away from the shadow. */
+.card--lift {
+  transition: none;
+}
+.card--lift:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0 var(--line);
+}
+/* Square colour tile that holds an emoji or the pet. */
+.tile {
+  border: 3px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Controls ───────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border: 3px solid var(--line);
+  background: var(--green);
+  color: var(--on-green);
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  box-shadow: var(--sh-sm);
+  cursor: pointer;
+  transition: none;
+  white-space: nowrap;
+}
+.btn:hover {
+  color: var(--on-green);
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--line);
+}
+.btn--sm { padding: 11px 20px; }
+.btn--yellow { background: var(--yellow); color: #101a12; }
+.btn--card { background: var(--card); color: var(--ink); }
+.btn--card:hover { color: var(--ink); }
+
+.field {
+  min-width: 0;
+  padding: 14px 18px;
+  font-size: 14px;
+  background: var(--card);
+  border: 3px solid var(--line);
+  color: var(--ink);
+  outline: none;
+  box-shadow: var(--sh-sm);
+}
+.field::placeholder { color: var(--ink-soft); }
+.field:focus { background: var(--paper); }
+
+/* Small outlined mono tag. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--line);
+  background: var(--paper);
+  padding: 4px 10px;
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--ink);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 3px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: var(--sh-sm);
+  cursor: pointer;
+  transition: none;
+}
+.icon-btn:hover {
+  background: var(--yellow);
+  color: #101a12;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--line);
+}
+
+/* ─── Marquee band ───────────────────────────────────────────────────────── */
+.marquee {
+  border-bottom: 3px solid var(--line);
+  padding: 12px 0;
+  overflow: hidden;
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  gap: 40px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  animation: marquee 22s linear infinite;
+}
+.marquee__track--rev { animation: marqueeRev 20s linear infinite; }
+.marquee__set {
+  display: flex;
+  gap: 40px;
+}
+
+/* ─── Theme toggle icon swap ─────────────────────────────────────────────── */
 .theme-sun,
 .theme-moon { display: none; }
 :root[data-theme="dark"] .theme-sun { display: block; }
 :root[data-theme="light"] .theme-moon { display: block; }
 
-/* Product Hunt badge: show the theme-matched variant */
-.ph-light,
-.ph-dark { display: none; }
-:root[data-theme="light"] .ph-light { display: inline-block; }
-:root[data-theme="dark"] .ph-dark { display: inline-block; }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
+/* ─── Prose (privacy page) ───────────────────────────────────────────────── */
+.prose-h2 {
+  margin: 40px 0 12px;
+  font-family: Outfit, sans-serif;
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.prose-p {
+  margin: 0 0 16px;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--ink-dim);
+  text-wrap: pretty;
+}
+.prose-ul {
+  margin: 0 0 16px;
+  padding-left: 22px;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--ink-dim);
+}
+.prose-ul li { margin-bottom: 6px; }
+.prose-a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--yellow);
+  text-underline-offset: 3px;
+}
+.prose-a:hover {
+  background: var(--yellow);
+  color: #101a12;
 }

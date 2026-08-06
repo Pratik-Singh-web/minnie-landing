@@ -1,0 +1,45 @@
+---
+// Scrolling band between sections. The set of items is rendered twice — the
+// second copy is aria-hidden and only exists so the loop has no seam.
+interface Props {
+  items: string[];
+  sep?: string;
+  background?: string;
+  color?: string;
+  reverse?: boolean;
+  display?: boolean; // Outfit heavy instead of mono
+}
+const {
+  items,
+  sep = "★",
+  background = "var(--green)",
+  color = "#f4efe2",
+  reverse = false,
+  display = false,
+} = Astro.props;
+
+const font = display
+  ? "font-family:Outfit,sans-serif; font-size:16px; font-weight:900;"
+  : "font-family:'Space Mono',ui-monospace,monospace; font-size:13px; font-weight:700;";
+---
+
+<div class="marquee" style={`background:${background};`}>
+  <div class={`marquee__track${reverse ? " marquee__track--rev" : ""}`} style={`${font} color:${color};`}>
+    <span class="marquee__set">
+      {items.map((item) => (
+        <>
+          <span>{item}</span>
+          <span>{sep}</span>
+        </>
+      ))}
+    </span>
+    <span class="marquee__set" aria-hidden="true">
+      {items.map((item) => (
+        <>
+          <span>{item}</span>
+          <span>{sep}</span>
+        </>
+      ))}
+    </span>
+  </div>
+</div>

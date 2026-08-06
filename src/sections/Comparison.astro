@@ -1,86 +1,89 @@
 ---
+const rows = [
+  { cap: "Executes tasks locally on your Mac", a: "YES", b: "NO", c: "YES" },
+  { cap: "Voice command + spoken consent", a: "YES", b: "NO", c: "NO" },
+  { cap: "Ambient status you can glance at", a: "YES", b: "NO", c: "NO" },
+  { cap: "Lives natively on your desktop", a: "YES", b: "NO", c: "NO" },
+  { cap: "On-device privacy", a: "YES", b: "NO", c: "YES" },
+  { cap: "Uses your own agent keys, no markup", a: "YES", b: "NO", c: "YES" },
+];
+
+// Yes/no are colour-coded against the cream table ground, not the page theme.
+const verdict = (v: string) => (v === "YES" ? "#1f7a45" : "#c02a20");
 ---
 
-<section class="py-16 md:py-24 border-b border-[var(--hairline)]">
-  <div class="mx-auto max-w-6xl px-6 md:px-10">
-    
-    <!-- Section Header -->
-    <div class="text-center max-w-2xl mx-auto mb-16">
-      <span class="eyebrow">Comparison</span>
-      <h2 class="font-[family-name:var(--font-display)] text-3xl md:text-5xl font-bold mt-2 text-[var(--color-ink)]">
-        Why Minnie?
-      </h2>
-      <p class="text-[var(--color-ink-dim)] mt-4 leading-relaxed">
-        How Minnie compares to browser-based chatbots and standard command-line tools.
-      </p>
+<section class="sec sec--deep">
+  <div class="wrap">
+    <div class="sec-head reveal-slam" style="margin-bottom:40px;">
+      <span class="eyebrow eyebrow--pink">Comparison</span>
+      <h2 class="h2">Why Minnie?</h2>
     </div>
 
-    <!-- Comparison Table Card -->
-    <div class="card overflow-hidden border-[var(--clay-edge)] shadow-2xl">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
+    <div class="cmp reveal-up">
+      <div class="cmp__scroll">
+        <table class="cmp__table">
           <thead>
-            <tr class="border-b border-[var(--hairline)] bg-[var(--clay-inset)]">
-              <th class="p-6 text-sm font-bold text-[var(--color-ink)]">Capability</th>
-              <th class="p-6 text-sm font-bold text-[var(--color-coral)] bg-pink-500/5">Minnie Pet</th>
-              <th class="p-6 text-sm font-bold text-[var(--color-lilac-muted)]">Web Chatbot</th>
-              <th class="p-6 text-sm font-bold text-[var(--color-lilac-muted)]">Standard CLI Agent</th>
+            <tr>
+              <th>Capability</th>
+              <th class="cmp__mine">Minnie</th>
+              <th>Web chatbot</th>
+              <th>Bare CLI agent</th>
             </tr>
           </thead>
-          <tbody class="text-sm divide-y divide-[var(--clay-edge)]">
-            
-            <!-- Row 1 -->
-            <tr class="hover:bg-[var(--clay-inset)] transition-colors">
-              <td class="p-6 font-semibold text-[var(--color-ink)]">Executes tasks locally on your Mac</td>
-              <td class="p-6 text-[var(--color-mint)] font-bold bg-pink-500/5">✓ Yes</td>
-              <td class="p-6 text-[var(--color-danger)] font-bold">✗ No</td>
-              <td class="p-6 text-[var(--color-mint)] font-bold">✓ Yes</td>
-            </tr>
-
-            <!-- Row 2 -->
-            <tr class="hover:bg-[var(--clay-inset)] transition-colors">
-              <td class="p-6 font-semibold text-[var(--color-ink)]">Voice command + consent cloud</td>
-              <td class="p-6 text-[var(--color-mint)] font-bold bg-pink-500/5">✓ Yes</td>
-              <td class="p-6 text-[var(--color-danger)] font-bold">✗ No</td>
-              <td class="p-6 text-[var(--color-danger)] font-bold">✗ No</td>
-            </tr>
-
-            <!-- Row 3 -->
-            <tr class="hover:bg-[var(--clay-inset)] transition-colors">
-              <td class="p-6 font-semibold text-[var(--color-ink)]">Ambient status indicator (Moods)</td>
-              <td class="p-6 text-[var(--color-mint)] font-bold bg-pink-500/5">✓ Yes</td>
-              <td class="p-6 text-[var(--color-danger)] font-bold">✗ No</td>
-              <td class="p-6 text-[var(--color-danger)] font-bold">✗ No</td>
-            </tr>
-
-            <!-- Row 4 -->
-            <tr class="hover:bg-[var(--clay-inset)] transition-colors">
-              <td class="p-6 font-semibold text-[var(--color-ink)]">Lives natively on your desktop</td>
-              <td class="p-6 text-[var(--color-mint)] font-bold bg-pink-500/5">✓ Yes</td>
-              <td class="p-6 text-[var(--color-danger)] font-bold">✗ No</td>
-              <td class="p-6 text-[var(--color-danger)] font-bold">✗ No</td>
-            </tr>
-
-            <!-- Row 5 -->
-            <tr class="hover:bg-[var(--clay-inset)] transition-colors">
-              <td class="p-6 font-semibold text-[var(--color-ink)]">On-device local privacy</td>
-              <td class="p-6 text-[var(--color-mint)] font-bold bg-pink-500/5">✓ Yes</td>
-              <td class="p-6 text-[var(--color-danger)] font-bold">✗ No</td>
-              <td class="p-6 text-[var(--color-mint)] font-bold">✓ Yes</td>
-            </tr>
-
-            <!-- Row 6 -->
-            <tr class="hover:bg-[var(--clay-inset)] transition-colors">
-              <td class="p-6 font-semibold text-[var(--color-ink)]">Uses your own agent keys (No markups)</td>
-              <td class="p-6 text-[var(--color-mint)] font-bold bg-pink-500/5">✓ Yes</td>
-              <td class="p-6 text-[var(--color-danger)] font-bold">✗ No</td>
-              <td class="p-6 text-[var(--color-mint)] font-bold">✓ Yes</td>
-            </tr>
-
+          <tbody>
+            {rows.map((r) => (
+              <tr>
+                <td class="cmp__cap">{r.cap}</td>
+                <td class="cmp__yes">{r.a}</td>
+                <td style={`color:${verdict(r.b)};`}>{r.b}</td>
+                <td style={`color:${verdict(r.c)};`}>{r.c}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
     </div>
-
   </div>
 </section>
+
+<style>
+  .cmp {
+    border: 3px solid #f4efe2;
+    background: #f4efe2;
+    box-shadow: 10px 10px 0 var(--yellow);
+    overflow: hidden;
+  }
+  .cmp__scroll { overflow-x: auto; }
+
+  .cmp__table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    min-width: 660px;
+    color: #101a12;
+  }
+  .cmp__table thead tr {
+    background: #101a12;
+    color: #f4efe2;
+  }
+  .cmp__table th {
+    padding: 18px;
+    font-family: Outfit, sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+  .cmp__mine { color: var(--yellow); }
+
+  .cmp__table tbody tr { border-top: 3px solid #101a12; }
+  .cmp__table td {
+    padding: 16px 18px;
+    font-size: 14px;
+    font-weight: 800;
+  }
+  .cmp__cap { font-weight: 700; }
+  .cmp__yes {
+    background: #ffd23f;
+    color: #101a12;
+  }
+</style>

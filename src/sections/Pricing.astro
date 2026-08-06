@@ -1,78 +1,153 @@
 ---
+const features = [
+  "Bring your own agent — no AI cost",
+  "macOS app DMG (Windows on the roadmap)",
+  "Lifetime licence and free v1 updates",
+  "Local speech synthesis and key storage",
+];
 ---
 
-<section id="pricing" class="py-16 md:py-24 bg-[var(--color-bg1)] border-b border-[var(--hairline)]">
-  <div class="mx-auto max-w-6xl px-6 md:px-10">
-    
-    <!-- Section Header -->
-    <div class="text-center max-w-2xl mx-auto mb-12">
+<section id="pricing" class="sec">
+  <div class="wrap">
+    <div class="pricing__head reveal-slam">
       <span class="eyebrow">Pricing</span>
-      <h2 class="font-[family-name:var(--font-display)] text-3xl md:text-5xl font-bold mt-2 text-[var(--color-ink)]">
-        One-time purchase, yours forever
-      </h2>
-      <p class="text-[var(--color-ink-dim)] mt-4 leading-relaxed">
-        No monthly bills, no recurring subscriptions, and zero extra markup fees on your AI usage.
-      </p>
+      <h2 class="h2">Pay once. Keep her forever.</h2>
     </div>
 
-    <!-- Pricing Card -->
-    <div class="max-w-md mx-auto">
-      <div class="card p-8 border-[var(--color-coral)] shadow-2xl relative overflow-hidden bg-gradient-to-b from-pink-500/[0.02] to-transparent">
-        
-        <!-- Founder Badge -->
-        <div class="absolute top-4 right-4">
-          <span class="chip border-pink-500/30 bg-pink-500/10 text-[var(--color-coral)] font-bold text-[10px] tracking-widest uppercase">
-            Founder Offer
-          </span>
+    <div class="pricing__wrap reveal-up">
+      <div class="card pricing__card">
+        <span class="pricing__badge mono jitter">Founder offer</span>
+
+        <h3 class="pricing__h">Minnie licence</h3>
+        <p class="pricing__limit mono">first 500 developers only</p>
+
+        <div class="pricing__row">
+          <span class="pricing__now">$19</span>
+          <span class="pricing__was">$39</span>
+          <span class="pricing__unit mono">one-time</span>
         </div>
 
-        <h3 class="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--color-ink)] mb-2">
-          Minnie License
-        </h3>
-        <p class="text-xs text-[var(--color-lilac-muted)] mb-6">
-          Limited to the first 500 developers.
-        </p>
-
-        <!-- Pricing Numbers -->
-        <div class="flex items-baseline gap-2 mb-6">
-          <span class="text-5xl font-extrabold text-[var(--color-ink)] font-[family-name:var(--font-display)]">$19</span>
-          <span class="text-sm text-[var(--color-ink-dim)] line-through">$39</span>
-          <span class="text-xs text-[var(--color-lilac-muted)] font-semibold uppercase tracking-wider ml-1">
-            one-time fee
-          </span>
+        <div class="pricing__list">
+          {features.map((f) => (
+            <div class="pricing__item">
+              <span class="tile pricing__tick">✓</span>
+              <span>{f}</span>
+            </div>
+          ))}
         </div>
 
-        <!-- Features list -->
-        <ul class="space-y-4 mb-8 text-sm text-[var(--color-ink-dim)]">
-          <li class="flex items-center gap-3">
-            <span class="text-[var(--color-mint)]">✓</span>
-            <span>Bring Your Own Agent (No AI cost)</span>
-          </li>
-          <li class="flex items-center gap-3">
-            <span class="text-[var(--color-mint)]">✓</span>
-            <span>macOS App DMG (Windows coming)</span>
-          </li>
-          <li class="flex items-center gap-3">
-            <span class="text-[var(--color-mint)]">✓</span>
-            <span>Lifetime license & free updates in v1</span>
-          </li>
-          <li class="flex items-center gap-3">
-            <span class="text-[var(--color-mint)]">✓</span>
-            <span>Local speech synthesis & key storage</span>
-          </li>
-        </ul>
-
-        <!-- Action CTA -->
-        <a href="#waitlist" class="btn-primary w-full justify-center text-sm py-4">
-          Lock in Founder Price →
-        </a>
-
-        <p class="text-center text-[10px] text-[var(--color-lilac-muted)] mt-4">
-          🛡️ 30-day money-back guarantee post-launch.
-        </p>
-
+        <a href="#waitlist" class="btn pricing__cta">Lock in founder price</a>
+        <p class="pricing__note mono">30-day money-back after launch</p>
       </div>
     </div>
-
   </div>
 </section>
+
+<style>
+  .pricing__head {
+    text-align: center;
+    max-width: 40rem;
+    margin: 0 auto 40px;
+  }
+  .pricing__wrap {
+    max-width: 28rem;
+    margin: 0 auto;
+  }
+  .pricing__card {
+    position: relative;
+    box-shadow: 12px 12px 0 var(--pink);
+    padding: 30px;
+  }
+
+  .pricing__badge {
+    position: absolute;
+    top: -16px;
+    right: -10px;
+    border: 3px solid var(--line);
+    background: var(--yellow);
+    color: #101a12;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: var(--sh-sm);
+    animation-duration: 1.6s;
+  }
+
+  .pricing__h {
+    margin: 0 0 4px;
+    font-family: Outfit, sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .pricing__limit {
+    margin: 0 0 22px;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .pricing__row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .pricing__now {
+    font-family: Outfit, sans-serif;
+    font-size: 66px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+  .pricing__was {
+    font-size: 16px;
+    color: var(--ink-soft);
+    text-decoration: line-through;
+  }
+  .pricing__unit {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .pricing__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 26px;
+  }
+  .pricing__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .pricing__tick {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    background: var(--green);
+    color: var(--on-green);
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .pricing__cta {
+    display: flex;
+    width: 100%;
+    padding: 16px;
+    font-size: 15px;
+  }
+  .pricing__note {
+    margin: 12px 0 0;
+    text-align: center;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+</style>

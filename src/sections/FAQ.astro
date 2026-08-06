@@ -1,137 +1,134 @@
 ---
+// Keep these in sync with the FAQPage structured data in Layout.astro.
+const faqs = [
+  {
+    q: "Does Minnie cost extra to run the AI?",
+    a: "No. She drives the agent CLI you already use; it holds its own auth and does the reasoning. Zero extra AI cost.",
+  },
+  {
+    q: "Which agents work?",
+    a: "Claude Code today, with the full experience. Gemini CLI, Codex, Antigravity and custom command-line agents work too — they run more autonomously, since the voice-consent flow is Claude Code only for now.",
+  },
+  {
+    q: "Is my code private?",
+    a: "Yes. On-device voice by default, a local agent CLI, no screen capture, no telemetry. Secrets live in your macOS Keychain, and nothing leaves your Mac unless a tool you approved sends it.",
+  },
+  {
+    q: "Do I need to set anything up?",
+    a: "Install the agent CLI once (Claude Code, say) and log in. Minnie's onboarding walks you through the rest.",
+  },
+  {
+    q: "Can I connect my own tools?",
+    a: "Yes — a one-click MCP catalog (GitHub, Notion, Slack, Postgres, Figma…), custom servers, and native Sign in with Google for Gmail, Calendar and Chat.",
+  },
+  {
+    q: "Does it work on Windows?",
+    a: "macOS first. Windows is on the roadmap.",
+  },
+];
 ---
 
-<section id="faq" class="py-16 md:py-24 border-b border-[var(--hairline)]">
-  <div class="mx-auto max-w-4xl px-6">
-    
-    <!-- Section Header -->
-    <div class="text-center max-w-2xl mx-auto mb-16">
-      <span class="eyebrow">Questions</span>
-      <h2 class="font-[family-name:var(--font-display)] text-3xl md:text-5xl font-bold mt-2 text-[var(--color-ink)]">
-        Frequently Asked Questions
-      </h2>
-      <p class="text-[var(--color-ink-dim)] mt-4 leading-relaxed">
-        Everything you need to know about Minnie's architecture, security, and setup.
-      </p>
+<section id="faq" class="sec">
+  <div class="faq__wrap">
+    <div class="faq__head reveal-slam">
+      <span class="eyebrow eyebrow--pink">Questions</span>
+      <h2 class="h2">Questions, answered.</h2>
     </div>
 
-    <!-- Accordion Wrapper -->
-    <div class="space-y-4">
-      
-      <!-- FAQ 1 -->
-      <div class="card overflow-hidden border-[var(--clay-edge)] transition-all duration-300 faq-item">
-        <button class="w-full flex items-center justify-between p-6 text-left font-bold text-[var(--color-ink)] hover:text-[var(--color-coral)] transition-colors focus:outline-none cursor-pointer faq-trigger">
-          <span>Does Minnie cost extra to run the AI?</span>
-          <span class="faq-icon text-xl text-[var(--color-lilac-muted)] transition-transform duration-300">+</span>
-        </button>
-        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-out">
-          <p class="p-6 pt-0 text-sm text-[var(--color-ink-dim)] leading-relaxed border-t border-[var(--clay-edge)] mt-[-1px]">
-            No. Minnie drives the agent CLI you already use; it holds its own auth and does the reasoning. Zero extra AI cost.
-          </p>
+    <div class="faq__list">
+      {faqs.map((f, i) => (
+        <div class="card faq__item reveal-up">
+          <button type="button" class="faq__q" aria-expanded="false" aria-controls={`faq-a-${i}`}>
+            <span>{f.q}</span>
+            <span class="tile faq__sign" aria-hidden="true">+</span>
+          </button>
+          <p class="faq__a" id={`faq-a-${i}`} hidden>{f.a}</p>
         </div>
-      </div>
-
-      <!-- FAQ 2 -->
-      <div class="card overflow-hidden border-[var(--clay-edge)] transition-all duration-300 faq-item">
-        <button class="w-full flex items-center justify-between p-6 text-left font-bold text-[var(--color-ink)] hover:text-[var(--color-coral)] transition-colors focus:outline-none cursor-pointer faq-trigger">
-          <span>Which agents work?</span>
-          <span class="faq-icon text-xl text-[var(--color-lilac-muted)] transition-transform duration-300">+</span>
-        </button>
-        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-out">
-          <p class="p-6 pt-0 text-sm text-[var(--color-ink-dim)] leading-relaxed border-t border-[var(--clay-edge)] mt-[-1px]">
-            Claude Code today (full experience). Gemini CLI, Codex, Antigravity, and custom command-line agents are supported (they run more autonomously — the voice-consent flow is Claude Code for now).
-          </p>
-        </div>
-      </div>
-
-      <!-- FAQ 3 -->
-      <div class="card overflow-hidden border-[var(--clay-edge)] transition-all duration-300 faq-item">
-        <button class="w-full flex items-center justify-between p-6 text-left font-bold text-[var(--color-ink)] hover:text-[var(--color-coral)] transition-colors focus:outline-none cursor-pointer faq-trigger">
-          <span>Is my code / are my conversations private?</span>
-          <span class="faq-icon text-xl text-[var(--color-lilac-muted)] transition-transform duration-300">+</span>
-        </button>
-        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-out">
-          <p class="p-6 pt-0 text-sm text-[var(--color-ink-dim)] leading-relaxed border-t border-[var(--clay-edge)] mt-[-1px]">
-            Yes — on-device voice by default, a local agent CLI, no screen capture, no telemetry. Secrets live in your macOS Keychain. Nothing leaves your Mac unless a tool you approved sends it.
-          </p>
-        </div>
-      </div>
-
-      <!-- FAQ 4 -->
-      <div class="card overflow-hidden border-[var(--clay-edge)] transition-all duration-300 faq-item">
-        <button class="w-full flex items-center justify-between p-6 text-left font-bold text-[var(--color-ink)] hover:text-[var(--color-coral)] transition-colors focus:outline-none cursor-pointer faq-trigger">
-          <span>Do I need to set anything up?</span>
-          <span class="faq-icon text-xl text-[var(--color-lilac-muted)] transition-transform duration-300">+</span>
-        </button>
-        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-out">
-          <p class="p-6 pt-0 text-sm text-[var(--color-ink-dim)] leading-relaxed border-t border-[var(--clay-edge)] mt-[-1px]">
-            Install the agent CLI once (e.g. Claude Code) and log in; Minnie's onboarding walks you through it.
-          </p>
-        </div>
-      </div>
-
-      <!-- FAQ 5 -->
-      <div class="card overflow-hidden border-[var(--clay-edge)] transition-all duration-300 faq-item">
-        <button class="w-full flex items-center justify-between p-6 text-left font-bold text-[var(--color-ink)] hover:text-[var(--color-coral)] transition-colors focus:outline-none cursor-pointer faq-trigger">
-          <span>Can I connect my own tools?</span>
-          <span class="faq-icon text-xl text-[var(--color-lilac-muted)] transition-transform duration-300">+</span>
-        </button>
-        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-out">
-          <p class="p-6 pt-0 text-sm text-[var(--color-ink-dim)] leading-relaxed border-t border-[var(--clay-edge)] mt-[-1px]">
-            Yes — a one-click MCP catalog (GitHub, Notion, Slack, Postgres, Figma…), custom servers, and native Sign in with Google for Gmail / Calendar / Chat.
-          </p>
-        </div>
-      </div>
-
-      <!-- FAQ 6 -->
-      <div class="card overflow-hidden border-[var(--clay-edge)] transition-all duration-300 faq-item">
-        <button class="w-full flex items-center justify-between p-6 text-left font-bold text-[var(--color-ink)] hover:text-[var(--color-coral)] transition-colors focus:outline-none cursor-pointer faq-trigger">
-          <span>Does it work on Windows?</span>
-          <span class="faq-icon text-xl text-[var(--color-lilac-muted)] transition-transform duration-300">+</span>
-        </button>
-        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-out">
-          <p class="p-6 pt-0 text-sm text-[var(--color-ink-dim)] leading-relaxed border-t border-[var(--clay-edge)] mt-[-1px]">
-            macOS first. Windows is on the roadmap.
-          </p>
-        </div>
-      </div>
-
+      ))}
     </div>
-
   </div>
 </section>
 
 <script>
-  // Simple FAQ Accordion Logic
-  const faqItems = document.querySelectorAll('.faq-item');
+  document.querySelectorAll<HTMLButtonElement>(".faq__q").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const open = btn.getAttribute("aria-expanded") === "true";
 
-  faqItems.forEach(item => {
-    const trigger = item.querySelector('.faq-trigger');
-    const content = item.querySelector('.faq-content') as HTMLElement;
-    const icon = item.querySelector('.faq-icon');
-
-    if (trigger && content && icon) {
-      trigger.addEventListener('click', () => {
-        const isOpen = item.classList.contains('faq-open');
-
-        // Close all peer FAQs to keep it accordion-like
-        faqItems.forEach(p => {
-          p.classList.remove('faq-open');
-          const pContent = p.querySelector('.faq-content') as HTMLElement;
-          const pIcon = p.querySelector('.faq-icon');
-          if (pContent) pContent.style.maxHeight = '0px';
-          if (pIcon) pIcon.textContent = '+';
-          if (pIcon) pIcon.classList.remove('rotate-45');
-        });
-
-        // Toggle state
-        if (!isOpen) {
-          item.classList.add('faq-open');
-          content.style.maxHeight = `${content.scrollHeight}px`;
-          icon.textContent = '×';
-          icon.classList.add('rotate-45');
-        }
+      // One at a time — collapse the rest before opening this one.
+      document.querySelectorAll<HTMLButtonElement>(".faq__q").forEach((other) => {
+        other.setAttribute("aria-expanded", "false");
+        other.querySelector(".faq__sign")!.textContent = "+";
+        document.getElementById(other.getAttribute("aria-controls")!)?.setAttribute("hidden", "");
       });
-    }
+
+      if (!open) {
+        btn.setAttribute("aria-expanded", "true");
+        btn.querySelector(".faq__sign")!.textContent = "×";
+        document.getElementById(btn.getAttribute("aria-controls")!)?.removeAttribute("hidden");
+      }
+    });
   });
 </script>
+
+<style>
+  .faq__wrap {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 820px;
+    padding: 0 24px;
+  }
+  .faq__head { margin-bottom: 36px; }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .faq__item { box-shadow: var(--sh-sm); }
+
+  .faq__q {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 20px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-family: Outfit, sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    cursor: pointer;
+    transition: none;
+  }
+  .faq__q:hover {
+    background: var(--yellow);
+    color: #101a12;
+  }
+
+  .faq__sign {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: var(--yellow);
+    font-size: 16px;
+    color: #101a12;
+    font-weight: 900;
+  }
+  .faq__q[aria-expanded="true"] .faq__sign { background: var(--pink); }
+
+  .faq__a {
+    margin: 0;
+    padding: 16px 20px;
+    border-top: 3px solid var(--line);
+    background: var(--paper);
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+    text-wrap: pretty;
+  }
+</style>

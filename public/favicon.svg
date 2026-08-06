@@ -1,22 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Minnie">
-  <defs>
-    <linearGradient id="minnieBg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#EC5C9D"/>
-      <stop offset=".5" stop-color="#C06FC2"/>
-      <stop offset="1" stop-color="#AB90E7"/>
-    </linearGradient>
-  </defs>
-  <rect width="1024" height="1024" rx="232" ry="232" fill="url(#minnieBg)"/>
-  <g fill="#fff">
-    <!-- toe beans -->
-    <ellipse cx="322" cy="474" rx="60" ry="82" transform="rotate(-18 322 474)"/>
-    <ellipse cx="438" cy="392" rx="64" ry="97" transform="rotate(-7 438 392)"/>
-    <ellipse cx="586" cy="392" rx="64" ry="97" transform="rotate(7 586 392)"/>
-    <ellipse cx="702" cy="474" rx="60" ry="82" transform="rotate(18 702 474)"/>
-    <!-- main pad -->
-    <path d="M512,516 C574,516 626,556 650,612 C672,662 676,706 654,732 C636,752 610,742 586,752 C566,760 556,766 512,766 C468,766 458,760 438,752 C414,742 388,752 370,732 C348,706 352,662 374,612 C398,556 450,516 512,516 Z"/>
-    <!-- sparkles -->
-    <path d="M636,180 C645,219 645,219 684,228 C645,237 645,237 636,276 C627,237 627,237 588,228 C627,219 627,219 636,180 Z"/>
-    <path d="M800,208 C815,275 815,275 882,290 C815,305 815,305 800,372 C785,305 785,305 718,290 C785,275 785,275 800,208 Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Minnie">
+  <rect x="6" y="6" width="168" height="168" fill="#ff5f9e" stroke="#101a12" stroke-width="12"/>
+  <g transform="translate(33 16) scale(0.8)" stroke="#101a12" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" fill="#f7f2e6">
+    <ellipse cx="50" cy="158" rx="17" ry="10"/>
+    <ellipse cx="90" cy="158" rx="17" ry="10"/>
+    <ellipse cx="24" cy="118" rx="12" ry="19" transform="rotate(-14 24 118)"/>
+    <ellipse cx="116" cy="118" rx="12" ry="19" transform="rotate(14 116 118)"/>
+    <ellipse cx="70" cy="122" rx="42" ry="37"/>
+    <ellipse cx="70" cy="128" rx="23" ry="20" fill="#ffd23f"/>
+    <circle cx="44" cy="40" r="17"/>
+    <circle cx="96" cy="40" r="17"/>
+    <circle cx="70" cy="66" r="37"/>
+    <circle cx="40" cy="34" r="7" fill="#ffd23f" stroke-width="0"/>
+    <circle cx="100" cy="34" r="7" fill="#ffd23f" stroke-width="0"/>
+    <circle cx="46" cy="76" r="7" fill="#ffd23f" stroke-width="0"/>
+    <circle cx="94" cy="76" r="7" fill="#ffd23f" stroke-width="0"/>
+    <g fill="#101a12" stroke-width="0">
+      <circle cx="57" cy="62" r="6"/>
+      <circle cx="83" cy="62" r="6"/>
+    </g>
+    <path d="M60 78 q10 10 20 0" fill="none" stroke-width="6"/>
   </g>
 </svg>

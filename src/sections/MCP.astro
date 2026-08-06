@@ -1,126 +1,157 @@
 ---
+const integrations = [
+  {
+    icon: "🐙",
+    tint: "#ffd23f",
+    tag: "MCP",
+    title: "GitHub",
+    body: "Check open pull requests, open issues, search repos and sync branches — by voice, without leaving your editor.",
+    foot: "GitHub MCP server",
+  },
+  {
+    icon: "📝",
+    tint: "#ff5f9e",
+    tag: "MCP",
+    title: "Notion",
+    body: "Read specs, write design docs, and append technical notes to your team's workspace as she works.",
+    foot: "Notion MCP server",
+  },
+  {
+    icon: "💬",
+    tint: "#3fd07a",
+    tag: "MCP",
+    title: "Slack",
+    body: "Post the green build to your deploy channel or pull the thread where someone explained the bug.",
+    foot: "Slack MCP server",
+  },
+  {
+    icon: "🗄️",
+    tint: "#ffd23f",
+    tag: "Database",
+    title: "Postgres & MySQL",
+    body: "Inspect table structures, run safe local migrations, and sanity-check mock data while you build.",
+    foot: "Database MCP server",
+  },
+  {
+    icon: "📧",
+    tint: "#ff5f9e",
+    tag: "OAuth",
+    title: "Google Workspace",
+    body: "Digest email, read your calendar, catch up on chat. Native Sign in with Google keeps setup to one click.",
+    foot: "Google OAuth credentials",
+  },
+  {
+    icon: "🛠️",
+    tint: "#3fd07a",
+    tag: "Custom",
+    title: "Custom MCP tools",
+    body: "Point her at any local script or private MCP server by dropping its definition into your config.",
+    foot: "Add once in Connections",
+  },
+];
 ---
 
-<section id="mcp" class="py-16 md:py-24 bg-[var(--color-bg1)] border-b border-[var(--hairline)]">
-  <div class="mx-auto max-w-6xl px-6 md:px-10">
-    
-    <!-- Section Header -->
-    <div class="text-center max-w-2xl mx-auto mb-16">
-      <span class="eyebrow">Integrations</span>
-      <h2 class="font-[family-name:var(--font-display)] text-3xl md:text-5xl font-bold mt-2 text-[var(--color-ink)]">
-        Connect all your developer tools
-      </h2>
-      <p class="text-[var(--color-ink-dim)] mt-4 leading-relaxed">
-        Connect GitHub, Notion, Slack, and your databases over Model Context Protocol (MCP) — or Sign in with Google for native Workspace support.
+<section id="mcp" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal-slam">
+      <span class="eyebrow eyebrow--green">Integrations</span>
+      <h2 class="h2">Plug her into everything you already use.</h2>
+      <p class="lede">
+        GitHub, Notion, Slack and your databases over Model Context Protocol — or Sign in with
+        Google for native Workspace access.
       </p>
     </div>
 
-    <!-- Integrations Grid -->
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      
-      <!-- GitHub -->
-      <div class="card p-6 flex flex-col justify-between hover:border-[var(--clay-edge-strong)] transition-all duration-300 group">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-3xl">🐙</span>
-            <span class="chip py-0.5 px-2 text-[9px] bg-[var(--clay-inset)] border-none">MCP SDK</span>
+    <div class="mcp__grid">
+      {integrations.map((i) => (
+        <div class="card card--lift mcp__card reveal-up">
+          <div>
+            <div class="mcp__head">
+              <span class="tile mcp__icon" style={`background:${i.tint};`}>{i.icon}</span>
+              <span class="mcp__tag mono">{i.tag}</span>
+            </div>
+            <h3 class="mcp__h">{i.title}</h3>
+            <p class="mcp__p">{i.body}</p>
           </div>
-          <h3 class="text-lg font-bold text-[var(--color-ink)] mb-2">GitHub</h3>
-          <p class="text-xs text-[var(--color-ink-dim)] leading-relaxed">
-            Verify active pull requests, create issues, search repositories, and sync code branches directly through voice commands.
-          </p>
-        </div>
-        <div class="mt-6 pt-4 border-t border-[var(--clay-edge)] text-[10px] text-[var(--color-lilac-muted)] group-hover:text-[var(--color-coral)] transition-colors">
-          Connected via GitHub MCP Server
-        </div>
-      </div>
-
-      <!-- Notion -->
-      <div class="card p-6 flex flex-col justify-between hover:border-[var(--clay-edge-strong)] transition-all duration-300 group">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-3xl">📝</span>
-            <span class="chip py-0.5 px-2 text-[9px] bg-[var(--clay-inset)] border-none">MCP SDK</span>
+          <div class="mcp__foot mono">
+            <span class="mcp__live blink"></span>{i.foot}
           </div>
-          <h3 class="text-lg font-bold text-[var(--color-ink)] mb-2">Notion</h3>
-          <p class="text-xs text-[var(--color-ink-dim)] leading-relaxed">
-            Read project specifications, write design documents, and append technical notes to your team's knowledge workspace.
-          </p>
         </div>
-        <div class="mt-6 pt-4 border-t border-[var(--clay-edge)] text-[10px] text-[var(--color-lilac-muted)] group-hover:text-[var(--color-coral)] transition-colors">
-          Connected via Notion MCP Server
-        </div>
-      </div>
-
-      <!-- Slack -->
-      <div class="card p-6 flex flex-col justify-between hover:border-[var(--clay-edge-strong)] transition-all duration-300 group">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-3xl">💬</span>
-            <span class="chip py-0.5 px-2 text-[9px] bg-[var(--clay-inset)] border-none">MCP SDK</span>
-          </div>
-          <h3 class="text-lg font-bold text-[var(--color-ink)] mb-2">Slack</h3>
-          <p class="text-xs text-[var(--color-ink-dim)] leading-relaxed">
-            Send success alerts to your deployment channel or fetch message history from teammates without switching applications.
-          </p>
-        </div>
-        <div class="mt-6 pt-4 border-t border-[var(--clay-edge)] text-[10px] text-[var(--color-lilac-muted)] group-hover:text-[var(--color-coral)] transition-colors">
-          Connected via Slack MCP Server
-        </div>
-      </div>
-
-      <!-- Postgres -->
-      <div class="card p-6 flex flex-col justify-between hover:border-[var(--clay-edge-strong)] transition-all duration-300 group">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-3xl">🗄️</span>
-            <span class="chip py-0.5 px-2 text-[9px] bg-[var(--clay-inset)] border-none">MCP Database</span>
-          </div>
-          <h3 class="text-lg font-bold text-[var(--color-ink)] mb-2">Postgres & MySQL</h3>
-          <p class="text-xs text-[var(--color-ink-dim)] leading-relaxed">
-            Verify table structures, run safe local migrations, and validate mock data values when writing backend integrations.
-          </p>
-        </div>
-        <div class="mt-6 pt-4 border-t border-[var(--clay-edge)] text-[10px] text-[var(--color-lilac-muted)] group-hover:text-[var(--color-coral)] transition-colors">
-          Connected via Database MCP Server
-        </div>
-      </div>
-
-      <!-- Google Workspace -->
-      <div class="card p-6 flex flex-col justify-between hover:border-[var(--clay-edge-strong)] transition-all duration-300 group">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-3xl">📧</span>
-            <span class="chip py-0.5 px-2 text-[9px] border-none bg-pink-500/10 text-[var(--color-coral)]">Google OAuth</span>
-          </div>
-          <h3 class="text-lg font-bold text-[var(--color-ink)] mb-2">Google Workspace</h3>
-          <p class="text-xs text-[var(--color-ink-dim)] leading-relaxed">
-            Sync email digests, fetch calendar schedules, and check chat updates. Native Sign-in with Google keeps setup simple.
-          </p>
-        </div>
-        <div class="mt-6 pt-4 border-t border-[var(--clay-edge)] text-[10px] text-[var(--color-lilac-muted)] group-hover:text-[var(--color-coral)] transition-colors">
-          Connected via Google OAuth Credentials
-        </div>
-      </div>
-
-      <!-- Custom Server -->
-      <div class="card p-6 flex flex-col justify-between hover:border-[var(--clay-edge-strong)] transition-all duration-300 group">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-3xl">🛠️</span>
-            <span class="chip py-0.5 px-2 text-[9px] bg-[var(--clay-inset)] border-none">Local / Custom</span>
-          </div>
-          <h3 class="text-lg font-bold text-[var(--color-ink)] mb-2">Custom MCP Tools</h3>
-          <p class="text-xs text-[var(--color-ink-dim)] leading-relaxed">
-            Connect any local scripts or private MCP tool servers by adding their startup definitions to your local configuration.
-          </p>
-        </div>
-        <div class="mt-6 pt-4 border-t border-[var(--clay-edge)] text-[10px] text-[var(--color-lilac-muted)] group-hover:text-[var(--color-coral)] transition-colors">
-          Add it once in Minnie's Connections panel
-        </div>
-      </div>
-
+      ))}
     </div>
-
   </div>
 </section>
+
+<style>
+  .mcp__grid {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .mcp__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1000px) {
+    .mcp__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .mcp__card {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .mcp__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .mcp__icon {
+    width: 46px;
+    height: 46px;
+    font-size: 22px;
+  }
+  .mcp__tag {
+    border: 2px solid var(--line);
+    padding: 2px 8px;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .mcp__h {
+    margin: 0 0 8px;
+    font-family: Outfit, sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .mcp__p {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-dim);
+    text-wrap: pretty;
+  }
+  .mcp__foot {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 3px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .mcp__live {
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    flex-shrink: 0;
+    animation-duration: 1.4s;
+  }
+</style>

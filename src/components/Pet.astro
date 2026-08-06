@@ -1,0 +1,87 @@
+---
+// Minnie herself — drawn once, reused everywhere.
+//
+// Both poses ship in the markup and CSS picks one from `data-pose`, so a script
+// can switch her expression by flipping a single attribute (no DOM rebuild):
+//   svg.dataset.pose = "think"
+interface Props {
+  pose?: "idle" | "think";
+  size?: number; // rendered width in px; height follows the 140:178 ratio
+  hop?: boolean;
+  jitter?: boolean;
+  id?: string;
+}
+const { pose = "idle", size = 112, hop = false, jitter = false, id } = Astro.props;
+const height = Math.round((size * 178) / 140);
+const anim = hop ? "hop 1.1s steps(4,end) infinite" : jitter ? "jitter 1.1s steps(2,end) infinite" : "none";
+---
+
+<span style={`width:${size}px; height:${height}px; display:block; animation:${anim};`}>
+  <svg
+    id={id}
+    class="pet"
+    data-pose={pose}
+    viewBox="0 0 140 178"
+    width="100%"
+    height="100%"
+    style="display:block; overflow:visible;"
+    role="img"
+    aria-label="Minnie the desktop pet"
+  >
+    <g stroke="#101a12" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" fill="#f7f2e6">
+      <!-- feet -->
+      <ellipse cx="50" cy="158" rx="17" ry="10" />
+      <ellipse cx="90" cy="158" rx="17" ry="10" />
+
+      <!-- arms — idle hangs both down, thinking raises the right one -->
+      <g data-p="idle">
+        <ellipse cx="24" cy="118" rx="12" ry="19" transform="rotate(-14 24 118)" />
+        <ellipse cx="116" cy="118" rx="12" ry="19" transform="rotate(14 116 118)" />
+      </g>
+      <g data-p="think">
+        <ellipse cx="24" cy="118" rx="12" ry="19" transform="rotate(-14 24 118)" />
+        <ellipse cx="120" cy="86" rx="11" ry="19" transform="rotate(38 120 86)" />
+      </g>
+
+      <!-- body + belly -->
+      <ellipse cx="70" cy="122" rx="42" ry="37" />
+      <ellipse cx="70" cy="128" rx="23" ry="20" fill="#ffd23f" />
+
+      <!-- ears + head -->
+      <circle cx="44" cy="40" r="17" />
+      <circle cx="96" cy="40" r="17" />
+      <circle cx="70" cy="66" r="37" />
+      <circle cx="40" cy="34" r="7" fill="#ffd23f" stroke-width="0" />
+      <circle cx="100" cy="34" r="7" fill="#ffd23f" stroke-width="0" />
+
+      <!-- cheeks -->
+      <circle cx="46" cy="76" r="7" fill="#ffd23f" stroke-width="0" />
+      <circle cx="94" cy="76" r="7" fill="#ffd23f" stroke-width="0" />
+
+      <!-- eyes — round when idle, taller and lifted when thinking -->
+      <g data-p="idle" fill="#101a12" stroke-width="0">
+        <circle cx="57" cy="62" r="6" />
+        <circle cx="83" cy="62" r="6" />
+      </g>
+      <g data-p="think" fill="#101a12" stroke-width="0">
+        <ellipse cx="57" cy="58" rx="5" ry="7" />
+        <ellipse cx="83" cy="58" rx="5" ry="7" />
+      </g>
+
+      <!-- mouth — a smile, or a small "o" while she works -->
+      <g data-p="idle">
+        <path d="M60 78 q10 10 20 0" fill="none" stroke-width="5" />
+      </g>
+      <g data-p="think">
+        <ellipse cx="70" cy="80" rx="6" ry="7" fill="none" stroke-width="5" />
+      </g>
+    </g>
+  </svg>
+</span>
+
+<style is:global>
+  .pet[data-pose="idle"] [data-p="think"],
+  .pet[data-pose="think"] [data-p="idle"] {
+    display: none;
+  }
+</style>

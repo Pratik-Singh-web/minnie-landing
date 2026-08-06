@@ -1,354 +1,577 @@
 ---
+import Pet from "../components/Pet.astro";
+
+const suggestions = ["why are my tests failing?", "check my open PRs", "deploy to prod"];
 ---
 
-<section id="demo" class="py-16 md:py-24 bg-[var(--color-bg1)] border-t border-b border-[var(--hairline)]">
-  <div class="mx-auto max-w-6xl px-6 md:px-10">
-    <!-- Section Header -->
-    <div class="text-center max-w-2xl mx-auto mb-12">
-      <span class="eyebrow">Interactive Demo</span>
-      <h2 class="font-[family-name:var(--font-display)] text-3xl md:text-5xl font-bold mt-2 text-[var(--color-ink)]">
-        Watch Minnie work in real-time
-      </h2>
-      <p class="text-[var(--color-ink-dim)] mt-4 leading-relaxed">
-        Click through the interactive timeline to see Minnie diagnose a test failure, request consent, and apply the fix.
+<section id="demo" class="sec sec--deep">
+  <div class="wrap">
+    <div class="sec-head reveal-slam">
+      <span class="eyebrow">Live playground</span>
+      <h2 class="h2">Poke her. She's live.</h2>
+      <p class="lede">
+        Type something at her below. She picks a tool, asks permission out loud, and fixes it — the
+        same loop the real app runs on your Mac.
       </p>
     </div>
 
-    <!-- Demo Wrapper -->
-    <div class="grid gap-8 lg:grid-cols-12 items-stretch">
-      
-      <!-- Left Panel: Terminal Simulator (7 cols) -->
-      <div class="lg:col-span-7 card p-6 bg-[var(--terminal-bg)] flex flex-col justify-between font-mono text-sm leading-relaxed border-[var(--clay-edge)] shadow-2xl relative overflow-hidden">
-        <!-- Terminal Header -->
-        <div class="flex items-center justify-between border-b border-[var(--clay-edge)] pb-4 mb-4">
-          <div class="flex items-center gap-1.5">
-            <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-            <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-            <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-          </div>
-          <span class="text-xs text-[var(--color-lilac-muted)]">zsh — minnie-agent</span>
-          <div class="w-12"></div>
+    <div class="demo__grid">
+      <!-- ── Terminal ─────────────────────────────────────────────────── -->
+      <div class="term">
+        <div class="term__bar">
+          <div class="term__dots"><span></span><span></span><span></span></div>
+          <span class="mono term__title">zsh — minnie-agent</span>
+          <span class="mono term__turns" id="demo-turns">ready</span>
         </div>
 
-        <!-- Terminal Terminal Output -->
-        <div id="terminal-content" class="flex-1 min-h-[300px] text-zinc-300 overflow-y-auto space-y-4">
-          <!-- Step 0 State -->
-          <div id="term-step-0" class="space-y-1">
-            <div class="text-[var(--color-lilac-muted)]"># Terminal ready. Waiting to start...</div>
-            <div class="flex items-center gap-2">
-              <span class="text-[var(--color-coral)]">➜</span>
-              <span class="text-white">Desktop/Minnie</span>
-              <span class="animate-pulse bg-white w-1.5 h-4"></span>
-            </div>
+        <div class="term__log mono" id="demo-log">
+          <div class="term__bars" id="demo-busy" hidden>
+            <span></span><span></span><span></span><span></span>
           </div>
         </div>
 
-        <!-- Terminal Bottom Info -->
-        <div class="mt-4 pt-4 border-t border-[var(--clay-edge)] flex items-center justify-between text-xs text-[var(--color-lilac-muted)]">
-          <span>Active project: Minnie</span>
-          <span id="terminal-step-indicator">Step 1 of 5</span>
+        <form class="term__form" id="demo-form">
+          <input
+            class="term__input mono"
+            id="demo-input"
+            placeholder="ask minnie something…"
+            aria-label="Ask Minnie something"
+            autocomplete="off"
+          />
+          <button type="submit" class="term__send">Send</button>
+        </form>
+
+        <div class="term__suggest">
+          {suggestions.map((s) => (
+            <button type="button" class="term__chip mono" data-ask={s}>{s}</button>
+          ))}
         </div>
       </div>
 
-      <!-- Right Panel: Pet Interface (5 cols) -->
-      <div class="lg:col-span-5 flex flex-col justify-between card p-8 border-[var(--clay-edge)] relative bg-gradient-to-b from-white/[0.01] to-transparent">
-        
-        <!-- Speech cloud -->
-        <div class="relative mb-6">
-          <div class="bg-gradient-to-b from-white to-[#ffe3ee] text-[var(--color-ink-onlight)] rounded-2xl p-5 shadow-lg relative z-10 transition-all duration-300">
-            <!-- Speech indicator dot -->
-            <div class="absolute -bottom-2 right-12 w-4 h-4 bg-[#ffe3ee] transform rotate-45 z-0"></div>
-            <p id="speech-bubble-text" class="text-sm font-semibold leading-relaxed">
-              Hey there! Click "Start Demo" below to see how I help you code.
-            </p>
-          </div>
+      <!-- ── Her side of the conversation ─────────────────────────────── -->
+      <div class="card panel">
+        <div class="panel__speech">
+          <p id="demo-speech">Hey! I'm Minnie. Type something down there and I'll actually go do it.</p>
         </div>
 
-        <!-- Pet Mood / Waveform visualization -->
-        <div class="flex-1 flex flex-col items-center justify-center py-6 relative">
-          <!-- Glow base -->
-          <div id="mood-glow" class="absolute w-40 h-40 rounded-full bg-[var(--color-coral)] opacity-10 blur-2xl transition-all duration-500"></div>
-
-          <!-- Pet Mascot -->
-          <div class="w-36 h-36 flex items-center justify-center relative">
-            <img
-              src={`${import.meta.env.BASE_URL}media/idle.png`}
-              alt="Minnie Mascot"
-              id="demo-pet-img"
-              class="max-w-full max-h-full object-contain filter drop-shadow-[0_8px_16px_rgba(255,107,157,0.2)] transition-all duration-300"
-            />
+        <div class="panel__stage">
+          <div class="tile panel__pet" id="demo-tile">
+            <Pet size={118} hop id="demo-pet" />
           </div>
-
-          <!-- Waveform / Action status -->
-          <div class="mt-6 flex flex-col items-center gap-1">
-            <span id="pet-mood-badge" class="chip">Mood: Idle</span>
-            <!-- Live voice indicator bars -->
-            <div id="voice-waveform" class="hidden flex items-center gap-0.5 h-4 mt-2">
-              <span class="w-0.5 bg-[var(--color-coral)] rounded-full animate-[bounce_0.6s_infinite]"></span>
-              <span class="w-0.5 bg-[var(--color-coral)] rounded-full animate-[bounce_0.6s_infinite_0.15s]"></span>
-              <span class="w-0.5 bg-[var(--color-coral)] rounded-full animate-[bounce_0.6s_infinite_0.3s]"></span>
-              <span class="w-0.5 bg-[var(--color-coral)] rounded-full animate-[bounce_0.6s_infinite_0.45s]"></span>
-            </div>
-          </div>
+          <span class="mono panel__mood">mood: <span id="demo-mood">idle</span></span>
         </div>
 
-        <!-- Interactive Control Interface -->
-        <div class="mt-6 pt-6 border-t border-[var(--clay-edge)] flex flex-col gap-3">
-          <!-- Standard Next button -->
-          <button
-            id="demo-next-btn"
-            class="btn-primary w-full justify-center cursor-pointer text-sm"
-          >
-            Start Demo
-          </button>
-
-          <!-- Consent Prompt Overlay (Allow / Deny) -->
-          <div id="consent-options" class="hidden flex gap-2">
-            <button
-              id="consent-deny-btn"
-              class="btn-ghost w-1/3 justify-center text-sm border-[var(--color-danger)] text-[var(--color-danger)] hover:bg-[var(--color-danger)]/5"
-            >
-              Deny
-            </button>
-            <button
-              id="consent-allow-btn"
-              class="btn-primary w-2/3 justify-center text-sm bg-gradient-to-r from-[var(--color-mint)] to-emerald-500 shadow-emerald-500/20"
-            >
-              Allow Action
-            </button>
+        <div class="panel__foot">
+          <div class="panel__consent" id="demo-consent" hidden>
+            <button type="button" class="panel__deny" id="demo-deny">Deny</button>
+            <button type="button" class="panel__allow" id="demo-allow">Allow once</button>
           </div>
-
-          <!-- Reset Button -->
-          <button
-            id="demo-reset-btn"
-            class="hidden btn-ghost w-full justify-center text-xs border-none text-[var(--color-lilac-muted)]"
-          >
-            Reset Demo
-          </button>
+          <p class="mono panel__always" id="demo-always">every command waits for this button. always.</p>
+          <button type="button" class="mono panel__reset" id="demo-reset">reset playground</button>
         </div>
-
       </div>
-
     </div>
   </div>
 </section>
 
+<style>
+  .demo__grid {
+    display: grid;
+    gap: 26px;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+  @media (min-width: 1000px) {
+    .demo__grid { grid-template-columns: 1.35fr 1fr; }
+  }
+
+  /* ── Terminal ─────────────────────────────────────────────────────── */
+  .term {
+    background: #0b1a10;
+    border: 3px solid #f4efe2;
+    box-shadow: 10px 10px 0 var(--yellow);
+    display: flex;
+    flex-direction: column;
+    min-height: 540px;
+  }
+  .term__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 3px solid #f4efe2;
+    background: #f4efe2;
+  }
+  .term__dots { display: flex; gap: 6px; }
+  .term__dots span {
+    width: 11px;
+    height: 11px;
+    border: 2px solid #101a12;
+  }
+  .term__title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #101a12;
+  }
+  .term__turns {
+    font-size: 11px;
+    color: #4a5b4e;
+  }
+
+  .term__log {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 410px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 12.5px;
+    line-height: 1.65;
+    padding: 18px;
+    color: #b9cfc0;
+  }
+
+  .term__bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 20px;
+  }
+  .term__bars span {
+    width: 5px;
+    background: var(--yellow);
+    animation: barJump 0.5s steps(2, end) infinite;
+  }
+  .term__bars span:nth-child(2) { animation-delay: 0.12s; }
+  .term__bars span:nth-child(3) { animation-delay: 0.24s; }
+  .term__bars span:nth-child(4) { animation-delay: 0.36s; }
+
+  .term__form {
+    display: flex;
+    gap: 10px;
+    border-top: 3px solid #f4efe2;
+    padding: 16px;
+  }
+  .term__input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 16px;
+    border: 3px solid #f4efe2;
+    background: #0b1a10;
+    color: #f4efe2;
+    font-size: 12.5px;
+    outline: none;
+  }
+  .term__input::placeholder { color: #8ba393; }
+  .term__send {
+    padding: 12px 20px;
+    border: 3px solid #f4efe2;
+    background: var(--yellow);
+    color: #101a12;
+    font-weight: 800;
+    font-size: 13px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: none;
+  }
+  .term__send:hover { background: #f4efe2; }
+
+  .term__suggest {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 16px 16px;
+  }
+  .term__chip {
+    padding: 6px 12px;
+    border: 2px solid #8ba393;
+    background: transparent;
+    color: #b9cfc0;
+    font-size: 11px;
+    cursor: pointer;
+    transition: none;
+  }
+  .term__chip:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+  }
+
+  /* ── Pet panel ────────────────────────────────────────────────────── */
+  .panel {
+    box-shadow: 10px 10px 0 var(--pink);
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .panel__speech {
+    border: 3px solid var(--line);
+    background: var(--yellow);
+    color: #101a12;
+    padding: 18px;
+    box-shadow: var(--sh-sm);
+    position: relative;
+  }
+  .panel__speech p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .panel__stage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 26px 0;
+  }
+  .panel__pet {
+    width: 178px;
+    height: 196px;
+    background: var(--pink);
+    box-shadow: var(--sh);
+  }
+  .panel__mood {
+    margin-top: 18px;
+    border: 3px solid var(--line);
+    background: var(--paper);
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .panel__foot {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .panel__consent {
+    display: flex;
+    gap: 10px;
+    animation: stamp 0.25s steps(3, end) both;
+  }
+  .panel__deny,
+  .panel__allow {
+    padding: 14px;
+    border: 3px solid var(--line);
+    font-weight: 800;
+    font-size: 13px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: var(--sh-sm);
+    transition: none;
+  }
+  .panel__deny:hover,
+  .panel__allow:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--line);
+  }
+  .panel__deny {
+    flex: 1;
+    background: var(--card);
+    color: var(--red);
+  }
+  .panel__allow {
+    flex: 2;
+    background: var(--green);
+    color: var(--on-green);
+  }
+
+  .panel__always {
+    margin: 0;
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+  .panel__reset {
+    padding: 10px;
+    border: 3px solid transparent;
+    background: transparent;
+    color: var(--ink-soft);
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: none;
+  }
+  .panel__reset:hover {
+    border-color: var(--line);
+    color: var(--ink);
+  }
+</style>
+
+<!-- Log rows are built by the script below, so they never carry Astro's scoping
+     attribute — these rules must be global. Keyed on #demo-log so nothing leaks. -->
+<style is:global>
+  #demo-log .term__line {
+    animation: slideL 0.22s steps(3, end) both;
+  }
+
+  #demo-log .term__user {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+  #demo-log .term__user b {
+    color: #ffd23f;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+  #demo-log .term__user span {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  #demo-log .term__tool {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  #demo-log .term__toolname {
+    flex-shrink: 0;
+    white-space: nowrap;
+    border: 2px solid currentColor;
+    padding: 1px 7px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+  }
+  #demo-log .term__tool em {
+    color: #8ba393;
+    font-style: normal;
+  }
+
+  #demo-log .term__note {
+    padding-left: 14px;
+    border-left: 3px solid currentColor;
+    font-size: 11.5px;
+    line-height: 1.6;
+  }
+</style>
+
 <script>
-  // Script steps mapping the §9 script
-  const steps = [
-    {
-      terminal: `
-        <div class="text-[var(--color-lilac-muted)]"># Prompting Minnie...</div>
-        <div class="flex items-center gap-2">
-          <span class="text-[var(--color-coral)]">➜</span>
-          <span class="text-white">Desktop/Minnie</span>
-          <span class="text-[var(--color-ink-softcoral)] font-bold">"Hey Minnie, what's wrong with my tests?"</span>
-        </div>
-      `,
-      speech: "Let me take a look at your tests right now...",
-      mood: "Thinking",
-      image: import.meta.env.BASE_URL + "media/thinking.png",
-      glowColor: "rgba(139, 124, 255, 0.2)", // Periwinkle glow
-      btnText: "Watch Minnie run tools",
-      hasConsent: false
+  // The playground runs canned scripts: each step is a delay, a log line, a
+  // spoken line and a mood. A step flagged `consent` halts the run until the
+  // visitor answers — the same gate the real app puts in front of every action.
+  type Step = {
+    t: number;
+    kind: "tool" | "note";
+    tool?: string;
+    text: string;
+    color: string;
+    speech: string;
+    mood: string;
+    tint: string;
+    consent?: boolean;
+  };
+
+  const SCRIPTS: Record<string, { match: string[]; steps: Step[] }> = {
+    tests: {
+      match: ["test", "pytest", "failing", "broken", "red"],
+      steps: [
+        { t: 400, kind: "tool", tool: "Bash", text: "running `pytest -q`", color: "#ffd23f", speech: "One sec, running your test suite…", mood: "thinking", tint: "#ffd23f" },
+        { t: 1200, kind: "note", text: "FAIL test_auth.py:42 — AssertionError: 'userId' not found in response dict", color: "#ff6b5e", speech: "Ooh. One red one — an assertion in your auth suite.", mood: "concerned", tint: "#ff6b5e" },
+        { t: 1100, kind: "tool", tool: "Read", text: "mock_users.py", color: "#8ba393", speech: "Reading mock_users.py to see what the payload's missing…", mood: "thinking", tint: "#ffd23f" },
+        { t: 1100, kind: "note", text: "mock payload template is missing `userId`", color: "#8ba393", speech: "Found it. I want to edit mock_users.py line 42. Ok?", mood: "asking", tint: "#ff5f9e", consent: true },
+        { t: 500, kind: "tool", tool: "Write", text: "mock_users.py (line 42)", color: "#3fd07a", speech: "Applying the edit…", mood: "working", tint: "#3fd07a" },
+        { t: 900, kind: "note", text: '+ "userId": "user_mock_9912",', color: "#3fd07a", speech: "Done. Re-running the suite to be sure.", mood: "working", tint: "#3fd07a" },
+        { t: 1000, kind: "note", text: "✓ all 12 tests passed (100%)", color: "#3fd07a", speech: "All green! I added the missing userId. We're good.", mood: "happy", tint: "#3fd07a" },
+      ],
     },
-    {
-      terminal: `
-        <div class="text-[var(--color-lilac-muted)]"># Diagnostic scan running...</div>
-        <div class="flex items-center gap-2 text-yellow-400">
-          <span>🔧 Bash</span>
-          <span class="text-zinc-400">-> running \`pytest\`...</span>
-        </div>
-        <div class="text-red-400 text-xs pl-4 font-mono leading-tight">
-          FAIL: test_auth.py:42 TestAuth.test_session_create<br>
-          AssertionError: 'userId' not found in response dict
-        </div>
-      `,
-      speech: "Running pytest. Oh! Looks like we have a failing assertion in your authentication test suite.",
-      mood: "Walking",
-      image: import.meta.env.BASE_URL + "media/thinking.png", // continues diagnostic
-      glowColor: "rgba(255, 194, 75, 0.15)", // Amber glow
-      btnText: "Proceed to validation",
-      hasConsent: false
+    pr: {
+      match: ["pr", "pull request", "github", "review", "branch"],
+      steps: [
+        { t: 400, kind: "tool", tool: "GitHub", text: "list_pull_requests(state: open)", color: "#ffd23f", speech: "Checking GitHub for open pull requests…", mood: "thinking", tint: "#ffd23f" },
+        { t: 1200, kind: "note", text: "3 open · #128 needs review · #131 has failing checks", color: "#8ba393", speech: "Three open. #131 has red checks — want me to look?", mood: "asking", tint: "#ff5f9e", consent: true },
+        { t: 600, kind: "tool", tool: "GitHub", text: "get_check_runs(pr: 131)", color: "#ffd23f", speech: "Pulling the check logs…", mood: "working", tint: "#ffd23f" },
+        { t: 1100, kind: "note", text: "lint failed: 2 unused imports in src/auth/session.ts", color: "#ffd23f", speech: "Just two unused imports. Easy. Want me to push the fix?", mood: "happy", tint: "#3fd07a" },
+      ],
     },
-    {
-      terminal: `
-        <div class="text-[var(--color-lilac-muted)]"># Attempting auto-fix steps...</div>
-        <div class="flex items-center gap-2 text-cyan-400">
-          <span>🔧 Read</span>
-          <span class="text-zinc-400">-> mock_users.py</span>
-        </div>
-        <div class="text-zinc-400 text-xs pl-4">
-          File scan complete. Found mock user payload template missing \`userId\`.
-        </div>
-      `,
-      speech: "I need to apply the fix to mock_users.py. I want to execute the edit. Ok?",
-      mood: "Thinking",
-      image: import.meta.env.BASE_URL + "media/thinking.png",
-      glowColor: "rgba(255, 107, 157, 0.2)",
-      btnText: "",
-      hasConsent: true,
-      consentType: "edit"
+    deploy: {
+      match: ["deploy", "ship", "build", "release"],
+      steps: [
+        { t: 400, kind: "tool", tool: "Bash", text: "npm run build", color: "#ffd23f", speech: "Building first — I never deploy something I haven't built.", mood: "working", tint: "#ffd23f" },
+        { t: 1300, kind: "note", text: "built in 4.2s · 312 kB gzipped", color: "#3fd07a", speech: "Clean build. I want to run the deploy script. Ok?", mood: "asking", tint: "#ff5f9e", consent: true },
+        { t: 600, kind: "tool", tool: "Bash", text: "./scripts/deploy.sh --prod", color: "#ffd23f", speech: "Deploying. I'll shout if anything goes sideways.", mood: "working", tint: "#ffd23f" },
+        { t: 1400, kind: "note", text: "✓ live · https://minnie.app", color: "#3fd07a", speech: "Shipped! Go look at it, I'm proud of us.", mood: "happy", tint: "#3fd07a" },
+      ],
     },
-    {
-      terminal: `
-        <div class="text-[var(--color-lilac-muted)]"># Applying user-approved fix...</div>
-        <div class="flex items-center gap-2 text-emerald-400">
-          <span>🔧 Write</span>
-          <span class="text-zinc-400">-> mock_users.py (modified line 42)</span>
-        </div>
-        <div class="text-zinc-400 text-xs pl-4">
-          + "userId": "user_mock_9912",
-        </div>
-        <div class="flex items-center gap-2 text-yellow-400 mt-2">
-          <span>🔧 Bash</span>
-          <span class="text-zinc-400">-> running \`pytest\`...</span>
-        </div>
-      `,
-      speech: "Applying the edit to line 42... Done. Now running pytest again to verify.",
-      mood: "Walking",
-      image: import.meta.env.BASE_URL + "media/thinking.png",
-      glowColor: "rgba(139, 124, 255, 0.2)",
-      btnText: "See results",
-      hasConsent: false
+    hello: {
+      match: ["hi", "hello", "hey", "yo", "sup"],
+      steps: [
+        { t: 500, kind: "note", text: "listening · on-device speech · nothing sent anywhere", color: "#8ba393", speech: "Hi! I'm right here. Ask me to run your tests, check a PR, or ship something.", mood: "happy", tint: "#ff5f9e" },
+      ],
     },
-    {
-      terminal: `
-        <div class="text-emerald-400 font-bold">✓ All 12 tests passed! (100% success rate)</div>
-        <div class="text-[var(--color-lilac-muted)]"># Ready for next instruction.</div>
-        <div class="flex items-center gap-2 mt-4">
-          <span class="text-[var(--color-coral)]">➜</span>
-          <span class="text-white">Desktop/Minnie</span>
-          <span class="animate-pulse bg-white w-1.5 h-4"></span>
-        </div>
-      `,
-      speech: "All tests are passing now! I added the missing userId parameter. We are good to go! ✨",
-      mood: "Happy",
-      image: import.meta.env.BASE_URL + "media/idle.png",
-      glowColor: "rgba(61, 220, 151, 0.25)", // Mint/Success glow
-      btnText: "Demo Finished",
-      hasConsent: false,
-      isFinished: true
-    }
-  ];
+    fallback: {
+      match: [],
+      steps: [
+        { t: 500, kind: "tool", tool: "Grep", text: "scanning the workspace…", color: "#8ba393", speech: "Let me have a poke around your project…", mood: "thinking", tint: "#ffd23f" },
+        { t: 1200, kind: "note", text: "24 files touched today · 1 TODO in src/session.ts", color: "#8ba393", speech: "I'd start there. I want to open src/session.ts. Ok?", mood: "asking", tint: "#ff5f9e", consent: true },
+        { t: 700, kind: "tool", tool: "Read", text: "src/session.ts", color: "#8ba393", speech: "Reading. Give me a proper task and I'll actually do it — this is a demo, but the real one runs on your Mac.", mood: "happy", tint: "#3fd07a" },
+      ],
+    },
+  };
 
-  let currentStep = -1;
+  const log = document.getElementById("demo-log");
+  const busy = document.getElementById("demo-busy");
+  const turns = document.getElementById("demo-turns");
+  const form = document.getElementById("demo-form") as HTMLFormElement | null;
+  const input = document.getElementById("demo-input") as HTMLInputElement | null;
+  const speech = document.getElementById("demo-speech");
+  const moodEl = document.getElementById("demo-mood");
+  const tile = document.getElementById("demo-tile");
+  const pet = document.getElementById("demo-pet");
+  const consentRow = document.getElementById("demo-consent");
+  const alwaysNote = document.getElementById("demo-always");
+  const grid = document.querySelector(".demo__grid");
 
-  // DOM Elements
-  const termContent = document.getElementById('terminal-content');
-  const speechBubble = document.getElementById('speech-bubble-text');
-  const petImg = document.getElementById('demo-pet-img') as HTMLImageElement;
-  const moodBadge = document.getElementById('pet-mood-badge');
-  const moodGlow = document.getElementById('mood-glow');
-  const nextBtn = document.getElementById('demo-next-btn');
-  const resetBtn = document.getElementById('demo-reset-btn');
-  const consentOptions = document.getElementById('consent-options');
-  const allowBtn = document.getElementById('consent-allow-btn');
-  const denyBtn = document.getElementById('consent-deny-btn');
-  const stepIndicator = document.getElementById('terminal-step-indicator');
-  const voiceWaveform = document.getElementById('voice-waveform');
+  if (log && form && input) {
+    let timers: number[] = [];
+    let lines = 0;
+    let running = false;
+    let pending: { steps: Step[]; next: number } | null = null;
 
-  // Trigger next step
-  function triggerStep() {
-    currentStep++;
-    if (currentStep >= steps.length) {
-      currentStep = -1;
-      resetDemo();
-      return;
-    }
+    const setBusy = (on: boolean) => {
+      running = on;
+      busy?.toggleAttribute("hidden", !on);
+    };
 
-    const stepData = steps[currentStep];
+    const setConsent = (on: boolean) => {
+      consentRow?.toggleAttribute("hidden", !on);
+      alwaysNote?.toggleAttribute("hidden", on);
+    };
 
-    // Update Terminal
-    if (termContent) {
-      termContent.innerHTML += stepData.terminal;
-      termContent.scrollTop = termContent.scrollHeight;
-    }
+    const say = (text: string, mood: string, tint: string) => {
+      if (speech) speech.textContent = text;
+      if (moodEl) moodEl.textContent = mood;
+      if (tile) tile.style.background = tint;
+      if (pet) pet.dataset.pose = mood === "happy" || mood === "idle" ? "idle" : "think";
+    };
 
-    // Update Speech & wave animation
-    if (speechBubble) {
-      speechBubble.textContent = stepData.speech;
-    }
+    const push = (kind: "user" | "tool" | "note", text: string, color = "#8ba393", tool = "") => {
+      const row = document.createElement("div");
+      row.className = "term__line";
 
-    // Voice activation animation
-    if (voiceWaveform) {
-      voiceWaveform.classList.remove('hidden');
-      setTimeout(() => {
-        voiceWaveform.classList.add('hidden');
-      }, 2000);
-    }
-
-    // Update Mascot image & mood
-    if (petImg) petImg.src = stepData.image;
-    if (moodBadge) moodBadge.textContent = `Mood: ${stepData.mood}`;
-    if (moodGlow) moodGlow.style.backgroundColor = stepData.glowColor;
-
-    // Update Indicators
-    if (stepIndicator) stepIndicator.textContent = `Step ${currentStep + 1} of ${steps.length}`;
-
-    // Manage Buttons / Interactivity
-    if (stepData.hasConsent) {
-      if (nextBtn) nextBtn.classList.add('hidden');
-      if (consentOptions) consentOptions.classList.remove('hidden');
-    } else {
-      if (nextBtn) {
-        nextBtn.classList.remove('hidden');
-        nextBtn.textContent = stepData.btnText;
+      if (kind === "user") {
+        row.innerHTML = '<div class="term__user"><b>$</b><span></span></div>';
+        row.querySelector("span")!.textContent = text;
+      } else if (kind === "tool") {
+        row.innerHTML = '<div class="term__tool"><span class="term__toolname"></span><em></em></div>';
+        const name = row.querySelector(".term__toolname") as HTMLElement;
+        name.textContent = tool;
+        name.style.color = color;
+        row.querySelector("em")!.textContent = text;
+      } else {
+        row.innerHTML = '<div class="term__note"></div>';
+        const note = row.querySelector(".term__note") as HTMLElement;
+        note.textContent = text;
+        note.style.color = color;
       }
-      if (consentOptions) consentOptions.classList.add('hidden');
-    }
 
-    if (resetBtn) resetBtn.classList.remove('hidden');
-    
-    if (stepData.isFinished && nextBtn) {
-      nextBtn.textContent = "Restart Demo";
-    }
-  }
+      // Keep the bouncing bars as the last child so they read as "next up".
+      log.insertBefore(row, busy);
+      lines++;
+      if (turns) turns.textContent = lines + (lines === 1 ? " line" : " lines");
+      log.scrollTop = log.scrollHeight;
+    };
 
-  function resetDemo() {
-    currentStep = -1;
-    if (termContent) {
-      termContent.innerHTML = `
-        <div id="term-step-0" class="space-y-1">
-          <div class="text-[var(--color-lilac-muted)]"># Terminal ready. Waiting to start...</div>
-          <div class="flex items-center gap-2">
-            <span class="text-[var(--color-coral)]">➜</span>
-            <span class="text-white">Desktop/Minnie</span>
-            <span class="animate-pulse bg-white w-1.5 h-4"></span>
-          </div>
-        </div>
-      `;
-    }
-    if (speechBubble) speechBubble.textContent = 'Hey there! Click "Start Demo" below to see how I help you code.';
-    if (petImg) petImg.src = import.meta.env.BASE_URL + 'media/idle.png';
-    if (moodBadge) moodBadge.textContent = 'Mood: Idle';
-    if (moodGlow) moodGlow.style.backgroundColor = 'rgba(255, 107, 157, 0.1)';
-    if (nextBtn) {
-      nextBtn.classList.remove('hidden');
-      nextBtn.textContent = 'Start Demo';
-    }
-    if (consentOptions) consentOptions.classList.add('hidden');
-    if (resetBtn) resetBtn.classList.add('hidden');
-    if (stepIndicator) stepIndicator.textContent = 'Step 1 of 5';
-  }
+    const run = (steps: Step[], i = 0) => {
+      if (i >= steps.length) {
+        setBusy(false);
+        return;
+      }
+      const step = steps[i];
+      setBusy(true);
+      timers.push(
+        window.setTimeout(() => {
+          push(step.kind, step.text, step.color, step.tool);
+          say(step.speech, step.mood, step.tint);
+          if (step.consent) {
+            setBusy(false);
+            pending = { steps, next: i + 1 };
+            setConsent(true);
+          } else {
+            run(steps, i + 1);
+          }
+        }, step.t)
+      );
+    };
 
-  // Hook event listeners
-  if (nextBtn) nextBtn.addEventListener('click', triggerStep);
-  if (resetBtn) resetBtn.addEventListener('click', resetDemo);
-  
-  if (allowBtn) {
-    allowBtn.addEventListener('click', () => {
-      triggerStep();
+    // Most specific first: "deploy to prod" must beat the `pr` script, whose
+    // "pr" keyword is also a substring of "prod".
+    const ORDER = ["tests", "deploy", "pr", "hello"];
+
+    const ask = (text: string) => {
+      if (!text.trim() || running || pending) return;
+      const low = text.toLowerCase();
+      let script = SCRIPTS.fallback;
+      for (const key of ORDER) {
+        if (SCRIPTS[key].match.some((w) => low.includes(w))) {
+          script = SCRIPTS[key];
+          break;
+        }
+      }
+      push("user", text);
+      input.value = "";
+      run(script.steps);
+    };
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      ask(input.value);
     });
-  }
 
-  if (denyBtn) {
-    denyBtn.addEventListener('click', () => {
-      if (speechBubble) speechBubble.textContent = "No problem! I skipped that edit. Trust stays intact. Click reset to try again.";
-      if (petImg) petImg.src = import.meta.env.BASE_URL + 'media/idle.png';
-      if (moodBadge) moodBadge.textContent = 'Mood: Sad';
-      if (moodGlow) moodGlow.style.backgroundColor = 'rgba(255, 107, 107, 0.15)'; // Red glow for skip
-      if (consentOptions) consentOptions.classList.add('hidden');
+    document.querySelectorAll<HTMLButtonElement>(".term__chip").forEach((chip) => {
+      chip.addEventListener("click", () => ask(chip.dataset.ask || ""));
     });
+
+    document.getElementById("demo-allow")?.addEventListener("click", () => {
+      const c = pending;
+      pending = null;
+      setConsent(false);
+      if (c) run(c.steps, c.next);
+    });
+
+    document.getElementById("demo-deny")?.addEventListener("click", () => {
+      pending = null;
+      setConsent(false);
+      say("No problem — I dropped it. Nothing was touched. Trust intact.", "understanding", "#ff6b5e");
+      if (pet) pet.dataset.pose = "idle";
+      push("note", "action denied by user — no changes made", "#ff6b5e");
+    });
+
+    document.getElementById("demo-reset")?.addEventListener("click", () => {
+      timers.forEach(clearTimeout);
+      timers = [];
+      pending = null;
+      lines = 0;
+      setBusy(false);
+      setConsent(false);
+      log.querySelectorAll(".term__line").forEach((n) => n.remove());
+      if (turns) turns.textContent = "ready";
+      say("Clean slate. Ask me something.", "idle", "#ff5f9e");
+    });
+
+    // Play the failing-tests script once, the first time the demo scrolls in.
+    if (grid) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && lines === 0 && !running) {
+              push("user", "hey minnie, what's wrong with my tests?");
+              run(SCRIPTS.tests.steps);
+              io.disconnect();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      io.observe(grid);
+    }
   }
 </script>

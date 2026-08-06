@@ -1,122 +1,301 @@
 ---
+import Pet from "../components/Pet.astro";
 import WaitlistForm from "../components/WaitlistForm.astro";
 ---
 
-<section class="relative overflow-hidden pt-20 pb-16 md:pt-32 md:pb-24">
-  <div class="mx-auto max-w-6xl px-6 md:px-10 grid gap-12 lg:grid-cols-12 items-center">
-    <!-- Hero Text -->
-    <div class="lg:col-span-7 flex flex-col items-start text-left z-10">
-      <div class="mb-4">
-        <span class="eyebrow inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--hairline)]">
-          <span class="h-1.5 w-1.5 rounded-full bg-[var(--color-coral)] animate-pulse"></span>
-          NATIVE macOS · YOUR AGENT, WITH A BODY
-        </span>
-      </div>
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="hero__stamp mono">
+        <span class="hero__dot blink"></span>
+        macOS · your agent, now with legs
+      </span>
 
-      <h1 class="font-[family-name:var(--font-display)] text-5xl font-bold leading-[0.95] tracking-tight text-[var(--color-ink)] md:text-7xl">
-        Give your AI agent<br />
-        a <span class="bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-peach)] bg-clip-text text-transparent">body.</span>
+      <h1 class="h1 hero__title">
+        Give your<br />AI agent<br />
+        <span class="slab hero__slab">a body.</span>
       </h1>
 
-      <p class="mt-6 max-w-xl text-lg md:text-xl text-[var(--color-ink-dim)] leading-relaxed">
-        A native macOS desktop pet that runs the AI coding agent you already use — talk to it, and watch it work. Zero extra AI cost. Fully private.
+      <p class="hero__lede">
+        A little desktop creature that runs the coding agent you already pay for. Talk to her, watch
+        her work, and she asks out loud before she touches a single file. No extra AI bill. Nothing
+        leaves your Mac.
       </p>
 
-      <!-- Waitlist Form Section -->
-      <div id="waitlist" class="mt-8">
-        <WaitlistForm size="lg" />
+      <div id="waitlist" class="hero__form">
+        <WaitlistForm source="hero" />
       </div>
-
-      <!-- Privacy Badges -->
-      <div class="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[var(--color-ink-softcoral)] font-semibold">
-        <span class="flex items-center gap-1">🔒 On-device voice</span>
-        <span class="text-[var(--color-lilac-muted)]">•</span>
-        <span class="flex items-center gap-1">💻 Runs on your Mac</span>
-        <span class="text-[var(--color-lilac-muted)]">•</span>
-        <span class="flex items-center gap-1">🛠️ BYO Agent (Zero Extra Cost)</span>
-      </div>
-
-      <!-- Product Hunt badge (theme-matched: light/dark) -->
-      <a
-        href="https://www.producthunt.com/products/minnie?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-minnie"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="mt-8 inline-block transition-transform hover:-translate-y-0.5"
-      >
-        <img
-          class="ph-light"
-          width="250"
-          height="54"
-          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1196231&amp;theme=light&amp;t=1784187483318"
-          alt="Minnie - Give your AI agent a body — a Mac pet that does real work | Product Hunt"
-        />
-        <img
-          class="ph-dark"
-          width="250"
-          height="54"
-          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1196231&amp;theme=dark&amp;t=1784187483318"
-          alt="Minnie - Give your AI agent a body — a Mac pet that does real work | Product Hunt"
-        />
-      </a>
     </div>
 
-    <!-- Hero Visual / Floating Pet Mockup -->
-    <div class="lg:col-span-5 relative flex justify-center items-center">
-      <!-- Glow background -->
-      <div class="absolute w-72 h-72 rounded-full bg-[var(--color-coral)] opacity-20 blur-3xl -z-10"></div>
-      
-      <!-- Interactive Frame / macOS mockup container -->
-      <div class="card w-full max-w-sm aspect-[4/3] p-8 flex flex-col justify-between shadow-2xl border-[var(--clay-edge)] relative overflow-hidden group">
-        <!-- Window Controls -->
-        <div class="flex items-center gap-1.5 absolute top-4 left-4">
-          <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
-          <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
-          <div class="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+    <div class="hero__right">
+      <div class="card hero__card">
+        <!-- Fake title bar: three ink squares + the app name -->
+        <div class="hero__bar">
+          <div class="hero__dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="mono hero__appname">Minnie.app</span>
         </div>
 
-        <div class="absolute top-4 right-4 flex gap-1">
-          <span class="chip py-0.5 px-2 text-[9px] border-none bg-[var(--clay-inset)]">Minnie.app</span>
-        </div>
+        <div class="hero__stage">
+          <div class="tile hero__pet" id="hero-pet-wrap">
+            <Pet size={112} hop id="hero-pet" />
+          </div>
 
-        <!-- Center Image content with mood hover interaction -->
-        <div class="flex-1 flex flex-col items-center justify-center mt-6">
-          <div class="relative w-40 h-40 flex items-center justify-center transition-all duration-300 transform group-hover:scale-105">
-            <!-- Idle Pet -->
-            <img
-              src={`${import.meta.env.BASE_URL}media/idle.png`}
-              alt="Minnie Mascot"
-              id="hero-pet-img"
-              class="max-w-full max-h-full object-contain filter drop-shadow-[0_10px_20px_rgba(255,107,157,0.3)] transition-all duration-300"
-            />
-            <!-- Ambient Speach/waveform representation -->
-            <div class="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 flex items-center gap-1 bg-[var(--terminal-bg)] px-3 py-1 rounded-full border border-[var(--clay-edge)] backdrop-blur">
-              <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-mint)]"></span>
-              <span class="text-[9px] font-mono text-[var(--color-ink-dim)]">Status: Idle</span>
+          <div class="hero__status">
+            <span class="hero__statusdot blink"></span>
+            <span class="mono" id="hero-status">status: idle</span>
+          </div>
+
+          <div class="hero__term mono">
+            <div><span class="hero__prompt">$</span> minnie listen</div>
+            <div>
+              <span id="hero-type"></span><span class="hero__caret blink"></span>
             </div>
           </div>
         </div>
 
-        <!-- Interactive trigger helper -->
-        <div class="text-center mt-2">
-          <p class="text-xs text-[var(--color-lilac-muted)] italic">
-            Hover over the card to see her sit up!
-          </p>
-        </div>
+        <p class="hero__hint mono">move your cursor — she's watching</p>
       </div>
     </div>
   </div>
 </section>
 
-<script>
-  // Hover Pet Interaction (Change image to thinking when hovering)
-  const heroCard = document.querySelector('.group');
-  const heroPet = document.getElementById('hero-pet-img') as HTMLImageElement;
-  if (heroCard && heroPet) {
-    heroCard.addEventListener('mouseenter', () => {
-      heroPet.src = import.meta.env.BASE_URL + 'media/thinking.png';
-    });
-    heroCard.addEventListener('mouseleave', () => {
-      heroPet.src = import.meta.env.BASE_URL + 'media/idle.png';
-    });
+<style>
+  .hero {
+    position: relative;
+    padding: 64px 0 72px;
+    border-bottom: 3px solid var(--line);
+    overflow: hidden;
   }
+  .hero__grid {
+    display: grid;
+    gap: 48px;
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+  @media (min-width: 1000px) {
+    .hero__grid { grid-template-columns: 1.1fr 0.9fr; }
+  }
+
+  .hero__stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border: 3px solid var(--line);
+    background: var(--yellow);
+    color: #101a12;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    box-shadow: var(--sh-sm);
+    animation: stamp 0.5s steps(4, end) both;
+  }
+  .hero__dot {
+    width: 8px;
+    height: 8px;
+    background: #101a12;
+    flex-shrink: 0;
+  }
+
+  .hero__title { animation: slam 0.55s steps(6, end) 0.1s both; }
+  .hero__slab {
+    transform: rotate(-2deg);
+    margin-top: 8px;
+  }
+
+  .hero__lede {
+    margin: 28px 0 0;
+    max-width: 32rem;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+    text-wrap: pretty;
+    animation: slideL 0.5s steps(5, end) 0.25s both;
+  }
+
+  .hero__form {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 30rem;
+    animation: slideL 0.5s steps(5, end) 0.35s both;
+  }
+
+  .hero__right {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    animation: slideR 0.55s steps(5, end) 0.2s both;
+  }
+  .hero__card {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: var(--sh-lg);
+  }
+
+  .hero__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-bottom: 3px solid var(--line);
+    background: var(--yellow);
+  }
+  .hero__dots {
+    display: flex;
+    gap: 6px;
+  }
+  .hero__dots span {
+    width: 11px;
+    height: 11px;
+    border: 2px solid #101a12;
+    background: #f4efe2;
+  }
+  .hero__appname {
+    font-size: 11px;
+    font-weight: 700;
+    color: #101a12;
+  }
+
+  .hero__stage {
+    position: relative;
+    padding: 26px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero__pet {
+    position: relative;
+    width: 170px;
+    height: 186px;
+    background: var(--pink);
+    box-shadow: var(--sh);
+    transition: none;
+  }
+
+  .hero__status {
+    margin-top: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 3px solid var(--line);
+    background: var(--card);
+    padding: 6px 12px;
+    box-shadow: var(--sh-sm);
+  }
+  .hero__statusdot {
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    animation-duration: 0.9s;
+  }
+  .hero__status .mono {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .hero__term {
+    margin-top: 18px;
+    width: 100%;
+    border: 3px solid var(--line);
+    background: var(--green-deep);
+    padding: 12px 14px;
+    font-size: 11.5px;
+    line-height: 1.7;
+    color: #cfe6d8;
+    min-height: 66px;
+  }
+  .hero__prompt { color: var(--yellow); }
+  .hero__caret {
+    display: inline-block;
+    width: 8px;
+    height: 13px;
+    background: var(--yellow);
+    vertical-align: -2px;
+    animation-duration: 0.9s;
+  }
+
+  .hero__hint {
+    margin: 0;
+    padding: 10px 14px;
+    border-top: 3px solid var(--line);
+    background: var(--paper);
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+</style>
+
+<script>
+  // ── Typewriter in the fake terminal ───────────────────────────────────────
+  const LINES = [
+    "hey minnie, what's wrong with my tests?",
+    "minnie, check my open PRs.",
+    "can you ship this to prod?",
+  ];
+  const out = document.getElementById("hero-type");
+
+  if (out) {
+    let li = 0;
+    let ci = 0;
+    let forward = true;
+
+    const tick = () => {
+      const line = LINES[li % LINES.length];
+      out.textContent = line.slice(0, ci);
+      if (forward) {
+        if (ci < line.length) {
+          ci++;
+          setTimeout(tick, 55);
+        } else {
+          forward = false;
+          setTimeout(tick, 1900);
+        }
+      } else {
+        if (ci > 0) {
+          ci--;
+          setTimeout(tick, 20);
+        } else {
+          forward = true;
+          li++;
+          setTimeout(tick, 300);
+        }
+      }
+    };
+    tick();
+  }
+
+  // ── She tracks the cursor, in 4px steps so it stays stop-motion ───────────
+  const wrap = document.getElementById("hero-pet-wrap");
+  if (wrap && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.addEventListener(
+      "mousemove",
+      (e) => {
+        const r = wrap.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+        const dy = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+        const sx = Math.round((dx * 14) / 4) * 4;
+        const sy = Math.round((dy * 10) / 4) * 4;
+        wrap.style.transform = `translate(${sx}px,${sy}px)`;
+      },
+      { passive: true }
+    );
+  }
+
+  // ── Hovering her makes her think ──────────────────────────────────────────
+  const pet = document.getElementById("hero-pet");
+  const status = document.getElementById("hero-status");
+  wrap?.addEventListener("mouseenter", () => {
+    if (pet) pet.dataset.pose = "think";
+    if (status) status.textContent = "status: thinking";
+  });
+  wrap?.addEventListener("mouseleave", () => {
+    if (pet) pet.dataset.pose = "idle";
+    if (status) status.textContent = "status: idle";
+  });
 </script>

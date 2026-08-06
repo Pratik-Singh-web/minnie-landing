@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
+import Marquee from "../components/Marquee.astro";
 import Hero from "../sections/Hero.astro";
 import Benefits from "../sections/Benefits.astro";
 import Demo from "../sections/Demo.astro";
@@ -13,48 +14,77 @@ import Pricing from "../sections/Pricing.astro";
 import FAQ from "../sections/FAQ.astro";
 import FinalCTA from "../sections/FinalCTA.astro";
 import Footer from "../components/Footer.astro";
+
+const tools = [
+  "Bash",
+  "Read",
+  "Edit",
+  "Write",
+  "Grep",
+  '"I want to run pytest. Ok?"',
+  "MCP · GitHub",
+  "MCP · Notion",
+];
+
+const promises = [
+  "Deny is a hug, not a scold",
+  "Zero extra AI cost",
+  "Runs on your Mac",
+  "On-device voice",
+];
 ---
 
 <Layout>
-  <!-- Navigation Header -->
+  <!-- Sticky nav + reading-progress bar -->
   <Navbar />
 
-  <!-- Main Scrollable Content -->
-  <main class="w-full">
-    <!-- Hero Block with waitlist signup -->
+  <main id="top">
+    <!-- Hero: headline, waitlist, and the pet who watches your cursor -->
     <Hero />
 
-    <!-- 3 Core Benefit Cards + works with agent strip -->
+    <!-- Tools she can reach, scrolling past -->
+    <Marquee items={tools} />
+
+    <!-- 3 core benefit cards + bring-your-own-agent strip -->
     <Benefits />
 
-    <!-- Interactive timeline tool-execution simulator -->
+    <!-- Live playground: type at her, she picks tools and asks permission -->
     <Demo />
 
-    <!-- Trust Permission speech-cloud explainer -->
+    <!-- The consent layer: permission cloud + trust modes -->
     <Trust />
 
     <!-- Local & private: on-device voice, local CLI, no telemetry -->
     <Privacy />
 
-    <!-- Species & Personality Customization previewer -->
+    <!-- Species / personality / name previewer -->
     <Customize />
 
     <!-- Connect your tools: MCP catalog & Google OAuth -->
     <MCP />
 
-    <!-- Table comparison mapping Minnie vs Chatbot vs CLI -->
+    <!-- Minnie vs web chatbot vs bare CLI agent -->
     <Comparison />
 
-    <!-- Centered pricing card showing founder details -->
+    <!-- Founder pricing card -->
     <Pricing />
 
-    <!-- Interactive Accordion FAQ list -->
+    <!-- Accordion FAQ -->
     <FAQ />
 
-    <!-- Final waitlist CTA + tagline before the footer -->
+    <!-- The promises, scrolling the other way -->
+    <Marquee
+      items={promises}
+      sep="✦"
+      background="var(--pink)"
+      color="#101a12"
+      reverse
+      display
+    />
+
+    <!-- Last call for the waitlist -->
     <FinalCTA />
   </main>
 
-  <!-- Page Footer -->
   <Footer />
 </Layout>

@@ -7,10 +7,10 @@ const base = import.meta.env.BASE_URL;
 const updated = "12 July 2026";
 const contactEmail = "pratiksingh30701@gmail.com";
 
-const h2 = "text-xl md:text-2xl font-[family-name:var(--font-display)] font-semibold text-[var(--color-ink)] mt-10 mb-3";
-const p = "text-[var(--color-ink-dim)] leading-relaxed mb-4";
-const ul = "list-disc pl-6 text-[var(--color-ink-dim)] leading-relaxed mb-4 space-y-1.5";
-const link = "text-[var(--color-coral)] underline hover:text-[var(--color-coral-hover)] transition-colors";
+const h2 = "prose-h2";
+const p = "prose-p";
+const ul = "prose-ul";
+const link = "prose-a";
 ---
 
 <Layout
@@ -19,15 +19,13 @@ const link = "text-[var(--color-coral)] underline hover:text-[var(--color-coral-
 >
   <Navbar />
 
-  <main class="mx-auto w-full max-w-3xl px-6 md:px-10 py-16 md:py-24">
-    <a href={base} class={`${link} text-sm no-underline hover:underline`}>← Back to home</a>
+  <main class="legal">
+    <a href={base} class="legal__back mono">← back to home</a>
 
-    <h1 class="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-bold tracking-tight text-[var(--color-ink)] mt-6">
-      Privacy Policy
-    </h1>
-    <p class="text-sm text-[var(--color-lilac-muted)] mt-3">Last updated: {updated}</p>
+    <h1 class="legal__h1">Privacy Policy</h1>
+    <p class="legal__date mono">Last updated: {updated}</p>
 
-    <p class={`${p} mt-8`}>
+    <p class={p} style="margin-top:28px;">
       Minnie ("we", "us") builds a native macOS desktop pet that runs your AI coding
       agent locally. This policy explains what information this website collects when
       you join the waitlist, how we use it, and the choices you have. Privacy is core
@@ -52,8 +50,7 @@ const link = "text-[var(--color-coral)] underline hover:text-[var(--color-coral-
     <p class={p}>
       Waitlist entries are sent to a private Google Sheet via Google Apps Script and
       stored there. Google LLC processes and stores this data on our behalf as an
-      infrastructure provider; their handling is governed by
-      <a class={link} href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
+      infrastructure provider; their handling is governed by <a class={link} href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
     </p>
 
     <h2 class={h2}>How we use your information</h2>
@@ -90,8 +87,7 @@ const link = "text-[var(--color-coral)] underline hover:text-[var(--color-coral-
     <h2 class={h2}>Your rights &amp; choices</h2>
     <p class={p}>
       You can ask us to access, correct, or delete the information we hold about you,
-      and you can unsubscribe from updates at any time. To make a request, email
-      <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a>. Depending on
+      and you can unsubscribe from updates at any time. To make a request, email <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a>. Depending on
       where you live (for example, the EEA/UK under GDPR, or California under the CCPA),
       you may have additional rights; we honor these requests regardless of location.
     </p>
@@ -110,10 +106,49 @@ const link = "text-[var(--color-coral)] underline hover:text-[var(--color-coral-
 
     <h2 class={h2}>Contact</h2>
     <p class={p}>
-      Questions about this policy or your data? Email
-      <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+      Questions about this policy or your data? Email <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a>.
     </p>
   </main>
 
   <Footer />
 </Layout>
+
+<style>
+  .legal {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 820px;
+    padding: 56px 24px 76px;
+    border-bottom: 3px solid var(--line);
+  }
+  .legal__back {
+    display: inline-block;
+    border: 3px solid var(--line);
+    background: var(--card);
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: var(--sh-sm);
+  }
+  .legal__back:hover {
+    background: var(--yellow);
+    color: #101a12;
+  }
+  .legal__h1 {
+    margin: 26px 0 0;
+    font-family: Outfit, sans-serif;
+    font-size: clamp(38px, 6vw, 62px);
+    font-weight: 900;
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .legal__date {
+    margin: 12px 0 0;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+</style>

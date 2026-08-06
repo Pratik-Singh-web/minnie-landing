@@ -5,15 +5,16 @@
 // WAITLIST_SETUP.md; paste your /exec deployment URL into WAITLIST_ENDPOINT below.
 // Until then it falls back to an optimistic success so the page stays usable.
 interface Props {
-  size?: "lg" | "sm";
   source?: string;
+  center?: boolean;
+  note?: boolean;
 }
-const { size = "lg", source = "hero" } = Astro.props;
-const pad = size === "lg" ? "py-3.5" : "py-3";
+const { source = "hero", center = false, note = true } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
-<div class="waitlist w-full max-w-md">
-  <form class="waitlist-form flex flex-col sm:flex-row gap-2" novalidate>
+<div class="waitlist" style={center ? "width:100%; max-width:30rem;" : "width:100%; max-width:30rem;"}>
+  <form class="waitlist-form" style={center ? "justify-content:center;" : ""} novalidate>
     <input type="hidden" name="source" value={source} />
     <!-- Honeypot: off-screen + aria-hidden. Humans never see it; bots that fill it are dropped. -->
     <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden">
@@ -26,28 +27,65 @@ const pad = size === "lg" ? "py-3.5" : "py-3";
       name="email"
       required
       autocomplete="email"
-      placeholder="Enter your email..."
-      class={`clay-input flex-1 px-5 ${pad} text-sm`}
+      placeholder="you@yourmac.dev"
+      class="field"
+      style="flex:1 1 210px;"
+      aria-label="Email address"
     />
-    <button
-      type="submit"
-      class={`btn-primary cursor-pointer justify-center text-sm ${pad} px-6 shrink-0`}
-    >
-      <span class="wl-label">Join the waitlist →</span>
-      <span class="wl-spinner hidden">Joining…</span>
+    <button type="submit" class="btn">
+      <span class="wl-label">Join waitlist</span>
+      <span class="wl-spinner" hidden>Joining…</span>
     </button>
   </form>
-  <p class="wl-success hidden mt-3 text-sm text-[var(--color-mint)] font-semibold">
-    ✓ You're on the list — founder price locked ($19 instead of $39).
-  </p>
-  <p class="wl-error hidden mt-3 text-sm text-[var(--color-danger)] font-semibold">
-    Hmm, that didn't go through. Mind trying again?
-  </p>
-  <p class="mt-3 text-xs text-[var(--color-lilac-muted)] leading-relaxed">
-    By joining you agree to receive occasional launch updates — no spam, unsubscribe anytime. See our
-    <a href={`${import.meta.env.BASE_URL}privacy`} class="underline hover:text-[var(--color-coral)] transition-colors">Privacy Policy</a>.
-  </p>
+
+  <p class="wl-stamp" hidden>✓ You're on the list — $19 locked</p>
+  <p class="wl-error" hidden>Hmm, that didn't go through. Mind trying again?</p>
+
+  {note && (
+    <p class="wl-note mono">// one email on launch day. that's the whole plan. · <a href={`${base}privacy`}>privacy</a></p>
+  )}
 </div>
+
+<style>
+  .waitlist-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .wl-stamp,
+  .wl-error {
+    margin: 12px 0 0;
+    display: inline-block;
+    border: 3px solid var(--line);
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 800;
+    box-shadow: var(--sh-sm);
+    animation: stamp 0.35s steps(3, end) both;
+  }
+  .wl-stamp {
+    background: var(--yellow);
+    color: #101a12;
+  }
+  .wl-error {
+    background: var(--red);
+    color: #fffdf5;
+  }
+
+  .wl-note {
+    margin: 12px 0 0;
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+  .wl-note a {
+    color: var(--ink-soft);
+    text-decoration: underline;
+  }
+  .wl-note a:hover {
+    color: var(--ink);
+  }
+</style>
 
 <script>
   // ─────────────────────────────────────────────────────────────────────────
@@ -62,7 +100,7 @@ const pad = size === "lg" ? "py-3.5" : "py-3";
 
   document.querySelectorAll<HTMLFormElement>(".waitlist-form").forEach((form) => {
     const wrap = form.closest(".waitlist");
-    const successMsg = wrap?.querySelector(".wl-success");
+    const stamp = wrap?.querySelector(".wl-stamp");
     const errorMsg = wrap?.querySelector(".wl-error");
     const btn = form.querySelector("button");
     const label = btn?.querySelector(".wl-label");
@@ -78,20 +116,21 @@ const pad = size === "lg" ? "py-3.5" : "py-3";
         return;
       }
 
-      errorMsg?.classList.add("hidden");
-      label?.classList.add("hidden");
-      spinner?.classList.remove("hidden");
+      errorMsg?.setAttribute("hidden", "");
+      label?.setAttribute("hidden", "");
+      spinner?.removeAttribute("hidden");
       btn?.setAttribute("disabled", "true");
 
       const finish = (ok: boolean) => {
-        spinner?.classList.add("hidden");
+        spinner?.setAttribute("hidden", "");
         if (ok) {
-          form.classList.add("opacity-50", "pointer-events-none");
-          successMsg?.classList.remove("hidden");
+          form.style.opacity = "0.5";
+          form.style.pointerEvents = "none";
+          stamp?.removeAttribute("hidden");
         } else {
-          label?.classList.remove("hidden");
+          label?.removeAttribute("hidden");
           btn?.removeAttribute("disabled");
-          errorMsg?.classList.remove("hidden");
+          errorMsg?.removeAttribute("hidden");
         }
       };
 
