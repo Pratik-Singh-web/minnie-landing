@@ -39,3 +39,11 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # The action's default 10-minute wait is not always enough: the Pages
+          # deployment queue can sit on `deployment_queued` for longer, and when
+          # the action gives up it cancels the deployment. A cancelled SHA can
+          # never be redeployed — retries on the same commit are rejected
+          # instantly — so a premature timeout costs you an empty commit to
+          # retry. 25 minutes of patience is cheaper.
+          timeout: 1500000
