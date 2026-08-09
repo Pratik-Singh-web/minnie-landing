@@ -1,8 +1,8 @@
 {
-  "latest": "0.9.1",
-  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.1-beta/Minnie-0.9.1-beta.dmg",
-  "sha256": "de9d1df19abd91a451f1331957b5b3d3e63d8041e4e5112114225b03327aaca5",
-  "notes": "Beta lifecycle: self-installing updates, and the app now stays put behind the expiry wall.",
+  "latest": "0.9.2",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.2-beta/Minnie-0.9.2-beta.dmg",
+  "sha256": "fcef84569eb1f9e219cf2d78971b537ba16bbd2ea3dd6946138adc85056dc60a",
+  "notes": "Self-updating from here \u2014 Settings \u25b8 About \u25b8 Update & Restart.",
   "mandatory": false,
   "minSupportedVersion": ""
 }
