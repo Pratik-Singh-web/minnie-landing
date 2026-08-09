@@ -1,8 +1,8 @@
 {
-  "latest": "0.9.5",
-  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.5-beta/Minnie-0.9.5-beta.dmg",
-  "sha256": "f1b6b9eb5e2fc57b622a7e8c9ce298791f714c9ea9ba45e6f7325bf6cdac4bf2",
-  "notes": "Settings now shows when this beta expires, and warns two weeks ahead.",
+  "latest": "0.9.6",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.6-beta/Minnie-0.9.6-beta.dmg",
+  "sha256": "6f3372612773de4d90b21fdac6de3c13564a5eef8754eff7f563d7625fb30962",
+  "notes": "Retiring a build now actually stops the agent; installing no longer freezes the app.",
   "mandatory": false,
   "minSupportedVersion": ""
 }
