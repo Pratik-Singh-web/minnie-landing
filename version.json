@@ -4,5 +4,5 @@
   "sha256": "fcef84569eb1f9e219cf2d78971b537ba16bbd2ea3dd6946138adc85056dc60a",
   "notes": "Self-updating from here \u2014 Settings \u25b8 About \u25b8 Update & Restart.",
   "mandatory": false,
-  "minSupportedVersion": ""
+  "minSupportedVersion": "0.0.1"
 }
