@@ -1,0 +1,118 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+const base = import.meta.env.BASE_URL;
+
+// Keep in step with version.json in this repo's root — that is what the in-app
+// update check reads, and a page pointing at an older release than the manifest
+// hands new users a build the app immediately wants to replace.
+const version = "0.9.1";
+const dmgURL = `https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v${version}-beta/Minnie-${version}-beta.dmg`;
+const expires = "7 November 2026";
+
+const h2 = "prose-h2";
+const p = "prose-p";
+const ul = "prose-ul";
+const link = "prose-a";
+---
+
+<Layout
+  title="Download the Minnie beta — free"
+  description="Download the free Minnie beta for Apple Silicon Macs. Minnie is a native macOS desktop pet that runs the AI coding agent you already use."
+>
+  <Navbar />
+
+  <main class="legal">
+    <a href={base} class="legal__back mono">← back to home</a>
+
+    <h1 class="legal__h1">Download the beta</h1>
+    <p class="legal__date mono">v{version} · free · expires {expires}</p>
+
+    <p class={p} style="margin-top:28px;">
+      Minnie is in open beta and free to use. She runs the AI coding agent you already have on
+      your Mac, so there's no extra AI bill — but you do need your own agent.
+    </p>
+
+    <p style="margin:28px 0 12px;">
+      <a href={dmgURL} class="btn">Download Minnie {version} →</a>
+    </p>
+    <p class="mono" style="opacity:.7;font-size:14px;">
+      Apple Silicon · macOS 14+ · ~146 MB
+    </p>
+
+    <!-- The install block. Do NOT promise a dialog-free install: the app is
+         unsigned, and macOS warns about unsigned apps in ways that vary by
+         machine and OS version. Telling someone they'll see no warning and then
+         showing them one reads as "this app is broken" — which is the exact
+         impression this section exists to prevent. -->
+    <h2 class={h2}>Installing</h2>
+
+    <p class={p}>
+      Straight up: <strong>macOS will probably warn you about this app</strong>, and you'll
+      click past it once. Minnie isn't signed by Apple yet — a Developer ID costs $99/year and
+      that comes with v1. Nothing about the warning is specific to Minnie; every unsigned Mac
+      app gets it.
+    </p>
+
+    <ol class={ul} style="list-style:decimal;">
+      <li>Open <code>Minnie-{version}-beta.dmg</code></li>
+      <li>
+        Paste this into Terminal:
+        <pre class="mono" style="overflow-x:auto;padding:14px;margin-top:8px;border:2px solid var(--ink);border-radius:8px;font-size:13px;"><code>ditto --noextattr --norsrc /Volumes/Minnie*/Minnie.app /Applications/Minnie.app
+xattr -dr com.apple.quarantine /Applications/Minnie.app
+open /Applications/Minnie.app</code></pre>
+      </li>
+      <li>
+        Minnie lives in your <strong>menu bar</strong> (paw icon) — no Dock icon, by design.
+        Click it to wake her.
+      </li>
+    </ol>
+
+    <p class={p}>
+      <strong>Still blocked?</strong> If you see <em>"Apple could not verify Minnie is free of
+      malware"</em>, open <strong>System Settings ▸ Privacy &amp; Security</strong>, scroll to
+      the bottom, and click <strong>Open Anyway</strong> next to Minnie. You'll only ever do
+      this once.
+    </p>
+
+    <p class={p}>
+      Use the commands rather than dragging her to Applications: macOS marks the downloaded
+      disk image as quarantined and Finder copies that mark onto anything you drag out of it,
+      which makes the warning stickier than it needs to be.
+    </p>
+
+    <h2 class={h2}>What you need</h2>
+    <ul class={ul}>
+      <li><strong>An Apple Silicon Mac</strong> (M1 or later). Intel Macs aren't supported yet.</li>
+      <li><strong>macOS 14 Sonoma</strong> or later.</li>
+      <li>
+        <strong>Your own AI coding agent</strong> — Claude Code, Gemini CLI, Codex, or a custom
+        command. Minnie drives the agent you already pay for; she doesn't resell AI.
+      </li>
+      <li>A microphone, if you want to talk to her. Typing works fine too.</li>
+    </ul>
+
+    <h2 class={h2}>Beta caveats</h2>
+    <ul class={ul}>
+      <li>Things will break. That's the point — tell me when they do.</li>
+      <li>
+        Minnie can run real commands on your Mac. She asks before each one; read what you
+        approve.
+      </li>
+      <li>
+        This build stops working on <strong>{expires}</strong>. She checks for new versions on
+        launch and can update herself, so you shouldn't have to come back here.
+      </li>
+    </ul>
+
+    <p class={p} style="margin-top:28px;">
+      Something broken, confusing, or delightful?
+      <a href="mailto:pratiksingh30701@gmail.com" class={link}>Email me</a> — beta feedback goes
+      straight to the person who wrote it.
+    </p>
+  </main>
+
+  <Footer />
+</Layout>

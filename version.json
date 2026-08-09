@@ -1,0 +1,8 @@
+{
+  "latest": "0.9.1",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.1-beta/Minnie-0.9.1-beta.dmg",
+  "sha256": "de9d1df19abd91a451f1331957b5b3d3e63d8041e4e5112114225b03327aaca5",
+  "notes": "Beta lifecycle: self-installing updates, and the app now stays put behind the expiry wall.",
+  "mandatory": false,
+  "minSupportedVersion": ""
+}

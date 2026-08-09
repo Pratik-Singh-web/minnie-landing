@@ -447,3 +447,46 @@ textarea {
   background: var(--yellow);
   color: #101a12;
 }
+
+/* ---- legal / long-form page shell -------------------------------------
+   Shared by /privacy and /download. These lived in privacy.astro's scoped
+   <style>, which meant /download rendered its heading as body text — Astro
+   scopes a component's styles to that component. Keep them global so any
+   future long-form page gets the shell for free. */
+.legal {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 820px;
+    padding: 56px 24px 76px;
+    border-bottom: 3px solid var(--line);
+  }
+  .legal__back {
+    display: inline-block;
+    border: 3px solid var(--line);
+    background: var(--card);
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: var(--sh-sm);
+  }
+  .legal__back:hover {
+    background: var(--yellow);
+    color: #101a12;
+  }
+  .legal__h1 {
+    margin: 26px 0 0;
+    font-family: Outfit, sans-serif;
+    font-size: clamp(38px, 6vw, 62px);
+    font-weight: 900;
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .legal__date {
+    margin: 12px 0 0;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }

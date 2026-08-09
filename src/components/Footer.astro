@@ -24,10 +24,10 @@ const year = new Date().getFullYear();
       <div>
         <h4 class="foot__h">Product</h4>
         <div class="foot__links">
-          <a href="#features">Features</a>
-          <a href="#customize">Customize</a>
-          <a href="#mcp">MCP catalog</a>
-          <a href="#pricing">Pricing</a>
+          <a href={`${import.meta.env.BASE_URL}#features`}>Features</a>
+          <a href={`${import.meta.env.BASE_URL}#customize`}>Customize</a>
+          <a href={`${import.meta.env.BASE_URL}#mcp`}>MCP catalog</a>
+          <a href={`${import.meta.env.BASE_URL}download`}>Download beta</a>
         </div>
       </div>
 
@@ -36,7 +36,7 @@ const year = new Date().getFullYear();
         <div class="foot__links">
           <a href="https://x.com/Sym6ol_" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
           <a href="https://github.com/Pratik-Singh-web/Minnie" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="#faq">FAQ</a>
+          <a href={`${import.meta.env.BASE_URL}#faq`}>FAQ</a>
           <a href="mailto:pratiksingh30701@gmail.com">Send feedback</a>
         </div>
       </div>

@@ -1,6 +1,5 @@
 ---
 import Pet from "../components/Pet.astro";
-import WaitlistForm from "../components/WaitlistForm.astro";
 ---
 
 <section class="final">
@@ -9,7 +8,7 @@ import WaitlistForm from "../components/WaitlistForm.astro";
       <Pet size={100} hop />
     </div>
 
-    <span class="eyebrow eyebrow--card">founder price · first 500 devs</span>
+    <span class="eyebrow eyebrow--card">free open beta</span>
 
     <h2 class="final__h">
       Give your AI agent<br />
@@ -17,12 +16,12 @@ import WaitlistForm from "../components/WaitlistForm.astro";
     </h2>
 
     <p class="final__p">
-      Join the waitlist and lock in <strong>$19</strong> instead of $39 when she ships. One email on
-      launch day, then silence.
+      Free while she's in beta. Bring the coding agent you already pay for — Minnie gives it a
+      body, a voice, and a place on your desktop.
     </p>
 
     <div class="final__form">
-      <WaitlistForm source="final-cta" center note={false} />
+      <a href={`${import.meta.env.BASE_URL}download`} class="btn">Download the free beta →</a>
     </div>
   </div>
 </section>
