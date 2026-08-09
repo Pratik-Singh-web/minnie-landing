@@ -1,8 +1,8 @@
 {
-  "latest": "0.9.4",
-  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.4-beta/Minnie-0.9.4-beta.dmg",
-  "sha256": "f3086fb3f49cd3b15f8118f713435fd9969fc41a234c4e52fc7150d2900be2d3",
-  "notes": "Fixes the in-app updater, which downloaded a byte at a time and timed out.",
+  "latest": "0.9.5",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.5-beta/Minnie-0.9.5-beta.dmg",
+  "sha256": "f1b6b9eb5e2fc57b622a7e8c9ce298791f714c9ea9ba45e6f7325bf6cdac4bf2",
+  "notes": "Settings now shows when this beta expires, and warns two weeks ahead.",
   "mandatory": false,
   "minSupportedVersion": ""
 }
