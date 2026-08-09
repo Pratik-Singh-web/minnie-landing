@@ -42,44 +42,79 @@ const link = "prose-a";
       Apple Silicon · macOS 14+ · ~146 MB
     </p>
 
-    <!-- The install block. Do NOT promise a dialog-free install: the app is
-         unsigned, and macOS warns about unsigned apps in ways that vary by
-         machine and OS version. Telling someone they'll see no warning and then
-         showing them one reads as "this app is broken" — which is the exact
-         impression this section exists to prevent. -->
+    <!-- The install block. This is the make-or-break section of the page: an
+         unsigned app that needs a Terminal command is exactly where a curious
+         person gives up. Hence the card treatment, the big numbered steps, and
+         a copy button — the command is long and mistyping it fails silently.
+
+         Do NOT promise a dialog-free install. macOS warns about unsigned apps in
+         ways that vary by machine and OS version; telling someone they'll see no
+         warning and then showing them one reads as "this app is broken", which is
+         the exact impression this section exists to prevent. -->
     <h2 class={h2}>Installing</h2>
 
     <p class={p}>
-      Straight up: <strong>macOS will probably warn you about this app</strong>, and you'll
-      click past it once. Minnie isn't signed by Apple yet — a Developer ID costs $99/year and
-      that comes with v1. Nothing about the warning is specific to Minnie; every unsigned Mac
-      app gets it.
+      Takes about a minute. <strong>macOS will probably warn you about this app</strong> and
+      you'll click past it once — Minnie isn't signed by Apple yet (a Developer ID costs
+      $99/year; that comes with v1). Nothing about the warning is specific to Minnie; every
+      unsigned Mac app gets it.
     </p>
 
-    <ol class={ul} style="list-style:decimal;">
-      <li>Open <code>Minnie-{version}-beta.dmg</code></li>
-      <li>
-        Paste this into Terminal:
-        <pre class="mono" style="overflow-x:auto;padding:14px;margin-top:8px;border:2px solid var(--ink);border-radius:8px;font-size:13px;"><code>ditto --noextattr --norsrc /Volumes/Minnie*/Minnie.app /Applications/Minnie.app
+    <div class="install card">
+      <div class="install__head">
+        <span class="mono">install · 3 steps</span>
+      </div>
+
+      <ol class="install__steps">
+        <li>
+          <span class="install__n mono">1</span>
+          <div class="install__body">
+            <p class="install__t">Open the disk image</p>
+            <p class="install__d">
+              Double-click <code>Minnie-{version}-beta.dmg</code> in your Downloads.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <span class="install__n mono">2</span>
+          <div class="install__body">
+            <p class="install__t">Paste this into Terminal</p>
+            <p class="install__d">All three lines at once — they run in order.</p>
+            <div class="install__codewrap">
+              <button type="button" class="install__copy mono" id="copy-install">copy</button>
+              <pre class="install__code mono"><code id="install-cmd">ditto --noextattr --norsrc /Volumes/Minnie*/Minnie.app /Applications/Minnie.app
 xattr -dr com.apple.quarantine /Applications/Minnie.app
 open /Applications/Minnie.app</code></pre>
-      </li>
-      <li>
-        Minnie lives in your <strong>menu bar</strong> (paw icon) — no Dock icon, by design.
-        Click it to wake her.
-      </li>
-    </ol>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <span class="install__n mono">3</span>
+          <div class="install__body">
+            <p class="install__t">Look in your menu bar</p>
+            <p class="install__d">
+              Minnie has <strong>no Dock icon</strong> — that's deliberate. Find the paw at the
+              top of your screen and click it to wake her.
+            </p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="install__note">
+        <p class="install__t">Still blocked?</p>
+        <p class="install__d">
+          If macOS says <em>"Apple could not verify Minnie is free of malware"</em>, open
+          <strong>System Settings ▸ Privacy &amp; Security</strong>, scroll to the bottom, and
+          click <strong>Open Anyway</strong> next to Minnie. You'll only ever do this once.
+        </p>
+      </div>
+    </div>
 
     <p class={p}>
-      <strong>Still blocked?</strong> If you see <em>"Apple could not verify Minnie is free of
-      malware"</em>, open <strong>System Settings ▸ Privacy &amp; Security</strong>, scroll to
-      the bottom, and click <strong>Open Anyway</strong> next to Minnie. You'll only ever do
-      this once.
-    </p>
-
-    <p class={p}>
-      Use the commands rather than dragging her to Applications: macOS marks the downloaded
-      disk image as quarantined and Finder copies that mark onto anything you drag out of it,
+      Why the commands instead of dragging her to Applications? macOS marks the downloaded disk
+      image as quarantined, and Finder copies that mark onto anything you drag out of it —
       which makes the warning stickier than it needs to be.
     </p>
 
@@ -116,3 +151,122 @@ open /Applications/Minnie.app</code></pre>
 
   <Footer />
 </Layout>
+
+<style>
+  /* Install card — deliberately the loudest thing on the page after the download
+     button. A Terminal command is where a curious person bails, so it gets a
+     border, a banded header and numbered steps rather than a plain <ol>. */
+  .install {
+    margin: 20px 0 28px;
+    padding: 0;
+    overflow: hidden;
+  }
+  .install__head {
+    background: var(--yellow);
+    color: #101a12;
+    border-bottom: 3px solid var(--line);
+    padding: 9px 18px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .install__steps {
+    list-style: none;
+    margin: 0;
+    padding: 6px 0;
+  }
+  .install__steps > li {
+    display: flex;
+    gap: 14px;
+    padding: 16px 18px;
+    align-items: flex-start;
+  }
+  .install__steps > li + li {
+    border-top: 2px dashed var(--line);
+  }
+  .install__n {
+    flex: 0 0 auto;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border: 3px solid var(--line);
+    background: var(--green);
+    color: var(--on-green);
+    font-size: 14px;
+    font-weight: 800;
+    box-shadow: var(--sh-sm);
+  }
+  .install__body { min-width: 0; flex: 1 1 auto; }
+  .install__t {
+    margin: 2px 0 4px;
+    font-weight: 800;
+    font-size: 17px;
+    color: var(--ink);
+  }
+  .install__d {
+    margin: 0;
+    color: var(--ink-dim);
+    line-height: 1.55;
+  }
+  .install__codewrap { position: relative; margin-top: 10px; }
+  .install__code {
+    /* Must scroll INSIDE its own box — a long command that widens the page
+       gives every phone a horizontal scrollbar. */
+    overflow-x: auto;
+    margin: 0;
+    padding: 14px 16px;
+    border: 3px solid var(--line);
+    /* Fixed terminal palette, matching .hero__term. NOT var(--band): that flips
+       from dark green to yellow between themes, which made the command block
+       shout as loudly as the yellow header sitting right above it. */
+    background: var(--green-deep);
+    color: #cfe6d8;
+    font-size: 12.5px;
+    line-height: 1.7;
+    box-shadow: var(--sh-sm);
+  }
+  .install__copy {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 1;
+    cursor: pointer;
+    border: 2px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  .install__copy:hover { background: var(--yellow); color: #101a12; }
+  .install__note {
+    border-top: 3px solid var(--line);
+    border-left: 8px solid var(--pink);
+    background: var(--card);
+    padding: 16px 18px;
+  }
+
+  @media (max-width: 520px) {
+    .install__steps > li { padding: 14px; gap: 10px; }
+    .install__code { font-size: 11px; }
+  }
+</style>
+
+<script>
+  // The command is three lines and easy to mistype; a wrong path fails silently.
+  const btn = document.getElementById("copy-install");
+  const src = document.getElementById("install-cmd");
+  btn?.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(src?.textContent?.trim() ?? "");
+      btn.textContent = "copied ✓";
+      setTimeout(() => (btn.textContent = "copy"), 1600);
+    } catch {
+      btn.textContent = "select it";
+      setTimeout(() => (btn.textContent = "copy"), 1600);
+    }
+  });
+</script>
