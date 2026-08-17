@@ -1,5 +1,6 @@
 ---
 import Pet from "./Pet.astro";
+import { contactEmail } from "../legal";
 const base = import.meta.env.BASE_URL;
 const year = new Date().getFullYear();
 ---
@@ -37,14 +38,20 @@ const year = new Date().getFullYear();
           <a href="https://x.com/Sym6ol_" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
           <a href="https://github.com/Pratik-Singh-web/Minnie" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href={`${import.meta.env.BASE_URL}#faq`}>FAQ</a>
-          <a href="mailto:pratiksingh30701@gmail.com">Send feedback</a>
+          <a href={`${base}support`}>Support</a>
+          <a href={`mailto:${contactEmail}`}>Send feedback</a>
         </div>
       </div>
     </div>
 
     <div class="foot__rule mono">
       <span>© {year} Minnie</span>
-      <span class="foot__links foot__legal"><a href={`${base}privacy`}>Privacy</a></span>
+      <span class="foot__links foot__legal">
+        <a href={`${base}terms`}>Terms</a>
+        <a href={`${base}privacy`}>Privacy</a>
+        <a href={`${base}refund`}>Refunds</a>
+        <a href={`${base}support`}>Support</a>
+      </span>
       <span class="foot__tag">Deny is a hug, not a scold</span>
     </div>
   </div>

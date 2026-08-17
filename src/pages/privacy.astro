@@ -2,10 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import { contactEmail, updated, legalName } from "../legal";
 
 const base = import.meta.env.BASE_URL;
-const updated = "12 July 2026";
-const contactEmail = "pratiksingh30701@gmail.com";
 
 const h2 = "prose-h2";
 const p = "prose-p";
@@ -15,7 +14,7 @@ const link = "prose-a";
 
 <Layout
   title="Privacy Policy — Minnie"
-  description="How Minnie handles the information you share when you join the waitlist. Privacy-first: minimal data, no tracking cookies, and you stay in control."
+  description="Exactly what Minnie sees, what stays on your Mac, and what leaves it. Written against the app's actual behaviour, including the parts that are not local."
 >
   <Navbar />
 
@@ -26,87 +25,192 @@ const link = "prose-a";
     <p class="legal__date mono">Last updated: {updated}</p>
 
     <p class={p} style="margin-top:28px;">
-      Minnie ("we", "us") builds a native macOS desktop pet that runs your AI coding
-      agent locally. This policy explains what information this website collects when
-      you join the waitlist, how we use it, and the choices you have. Privacy is core
-      to the product, and it applies to this site too: we collect the minimum needed
-      and never sell your data.
+      Minnie is a macOS app that listens for your voice and runs an AI agent on your
+      Mac. That is an unusual amount of access, so this policy is unusually specific:
+      it says what stays on your machine, what leaves it, and where it goes. Where
+      something is <em>not</em> private, it says so plainly rather than burying it.
+    </p>
+    <p class={p}>
+      This policy covers both the Minnie app and this website. It is operated by {legalName}.
     </p>
 
-    <h2 class={h2}>What we collect</h2>
-    <p class={p}>When you submit the waitlist form, we collect only:</p>
+    <h2 class={h2}>The short version</h2>
     <ul class={ul}>
-      <li>Your <strong>email address</strong>.</li>
-      <li>The <strong>form source</strong> (which section you signed up from, e.g. hero or final CTA) — so we understand what resonates.</li>
-      <li>The <strong>submission timestamp</strong>, added automatically when your entry is recorded.</li>
+      <li>Your conversations, files and task history live <strong>on your Mac</strong>, in a local database and the macOS Keychain. We cannot read them.</li>
+      <li>What you ask Minnie to do is sent to <strong>the AI provider you choose</strong> — that is how the agent works at all.</li>
+      <li>We hold an <strong>account record</strong> (email, plan, a hashed device id) so your subscription works.</li>
+      <li>We collect <strong>product analytics</strong> — which screens and steps people use. Never message text, replies, file paths or keys. You can turn it off.</li>
+      <li>We never see your card. Payments are handled by our payment provider.</li>
+      <li>We do not sell your data, and there is no advertising anywhere in Minnie.</li>
+    </ul>
+
+    <h2 class={h2}>What stays on your Mac</h2>
+    <p class={p}>These never reach us, and there is no mechanism in the app to send them:</p>
+    <ul class={ul}>
+      <li><strong>Your conversations and task history</strong> — the "what has Minnie done" timeline, including tool runs and replies. Stored in a SQLite database at <code>~/Library/Application&nbsp;Support/Minnie/</code>.</li>
+      <li><strong>Details Minnie remembers about you</strong> — your name, city, preferences and anything else you tell her to keep. Same local database; you can view and delete each item in Settings.</li>
+      <li><strong>Your API keys and connected-tool tokens</strong> — held in the macOS Keychain, which we never read.</li>
+      <li><strong>The on-device speech model</strong>, if you choose Whisper for dictation.</li>
     </ul>
     <p class={p}>
-      We do not ask for your name, and we do not use tracking cookies, fingerprinting,
-      or advertising pixels. We do not collect anything from you unless you choose to
-      submit the form.
+      Deleting the app's folder in Application Support and its Keychain items removes
+      all of it. Nothing is mirrored to us first.
     </p>
 
-    <h2 class={h2}>How your information is stored</h2>
+    <h2 class={h2}>What goes to your AI provider</h2>
     <p class={p}>
-      Waitlist entries are sent to a private Google Sheet via Google Apps Script and
-      stored there. Google LLC processes and stores this data on our behalf as an
-      infrastructure provider; their handling is governed by <a class={link} href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
+      Minnie is a face and a voice for an AI agent; the thinking happens at the
+      provider you pick — Anthropic's Claude by default, or Google, OpenAI, or a
+      custom agent you configure. When you ask her to do something, that provider
+      receives:
     </p>
-
-    <h2 class={h2}>How we use your information</h2>
     <ul class={ul}>
-      <li>To notify you when Minnie launches and when early access opens.</li>
-      <li>To let you know when a new beta build is available.</li>
-      <li>To send occasional, relevant product updates about Minnie.</li>
+      <li>Your message, typed or transcribed.</li>
+      <li>Whatever the agent needs to read to answer it — <strong>including the contents of files on your Mac</strong>.</li>
+      <li>The results of commands it runs.</li>
+      <li>A short profile block of the details you asked Minnie to remember, so she does not re-ask.</li>
     </ul>
-    <p class={p}>We will not use your email for unrelated marketing, and we will not add you to lists you didn't sign up for.</p>
-
-    <h2 class={h2}>Analytics</h2>
     <p class={p}>
-      We use <a class={link} href="https://www.cloudflare.com/web-analytics/" target="_blank" rel="noopener noreferrer">Cloudflare Web Analytics</a>,
-      a privacy-first, cookieless analytics tool. It reports aggregate traffic (like
-      page views and referrers) without cookies, without cross-site tracking, and
-      without building a profile of you. It does not identify individual visitors.
+      Two things worth being blunt about. Minnie runs the agent with your home folder
+      as its working directory and <strong>without the macOS App Sandbox</strong> —
+      that is what lets her do real work, and it also means an approved action can
+      touch anything your user account can. And Minnie asks before risky steps, but
+      you can approve them; the consent prompts are a brake, not a wall.
+    </p>
+    <p class={p}>
+      Your provider's own terms govern what they do with that data. If you use your
+      own API key, that traffic is between you and them — we are not in the path and
+      never see it.
     </p>
 
-    <h2 class={h2}>Sharing &amp; disclosure</h2>
+    <h2 class={h2}>Microphone</h2>
     <p class={p}>
-      We do not sell or rent your information. We share it only with the service
-      providers that operate this site and store our data — currently Google (waitlist
-      storage), GitHub (hosting), and Cloudflare (analytics) — and only to the extent
-      needed to provide the service. We may disclose information if required by law.
+      Minnie listens for a wake word when you enable it, and records only while she is
+      capturing a command. Where the audio is processed depends on the setting you
+      choose, and they are genuinely different:
+    </p>
+    <ul class={ul}>
+      <li><strong>Wake word</strong> — forced to on-device recognition wherever macOS supports it. The continuous listening does not leave your Mac.</li>
+      <li><strong>Whisper (on-device)</strong> — fully local. Audio never leaves your Mac.</li>
+      <li><strong>Apple dictation</strong> — uses Apple's speech recognition, which <strong>may process the audio on Apple's servers</strong> rather than on your Mac. This is Apple's behaviour, governed by <a class={link} href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple's Privacy Policy</a>. Choose Whisper if you would rather it never left the machine.</li>
+      <li><strong>Cloud dictation</strong> — optional, and only if you supply your own OpenAI key. The recording is sent to OpenAI for transcription.</li>
+    </ul>
+    <p class={p}>
+      We never receive your audio in any of these modes. No recording is stored after
+      it has been transcribed.
     </p>
 
-    <h2 class={h2}>Data retention</h2>
+    <h2 class={h2}>Her voice</h2>
     <p class={p}>
-      We keep waitlist entries until Minnie has launched and for a reasonable period
-      afterward, or until you ask us to remove you — whichever comes first. Ask any
-      time and we'll delete your entry.
+      Apple's built-in voices speak entirely on your Mac. If you enable cloud voice
+      with your own key, the <em>text</em> she is about to say is sent to OpenAI or
+      ElevenLabs to be turned into audio. Nothing is sent to us.
     </p>
 
-    <h2 class={h2}>Your rights &amp; choices</h2>
+    <h2 class={h2}>Screen awareness</h2>
     <p class={p}>
-      You can ask us to access, correct, or delete the information we hold about you,
-      and you can unsubscribe from updates at any time. To make a request, email <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a>. Depending on
-      where you live (for example, the EEA/UK under GDPR, or California under the CCPA),
-      you may have additional rights; we honor these requests regardless of location.
+      When "notice what you're doing" is on, Minnie checks which app is in front and
+      where its windows sit, so she can move out of the way and sleep when you are
+      idle. She reads the <strong>app's name and the position and size of its
+      windows</strong> — not their contents. Minnie takes no screenshots and does not
+      record your screen.
     </p>
 
-    <h2 class={h2}>Children's privacy</h2>
+    <h2 class={h2}>Your account</h2>
     <p class={p}>
-      This site is intended for developers and is not directed at children under 16.
-      We do not knowingly collect information from children.
+      If you make an account, we store the following on Supabase, in their Mumbai
+      (ap-south-1) region:
+    </p>
+    <ul class={ul}>
+      <li>Your <strong>email address, name and profile picture</strong>, from the Google account you sign in with. Signing in to Minnie does not request access to your Gmail or Calendar — that is a separate, optional connection you make yourself.</li>
+      <li>Your <strong>plan and its dates</strong>, and the customer and subscription ids from our payment provider.</li>
+      <li>Your <strong>licence key</strong>, if you have one.</li>
+      <li>For each Mac you activate: a <strong>SHA-256 hash of the hardware identifier</strong> — never the identifier itself — plus the device name, macOS version and app version, so the device limit can be enforced.</li>
+      <li>A small number of <strong>account events</strong> (activation, trial start and end) that have to sit next to a licence.</li>
+    </ul>
+
+    <h2 class={h2}>Product analytics</h2>
+    <p class={p}>
+      We use <a class={link} href="https://posthog.com/" target="_blank" rel="noopener noreferrer">PostHog</a> (United States) to see which parts of Minnie people
+      actually use and where onboarding loses them. Events are things like the app
+      launching, an onboarding step finishing, a task completing, settings opening,
+      and checkout opening.
+    </p>
+    <p class={p}>Three deliberate limits:</p>
+    <ul class={ul}>
+      <li>Analytics are keyed to a <strong>random id generated on install</strong>, not to your hardware id. It is deliberately not joinable against our licence records.</li>
+      <li>When a setting changes we record <strong>which</strong> setting, never the value — a value could be your key or your pet's name.</li>
+      <li>We never record message text, replies, tool arguments, file paths, or licence keys. There is no code in the app that reads them for analytics.</li>
+    </ul>
+    <p class={p}>
+      Turn it off in <strong>Settings ▸ Privacy &amp; Safety</strong>. Minnie works
+      exactly the same with it off.
     </p>
 
-    <h2 class={h2}>Changes to this policy</h2>
+    <h2 class={h2}>Payments</h2>
     <p class={p}>
-      We may update this policy as the product evolves. Material changes will be posted
-      here with a new "last updated" date.
+      Purchases are handled by <a class={link} href="https://dodopayments.com" target="_blank" rel="noopener noreferrer">Dodo Payments</a>, who act as merchant of
+      record. They collect your name, email and billing details and process the card;
+      we receive confirmation that a payment happened, along with your email and a
+      customer id. <strong>We never see or store your card details.</strong> See <a class={link} href="https://dodopayments.com/privacy-policy" target="_blank" rel="noopener noreferrer">Dodo's privacy policy</a>.
+    </p>
+
+    <h2 class={h2}>Updates and the beta</h2>
+    <p class={p}>
+      Minnie checks a file on our website for the latest version. That request tells
+      our host your IP address and app version, as any web request does. Beta builds
+      also carry an expiry date and can be retired remotely.
+    </p>
+
+    <h2 class={h2}>This website</h2>
+    <p class={p}>
+      If you join the waitlist we collect your email address, which section you signed
+      up from, and the timestamp. Entries are stored in a private Google Sheet. The
+      site is hosted on GitHub Pages, which processes requests to serve it. There are
+      no advertising or cross-site tracking cookies.
+    </p>
+
+    <h2 class={h2}>Who else touches your data</h2>
+    <p class={p}>
+      Only the providers that operate the service, and only for that purpose:
+      Supabase (accounts), PostHog (analytics), Dodo Payments (billing), Google
+      (waitlist storage and sign-in), GitHub (hosting and downloads), and whichever
+      AI, speech or connected-tool provider you choose. We do not sell or rent your
+      information. We may disclose it if the law requires it.
+    </p>
+
+    <h2 class={h2}>How long we keep it</h2>
+    <ul class={ul}>
+      <li><strong>Account and licence records</strong> — while your account exists, and afterwards only as long as tax and accounting rules require.</li>
+      <li><strong>Analytics</strong> — retained by PostHog under their standard retention.</li>
+      <li><strong>Waitlist entries</strong> — until you ask us to remove you.</li>
+      <li><strong>Anything on your Mac</strong> — until you delete it. That is entirely your call; we cannot delete it for you and cannot see it.</li>
+    </ul>
+
+    <h2 class={h2}>Your rights</h2>
+    <p class={p}>
+      You can ask for a copy of what we hold, ask us to correct it, or ask us to
+      delete your account and its data. Email <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a> and we will act on it.
+      Depending on where you live — for example the EEA or UK under GDPR, or
+      California under the CCPA — you may have further rights; we honour these
+      requests wherever you are.
+    </p>
+
+    <h2 class={h2}>Children</h2>
+    <p class={p}>
+      Minnie is not directed at children under 16, and we do not knowingly collect
+      information from them.
+    </p>
+
+    <h2 class={h2}>Changes</h2>
+    <p class={p}>
+      We will update this page as Minnie changes, with a new date at the top. If a
+      change materially affects what leaves your Mac, we will say so in the app.
     </p>
 
     <h2 class={h2}>Contact</h2>
     <p class={p}>
-      Questions about this policy or your data? Email <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+      Questions about any of this? Email <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a>.
     </p>
   </main>
 

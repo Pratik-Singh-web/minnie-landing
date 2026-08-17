@@ -1,0 +1,110 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import { contactEmail, updated, refundDays, price } from "../legal";
+
+const base = import.meta.env.BASE_URL;
+
+const h2 = "prose-h2";
+const p = "prose-p";
+const ul = "prose-ul";
+const link = "prose-a";
+---
+
+<Layout
+  title="Refund & Cancellation Policy — Minnie"
+  description="Thirty days, no reason needed. How to cancel, how to get your money back, and what happens to Minnie afterwards."
+>
+  <Navbar />
+
+  <main class="legal">
+    <a href={base} class="legal__back mono">← back to home</a>
+
+    <h1 class="legal__h1">Refund &amp; Cancellation Policy</h1>
+    <p class="legal__date mono">Last updated: {updated}</p>
+
+    <p class={p} style="margin-top:28px;">
+      Minnie has a free trial precisely so you can find out whether she fits before
+      paying. If you paid anyway and she does not, we would rather give the money back
+      than keep it.
+    </p>
+
+    <h2 class={h2}>Refunds</h2>
+    <p class={p}>
+      <strong>Within {refundDays} days of a charge, you can have a full refund, and
+      you do not have to give a reason.</strong> Email <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a> from the address you
+      bought with, and we will process it.
+    </p>
+    <p class={p}>
+      Refunds go back to the original payment method. Once processed on our side, your
+      bank usually takes another 5–10 working days to show it — that part is not
+      something we can speed up.
+    </p>
+    <p class={p}>
+      After {refundDays} days we do not refund a period already under way, but you can
+      cancel at any time so it does not renew. If something has gone genuinely wrong —
+      a double charge, a subscription you cancelled that billed anyway, a build that
+      never worked on your Mac — write to us regardless of the date. Those are
+      mistakes, not refund requests, and we fix them.
+    </p>
+
+    <h2 class={h2}>Cancelling</h2>
+    <p class={p}>
+      Open <strong>Settings ▸ Account ▸ Manage subscription</strong> in Minnie, which
+      takes you to the customer portal for the email you bought with. You can also
+      just email us and we will cancel it for you.
+    </p>
+    <p class={p}>
+      Cancelling stops the next renewal. <strong>It does not cut you off
+      immediately</strong> — you keep full access until the end of the period you have
+      already paid for. You paid for the year; you get the year.
+    </p>
+
+    <h2 class={h2}>What happens after</h2>
+    <p class={p}>
+      Minnie does not disappear and does not lock your work away. When the paid period
+      ends she stops running agent tasks, but she still appears, listens and speaks,
+      and everything on your Mac — her memory of you, your task history, your settings
+      — stays exactly where it is. Subscribe again later and she picks up where she
+      left off.
+    </p>
+
+    <h2 class={h2}>Failed payments</h2>
+    <p class={p}>
+      A declined card is usually a bank being cautious, not a decision. If a renewal
+      fails we keep your access on and give the payment a grace period to go through
+      before anything changes. We do not lock you out the same day.
+    </p>
+
+    <h2 class={h2}>Trials</h2>
+    <p class={p}>
+      The trial needs no card, so it cannot charge you and there is nothing to cancel.
+      When it ends, it ends — you are not billed unless you choose to subscribe.
+    </p>
+
+    <h2 class={h2}>Price</h2>
+    <p class={p}>
+      Minnie is {price}. Any discount you used applies for as long as your
+      subscription stays active.
+    </p>
+
+    <h2 class={h2}>Chargebacks</h2>
+    <p class={p}>
+      Please email us before raising a chargeback. A bank dispute takes months and
+      locks the account while it runs; we can usually refund you the same day. We have
+      never refused a request made in good faith.
+    </p>
+
+    <h2 class={h2}>Contact</h2>
+    <p class={p}>
+      <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a>. Include the
+      email you paid with and we will find the rest.
+    </p>
+    <p class={p}>
+      See also the <a class={link} href={`${base}terms`}>Terms of Service</a> and the <a class={link} href={`${base}privacy`}>Privacy Policy</a>.
+    </p>
+  </main>
+
+  <Footer />
+</Layout>

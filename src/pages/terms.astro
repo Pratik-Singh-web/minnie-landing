@@ -1,0 +1,165 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import { contactEmail, updated, legalName, jurisdiction, price, deviceLimit, refundDays } from "../legal";
+
+const base = import.meta.env.BASE_URL;
+
+const h2 = "prose-h2";
+const p = "prose-p";
+const ul = "prose-ul";
+const link = "prose-a";
+---
+
+<Layout
+  title="Terms of Service — Minnie"
+  description="The agreement for using Minnie: your licence, what the subscription includes, and what you take responsibility for when an AI agent runs on your Mac."
+>
+  <Navbar />
+
+  <main class="legal">
+    <a href={base} class="legal__back mono">← back to home</a>
+
+    <h1 class="legal__h1">Terms of Service</h1>
+    <p class="legal__date mono">Last updated: {updated}</p>
+
+    <p class={p} style="margin-top:28px;">
+      These terms are the agreement between you and {legalName} ("we", "us") for the
+      Minnie app and this website. Installing or using Minnie means you accept them.
+      They are written to be read, not to be survived.
+    </p>
+
+    <h2 class={h2}>What Minnie is</h2>
+    <p class={p}>
+      Minnie is a macOS application that gives an AI agent a voice, a face, and the
+      ability to do work on your Mac. She is an interface to an AI agent — she is not
+      the AI model herself, and the quality of what the agent produces is not
+      something we control.
+    </p>
+
+    <h2 class={h2}>Your licence</h2>
+    <p class={p}>
+      A paid subscription grants you a personal, non-exclusive, non-transferable
+      licence to use Minnie on up to <strong>{deviceLimit} Macs</strong> that you own
+      or control, for as long as the subscription is active. You may not resell,
+      sublicense, or redistribute the app or your licence key, and you may not remove
+      or work around the licensing checks.
+    </p>
+
+    <h2 class={h2}>Trial, price and renewal</h2>
+    <ul class={ul}>
+      <li>Minnie includes a <strong>free trial</strong>, with no card required.</li>
+      <li>After that, Minnie is <strong>{price}</strong>, billed annually and renewing automatically until you cancel.</li>
+      <li>You can cancel any time. Cancelling stops the next renewal; <strong>your access continues to the end of the period you have already paid for</strong>.</li>
+      <li>If a renewal payment fails we do not cut you off immediately — there is a grace period for the bank or card to sort itself out.</li>
+      <li>We may change the price. An existing subscription keeps its price for the period already paid, and we will tell you before a change affects a renewal.</li>
+    </ul>
+    <p class={p}>
+      Refunds are covered by our <a class={link} href={`${base}refund`}>Refund &amp; Cancellation Policy</a> — {refundDays} days, no reason needed.
+    </p>
+
+    <h2 class={h2}>When the subscription ends</h2>
+    <p class={p}>
+      Minnie does not brick herself. When a trial or subscription ends she stops
+      running agent tasks, but she still appears, listens, and speaks, and everything
+      she has stored on your Mac stays exactly where it is. Nothing is deleted and
+      nothing is held hostage.
+    </p>
+
+    <h2 class={h2}>What you are responsible for</h2>
+    <p class={p}>
+      This is the part that matters most, so it is not buried. Minnie runs an AI agent
+      on your Mac <strong>outside the macOS App Sandbox</strong>, with access to your
+      files and the ability to run commands. She asks before risky actions and shows
+      you what she is about to do — but you can approve those actions, and once
+      approved they run for real.
+    </p>
+    <p class={p}>You are responsible for:</p>
+    <ul class={ul}>
+      <li>What you ask Minnie to do, and what you approve when she asks.</li>
+      <li><strong>Keeping your own backups.</strong> An approved command can delete or overwrite files, and we cannot undo that.</li>
+      <li>Having the rights to the files, accounts and tools you point her at.</li>
+      <li>Your own accounts and API keys with AI, speech and tool providers, and complying with their terms.</li>
+      <li>Using Minnie lawfully — not for anything illegal, not to attack or gain unauthorised access to systems, and not to build a competing product out of her.</li>
+    </ul>
+
+    <h2 class={h2}>AI output</h2>
+    <p class={p}>
+      AI agents get things wrong, confidently. Anything Minnie writes, summarises, or
+      does can be inaccurate or unsuitable, and none of it is professional advice —
+      legal, financial, medical or otherwise. Check work that matters before you rely
+      on it, and be careful about approving actions you have not read.
+    </p>
+
+    <h2 class={h2}>Third-party services</h2>
+    <p class={p}>
+      Minnie connects to services you choose — AI providers, speech providers, and
+      tools you connect over MCP. Those are governed by their own terms, we do not
+      control them, and we are not responsible for what they do, what they charge, or
+      whether they stay available. If a provider changes or disappears, parts of
+      Minnie that depend on it may stop working.
+    </p>
+
+    <h2 class={h2}>Beta builds</h2>
+    <p class={p}>
+      Beta versions are provided as-is, may be unstable, carry an expiry date, and can
+      be retired remotely when a newer build is required. Do not use a beta for
+      anything you cannot afford to have go wrong.
+    </p>
+
+    <h2 class={h2}>Updates and changes</h2>
+    <p class={p}>
+      Minnie can download and install her own updates. Features may be added, changed
+      or removed as the product develops. If we ever discontinue Minnie entirely, we
+      will give notice and refund the unused part of any current subscription period.
+    </p>
+
+    <h2 class={h2}>Warranty</h2>
+    <p class={p}>
+      Minnie is provided "as is", without warranties of any kind, express or implied,
+      including fitness for a particular purpose and uninterrupted or error-free
+      operation. Some jurisdictions do not allow certain exclusions — where that is
+      the case, this clause applies only as far as the law permits, and your statutory
+      consumer rights are unaffected.
+    </p>
+
+    <h2 class={h2}>Liability</h2>
+    <p class={p}>
+      To the extent the law allows, we are not liable for indirect, incidental or
+      consequential loss, or for lost data, lost profits or lost time. Our total
+      liability for any claim is limited to what you paid us in the twelve months
+      before it arose. Nothing here limits liability that cannot lawfully be limited.
+    </p>
+
+    <h2 class={h2}>Ending the agreement</h2>
+    <p class={p}>
+      You can stop using Minnie and cancel at any time. We may suspend or end access
+      if these terms are seriously or repeatedly broken — for example licence-key
+      abuse or using Minnie to attack other systems. If we end your access for a
+      reason that is not your breach, we refund the unused part of the period.
+    </p>
+
+    <h2 class={h2}>Governing law</h2>
+    <p class={p}>
+      These terms are governed by the laws of {jurisdiction}, and its courts have
+      jurisdiction over any dispute. If you are a consumer elsewhere, this does not
+      remove protections you have under your own local law.
+    </p>
+
+    <h2 class={h2}>Changes to these terms</h2>
+    <p class={p}>
+      We may update these terms as Minnie changes. The date at the top always says
+      when. Continuing to use Minnie after a change means you accept the new version;
+      if you do not, cancel and we will refund the unused part of your period.
+    </p>
+
+    <h2 class={h2}>Contact</h2>
+    <p class={p}>
+      Email <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a> — a
+      real person answers.
+    </p>
+  </main>
+
+  <Footer />
+</Layout>
