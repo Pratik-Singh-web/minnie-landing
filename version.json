@@ -1,8 +1,8 @@
 {
-  "latest": "0.9.6",
-  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.6-beta/Minnie-0.9.6-beta.dmg",
-  "sha256": "6f3372612773de4d90b21fdac6de3c13564a5eef8754eff7f563d7625fb30962",
-  "notes": "Retiring a build now actually stops the agent; installing no longer freezes the app.",
+  "latest": "0.9.7",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.7-beta/Minnie-0.9.7-beta.dmg",
+  "sha256": "499460fbb05056ae3f761c99e4bc6cf506699fd31de0dff090b95e3d13190a70",
+  "notes": "Voice rewritten: she could go completely silent on Hindi replies, and Hinglish spoke in an American accent. Both fixed \u2014 tell me if anything sounds off.",
   "mandatory": false,
   "minSupportedVersion": ""
 }
