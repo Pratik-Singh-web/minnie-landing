@@ -6,11 +6,12 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // Deployed on GitHub Pages as a project site → served under /<repo>/.
-  // When you move to a custom domain (e.g. https://minnie.app): set `site` to it,
-  // remove `base`, and add a public/CNAME file containing the domain.
-  site: 'https://pratik-singh-web.github.io',
-  base: '/minnie-landing/',
+  // Custom domain since 2026-08-23. `base` is deliberately ABSENT: on a custom
+  // domain the site is served from the root, and leaving `/minnie-landing/` in
+  // would prefix every asset and link with a path that no longer exists.
+  // `public/CNAME` is what actually tells GitHub Pages the domain — it is copied
+  // into the build output, and Pages reads it on deploy.
+  site: 'https://heyminnie.com',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]

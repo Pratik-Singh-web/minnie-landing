@@ -5,7 +5,7 @@ agent you already pay for, asks permission out loud before it touches anything, 
 keeps everything on your Mac. The app itself lives in
 [Pratik-Singh-web/Minnie](https://github.com/Pratik-Singh-web/Minnie).
 
-Live: <https://pratik-singh-web.github.io/minnie-landing/>
+Live: <https://heyminnie.com>
 
 ## Stack
 
@@ -14,7 +14,7 @@ plain vanilla JS in the component that owns it.
 
 ```sh
 npm install
-npm run dev      # http://localhost:4321/minnie-landing/
+npm run dev      # http://localhost:4321/
 npm run build    # → dist/
 npm run preview  # serve dist/ locally
 ```
@@ -73,8 +73,10 @@ steps and the `Code.gs` to paste are in [WAITLIST_SETUP.md](WAITLIST_SETUP.md).
 Every push to `main` triggers [`.github/workflows/deploy.yml`](.github/workflows),
 which builds with Astro and publishes to GitHub Pages.
 
-Because it's served from a project subpath, `astro.config.mjs` sets
-`site: 'https://pratik-singh-web.github.io'` and `base: '/minnie-landing/'`. Always
-build asset URLs from `import.meta.env.BASE_URL`. When a custom domain arrives:
-point `site` at it, drop `base`, add `public/CNAME`, and update the sitemap URL in
-`public/robots.txt`.
+Served from the custom domain `heyminnie.com` since 2026-08-23, so
+`astro.config.mjs` sets `site: 'https://heyminnie.com'` and has **no `base`** — on a
+custom domain the site lives at the root. `public/CNAME` is what tells GitHub Pages
+the domain; it is copied into the build output and Pages reads it on deploy.
+
+Still build asset URLs from `import.meta.env.BASE_URL` rather than hardcoding `/` —
+that is what made this move a three-line change instead of a sweep.
