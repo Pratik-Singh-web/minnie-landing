@@ -1,9 +1,21 @@
 ---
+// Pricing has to be ON the site and has to MATCH what Dodo is told: their
+// verification is a comparison between the Product Information Form and the live
+// page, and a mismatch is a documented cause of a form being held.
+//
+// This section existed but was never rendered, and its content predated the
+// subscription decision (ADR-001) — it advertised a ONE-TIME $39 licence at a $19
+// founder price. Rendering that would have been worse than showing no price at
+// all: Dodo is configured for a $29/year subscription.
+//
+// The $39 strikethrough is gone on purpose. It was never a real price, and an
+// invented "was" figure is a fake anchor — the kind of thing a compliance
+// reviewer is specifically looking for.
 const features = [
-  "Bring your own agent — no AI cost",
-  "macOS app DMG (Windows on the roadmap)",
-  "Lifetime licence and free v1 updates",
-  "Local speech synthesis and key storage",
+  "Bring your own AI account — we never bill you for AI",
+  "Voice control, and your own tools connected over MCP",
+  "Up to 3 Macs on one licence",
+  "A year of updates",
 ];
 ---
 
@@ -11,20 +23,19 @@ const features = [
   <div class="wrap">
     <div class="pricing__head reveal-slam">
       <span class="eyebrow">Pricing</span>
-      <h2 class="h2">Pay once. Keep her forever.</h2>
+      <h2 class="h2">Free in open beta. Then $29 a year.</h2>
     </div>
 
     <div class="pricing__wrap reveal-up">
       <div class="card pricing__card">
-        <span class="pricing__badge mono jitter">Founder offer</span>
+        <span class="pricing__badge mono jitter">Free in beta</span>
 
-        <h3 class="pricing__h">Minnie licence</h3>
-        <p class="pricing__limit mono">first 500 developers only</p>
+        <h3 class="pricing__h">Minnie Pro</h3>
+        <p class="pricing__limit mono">macOS · Apple Silicon</p>
 
         <div class="pricing__row">
-          <span class="pricing__now">$19</span>
-          <span class="pricing__was">$39</span>
-          <span class="pricing__unit mono">one-time</span>
+          <span class="pricing__now">$29</span>
+          <span class="pricing__unit mono">per year</span>
         </div>
 
         <div class="pricing__list">
@@ -36,8 +47,12 @@ const features = [
           ))}
         </div>
 
-        <a href="#waitlist" class="btn pricing__cta">Lock in founder price</a>
-        <p class="pricing__note mono">30-day money-back after launch</p>
+        <a href={`${import.meta.env.BASE_URL}download`} class="btn pricing__cta">
+          Download free while she's in beta
+        </a>
+        <p class="pricing__note mono">
+          1-day free trial, no card · 30-day refund · cancel any time
+        </p>
       </div>
     </div>
   </div>
