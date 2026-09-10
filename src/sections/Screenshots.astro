@@ -1,0 +1,98 @@
+---
+import { Picture } from "astro:assets";
+import consent from "../assets/consent.png";
+import thinking from "../assets/thinking.png";
+
+// These are the only real photographs of the product on the whole site — every
+// other "screenshot" is a CSS recreation in the page's own brutalist style.
+// That is a deliberate split: the mocks carry the design, these carry the proof.
+// astro:assets does the optimising (AVIF/WebP, explicit width+height so nothing
+// shifts as they load), which is why they live in src/assets and not public/.
+// idle.png is deliberately not used: its menu bar is a blurry render, and next
+// to thinking.png it is the same picture with a different status pill. Re-shoot
+// it at retina and the pair is worth restoring.
+---
+
+<section class="sec" id="screens">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow eyebrow--pink">The real thing</span>
+      <h2 class="h2">This is her,<br />actually running.</h2>
+      <p class="lede">
+        Not a mockup. Minnie on a real Mac, asking before she runs a command she cannot take
+        back.
+      </p>
+    </div>
+
+    <figure class="shot reveal-up">
+      <div class="card shot__frame">
+        <Picture
+          src={consent}
+          formats={["avif", "webp"]}
+          widths={[640, 960, 1246]}
+          sizes="(min-width: 900px) 900px, 100vw"
+          alt="Minnie's consent cloud on macOS: she asks 'I want to delete the build folder. Ok?' before running rm -rf build/, offering Deny, Allow once and For session."
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <figcaption class="shot__cap mono">
+        <code>rm -rf build/</code> — the kind of command you want to be asked about.
+      </figcaption>
+    </figure>
+
+    <figure class="shot shot--half reveal-up">
+      <div class="card shot__frame">
+        <Picture
+          src={thinking}
+          formats={["avif", "webp"]}
+          widths={[460, 720, 924]}
+          sizes="(min-width: 800px) 720px, 100vw"
+          alt="Minnie sitting in the corner of a macOS desktop with a 'thinking' status pill while the coding agent works."
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <figcaption class="shot__cap mono">
+        She stays out of the way. You can see the agent working without switching windows.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .shot { margin: 0; }
+
+  /* The screenshots are soft and glassy; the page is not. The hard border and
+     offset shadow are what stop them reading as pasted-in foreign objects. */
+  .shot__frame {
+    overflow: hidden;
+    line-height: 0;
+  }
+  .shot__frame :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .shot__cap {
+    margin-top: 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+  .shot__cap code {
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--yellow);
+    border: 2px solid var(--line);
+    padding: 1px 5px;
+    text-transform: none;
+  }
+
+  .shot--half {
+    margin: 44px auto 0;
+    max-width: 720px;
+  }
+</style>
