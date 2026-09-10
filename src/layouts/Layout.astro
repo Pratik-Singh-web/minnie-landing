@@ -4,9 +4,14 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  /** Overrides the site-wide structured data. A blog post is an Article, not
+   *  the app — repeating SoftwareApplication + FAQPage on every URL tells
+   *  Google the same six answers live in six different places. */
+  jsonLd?: unknown[];
 }
 
 const {
+  jsonLd,
   title = "Minnie — Give your AI agent a body | macOS AI desktop pet",
   description = "Minnie is a native macOS desktop pet that runs your AI coding agent — talk to her, she executes real tasks, asks permission out loud, and stays fully local. Zero extra AI cost.",
 } = Astro.props;
@@ -123,9 +128,11 @@ const faqLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Structured data (rich results) -->
-    <script type="application/ld+json" set:html={JSON.stringify(softwareLd)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+    <!-- Structured data (rich results). Pages that describe something other
+         than the app pass their own via the `jsonLd` prop. -->
+    {(jsonLd ?? [softwareLd, faqLd]).map((data) => (
+      <script type="application/ld+json" set:html={JSON.stringify(data)} />
+    ))}
 
     <!-- Fonts: Outfit (display), Karla (body), Space Mono (code) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -1,0 +1,66 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+
+const base = import.meta.env.BASE_URL;
+const site = Astro.site?.href ?? "https://heyminnie.com/";
+
+const posts = (
+  await getCollection("blog", ({ data }) => import.meta.env.DEV || !data.draft)
+).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+
+// A Blog node, not the app — same reasoning as BlogPost.astro.
+const blogLd = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "The Minnie blog",
+  url: new URL(`${base}blog`, site).href,
+  blogPost: posts.map((post) => ({
+    "@type": "BlogPosting",
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.pubDate.toISOString(),
+    url: new URL(`${base}blog/${post.id}`, site).href,
+  })),
+};
+---
+
+<Layout
+  title="Blog — Minnie"
+  description="Notes on running an AI coding agent on your Mac: voice control, permissions, MCP servers, and what building a desktop pet for Claude Code actually taught us."
+  jsonLd={[blogLd]}
+>
+  <Navbar />
+
+  <main class="legal">
+    <a href={base} class="legal__back mono">← back to home</a>
+
+    <h1 class="legal__h1">Blog</h1>
+    <p class="legal__date mono">Notes from building Minnie</p>
+
+    {
+      posts.length === 0 ? (
+        <p class="prose-p" style="margin-top:28px;">Nothing published yet.</p>
+      ) : (
+        <ul class="postlist">
+          {posts.map((post) => (
+            <li class="postlist__item">
+              <a class="postlist__link" href={`${base}blog/${post.id}`}>
+                <span class="postlist__date mono">{fmt(post.data.pubDate)}</span>
+                <h2 class="postlist__title">{post.data.title}</h2>
+                <p class="postlist__desc">{post.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </main>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,59 @@
+---
+import Layout from "./Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  tags?: string[];
+}
+
+const { title, description, pubDate, updatedDate, tags = [] } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const site = Astro.site?.href ?? "https://heyminnie.com/";
+const url = new URL(Astro.url.pathname, site).href;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+
+// BlogPosting replaces the site-wide SoftwareApplication + FAQPage. Google reads
+// datePublished/dateModified to judge freshness, which is most of the value here
+// — the article rich result itself is limited to news publishers.
+const postLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  ...(updatedDate ? { dateModified: updatedDate.toISOString() } : {}),
+  author: { "@type": "Organization", name: "Minnie", url: site },
+  publisher: { "@type": "Organization", name: "Minnie", url: site },
+  mainEntityOfPage: { "@type": "WebPage", "@id": url },
+  image: new URL(`${base}og-image.png`, site).href,
+};
+---
+
+<Layout title={`${title} — Minnie`} description={description} jsonLd={[postLd]}>
+  <Navbar />
+
+  <main class="legal">
+    <a href={`${base}blog`} class="legal__back mono">← all posts</a>
+
+    <h1 class="legal__h1">{title}</h1>
+    <p class="legal__date mono">
+      {fmt(pubDate)}
+      {updatedDate ? ` · updated ${fmt(updatedDate)}` : ""}
+      {tags.length > 0 ? ` · ${tags.join(" · ")}` : ""}
+    </p>
+
+    <div class="post__body">
+      <slot />
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
