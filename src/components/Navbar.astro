@@ -50,7 +50,7 @@ import Pet from "./Pet.astro";
     height: 100%;
     width: 0%;
     background: var(--yellow);
-    border-right: 3px solid var(--line);
+    border-right: 1px solid var(--line);
   }
 
   .nav {
@@ -58,7 +58,7 @@ import Pet from "./Pet.astro";
     top: 0;
     z-index: 50;
     width: 100%;
-    border-bottom: 3px solid var(--line);
+    border-bottom: 1px solid var(--line);
     background: var(--paper);
   }
   .nav__inner {
@@ -84,23 +84,23 @@ import Pet from "./Pet.astro";
     justify-content: center;
     width: 38px;
     height: 38px;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--pink);
     box-shadow: var(--sh-sm);
     flex-shrink: 0;
   }
   .nav__word {
-    font-family: Outfit, sans-serif;
+    font-family: var(--font-display);
     font-size: 24px;
-    font-weight: 900;
+    font-weight: 800;
     letter-spacing: -0.03em;
     color: var(--ink);
     text-transform: uppercase;
   }
   .nav__soon {
-    border: 2px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--yellow);
-    color: #101a12;
+    color: var(--ink);
     padding: 2px 8px;
     font-size: 10px;
     font-weight: 700;

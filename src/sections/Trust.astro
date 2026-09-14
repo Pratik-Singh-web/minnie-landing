@@ -2,10 +2,10 @@
 import Pet from "../components/Pet.astro";
 
 const modes = [
-  { title: "Allow once", body: "Approve just the next action, nothing more.", tint: "#ff5f9e" },
-  { title: "For this session", body: "Auto-approve safe reads for the next hour.", tint: "#ffd23f" },
+  { title: "Allow once", body: "Approve just the next action, nothing more.", tint: "var(--pink)" },
+  { title: "For this session", body: "Auto-approve safe reads for the next hour.", tint: "var(--yellow)" },
   { title: "Default mode", body: "Interactive review of edits plus command approvals.", tint: "#3fd07a" },
-  { title: "Plan mode", body: "Research and draft suggestions, change nothing.", tint: "#f4efe2" },
+  { title: "Plan mode", body: "Research and draft suggestions, change nothing.", tint: "var(--sunk)" },
 ];
 ---
 
@@ -82,7 +82,7 @@ const modes = [
   }
 
   .trust__cloud {
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--paper);
     padding: 18px;
     margin-bottom: 20px;
@@ -97,7 +97,7 @@ const modes = [
     color: var(--ink-soft);
   }
   .trust__op {
-    border: 2px solid var(--line);
+    border: 1px solid var(--line);
     padding: 1px 6px;
     color: var(--ink);
   }
@@ -117,7 +117,7 @@ const modes = [
     flex: 1;
     text-align: center;
     padding: 8px;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
@@ -154,7 +154,7 @@ const modes = [
     display: flex;
     gap: 14px;
     align-items: flex-start;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--card);
     padding: 14px;
     box-shadow: var(--sh-sm);
@@ -162,20 +162,20 @@ const modes = [
   }
   .trust__mode:hover {
     background: var(--yellow);
-    color: #101a12;
+    color: var(--ink);
   }
   .trust__check {
     flex-shrink: 0;
     width: 26px;
     height: 26px;
-    font-weight: 900;
+    font-weight: 800;
     font-size: 13px;
-    color: #101a12;
+    color: var(--ink);
   }
   .trust__modeh {
     margin: 0;
-    font-family: Outfit, sans-serif;
-    font-weight: 900;
+    font-family: var(--font-display);
+    font-weight: 800;
     font-size: 15px;
     text-transform: uppercase;
     letter-spacing: -0.01em;

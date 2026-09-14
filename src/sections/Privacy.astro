@@ -2,7 +2,7 @@
 const points = [
   {
     icon: "🎙️",
-    tint: "#ff5f9e",
+    tint: "var(--pink)",
     title: "On-device voice",
     body: "Apple's local speech by default, or bring your own key. Your words are transcribed and spoken on your Mac.",
   },
@@ -14,13 +14,13 @@ const points = [
   },
   {
     icon: "🙈",
-    tint: "#ffd23f",
+    tint: "var(--yellow)",
     title: "No screen capture",
     body: "She never watches your screen or records your desktop. She sees only what you hand her.",
   },
   {
     icon: "📡",
-    tint: "#ff5f9e",
+    tint: "var(--pink)",
     title: "Zero telemetry",
     body: "No analytics, no phone-home, no usage tracking. Nothing leaves unless a tool you approved sends it.",
   },
@@ -32,7 +32,7 @@ const points = [
   },
   {
     icon: "🧾",
-    tint: "#ffd23f",
+    tint: "var(--yellow)",
     title: "Yours, on your terms",
     body: "Wipe her memory of you whenever you like. No account needed to run the app. Local-first, always.",
   },
@@ -84,9 +84,9 @@ const points = [
   }
   .privacy__h {
     margin: 0 0 8px;
-    font-family: Outfit, sans-serif;
+    font-family: var(--font-display);
     font-size: 18px;
-    font-weight: 900;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: -0.015em;
   }

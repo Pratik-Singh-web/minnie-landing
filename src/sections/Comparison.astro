@@ -8,8 +8,9 @@ const rows = [
   { cap: "Uses your own agent keys, no markup", a: "YES", b: "NO", c: "YES" },
 ];
 
-// Yes/no are colour-coded against the cream table ground, not the page theme.
-const verdict = (v: string) => (v === "YES" ? "#1f7a45" : "#c02a20");
+// Yes/no use the semantic tokens so they stay legible on both grounds —
+// the old literals were tuned for a cream table that dark mode no longer has.
+const verdict = (v: string) => (v === "YES" ? "var(--green)" : "var(--red)");
 ---
 
 <section class="sec sec--deep">
@@ -48,8 +49,8 @@ const verdict = (v: string) => (v === "YES" ? "#1f7a45" : "#c02a20");
 
 <style>
   .cmp {
-    border: 3px solid #f4efe2;
-    background: #f4efe2;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: var(--sunk);
     box-shadow: 10px 10px 0 var(--yellow);
     overflow: hidden;
   }
@@ -60,22 +61,22 @@ const verdict = (v: string) => (v === "YES" ? "#1f7a45" : "#c02a20");
     text-align: left;
     border-collapse: collapse;
     min-width: 660px;
-    color: #101a12;
+    color: var(--ink);
   }
   .cmp__table thead tr {
-    background: #101a12;
-    color: #f4efe2;
+    background: var(--band);
+    color: var(--on-band);
   }
   .cmp__table th {
     padding: 18px;
-    font-family: Outfit, sans-serif;
+    font-family: var(--font-display);
     font-size: 13px;
-    font-weight: 900;
+    font-weight: 800;
     text-transform: uppercase;
   }
-  .cmp__mine { color: var(--yellow); }
+  .cmp__mine { color: var(--on-band-dim); }
 
-  .cmp__table tbody tr { border-top: 3px solid #101a12; }
+  .cmp__table tbody tr { border-top: 1px solid var(--line); }
   .cmp__table td {
     padding: 16px 18px;
     font-size: 14px;
@@ -83,7 +84,7 @@ const verdict = (v: string) => (v === "YES" ? "#1f7a45" : "#c02a20");
   }
   .cmp__cap { font-weight: 700; }
   .cmp__yes {
-    background: #ffd23f;
-    color: #101a12;
+    background: var(--yellow);
+    color: var(--ink);
   }
 </style>

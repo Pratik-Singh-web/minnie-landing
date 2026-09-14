@@ -87,15 +87,15 @@ const year = new Date().getFullYear();
     justify-content: center;
     width: 34px;
     height: 34px;
-    border: 3px solid #f4efe2;
+    border: 1px solid rgba(255, 255, 255, 0.16);
     background: var(--pink);
     flex-shrink: 0;
   }
   .foot__word {
-    font-family: Outfit, sans-serif;
+    font-family: var(--font-display);
     font-size: 20px;
-    font-weight: 900;
-    color: #f4efe2;
+    font-weight: 800;
+    color: var(--on-band);
     text-transform: uppercase;
   }
 
@@ -113,10 +113,10 @@ const year = new Date().getFullYear();
 
   .foot__h {
     margin: 0 0 14px;
-    font-family: Outfit, sans-serif;
+    font-family: var(--font-display);
     font-size: 13px;
-    font-weight: 900;
-    color: var(--yellow);
+    font-weight: 800;
+    color: var(--on-band-dim);
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
@@ -127,12 +127,12 @@ const year = new Date().getFullYear();
     font-size: 14px;
   }
   .foot__links a { color: #b9cfc0; }
-  .foot__links a:hover { color: var(--yellow); }
+  .foot__links a:hover { color: var(--on-band-dim); }
 
   .foot__rule {
     margin-top: 40px;
     padding-top: 22px;
-    border-top: 3px solid #f4efe2;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -142,5 +142,5 @@ const year = new Date().getFullYear();
     text-transform: uppercase;
   }
   .foot__legal { flex-direction: row; }
-  .foot__tag { color: var(--yellow); }
+  .foot__tag { color: var(--on-band-dim); }
 </style>

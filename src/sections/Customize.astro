@@ -2,10 +2,10 @@
 import Pet from "../components/Pet.astro";
 
 const species = [
-  { id: "minnie", label: "Minnie", tint: "#ff5f9e" },
-  { id: "panda", label: "Panda", tint: "#f4efe2" },
-  { id: "raccoon", label: "Raccoon", tint: "#8ba393" },
-  { id: "dog", label: "Dog", tint: "#ffd23f" },
+  { id: "minnie", label: "Minnie", tint: "var(--pink)" },
+  { id: "panda", label: "Panda", tint: "var(--sunk)" },
+  { id: "raccoon", label: "Raccoon", tint: "var(--sunk)" },
+  { id: "dog", label: "Dog", tint: "var(--yellow)" },
 ];
 
 const personas = [
@@ -182,7 +182,7 @@ const quotes = {
     font-size: 15px;
     font-weight: 700;
     background: var(--card);
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     box-shadow: var(--sh-sm);
     color: var(--ink);
     outline: none;
@@ -196,7 +196,7 @@ const quotes = {
   /* Selected options sit *in* their shadow — pressed, not raised. */
   .opt {
     padding: 9px 16px;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--card);
     color: var(--ink);
     font-size: 12px;
@@ -206,7 +206,7 @@ const quotes = {
   }
   .opt:hover {
     background: var(--yellow);
-    color: #101a12;
+    color: var(--ink);
   }
   .opt--on,
   .opt--on:hover {
@@ -236,7 +236,7 @@ const quotes = {
 
   .custom__plate {
     margin-top: 18px;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--paper);
     padding: 16px;
   }
@@ -248,17 +248,17 @@ const quotes = {
     margin-bottom: 10px;
   }
   .custom__petname {
-    font-family: Outfit, sans-serif;
-    font-weight: 900;
+    font-family: var(--font-display);
+    font-weight: 800;
     font-size: 17px;
     text-transform: uppercase;
     color: var(--ink);
     overflow-wrap: anywhere;
   }
   .custom__badge {
-    border: 2px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--yellow);
-    color: #101a12;
+    color: var(--ink);
     padding: 2px 8px;
     font-size: 10px;
     font-weight: 700;

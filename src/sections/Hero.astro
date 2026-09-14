@@ -69,7 +69,7 @@ import Pet from "../components/Pet.astro";
   .hero {
     position: relative;
     padding: 64px 0 72px;
-    border-bottom: 3px solid var(--line);
+    border-bottom: 1px solid var(--line);
     overflow: hidden;
   }
   .hero__grid {
@@ -87,9 +87,9 @@ import Pet from "../components/Pet.astro";
     align-items: center;
     gap: 8px;
     padding: 7px 14px;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--yellow);
-    color: #101a12;
+    color: var(--ink);
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
@@ -100,7 +100,7 @@ import Pet from "../components/Pet.astro";
   .hero__dot {
     width: 8px;
     height: 8px;
-    background: #101a12;
+    background: var(--ink);
     flex-shrink: 0;
   }
 
@@ -145,7 +145,7 @@ import Pet from "../components/Pet.astro";
     align-items: center;
     justify-content: space-between;
     padding: 10px 14px;
-    border-bottom: 3px solid var(--line);
+    border-bottom: 1px solid var(--line);
     background: var(--yellow);
   }
   .hero__dots {
@@ -155,13 +155,13 @@ import Pet from "../components/Pet.astro";
   .hero__dots span {
     width: 11px;
     height: 11px;
-    border: 2px solid #101a12;
-    background: #f4efe2;
+    border: 1px solid var(--line);
+    background: var(--sunk);
   }
   .hero__appname {
     font-size: 11px;
     font-weight: 700;
-    color: #101a12;
+    color: var(--ink);
   }
 
   .hero__stage {
@@ -186,7 +186,7 @@ import Pet from "../components/Pet.astro";
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--card);
     padding: 6px 12px;
     box-shadow: var(--sh-sm);
@@ -206,20 +206,20 @@ import Pet from "../components/Pet.astro";
   .hero__term {
     margin-top: 18px;
     width: 100%;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--green-deep);
     padding: 12px 14px;
     font-size: 11.5px;
     line-height: 1.7;
-    color: #cfe6d8;
+    color: var(--on-band);
     min-height: 66px;
   }
-  .hero__prompt { color: var(--yellow); }
+  .hero__prompt { color: var(--on-band-dim); }
   .hero__caret {
     display: inline-block;
     width: 8px;
     height: 13px;
-    background: var(--yellow);
+    background: var(--on-band-dim);
     vertical-align: -2px;
     animation-duration: 0.9s;
   }
@@ -227,7 +227,7 @@ import Pet from "../components/Pet.astro";
   .hero__hint {
     margin: 0;
     padding: 10px 14px;
-    border-top: 3px solid var(--line);
+    border-top: 1px solid var(--line);
     background: var(--paper);
     text-align: center;
     font-size: 11px;

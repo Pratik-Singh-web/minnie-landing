@@ -87,9 +87,9 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
 
   /* ── Terminal ─────────────────────────────────────────────────────── */
   .term {
-    background: #0b1a10;
-    border: 3px solid #f4efe2;
-    box-shadow: 10px 10px 0 var(--yellow);
+    background: var(--band);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: var(--sh-lg);
     display: flex;
     flex-direction: column;
     min-height: 540px;
@@ -100,23 +100,23 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
     justify-content: space-between;
     gap: 12px;
     padding: 12px 16px;
-    border-bottom: 3px solid #f4efe2;
-    background: #f4efe2;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.05);
   }
   .term__dots { display: flex; gap: 6px; }
   .term__dots span {
     width: 11px;
     height: 11px;
-    border: 2px solid #101a12;
+    border: 1px solid rgba(255, 255, 255, 0.28);
   }
   .term__title {
     font-size: 11px;
     font-weight: 700;
-    color: #101a12;
+    color: var(--on-band);
   }
   .term__turns {
     font-size: 11px;
-    color: #4a5b4e;
+    color: var(--on-band-dim);
   }
 
   .term__log {
@@ -129,7 +129,7 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
     font-size: 12.5px;
     line-height: 1.65;
     padding: 18px;
-    color: #b9cfc0;
+    color: var(--on-band-dim);
   }
 
   .term__bars {
@@ -140,7 +140,7 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
   }
   .term__bars span {
     width: 5px;
-    background: var(--yellow);
+    background: var(--on-band-dim);
     animation: barJump 0.5s steps(2, end) infinite;
   }
   .term__bars span:nth-child(2) { animation-delay: 0.12s; }
@@ -150,32 +150,32 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
   .term__form {
     display: flex;
     gap: 10px;
-    border-top: 3px solid #f4efe2;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
     padding: 16px;
   }
   .term__input {
     flex: 1;
     min-width: 0;
     padding: 12px 16px;
-    border: 3px solid #f4efe2;
-    background: #0b1a10;
-    color: #f4efe2;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: var(--band);
+    color: var(--on-band);
     font-size: 12.5px;
     outline: none;
   }
-  .term__input::placeholder { color: #8ba393; }
+  .term__input::placeholder { color: var(--on-band-dim); }
   .term__send {
     padding: 12px 20px;
-    border: 3px solid #f4efe2;
+    border: 1px solid rgba(255, 255, 255, 0.16);
     background: var(--yellow);
-    color: #101a12;
+    color: var(--ink);
     font-weight: 800;
     font-size: 13px;
     text-transform: uppercase;
     cursor: pointer;
     transition: none;
   }
-  .term__send:hover { background: #f4efe2; }
+  .term__send:hover { background: var(--sunk); }
 
   .term__suggest {
     display: flex;
@@ -185,30 +185,30 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
   }
   .term__chip {
     padding: 6px 12px;
-    border: 2px solid #8ba393;
+    border: 1px solid rgba(255, 255, 255, 0.16);
     background: transparent;
-    color: #b9cfc0;
+    color: var(--on-band-dim);
     font-size: 11px;
     cursor: pointer;
     transition: none;
   }
   .term__chip:hover {
-    border-color: var(--yellow);
-    color: var(--yellow);
+    border-color: var(--on-band-dim);
+    color: var(--on-band-dim);
   }
 
   /* ── Pet panel ────────────────────────────────────────────────────── */
   .panel {
-    box-shadow: 10px 10px 0 var(--pink);
+    box-shadow: var(--sh-lg);
     padding: 26px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
   .panel__speech {
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--yellow);
-    color: #101a12;
+    color: var(--ink);
     padding: 18px;
     box-shadow: var(--sh-sm);
     position: relative;
@@ -236,7 +236,7 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
   }
   .panel__mood {
     margin-top: 18px;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--paper);
     padding: 6px 14px;
     font-size: 11px;
@@ -258,7 +258,7 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
   .panel__deny,
   .panel__allow {
     padding: 14px;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     font-weight: 800;
     font-size: 13px;
     text-transform: uppercase;
@@ -317,7 +317,7 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
     align-items: baseline;
   }
   #demo-log .term__user b {
-    color: #ffd23f;
+    color: var(--on-band-dim);
     flex-shrink: 0;
     font-weight: 700;
   }
@@ -342,7 +342,7 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
     font-size: 11px;
   }
   #demo-log .term__tool em {
-    color: #8ba393;
+    color: var(--on-band-dim);
     font-style: normal;
   }
 
@@ -374,10 +374,10 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
     tests: {
       match: ["test", "pytest", "failing", "broken", "red"],
       steps: [
-        { t: 400, kind: "tool", tool: "Bash", text: "running `pytest -q`", color: "#ffd23f", speech: "One sec, running your test suite…", mood: "thinking", tint: "#ffd23f" },
+        { t: 400, kind: "tool", tool: "Bash", text: "running `pytest -q`", color: "var(--yellow)", speech: "One sec, running your test suite…", mood: "thinking", tint: "var(--yellow)" },
         { t: 1200, kind: "note", text: "FAIL test_auth.py:42 — AssertionError: 'userId' not found in response dict", color: "#ff6b5e", speech: "Ooh. One red one — an assertion in your auth suite.", mood: "concerned", tint: "#ff6b5e" },
-        { t: 1100, kind: "tool", tool: "Read", text: "mock_users.py", color: "#8ba393", speech: "Reading mock_users.py to see what the payload's missing…", mood: "thinking", tint: "#ffd23f" },
-        { t: 1100, kind: "note", text: "mock payload template is missing `userId`", color: "#8ba393", speech: "Found it. I want to edit mock_users.py line 42. Ok?", mood: "asking", tint: "#ff5f9e", consent: true },
+        { t: 1100, kind: "tool", tool: "Read", text: "mock_users.py", color: "var(--on-band-dim)", speech: "Reading mock_users.py to see what the payload's missing…", mood: "thinking", tint: "var(--yellow)" },
+        { t: 1100, kind: "note", text: "mock payload template is missing `userId`", color: "var(--on-band-dim)", speech: "Found it. I want to edit mock_users.py line 42. Ok?", mood: "asking", tint: "var(--pink)", consent: true },
         { t: 500, kind: "tool", tool: "Write", text: "mock_users.py (line 42)", color: "#3fd07a", speech: "Applying the edit…", mood: "working", tint: "#3fd07a" },
         { t: 900, kind: "note", text: '+ "userId": "user_mock_9912",', color: "#3fd07a", speech: "Done. Re-running the suite to be sure.", mood: "working", tint: "#3fd07a" },
         { t: 1000, kind: "note", text: "✓ all 12 tests passed (100%)", color: "#3fd07a", speech: "All green! I added the missing userId. We're good.", mood: "happy", tint: "#3fd07a" },
@@ -386,33 +386,33 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
     pr: {
       match: ["pr", "pull request", "github", "review", "branch"],
       steps: [
-        { t: 400, kind: "tool", tool: "GitHub", text: "list_pull_requests(state: open)", color: "#ffd23f", speech: "Checking GitHub for open pull requests…", mood: "thinking", tint: "#ffd23f" },
-        { t: 1200, kind: "note", text: "3 open · #128 needs review · #131 has failing checks", color: "#8ba393", speech: "Three open. #131 has red checks — want me to look?", mood: "asking", tint: "#ff5f9e", consent: true },
-        { t: 600, kind: "tool", tool: "GitHub", text: "get_check_runs(pr: 131)", color: "#ffd23f", speech: "Pulling the check logs…", mood: "working", tint: "#ffd23f" },
-        { t: 1100, kind: "note", text: "lint failed: 2 unused imports in src/auth/session.ts", color: "#ffd23f", speech: "Just two unused imports. Easy. Want me to push the fix?", mood: "happy", tint: "#3fd07a" },
+        { t: 400, kind: "tool", tool: "GitHub", text: "list_pull_requests(state: open)", color: "var(--yellow)", speech: "Checking GitHub for open pull requests…", mood: "thinking", tint: "var(--yellow)" },
+        { t: 1200, kind: "note", text: "3 open · #128 needs review · #131 has failing checks", color: "var(--on-band-dim)", speech: "Three open. #131 has red checks — want me to look?", mood: "asking", tint: "var(--pink)", consent: true },
+        { t: 600, kind: "tool", tool: "GitHub", text: "get_check_runs(pr: 131)", color: "var(--yellow)", speech: "Pulling the check logs…", mood: "working", tint: "var(--yellow)" },
+        { t: 1100, kind: "note", text: "lint failed: 2 unused imports in src/auth/session.ts", color: "var(--yellow)", speech: "Just two unused imports. Easy. Want me to push the fix?", mood: "happy", tint: "#3fd07a" },
       ],
     },
     deploy: {
       match: ["deploy", "ship", "build", "release"],
       steps: [
-        { t: 400, kind: "tool", tool: "Bash", text: "npm run build", color: "#ffd23f", speech: "Building first — I never deploy something I haven't built.", mood: "working", tint: "#ffd23f" },
-        { t: 1300, kind: "note", text: "built in 4.2s · 312 kB gzipped", color: "#3fd07a", speech: "Clean build. I want to run the deploy script. Ok?", mood: "asking", tint: "#ff5f9e", consent: true },
-        { t: 600, kind: "tool", tool: "Bash", text: "./scripts/deploy.sh --prod", color: "#ffd23f", speech: "Deploying. I'll shout if anything goes sideways.", mood: "working", tint: "#ffd23f" },
+        { t: 400, kind: "tool", tool: "Bash", text: "npm run build", color: "var(--yellow)", speech: "Building first — I never deploy something I haven't built.", mood: "working", tint: "var(--yellow)" },
+        { t: 1300, kind: "note", text: "built in 4.2s · 312 kB gzipped", color: "#3fd07a", speech: "Clean build. I want to run the deploy script. Ok?", mood: "asking", tint: "var(--pink)", consent: true },
+        { t: 600, kind: "tool", tool: "Bash", text: "./scripts/deploy.sh --prod", color: "var(--yellow)", speech: "Deploying. I'll shout if anything goes sideways.", mood: "working", tint: "var(--yellow)" },
         { t: 1400, kind: "note", text: "✓ live · https://minnie.app", color: "#3fd07a", speech: "Shipped! Go look at it, I'm proud of us.", mood: "happy", tint: "#3fd07a" },
       ],
     },
     hello: {
       match: ["hi", "hello", "hey", "yo", "sup"],
       steps: [
-        { t: 500, kind: "note", text: "listening · on-device speech · nothing sent anywhere", color: "#8ba393", speech: "Hi! I'm right here. Ask me to run your tests, check a PR, or ship something.", mood: "happy", tint: "#ff5f9e" },
+        { t: 500, kind: "note", text: "listening · on-device speech · nothing sent anywhere", color: "var(--on-band-dim)", speech: "Hi! I'm right here. Ask me to run your tests, check a PR, or ship something.", mood: "happy", tint: "var(--pink)" },
       ],
     },
     fallback: {
       match: [],
       steps: [
-        { t: 500, kind: "tool", tool: "Grep", text: "scanning the workspace…", color: "#8ba393", speech: "Let me have a poke around your project…", mood: "thinking", tint: "#ffd23f" },
-        { t: 1200, kind: "note", text: "24 files touched today · 1 TODO in src/session.ts", color: "#8ba393", speech: "I'd start there. I want to open src/session.ts. Ok?", mood: "asking", tint: "#ff5f9e", consent: true },
-        { t: 700, kind: "tool", tool: "Read", text: "src/session.ts", color: "#8ba393", speech: "Reading. Give me a proper task and I'll actually do it — this is a demo, but the real one runs on your Mac.", mood: "happy", tint: "#3fd07a" },
+        { t: 500, kind: "tool", tool: "Grep", text: "scanning the workspace…", color: "var(--on-band-dim)", speech: "Let me have a poke around your project…", mood: "thinking", tint: "var(--yellow)" },
+        { t: 1200, kind: "note", text: "24 files touched today · 1 TODO in src/session.ts", color: "var(--on-band-dim)", speech: "I'd start there. I want to open src/session.ts. Ok?", mood: "asking", tint: "var(--pink)", consent: true },
+        { t: 700, kind: "tool", tool: "Read", text: "src/session.ts", color: "var(--on-band-dim)", speech: "Reading. Give me a proper task and I'll actually do it — this is a demo, but the real one runs on your Mac.", mood: "happy", tint: "#3fd07a" },
       ],
     },
   };
@@ -453,7 +453,7 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
       if (pet) pet.dataset.pose = mood === "happy" || mood === "idle" ? "idle" : "think";
     };
 
-    const push = (kind: "user" | "tool" | "note", text: string, color = "#8ba393", tool = "") => {
+    const push = (kind: "user" | "tool" | "note", text: string, color = "var(--on-band-dim)", tool = "") => {
       const row = document.createElement("div");
       row.className = "term__line";
 
@@ -554,7 +554,7 @@ const suggestions = ["why are my tests failing?", "check my open PRs", "deploy t
       setConsent(false);
       log.querySelectorAll(".term__line").forEach((n) => n.remove());
       if (turns) turns.textContent = "ready";
-      say("Clean slate. Ask me something.", "idle", "#ff5f9e");
+      say("Clean slate. Ask me something.", "idle", "var(--pink)");
     });
 
     // Play the failing-tests script once, the first time the demo scrolls in.

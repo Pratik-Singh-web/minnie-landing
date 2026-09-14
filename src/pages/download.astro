@@ -163,8 +163,8 @@ open /Applications/Minnie.app</code></pre>
   }
   .install__head {
     background: var(--yellow);
-    color: #101a12;
-    border-bottom: 3px solid var(--line);
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
     padding: 9px 18px;
     font-size: 11px;
     font-weight: 800;
@@ -191,7 +191,7 @@ open /Applications/Minnie.app</code></pre>
     height: 30px;
     display: grid;
     place-items: center;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--green);
     color: var(--on-green);
     font-size: 14px;
@@ -217,7 +217,7 @@ open /Applications/Minnie.app</code></pre>
     overflow-x: auto;
     margin: 0;
     padding: 14px 16px;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     /* Fixed terminal palette, matching .hero__term. NOT var(--band): that flips
        from dark green to yellow between themes, which made the command block
        shout as loudly as the yellow header sitting right above it. */
@@ -233,7 +233,7 @@ open /Applications/Minnie.app</code></pre>
     right: 8px;
     z-index: 1;
     cursor: pointer;
-    border: 2px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--card);
     color: var(--ink);
     padding: 4px 10px;
@@ -241,9 +241,9 @@ open /Applications/Minnie.app</code></pre>
     font-weight: 800;
     text-transform: uppercase;
   }
-  .install__copy:hover { background: var(--yellow); color: #101a12; }
+  .install__copy:hover { background: var(--yellow); color: var(--ink); }
   .install__note {
-    border-top: 3px solid var(--line);
+    border-top: 1px solid var(--line);
     border-left: 8px solid var(--pink);
     background: var(--card);
     padding: 16px 18px;

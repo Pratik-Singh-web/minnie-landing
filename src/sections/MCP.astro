@@ -2,7 +2,7 @@
 const integrations = [
   {
     icon: "🐙",
-    tint: "#ffd23f",
+    tint: "var(--yellow)",
     tag: "MCP",
     title: "GitHub",
     body: "Check open pull requests, open issues, search repos and sync branches — by voice, without leaving your editor.",
@@ -10,7 +10,7 @@ const integrations = [
   },
   {
     icon: "📝",
-    tint: "#ff5f9e",
+    tint: "var(--pink)",
     tag: "MCP",
     title: "Notion",
     body: "Read specs, write design docs, and append technical notes to your team's workspace as she works.",
@@ -26,7 +26,7 @@ const integrations = [
   },
   {
     icon: "🗄️",
-    tint: "#ffd23f",
+    tint: "var(--yellow)",
     tag: "Database",
     title: "Postgres & MySQL",
     body: "Inspect table structures, run safe local migrations, and sanity-check mock data while you build.",
@@ -34,7 +34,7 @@ const integrations = [
   },
   {
     icon: "📧",
-    tint: "#ff5f9e",
+    tint: "var(--pink)",
     tag: "OAuth",
     title: "Google Workspace",
     body: "Digest email, read your calendar, catch up on chat. Native Sign in with Google keeps setup to one click.",
@@ -114,7 +114,7 @@ const integrations = [
     font-size: 22px;
   }
   .mcp__tag {
-    border: 2px solid var(--line);
+    border: 1px solid var(--line);
     padding: 2px 8px;
     font-size: 10px;
     text-transform: uppercase;
@@ -122,9 +122,9 @@ const integrations = [
   }
   .mcp__h {
     margin: 0 0 8px;
-    font-family: Outfit, sans-serif;
+    font-family: var(--font-display);
     font-size: 20px;
-    font-weight: 900;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: -0.02em;
     color: var(--ink);
@@ -139,7 +139,7 @@ const integrations = [
   .mcp__foot {
     margin-top: 18px;
     padding-top: 14px;
-    border-top: 3px solid var(--line);
+    border-top: 1px solid var(--line);
     display: flex;
     align-items: center;
     gap: 8px;

@@ -7,20 +7,20 @@ interface Props {
   background?: string;
   color?: string;
   reverse?: boolean;
-  display?: boolean; // Outfit heavy instead of mono
+  display?: boolean; // display face instead of mono
 }
 const {
   items,
   sep = "★",
-  background = "var(--green)",
-  color = "#f4efe2",
+  background = "var(--band)",
+  color = "var(--on-band)",
   reverse = false,
   display = false,
 } = Astro.props;
 
 const font = display
-  ? "font-family:Outfit,sans-serif; font-size:16px; font-weight:900;"
-  : "font-family:'Space Mono',ui-monospace,monospace; font-size:13px; font-weight:700;";
+  ? "font-family:var(--font-display); font-size:16px; font-weight:800;"
+  : "font-family:var(--font-mono); font-size:13px; font-weight:500;";
 ---
 
 <div class="marquee" style={`background:${background};`}>

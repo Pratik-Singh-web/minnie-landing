@@ -1,62 +1,109 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Minnie — neo-brutalist "paper & ink" design system.
+   Minnie — "petrol on oat" design system.
 
-   Everything is built from four ingredients: a cream paper ground, a 3px ink
-   outline, a hard offset shadow (no blur), and four flat accents
-   (green / yellow / pink / red). Nothing is rounded, nothing is soft, and
-   hover = the element slides into its own shadow.
+   A warm oat ground carries ~90% of every surface; petrol is the single brand
+   accent and is spent sparingly (primary button, one word in a headline,
+   tints). Borders are hairlines, corners are generous, and the only hard
+   shadow left is the 3px press under a button — so shadow means "push me".
 
-   Light is the default; dark inverts paper/ink and brightens the accents.
+   Red, amber and green are RESERVED for the consent flow (deny / caution /
+   allow) and are never decorative. That reservation is why the accent is
+   cool: measured against those three, every warm candidate collided
+   (amber sat 9° from caution, copper 16°), and petrol clears all three by 48°
+   while staying 24° off the default AI blue.
+
+   Token names are unchanged from the old system so section-scoped styles keep
+   resolving; only their values moved. --yellow and --pink are now tints, not
+   flat brand colours.
+
+   Light is the default; dark keeps the warmth and brightens the accent.
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @theme {
-  --font-display: Outfit, "SF Pro Rounded", ui-rounded, system-ui, sans-serif;
-  --font-sans: Karla, system-ui, sans-serif;
-  --font-mono: "Space Mono", "SF Mono", ui-monospace, monospace;
+  --font-display: "Baloo 2", "SF Pro Rounded", ui-rounded, system-ui, sans-serif;
+  --font-sans: "Nunito Sans", system-ui, sans-serif;
+  --font-mono: "DM Mono", "SF Mono", ui-monospace, monospace;
 }
 
 :root,
 :root[data-theme="light"] {
   color-scheme: light;
-  --paper: #f4efe2;
-  --card: #fffdf5;
-  --band: #173d28;
-  --line: #101a12;
-  --ink: #101a12;
-  --ink-dim: #4a5b4e;
-  --ink-soft: #6e7f71;
+
+  /* Oat — the ground. Carries most of every screen. */
+  --paper: #fbf7ee;
+  --card: #ffffff;
+  --sunk: #f5efe2;
+  --line: #eae1d0;
+  --ink: #221b14;
+  --ink-dim: #7a6b58;
+  --ink-soft: #9c8d79;
+
+  /* Petrol — the one brand accent. */
+  --accent: #0a6b82;
+  --accent-d: #075466;
+  --accent-t: #eef7f9;
+  --on-accent: #ffffff;
+
+  /* Reserved for the consent flow. Never decorative. */
   --green: #1f7a45;
-  --green-deep: #0f3d24;
-  --yellow: #ffd23f;
-  --pink: #ff5f9e;
-  --red: #e03a2f;
-  --on-band: #f4efe2;
-  --on-band-dim: #b9cfc0;
-  --on-green: #f4efe2;
-  --sh: 6px 6px 0 var(--line);
-  --sh-sm: 4px 4px 0 var(--line);
-  --sh-lg: 10px 10px 0 var(--line);
+  --caution: #8a6009;
+  --red: #b23b32;
+  --on-green: #ffffff;
+
+  /* Deep band + decorative tints. --yellow and --pink are kept only so the
+     section-scoped styles that reference them keep resolving; they are tints
+     now, not brand colours. */
+  --band: #04333e;
+  --green-deep: #04333e;
+  --on-band: #f3fbfd;
+  --on-band-dim: #a9d3de;
+  --yellow: #d5eaf0;
+  --pink: #f3e7d5;
+
+  /* Soft, not brutalist. The 3px press shadow lives on .btn only. */
+  --sh: 0 6px 18px -10px rgba(40, 28, 12, 0.45);
+  --sh-sm: 0 3px 10px -6px rgba(40, 28, 12, 0.4);
+  --sh-lg: 0 16px 40px -20px rgba(40, 28, 12, 0.5);
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-pill: 999px;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #101a12;
-  --card: #18271b;
-  --band: #ffd23f;
-  --line: #f4efe2;
-  --ink: #f4efe2;
-  --ink-dim: #b9cfc0;
-  --ink-soft: #8ba393;
+
+  --paper: #14110c;
+  --card: #1d1811;
+  --sunk: #241e16;
+  --line: #332a20;
+  --ink: #f7f1e6;
+  --ink-dim: #a8977f;
+  --ink-soft: #7d6e5b;
+
+  --accent: #3fa8c2;
+  --accent-d: #2b8ba3;
+  --accent-t: #0e2b33;
+  --on-accent: #08222a;
+
   --green: #3fd07a;
-  --green-deep: #0b2415;
-  --yellow: #ffd23f;
-  --pink: #ff5f9e;
+  --caution: #e0a83c;
   --red: #ff6b5e;
-  --on-band: #101a12;
-  --on-band-dim: #3a4a3d;
   --on-green: #0b2415;
+
+  --band: #0a2129;
+  --green-deep: #0a2129;
+  --on-band: #f7f1e6;
+  --on-band-dim: #a9d3de;
+  --yellow: #163842;
+  --pink: #2c2418;
+
+  --sh: 0 6px 18px -10px rgba(0, 0, 0, 0.7);
+  --sh-sm: 0 3px 10px -6px rgba(0, 0, 0, 0.65);
+  --sh-lg: 0 16px 40px -20px rgba(0, 0, 0, 0.75);
 }
 
 *,
@@ -82,7 +129,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Karla, system-ui, sans-serif;
+  font-family: var(--font-sans);
 }
 
 a {
@@ -90,7 +137,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: var(--green);
+  color: var(--accent);
 }
 
 input,
@@ -100,8 +147,8 @@ textarea {
 }
 
 ::selection {
-  background: var(--yellow);
-  color: #101a12;
+  background: var(--accent-t);
+  color: var(--ink);
 }
 
 /* ─── Keyframes ──────────────────────────────────────────────────────────
@@ -193,100 +240,94 @@ textarea {
 }
 
 .sec {
-  padding: 76px 0;
-  border-bottom: 3px solid var(--line);
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
 }
 
-/* Sections painted in a flat colour.
-   On green-deep only the section *heading* flips to cream — the panels inside
-   stay ordinary light cards, which is what makes them pop off the band. */
+/* Two quiet bands instead of four loud ones.
+
+   --deep is the single dark panel that breaks the page rhythm; only its
+   heading flips to cream, so the cards inside still read as light objects.
+   --yellow is no longer yellow — it is a one-step oat tint. Because it no
+   longer re-pins --ink, the dark-mode bug where its cards rendered blank
+   (cream text on a cream card) cannot come back. */
 .sec--deep {
-  background: var(--green-deep);
+  background: var(--band);
 }
 .sec--deep .sec-head {
-  --ink: #f4efe2;
-  --ink-dim: #b9cfc0;
-  --ink-soft: #8ba393;
+  --ink: var(--on-band);
+  --ink-dim: var(--on-band-dim);
+  --ink-soft: var(--on-band-dim);
   color: var(--ink);
 }
-/* Yellow is yellow in both themes, so ink is pinned dark for the whole band. */
 .sec--yellow {
-  background: var(--yellow);
-  --ink: #101a12;
-  --ink-dim: #101a12;
-  --ink-soft: #3a4a3d;
-  --line: #101a12;
-  --card: #f4efe2;
-  /* Re-declare `color`, don't just re-pin the token: `body` already resolved
-     `color: var(--ink)` to the theme's ink, and children inherit that computed
-     value, not the token. Without this the band's text stayed dark-theme cream
-     on the cream cards and the whole grid read as blank. */
-  color: var(--ink);
+  background: var(--sunk);
 }
 
 /* ─── Type ───────────────────────────────────────────────────────────────── */
 .eyebrow {
   display: inline-block;
-  border: 3px solid var(--line);
-  background: var(--yellow);
-  color: #101a12;
-  padding: 4px 12px;
-  font-family: "Space Mono", ui-monospace, monospace;
-  font-size: 11px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--accent-t);
+  color: var(--accent-d);
+  padding: 5px 13px;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  box-shadow: var(--sh-sm);
+  letter-spacing: 0.1em;
 }
-.eyebrow--pink { background: var(--pink); }
-.eyebrow--green { background: var(--green); color: var(--on-green); }
+.eyebrow--pink { background: var(--pink); color: var(--ink); }
+.eyebrow--green { background: var(--green); color: var(--on-green); border-color: transparent; }
 .eyebrow--card { background: var(--card); color: var(--ink); }
-.eyebrow--ink { background: #101a12; color: var(--yellow); border-color: #101a12; box-shadow: none; }
-/* On the green-deep bands the outline and shadow become cream. */
-.sec--deep .eyebrow { border-color: #f4efe2; box-shadow: 6px 6px 0 #f4efe2; }
+.eyebrow--ink { background: var(--ink); color: var(--paper); border-color: transparent; }
+.sec--deep .eyebrow { background: rgba(255, 255, 255, 0.08); color: var(--on-band); border-color: rgba(255, 255, 255, 0.16); }
 
 .h1 {
-  margin: 20px 0 0;
-  font-family: Outfit, sans-serif;
-  font-size: clamp(46px, 7.4vw, 86px);
-  font-weight: 900;
-  line-height: 0.9;
-  letter-spacing: -0.045em;
-  text-transform: uppercase;
+  margin: 22px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(42px, 6.6vw, 74px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.022em;
   color: var(--ink);
+  text-wrap: balance;
 }
 
 .h2 {
   margin: 16px 0 0;
-  font-family: Outfit, sans-serif;
-  font-size: clamp(34px, 5vw, 60px);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.035em;
-  line-height: 0.94;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4.2vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.06;
   color: var(--ink);
+  text-wrap: balance;
 }
 
 /* The rotated, outlined highlight block inside a headline. */
+/* Was a rotated, outlined block. Now the accent simply colours the word —
+   the emphasis comes from hue, not from another bordered object. */
 .slab {
   display: inline-block;
-  background: var(--pink);
-  color: #101a12;
-  border: 3px solid var(--line);
-  box-shadow: var(--sh);
-  padding: 0 14px;
+  background: transparent;
+  color: var(--accent);
+  border: 0;
+  box-shadow: none;
+  padding: 0;
 }
 
 .lede {
   margin: 18px 0 0;
-  font-size: 17px;
+  font-size: 17.5px;
   line-height: 1.6;
   color: var(--ink-dim);
   text-wrap: pretty;
 }
 
 .mono {
-  font-family: "Space Mono", ui-monospace, monospace;
+  font-family: var(--font-mono);
 }
 
 .sec-head {
@@ -297,78 +338,97 @@ textarea {
 /* ─── Surfaces ───────────────────────────────────────────────────────────── */
 .card {
   background: var(--card);
-  border: 3px solid var(--line);
-  box-shadow: var(--sh);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-sm);
 }
 
-/* Lift on hover by sliding away from the shadow. */
+/* A gentle lift, not a slide out of a hard shadow. */
 .card--lift {
-  transition: none;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
 }
 .card--lift:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: 10px 10px 0 var(--line);
+  transform: translateY(-2px);
+  box-shadow: var(--sh);
 }
-/* Square colour tile that holds an emoji or the pet. */
+/* Rounded tint tile that holds an emoji or the pet. */
 .tile {
-  border: 3px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 /* ─── Controls ───────────────────────────────────────────────────────────── */
+/* Pill with a 3px press. The primary action is petrol, never the semantic
+   green — green means "allow" and has to stay reserved for the consent UI. */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 22px;
-  border: 3px solid var(--line);
-  background: var(--green);
-  color: var(--on-green);
-  font-size: 14px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  box-shadow: var(--sh-sm);
+  padding: 13px 24px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+  box-shadow: 0 3px 0 var(--accent-d);
   cursor: pointer;
-  transition: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
   white-space: nowrap;
 }
 .btn:hover {
-  color: var(--on-green);
-  transform: translate(3px, 3px);
-  box-shadow: 1px 1px 0 var(--line);
+  color: var(--on-accent);
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 var(--accent-d);
 }
-.btn--sm { padding: 11px 20px; }
-.btn--yellow { background: var(--yellow); color: #101a12; }
-.btn--card { background: var(--card); color: var(--ink); }
+.btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 var(--accent-d);
+}
+.btn--sm { padding: 10px 20px; font-size: 14px; }
+.btn--yellow { background: var(--accent-t); color: var(--accent-d); box-shadow: 0 3px 0 var(--line); }
+.btn--card {
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  box-shadow: 0 3px 0 var(--line);
+}
 .btn--card:hover { color: var(--ink); }
 
 .field {
   min-width: 0;
-  padding: 14px 18px;
-  font-size: 14px;
+  padding: 13px 18px;
+  font-size: 15px;
   background: var(--card);
-  border: 3px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
   color: var(--ink);
   outline: none;
-  box-shadow: var(--sh-sm);
+  transition: border-color 0.14s ease, box-shadow 0.14s ease;
 }
 .field::placeholder { color: var(--ink-soft); }
-.field:focus { background: var(--paper); }
+.field:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-t);
+}
 
 /* Small outlined mono tag. */
 .tag {
   display: inline-flex;
   align-items: center;
-  border: 2px solid var(--line);
-  background: var(--paper);
-  padding: 4px 10px;
-  font-family: "Space Mono", ui-monospace, monospace;
-  font-size: 11px;
-  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--sunk);
+  padding: 5px 11px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-dim);
 }
 
 .icon-btn {
@@ -377,23 +437,21 @@ textarea {
   justify-content: center;
   width: 42px;
   height: 42px;
-  border: 3px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
   background: var(--card);
   color: var(--ink);
-  box-shadow: var(--sh-sm);
   cursor: pointer;
-  transition: none;
+  transition: background 0.14s ease, color 0.14s ease;
 }
 .icon-btn:hover {
-  background: var(--yellow);
-  color: #101a12;
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--line);
+  background: var(--accent-t);
+  color: var(--accent-d);
 }
 
 /* ─── Marquee band ───────────────────────────────────────────────────────── */
 .marquee {
-  border-bottom: 3px solid var(--line);
+  border-bottom: 1px solid var(--line);
   padding: 12px 0;
   overflow: hidden;
 }
@@ -420,10 +478,9 @@ textarea {
 /* ─── Prose (privacy page) ───────────────────────────────────────────────── */
 .prose-h2 {
   margin: 40px 0 12px;
-  font-family: Outfit, sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(20px, 3vw, 26px);
-  font-weight: 900;
-  text-transform: uppercase;
+  font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--ink);
 }
@@ -445,13 +502,12 @@ textarea {
 .prose-a {
   color: var(--ink);
   text-decoration: underline;
-  text-decoration-thickness: 3px;
-  text-decoration-color: var(--yellow);
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--accent);
   text-underline-offset: 3px;
 }
 .prose-a:hover {
-  background: var(--yellow);
-  color: #101a12;
+  color: var(--accent);
 }
 
 /* ---- legal / long-form page shell -------------------------------------
@@ -464,11 +520,12 @@ textarea {
     width: 100%;
     max-width: 820px;
     padding: 56px 24px 76px;
-    border-bottom: 3px solid var(--line);
+    border-bottom: 1px solid var(--line);
   }
   .legal__back {
+  border-radius: var(--r-pill);
     display: inline-block;
-    border: 3px solid var(--line);
+    border: 1px solid var(--line);
     background: var(--card);
     padding: 6px 12px;
     font-size: 11px;
@@ -477,18 +534,17 @@ textarea {
     box-shadow: var(--sh-sm);
   }
   .legal__back:hover {
-    background: var(--yellow);
-    color: #101a12;
+    background: var(--accent-t);
+    color: var(--accent-d);
   }
   .legal__h1 {
     margin: 26px 0 0;
-    font-family: Outfit, sans-serif;
+    font-family: var(--font-display);
     font-size: clamp(38px, 6vw, 62px);
-    font-weight: 900;
+    font-weight: 800;
     line-height: 0.94;
     letter-spacing: -0.04em;
-    text-transform: uppercase;
-    color: var(--ink);
+      color: var(--ink);
   }
   .legal__date {
     margin: 12px 0 0;
@@ -510,8 +566,9 @@ textarea {
   gap: 18px;
 }
 .postlist__link {
+  border-radius: var(--r-md);
   display: block;
-  border: 3px solid var(--line);
+  border: 1px solid var(--line);
   background: var(--card);
   box-shadow: var(--sh-sm);
   padding: 20px 22px;
@@ -519,9 +576,8 @@ textarea {
   text-decoration: none;
 }
 .postlist__link:hover {
-  background: var(--yellow);
-  color: #101a12;
-  transform: translate(-2px, -2px);
+  border-color: var(--accent);
+  transform: translateY(-2px);
   box-shadow: var(--sh);
 }
 .postlist__date {
@@ -529,16 +585,14 @@ textarea {
   text-transform: uppercase;
   color: var(--ink-soft);
 }
-.postlist__link:hover .postlist__date,
-.postlist__link:hover .postlist__desc { color: #101a12; }
+
 .postlist__title {
   margin: 8px 0 6px;
-  font-family: Outfit, sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(20px, 3vw, 26px);
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  text-transform: uppercase;
 }
 .postlist__desc {
   margin: 0;
@@ -550,9 +604,8 @@ textarea {
 .post__body { margin-top: 28px; }
 .post__body h2,
 .post__body h3 {
-  font-family: Outfit, sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--ink);
 }
@@ -579,37 +632,40 @@ textarea {
 .post__body a {
   color: var(--ink);
   text-decoration: underline;
-  text-decoration-thickness: 3px;
-  text-decoration-color: var(--yellow);
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--accent);
   text-underline-offset: 3px;
 }
-.post__body a:hover { background: var(--yellow); color: #101a12; }
+.post__body a:hover { color: var(--accent); }
 .post__body strong { color: var(--ink); }
 .post__body img {
   display: block;
   max-width: 100%;
   height: auto;
-  border: 3px solid var(--line);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
   box-shadow: var(--sh-sm);
   margin: 24px 0;
 }
 .post__body blockquote {
   margin: 24px 0;
   padding: 4px 0 4px 18px;
-  border-left: 6px solid var(--yellow);
+  border-left: 3px solid var(--accent);
 }
 .post__body blockquote p { margin: 0; }
 .post__body code {
   font-family: var(--font-mono);
   font-size: 13.5px;
-  background: var(--card);
-  border: 2px solid var(--line);
+  border-radius: 5px;
+  background: var(--sunk);
+  border: 1px solid var(--line);
   padding: 1px 5px;
 }
 .post__body pre {
   margin: 0 0 20px;
   padding: 16px 18px;
-  border: 3px solid var(--line);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
   box-shadow: var(--sh-sm);
   overflow-x: auto;
   font-size: 13.5px;
@@ -626,5 +682,5 @@ textarea {
 .post__body hr {
   margin: 36px 0;
   border: 0;
-  border-top: 3px solid var(--line);
+  border-top: 1px solid var(--line);
 }

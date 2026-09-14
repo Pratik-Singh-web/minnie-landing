@@ -96,9 +96,9 @@ const faqs = [
     background: transparent;
     border: none;
     text-align: left;
-    font-family: Outfit, sans-serif;
+    font-family: var(--font-display);
     font-size: 16px;
-    font-weight: 900;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: -0.01em;
     color: var(--ink);
@@ -107,7 +107,7 @@ const faqs = [
   }
   .faq__q:hover {
     background: var(--yellow);
-    color: #101a12;
+    color: var(--ink);
   }
 
   .faq__sign {
@@ -116,15 +116,15 @@ const faqs = [
     height: 28px;
     background: var(--yellow);
     font-size: 16px;
-    color: #101a12;
-    font-weight: 900;
+    color: var(--ink);
+    font-weight: 800;
   }
   .faq__q[aria-expanded="true"] .faq__sign { background: var(--pink); }
 
   .faq__a {
     margin: 0;
     padding: 16px 20px;
-    border-top: 3px solid var(--line);
+    border-top: 1px solid var(--line);
     background: var(--paper);
     font-size: 14.5px;
     line-height: 1.6;
