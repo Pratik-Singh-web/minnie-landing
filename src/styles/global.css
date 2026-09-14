@@ -207,6 +207,7 @@ textarea {
   --ink: #f4efe2;
   --ink-dim: #b9cfc0;
   --ink-soft: #8ba393;
+  color: var(--ink);
 }
 /* Yellow is yellow in both themes, so ink is pinned dark for the whole band. */
 .sec--yellow {
@@ -216,6 +217,11 @@ textarea {
   --ink-soft: #3a4a3d;
   --line: #101a12;
   --card: #f4efe2;
+  /* Re-declare `color`, don't just re-pin the token: `body` already resolved
+     `color: var(--ink)` to the theme's ink, and children inherit that computed
+     value, not the token. Without this the band's text stayed dark-theme cream
+     on the cream cards and the whole grid read as blank. */
+  color: var(--ink);
 }
 
 /* ─── Type ───────────────────────────────────────────────────────────────── */
