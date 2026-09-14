@@ -67,9 +67,9 @@
   --sh-sm: 0 3px 10px -6px rgba(40, 28, 12, 0.4);
   --sh-lg: 0 16px 40px -20px rgba(40, 28, 12, 0.5);
 
-  --r-sm: 10px;
-  --r-md: 16px;
-  --r-lg: 22px;
+  --r-sm: 7px;
+  --r-md: 10px;
+  --r-lg: 12px;
   --r-pill: 999px;
 }
 
@@ -130,6 +130,8 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 a {
@@ -153,6 +155,10 @@ textarea {
 
 /* ─── Keyframes ──────────────────────────────────────────────────────────
    Deliberately stepped (steps(n)) so motion reads as stop-motion, not easing. */
+@keyframes rise {
+  0% { opacity: 0; transform: translateY(14px); }
+  100% { opacity: 1; transform: none; }
+}
 @keyframes slam {
   0% { opacity: 0; transform: translateY(-70px) rotate(-5deg) scale(1.12); }
   100% { opacity: 1; transform: none; }
@@ -208,17 +214,19 @@ textarea {
 .reveal-l,
 .reveal-r {
   animation-timeline: view();
-  animation-range: entry 0% cover 24%;
+  animation-range: entry 0% cover 14%;
   animation-timing-function: linear;
   animation-fill-mode: both;
 }
-.reveal-slam { animation-name: slam; animation-range: entry 0% cover 22%; }
-.reveal-up { animation-name: slamUp; }
-.reveal-l { animation-name: slideL; }
-.reveal-r { animation-name: slideR; }
+.reveal-slam,
+.reveal-up,
+.reveal-l,
+.reveal-r { animation-name: rise; }
 
-.hop { animation: hop 1.1s steps(4, end) infinite; }
-.jitter { animation: jitter 1.4s steps(2, end) infinite; }
+/* Idle motion is gone from the chrome. The pet keeps her own blink — she is
+   the character, and the character is allowed to move. */
+.hop,
+.jitter { animation: none; }
 .blink { animation: blinkHard 1s steps(1, end) infinite; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -240,7 +248,7 @@ textarea {
 }
 
 .sec {
-  padding: 84px 0;
+  padding: 56px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -268,12 +276,12 @@ textarea {
 .eyebrow {
   display: inline-block;
   border: 1px solid var(--line);
-  border-radius: var(--r-pill);
+  border-radius: var(--r-sm);
   background: var(--accent-t);
   color: var(--accent-d);
-  padding: 5px 13px;
+  padding: 4px 10px;
   font-family: var(--font-sans);
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -287,7 +295,7 @@ textarea {
 .h1 {
   margin: 22px 0 0;
   font-family: var(--font-display);
-  font-size: clamp(42px, 6.6vw, 74px);
+  font-size: clamp(38px, 5.4vw, 60px);
   font-weight: 800;
   line-height: 1.02;
   letter-spacing: -0.022em;
@@ -298,7 +306,7 @@ textarea {
 .h2 {
   margin: 16px 0 0;
   font-family: var(--font-display);
-  font-size: clamp(30px, 4.2vw, 48px);
+  font-size: clamp(25px, 3.1vw, 34px);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.06;
@@ -319,8 +327,8 @@ textarea {
 }
 
 .lede {
-  margin: 18px 0 0;
-  font-size: 17.5px;
+  margin: 14px 0 0;
+  font-size: 15.5px;
   line-height: 1.6;
   color: var(--ink-dim);
   text-wrap: pretty;
@@ -331,8 +339,8 @@ textarea {
 }
 
 .sec-head {
-  max-width: 44rem;
-  margin-bottom: 44px;
+  max-width: 40rem;
+  margin-bottom: 30px;
 }
 
 /* ─── Surfaces ───────────────────────────────────────────────────────────── */
@@ -368,16 +376,16 @@ textarea {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 13px 24px;
+  padding: 11px 22px;
   border: 0;
   border-radius: var(--r-pill);
   background: var(--accent);
   color: var(--on-accent);
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0;
-  box-shadow: 0 3px 0 var(--accent-d);
+  box-shadow: 0 2px 0 var(--accent-d);
   cursor: pointer;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
   white-space: nowrap;
@@ -407,7 +415,7 @@ textarea {
   font-size: 15px;
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: var(--r-pill);
+  border-radius: var(--r-md);
   color: var(--ink);
   outline: none;
   transition: border-color 0.14s ease, box-shadow 0.14s ease;
@@ -423,9 +431,9 @@ textarea {
   display: inline-flex;
   align-items: center;
   border: 1px solid var(--line);
-  border-radius: var(--r-pill);
+  border-radius: var(--r-sm);
   background: var(--sunk);
-  padding: 5px 11px;
+  padding: 4px 9px;
   font-family: var(--font-mono);
   font-size: 11.5px;
   color: var(--ink-dim);
@@ -438,7 +446,7 @@ textarea {
   width: 42px;
   height: 42px;
   border: 1px solid var(--line);
-  border-radius: var(--r-pill);
+  border-radius: var(--r-md);
   background: var(--card);
   color: var(--ink);
   cursor: pointer;

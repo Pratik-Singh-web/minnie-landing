@@ -6,11 +6,8 @@ import Hero from "../sections/Hero.astro";
 import Benefits from "../sections/Benefits.astro";
 import Screenshots from "../sections/Screenshots.astro";
 import Demo from "../sections/Demo.astro";
-import Trust from "../sections/Trust.astro";
 import Privacy from "../sections/Privacy.astro";
-import Customize from "../sections/Customize.astro";
 import MCP from "../sections/MCP.astro";
-import Comparison from "../sections/Comparison.astro";
 import Pricing from "../sections/Pricing.astro";
 import FAQ from "../sections/FAQ.astro";
 import FinalCTA from "../sections/FinalCTA.astro";
@@ -56,20 +53,11 @@ const promises = [
     <!-- Live playground: type at her, she picks tools and asks permission -->
     <Demo />
 
-    <!-- The consent layer: permission cloud + trust modes -->
-    <Trust />
-
     <!-- Local & private: on-device voice, local CLI, no telemetry -->
     <Privacy />
 
-    <!-- Species / personality / name previewer -->
-    <Customize />
-
     <!-- Connect your tools: MCP catalog & Google OAuth -->
     <MCP />
-
-    <!-- Minnie vs web chatbot vs bare CLI agent -->
-    <Comparison />
 
     <!-- What it costs. Required on the site by Dodo's verification checklist, and
          it has to match the form: $29/year subscription. -->
@@ -77,16 +65,6 @@ const promises = [
 
     <!-- Accordion FAQ -->
     <FAQ />
-
-    <!-- The promises, scrolling the other way -->
-    <Marquee
-      items={promises}
-      sep="✦"
-      background="var(--pink)"
-      color="var(--ink)"
-      reverse
-      display
-    />
 
     <!-- Last call for the waitlist -->
     <FinalCTA />
