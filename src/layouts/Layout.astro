@@ -112,7 +112,16 @@ const faqLd = {
     <meta name="theme-color" content="#101a12" media="(prefers-color-scheme: dark)" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <!-- Favicons. Google fetches /favicon.ico on its own schedule and wants a
+         square icon that is a multiple of 48px, so the .ico is a real multi-size
+         icon (16/32/48) and the linked PNGs are 96 and 192 — NOT the 32px one
+         that used to sit here mislabelled as .ico, which is why search results
+         showed the generic globe. Artwork is the macOS app icon, so the tab,
+         the search result and the app all match. -->
+    <link rel="icon" href={`${base}favicon.ico`} sizes="any" />
+    <link rel="icon" type="image/png" sizes="96x96" href={`${base}favicon-96x96.png`} />
+    <link rel="icon" type="image/png" sizes="192x192" href={`${base}favicon-192x192.png`} />
+    <link rel="apple-touch-icon" sizes="180x180" href={`${base}apple-touch-icon.png`} />
 
     <!-- Open Graph / Twitter -->
     <meta property="og:title" content={title} />
