@@ -1,5 +1,5 @@
 ---
-import Pet from "../components/Pet.astro";
+import PetStage from "../components/PetStage.astro";
 ---
 
 <section class="hero">
@@ -11,7 +11,7 @@ import Pet from "../components/Pet.astro";
       </span>
 
       <h1 class="h1 hero__title">
-        Give your<br />AI agent<br />
+        Give your AI agent<br />
         <span class="slab hero__slab">a body.</span>
       </h1>
 
@@ -25,43 +25,23 @@ import Pet from "../components/Pet.astro";
            WaitlistForm.astro stays on disk for the v1 launch. -->
       <div id="waitlist" class="hero__form">
         <a href={`${import.meta.env.BASE_URL}download`} class="btn">Download the free beta →</a>
-        <p class="mono" style="margin-top:12px;opacity:.7;font-size:14px;">
+        <p class="hero__plat mono">
           free while in beta · Apple Silicon · macOS 14+
         </p>
       </div>
     </div>
 
     <div class="hero__right">
-      <div class="card hero__card">
-        <!-- Fake title bar: three ink squares + the app name -->
-        <div class="hero__bar">
-          <div class="hero__dots">
-            <span></span><span></span><span></span>
-          </div>
-          <span class="mono hero__appname">Minnie.app</span>
-        </div>
-
-        <div class="hero__stage">
-          <div class="tile hero__pet" id="hero-pet-wrap">
-            <Pet size={112} hop id="hero-pet" />
-          </div>
-
-          <div class="hero__status">
-            <span class="hero__statusdot blink"></span>
-            <span class="mono" id="hero-status">status: idle</span>
-          </div>
-
-          <div class="hero__term mono">
-            <div><span class="hero__prompt">$</span> minnie listen</div>
-            <div>
-              <span id="hero-type"></span><span class="hero__caret blink"></span>
-            </div>
-          </div>
-        </div>
-
-        <p class="hero__hint mono">move your cursor — she's watching</p>
-      </div>
+      <PetStage />
     </div>
+
+
+    <ol class="steps">
+      <li><span class="steps__n mono">01</span> Install<span class="steps__arrow" aria-hidden="true">→</span></li>
+      <li><span class="steps__n mono">02</span> Talk to her<span class="steps__arrow" aria-hidden="true">→</span></li>
+      <li><span class="steps__n mono">03</span> She asks first<span class="steps__arrow" aria-hidden="true">→</span></li>
+      <li><span class="steps__n mono">04</span> She does it</li>
+    </ol>
   </div>
 </section>
 
@@ -79,7 +59,7 @@ import Pet from "../components/Pet.astro";
     align-items: center;
   }
   @media (min-width: 1000px) {
-    .hero__grid { grid-template-columns: 1.1fr 0.9fr; }
+    .hero__grid { grid-template-columns: 1.15fr 0.85fr; }
   }
 
   .hero__stamp {
@@ -95,7 +75,6 @@ import Pet from "../components/Pet.astro";
     text-transform: uppercase;
     letter-spacing: 0.08em;
     box-shadow: var(--sh-sm);
-    animation: stamp 0.5s steps(4, end) both;
   }
   .hero__dot {
     width: 8px;
@@ -104,176 +83,76 @@ import Pet from "../components/Pet.astro";
     flex-shrink: 0;
   }
 
-  .hero__title { animation: slam 0.55s steps(6, end) 0.1s both; }
-  .hero__slab {
-    transform: rotate(-2deg);
-    margin-top: 8px;
+  .hero__title {
+    font-size: clamp(40px, 5.6vw, 68px);
+    line-height: 1.0;
+    letter-spacing: -0.032em;
+    text-wrap: nowrap;
   }
+  .hero__slab { margin-top: 2px; }
 
   .hero__lede {
-    margin: 28px 0 0;
-    max-width: 32rem;
-    font-size: 18px;
+    margin: 22px 0 0;
+    max-width: 30rem;
+    font-size: 17px;
     line-height: 1.6;
     color: var(--ink-dim);
     text-wrap: pretty;
-    animation: slideL 0.5s steps(5, end) 0.25s both;
   }
 
   .hero__form {
     margin-top: 30px;
     width: 100%;
     max-width: 30rem;
-    animation: slideL 0.5s steps(5, end) 0.35s both;
   }
 
   .hero__right {
     position: relative;
     display: flex;
     justify-content: center;
-    animation: slideR 0.55s steps(5, end) 0.2s both;
   }
-  .hero__card {
-    position: relative;
-    width: 100%;
-    max-width: 420px;
-    box-shadow: var(--sh-lg);
+  .hero__plat {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--ink-soft);
   }
 
-  .hero__bar {
+  /* ── Process strip ──────────────────────────────────────────────────── */
+  .steps {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--line);
-    background: var(--yellow);
-  }
-  .hero__dots {
-    display: flex;
-    gap: 6px;
-  }
-  .hero__dots span {
-    width: 11px;
-    height: 11px;
-    border: 1px solid var(--line);
-    background: var(--sunk);
-  }
-  .hero__appname {
-    font-size: 11px;
+    gap: 10px 22px;
+    margin: 44px 0 0;
+    padding: 20px 0 0;
+    border-top: 1px solid var(--line);
+    list-style: none;
+    font-family: var(--font-display);
+    font-size: 14px;
     font-weight: 700;
-    color: var(--ink);
   }
-
-  .hero__stage {
-    position: relative;
-    padding: 26px 20px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .hero__pet {
-    position: relative;
-    width: 170px;
-    height: 186px;
-    background: var(--pink);
-    box-shadow: var(--sh);
-    transition: none;
-  }
-
-  .hero__status {
-    margin-top: 18px;
+  .steps li {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    border: 1px solid var(--line);
-    background: var(--card);
-    padding: 6px 12px;
-    box-shadow: var(--sh-sm);
+    gap: 9px;
   }
-  .hero__statusdot {
-    width: 8px;
-    height: 8px;
-    background: var(--green);
-    animation-duration: 0.9s;
-  }
-  .hero__status .mono {
+  .steps__n {
     font-size: 11px;
-    font-weight: 700;
-    color: var(--ink);
+    font-weight: 400;
+    color: var(--accent);
   }
-
-  .hero__term {
-    margin-top: 18px;
-    width: 100%;
-    border: 1px solid var(--line);
-    background: var(--green-deep);
-    padding: 12px 14px;
-    font-size: 11.5px;
-    line-height: 1.7;
-    color: var(--on-band);
-    min-height: 66px;
-  }
-  .hero__prompt { color: var(--on-band-dim); }
-  .hero__caret {
-    display: inline-block;
-    width: 8px;
-    height: 13px;
-    background: var(--on-band-dim);
-    vertical-align: -2px;
-    animation-duration: 0.9s;
-  }
-
-  .hero__hint {
-    margin: 0;
-    padding: 10px 14px;
-    border-top: 1px solid var(--line);
-    background: var(--paper);
-    text-align: center;
-    font-size: 11px;
+  .steps__arrow {
+    margin-left: 13px;
     color: var(--ink-soft);
+    font-weight: 400;
+  }
+  @media (max-width: 720px) {
+    .steps { font-size: 13px; gap: 8px 16px; }
+    .steps__arrow { display: none; }
   }
 </style>
 
 <script>
-  // ── Typewriter in the fake terminal ───────────────────────────────────────
-  const LINES = [
-    "hey minnie, what's wrong with my tests?",
-    "minnie, check my open PRs.",
-    "can you ship this to prod?",
-  ];
-  const out = document.getElementById("hero-type");
-
-  if (out) {
-    let li = 0;
-    let ci = 0;
-    let forward = true;
-
-    const tick = () => {
-      const line = LINES[li % LINES.length];
-      out.textContent = line.slice(0, ci);
-      if (forward) {
-        if (ci < line.length) {
-          ci++;
-          setTimeout(tick, 55);
-        } else {
-          forward = false;
-          setTimeout(tick, 1900);
-        }
-      } else {
-        if (ci > 0) {
-          ci--;
-          setTimeout(tick, 20);
-        } else {
-          forward = true;
-          li++;
-          setTimeout(tick, 300);
-        }
-      }
-    };
-    tick();
-  }
-
   // ── She tracks the cursor, in 4px steps so it stays stop-motion ───────────
   const wrap = document.getElementById("hero-pet-wrap");
   if (wrap && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {

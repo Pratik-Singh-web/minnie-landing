@@ -1,7 +1,7 @@
 ---
 import Pet from "../components/Pet.astro";
 
-// Character state previewer.
+// Character state previewer — the hero's right column.
 //
 // PLACEHOLDER ART. Every state below currently renders the same flat SVG pet
 // with a different pose/animation — enough to show what each state *means*,
@@ -24,57 +24,44 @@ const states = [
 const initial = states[0];
 ---
 
-<section class="sec" id="reactions">
-  <div class="wrap">
-    <div class="sec-head reveal-up">
-      <span class="eyebrow">How she reacts</span>
-      <h2 class="h2">Pick a state. Watch her change.</h2>
-      <p class="lede">
-        Six things Minnie does while you work. Tap through them — this is exactly how she behaves
-        on your desktop.
-      </p>
-    </div>
+<div class="react">
+    <div class="stage" id="react-stage" data-state={initial.id}>
+      <span class="stage__status mono" id="react-status">status: {initial.status}</span>
 
-    <div class="react reveal-up">
-      <div class="stage" id="react-stage" data-state={initial.id}>
-        <span class="stage__status mono" id="react-status">status: {initial.status}</span>
-
-        <div class="stage__art">
-          <Pet id="react-pet" pose={initial.pose} size={172} />
-        </div>
-
-        <!-- Only drawn in the listening state -->
-        <span class="stage__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-
-        <!-- Only drawn in the asking state — her signature moment -->
-        <div class="cloud" aria-hidden="true">
-          <span class="cloud__q">I want to edit <code>mock_users.py</code>. Ok?</span>
-          <span class="cloud__btns">
-            <span class="cloud__btn cloud__btn--yes">Allow once</span>
-            <span class="cloud__btn">Deny</span>
-          </span>
-        </div>
-
-        <span class="stage__peek mono" aria-hidden="true">⌥Space to bring her back</span>
+      <div class="stage__art">
+        <Pet id="react-pet" pose={initial.pose} size={196} />
       </div>
 
-      <div class="picker" role="group" aria-label="Minnie's states" id="react-picker">
-        {states.map((s, i) => (
-          <button
-            type="button"
-            class="picker__btn"
-            data-go={s.id}
-            data-pose={s.pose}
-            data-status={s.status}
-            aria-pressed={i === 0 ? "true" : "false"}
-          >{s.label}</button>
-        ))}
+      <!-- Only drawn in the listening state -->
+      <span class="stage__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+
+      <!-- Only drawn in the asking state — her signature moment -->
+      <div class="cloud" aria-hidden="true">
+        <span class="cloud__q">I want to edit <code>mock_users.py</code>. Ok?</span>
+        <span class="cloud__btns">
+          <span class="cloud__btn cloud__btn--yes">Allow once</span>
+          <span class="cloud__btn">Deny</span>
+        </span>
       </div>
 
-      <p class="react__line" id="react-line">{initial.line}</p>
+      <span class="stage__peek mono" aria-hidden="true">⌥Space to bring her back</span>
     </div>
+
+    <div class="picker" role="group" aria-label="Minnie's states" id="react-picker">
+      {states.map((s, i) => (
+        <button
+          type="button"
+          class="picker__btn"
+          data-go={s.id}
+          data-pose={s.pose}
+          data-status={s.status}
+          aria-pressed={i === 0 ? "true" : "false"}
+        >{s.label}</button>
+      ))}
+    </div>
+
+    <p class="react__line" id="react-line">{initial.line}</p>
   </div>
-</section>
 
 <style>
   .react {
@@ -88,8 +75,8 @@ const initial = states[0];
   .stage {
     position: relative;
     width: 100%;
-    max-width: 620px;
-    height: 290px;
+    max-width: 470px;
+    height: 312px;
     display: grid;
     place-items: center;
     background: var(--sunk);
@@ -225,7 +212,7 @@ const initial = states[0];
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 4px;
+    gap: 2px;
     background: var(--sunk);
     border: 1px solid var(--line);
     border-radius: var(--r-pill);
@@ -233,13 +220,14 @@ const initial = states[0];
   }
   .picker__btn {
     font-family: var(--font-display);
-    font-size: 13.5px;
+    font-size: 12.5px;
     font-weight: 700;
     color: var(--ink-dim);
     background: transparent;
     border: 0;
     border-radius: var(--r-pill);
-    padding: 7px 15px;
+    padding: 6px 11px;
+    white-space: nowrap;
     cursor: pointer;
     transition: background 0.16s ease, color 0.16s ease;
   }
@@ -256,7 +244,7 @@ const initial = states[0];
 
   .react__line {
     margin: 0;
-    max-width: 46rem;
+    max-width: 30rem;
     text-align: center;
     font-size: 14.5px;
     line-height: 1.55;
