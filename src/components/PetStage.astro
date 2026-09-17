@@ -26,7 +26,7 @@ const initial = states[0];
 
 <div class="react">
     <div class="stage" id="react-stage" data-state={initial.id}>
-      <span class="stage__status mono" id="react-status">status: {initial.status}</span>
+      <span class="stage__status" id="react-status">status: {initial.status}</span>
 
       <div class="stage__art">
         <Pet id="react-pet" pose={initial.pose} size={196} />
@@ -44,7 +44,7 @@ const initial = states[0];
         </span>
       </div>
 
-      <span class="stage__peek mono" aria-hidden="true">⌥Space to bring her back</span>
+      <span class="stage__peek" aria-hidden="true">⌥Space to bring her back</span>
     </div>
 
     <div class="picker" role="group" aria-label="Minnie's states" id="react-picker">
@@ -154,10 +154,10 @@ const initial = states[0];
     opacity: 1;
     transform: translateY(-50%) scale(1);
   }
-  .cloud__q { font-size: 12.5px; line-height: 1.45; }
+  .cloud__q { font-size: 13px; line-height: 1.45; }
   .cloud__q code {
     font-family: var(--font-mono);
-    font-size: 11.5px;
+    font-size: 12px;
     background: var(--sunk);
     border-radius: 4px;
     padding: 1px 4px;
@@ -165,7 +165,7 @@ const initial = states[0];
   .cloud__btns { display: flex; gap: 7px; }
   .cloud__btn {
     font-family: var(--font-display);
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 700;
     padding: 5px 12px;
     border-radius: var(--r-pill);
@@ -187,7 +187,7 @@ const initial = states[0];
   }
   .stage__peek {
     position: absolute;
-    font-size: 11.5px;
+    font-size: 12px;
     color: var(--ink-soft);
     opacity: 0;
     transition: opacity 0.3s ease 0.12s;
@@ -220,7 +220,7 @@ const initial = states[0];
   }
   .picker__btn {
     font-family: var(--font-display);
-    font-size: 12px;
+    font-size: 12.5px;
     font-weight: 700;
     color: var(--ink-dim);
     background: transparent;
@@ -246,7 +246,7 @@ const initial = states[0];
     margin: 0;
     max-width: 30rem;
     text-align: center;
-    font-size: 13.5px;
+    font-size: 15px;
     line-height: 1.55;
     color: var(--ink-dim);
     text-wrap: pretty;

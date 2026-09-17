@@ -68,12 +68,12 @@ const integrations = [
           <div>
             <div class="mcp__head">
               <span class="tile mcp__icon" style={`background:${i.tint};`}>{i.icon}</span>
-              <span class="mcp__tag mono">{i.tag}</span>
+              <span class="mcp__tag">{i.tag}</span>
             </div>
             <h3 class="mcp__h">{i.title}</h3>
             <p class="mcp__p">{i.body}</p>
           </div>
-          <div class="mcp__foot mono">
+          <div class="mcp__foot">
             <span class="mcp__live blink"></span>{i.foot}
           </div>
         </div>
@@ -131,7 +131,7 @@ const integrations = [
   }
   .mcp__p {
     margin: 0;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.55;
     color: var(--ink-dim);
     text-wrap: pretty;

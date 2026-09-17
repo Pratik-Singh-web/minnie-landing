@@ -49,12 +49,12 @@ const quotes = {
 
       <div class="custom__controls">
         <div>
-          <label class="custom__label mono" for="pet-name">01 / name her</label>
+          <label class="custom__label" for="pet-name">01 / name her</label>
           <input id="pet-name" class="custom__name" value="Minnie" maxlength="12" autocomplete="off" />
         </div>
 
         <div>
-          <span class="custom__label mono">02 / species</span>
+          <span class="custom__label">02 / species</span>
           <div class="custom__opts" id="species-opts">
             {species.map((s, i) => (
               <button
@@ -70,7 +70,7 @@ const quotes = {
         </div>
 
         <div>
-          <span class="custom__label mono">03 / personality</span>
+          <span class="custom__label">03 / personality</span>
           <div class="custom__opts" id="persona-opts">
             {personas.map((p, i) => (
               <button
@@ -94,7 +94,7 @@ const quotes = {
         <div class="custom__plate">
           <div class="custom__plateTop">
             <span class="custom__petname" id="preview-name">Minnie</span>
-            <span class="custom__badge mono" id="preview-species">Minnie</span>
+            <span class="custom__badge" id="preview-species">Minnie</span>
           </div>
           <p class="custom__quote" id="preview-quote" set:html={quotes.chill.minnie} />
         </div>
@@ -179,7 +179,7 @@ const quotes = {
     width: 100%;
     max-width: 24rem;
     padding: 13px 18px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     background: var(--card);
     border: 1px solid var(--line);
@@ -199,7 +199,7 @@ const quotes = {
     border: 1px solid var(--line);
     background: var(--card);
     color: var(--ink);
-    font-size: 11.5px;
+    font-size: 12px;
     cursor: pointer;
     box-shadow: var(--sh-sm);
     transition: none;
@@ -267,7 +267,7 @@ const quotes = {
   }
   .custom__quote {
     margin: 0;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.55;
     color: var(--ink-dim);
   }

@@ -5,7 +5,7 @@ import PetStage from "../components/PetStage.astro";
 <section class="hero">
   <div class="wrap hero__grid">
     <div>
-      <span class="hero__stamp mono">
+      <span class="hero__stamp">
         <span class="hero__dot blink"></span>
         macOS · your agent, now with legs
       </span>
@@ -25,7 +25,7 @@ import PetStage from "../components/PetStage.astro";
            WaitlistForm.astro stays on disk for the v1 launch. -->
       <div id="waitlist" class="hero__form">
         <a href={`${import.meta.env.BASE_URL}download`} class="btn">Download the free beta →</a>
-        <p class="hero__plat mono">
+        <p class="hero__plat">
           free while in beta · Apple Silicon · macOS 14+
         </p>
       </div>
@@ -37,10 +37,10 @@ import PetStage from "../components/PetStage.astro";
 
 
     <ol class="steps">
-      <li><span class="steps__n mono">01</span> Install<span class="steps__arrow" aria-hidden="true">→</span></li>
-      <li><span class="steps__n mono">02</span> Talk to her<span class="steps__arrow" aria-hidden="true">→</span></li>
-      <li><span class="steps__n mono">03</span> She asks first<span class="steps__arrow" aria-hidden="true">→</span></li>
-      <li><span class="steps__n mono">04</span> She does it</li>
+      <li><span class="steps__n">01</span> Install<span class="steps__arrow" aria-hidden="true">→</span></li>
+      <li><span class="steps__n">02</span> Talk to her<span class="steps__arrow" aria-hidden="true">→</span></li>
+      <li><span class="steps__n">03</span> She asks first<span class="steps__arrow" aria-hidden="true">→</span></li>
+      <li><span class="steps__n">04</span> She does it</li>
     </ol>
   </div>
 </section>
@@ -84,7 +84,7 @@ import PetStage from "../components/PetStage.astro";
   }
 
   .hero__title {
-    font-size: clamp(40px, 5.6vw, 68px);
+    font-size: clamp(42px, 5.9vw, 76px);
     line-height: 1.0;
     letter-spacing: -0.032em;
     text-wrap: nowrap;
@@ -113,7 +113,7 @@ import PetStage from "../components/PetStage.astro";
   }
   .hero__plat {
     margin-top: 12px;
-    font-size: 12.5px;
+    font-size: 13px;
     color: var(--ink-soft);
   }
 
@@ -128,7 +128,7 @@ import PetStage from "../components/PetStage.astro";
     border-top: 1px solid var(--line);
     list-style: none;
     font-family: var(--font-display);
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 700;
   }
   .steps li {
@@ -147,7 +147,7 @@ import PetStage from "../components/PetStage.astro";
     font-weight: 400;
   }
   @media (max-width: 720px) {
-    .steps { font-size: 12.5px; gap: 8px 16px; }
+    .steps { font-size: 13px; gap: 8px 16px; }
     .steps__arrow { display: none; }
   }
 </style>
