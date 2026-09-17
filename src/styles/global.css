@@ -22,7 +22,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @theme {
-  --font-display: "Baloo 2", "SF Pro Rounded", ui-rounded, system-ui, sans-serif;
+  --font-display: "Schibsted Grotesk", "SF Pro Display", system-ui, sans-serif;
   --font-sans: "Nunito Sans", system-ui, sans-serif;
   --font-mono: "DM Mono", "SF Mono", ui-monospace, monospace;
 }
@@ -248,7 +248,7 @@ textarea {
 }
 
 .sec {
-  padding: 56px 0;
+  padding: 46px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -279,9 +279,9 @@ textarea {
   border-radius: var(--r-sm);
   background: var(--accent-t);
   color: var(--accent-d);
-  padding: 4px 10px;
+  padding: 3px 9px;
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -306,7 +306,7 @@ textarea {
 .h2 {
   margin: 16px 0 0;
   font-family: var(--font-display);
-  font-size: clamp(25px, 3.1vw, 34px);
+  font-size: clamp(23px, 2.7vw, 30px);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.06;
@@ -327,8 +327,8 @@ textarea {
 }
 
 .lede {
-  margin: 14px 0 0;
-  font-size: 15.5px;
+  margin: 12px 0 0;
+  font-size: 15px;
   line-height: 1.6;
   color: var(--ink-dim);
   text-wrap: pretty;
@@ -339,8 +339,8 @@ textarea {
 }
 
 .sec-head {
-  max-width: 40rem;
-  margin-bottom: 30px;
+  max-width: 38rem;
+  margin-bottom: 24px;
 }
 
 /* ─── Surfaces ───────────────────────────────────────────────────────────── */
@@ -382,7 +382,7 @@ textarea {
   background: var(--accent);
   color: var(--on-accent);
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   letter-spacing: 0;
   box-shadow: 0 2px 0 var(--accent-d);
@@ -433,9 +433,9 @@ textarea {
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
   background: var(--sunk);
-  padding: 4px 9px;
+  padding: 3px 8px;
   font-family: var(--font-mono);
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--ink-dim);
 }
 
