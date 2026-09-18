@@ -22,8 +22,8 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @theme {
-  --font-display: "Schibsted Grotesk", "SF Pro Display", system-ui, sans-serif;
-  --font-sans: "Schibsted Grotesk", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "SF Pro Display", system-ui, sans-serif;
+  --font-sans: "Bricolage Grotesque", system-ui, sans-serif;
   --font-mono: "DM Mono", "SF Mono", ui-monospace, monospace;
 }
 
@@ -41,9 +41,9 @@
   --ink-soft: #9c8d79;
 
   /* Petrol — the one brand accent. */
-  --accent: #0a6b82;
-  --accent-d: #075466;
-  --accent-t: #eef7f9;
+  --accent: #c2560d;
+  --accent-d: #97420a;
+  --accent-t: #fdf0e6;
   --on-accent: #ffffff;
 
   /* Reserved for the consent flow. Never decorative. */
@@ -55,11 +55,11 @@
   /* Deep band + decorative tints. --yellow and --pink are kept only so the
      section-scoped styles that reference them keep resolving; they are tints
      now, not brand colours. */
-  --band: #04333e;
-  --green-deep: #04333e;
+  --band: #2a1608;
+  --green-deep: #2a1608;
   --on-band: #f3fbfd;
-  --on-band-dim: #a9d3de;
-  --yellow: #eef7f9;
+  --on-band-dim: #e8c49b;
+  --yellow: #fbf1e6;
   --pink: #f7f4ed;
 
   /* Soft, not brutalist. The 3px press shadow lives on .btn only. */
@@ -84,9 +84,9 @@
   --ink-dim: #a8977f;
   --ink-soft: #7d6e5b;
 
-  --accent: #3fa8c2;
-  --accent-d: #2b8ba3;
-  --accent-t: #0e2b33;
+  --accent: #f0813a;
+  --accent-d: #c4611d;
+  --accent-t: #331c0c;
   --on-accent: #08222a;
 
   --green: #3fd07a;
@@ -94,11 +94,11 @@
   --red: #ff6b5e;
   --on-green: #0b2415;
 
-  --band: #0a2129;
-  --green-deep: #0a2129;
+  --band: #1f1208;
+  --green-deep: #1f1208;
   --on-band: #f7f1e6;
-  --on-band-dim: #a9d3de;
-  --yellow: #16323a;
+  --on-band-dim: #e8c49b;
+  --yellow: #2e1c0e;
   --pink: #241e16;
 
   --sh: none;
