@@ -32,10 +32,10 @@
   color-scheme: light;
 
   /* Oat — the ground. Carries most of every screen. */
-  --paper: #fbf7ee;
+  --paper: #fdfcf9;
   --card: #ffffff;
-  --sunk: #f5efe2;
-  --line: #eae1d0;
+  --sunk: #f7f4ed;
+  --line: #e9e4da;
   --ink: #221b14;
   --ink-dim: #7a6b58;
   --ink-soft: #9c8d79;
@@ -59,8 +59,8 @@
   --green-deep: #04333e;
   --on-band: #f3fbfd;
   --on-band-dim: #a9d3de;
-  --yellow: #d5eaf0;
-  --pink: #f3e7d5;
+  --yellow: #eef7f9;
+  --pink: #f7f4ed;
 
   /* Soft, not brutalist. The 3px press shadow lives on .btn only. */
   --sh: none;
@@ -98,8 +98,8 @@
   --green-deep: #0a2129;
   --on-band: #f7f1e6;
   --on-band-dim: #a9d3de;
-  --yellow: #163842;
-  --pink: #2c2418;
+  --yellow: #16323a;
+  --pink: #241e16;
 
   --sh: none;
   --sh-sm: none;
@@ -130,8 +130,8 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 16.5px;
+  line-height: 1.62;
 }
 
 a {
@@ -277,7 +277,7 @@ textarea {
   display: inline-block;
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
-  background: var(--accent-t);
+  background: transparent;
   color: var(--accent-d);
   padding: 3px 9px;
   font-family: var(--font-sans);
@@ -328,7 +328,7 @@ textarea {
 
 .lede {
   margin: 14px 0 0;
-  font-size: 16.5px;
+  font-size: 17px;
   line-height: 1.6;
   color: var(--ink-dim);
   text-wrap: pretty;
