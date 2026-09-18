@@ -126,8 +126,19 @@ const initial = states[0];
   .stage__bars i:nth-child(3) { animation-delay: 0.24s; }
   .stage__bars i:nth-child(4) { animation-delay: 0.36s; }
 
-  /* working — a small, steady shake: she is doing something, not waiting */
+  /* working — a small, steady shake plus the raised arm actually tapping,
+     so "working" looks like an activity rather than a jitter */
   .stage[data-state="working"] .stage__art { animation: busy 0.9s ease-in-out infinite; }
+  .stage[data-state="working"] :global(.pet__arm) { animation: armTap 0.62s ease-in-out infinite; }
+  @keyframes armTap {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(-13deg) translateY(-3px); }
+  }
+
+  /* listening — she leans toward you and the ears come forward */
+  .stage[data-state="listening"] :global(.pet__ear) { animation: none; transform: rotate(0deg); }
+  .stage[data-state="listening"] :global(.pet__ear--l) { transform: rotate(-11deg); }
+  .stage[data-state="listening"] :global(.pet__ear--r) { transform: rotate(11deg); }
 
   /* asking — she steps aside to make room for the cloud */
   .stage[data-state="asking"] .stage__art { transform: translateX(-118px) scale(0.92); }
@@ -286,6 +297,13 @@ const initial = states[0];
 
     const go = (btn: HTMLButtonElement) => {
       const id = btn.dataset.go!;
+      // Retrigger the squash: removing the class and forcing a reflow is the
+      // only reliable way to restart a CSS animation on a repeat click.
+      pet.classList.remove("is-pop");
+      void (pet as unknown as HTMLElement).offsetWidth;
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        pet.classList.add("is-pop");
+      }
       stage.dataset.state = id;
       pet.setAttribute("data-pose", btn.dataset.pose || "idle");
       statusEl.textContent = `status: ${btn.dataset.status}`;
