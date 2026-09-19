@@ -8,9 +8,9 @@ const base = import.meta.env.BASE_URL;
 // Keep in step with version.json in this repo's root — that is what the in-app
 // update check reads, and a page pointing at an older release than the manifest
 // hands new users a build the app immediately wants to replace.
-const version = "0.9.7";
+const version = "0.9.8";
 const dmgURL = `https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v${version}-beta/Minnie-${version}-beta.dmg`;
-const expires = "17 November 2026";
+const expires = "18 December 2026";
 
 const h2 = "prose-h2";
 const p = "prose-p";
@@ -19,8 +19,8 @@ const link = "prose-a";
 ---
 
 <Layout
-  title="Download the Minnie beta — free"
-  description="Download the free Minnie beta for Apple Silicon Macs. Minnie is a native macOS desktop pet that runs the AI coding agent you already use."
+  title="Download the Minnie beta"
+  description="Download the Minnie beta for Apple Silicon Macs. Minnie is a native macOS desktop pet that runs the AI coding agent you already use. One-day free trial."
 >
   <Navbar />
 
@@ -28,18 +28,20 @@ const link = "prose-a";
     <a href={base} class="legal__back mono">← back to home</a>
 
     <h1 class="legal__h1">Download the beta</h1>
-    <p class="legal__date mono">v{version} · free · expires {expires}</p>
+    <p class="legal__date mono">v{version} · 1-day free trial · expires {expires}</p>
 
     <p class={p} style="margin-top:28px;">
-      Minnie is in open beta and free to use. She runs the AI coding agent you already have on
-      your Mac, so there's no extra AI bill — but you do need your own agent.
+      Minnie is in open beta. She runs the AI coding agent you already have on your Mac, so
+      there's no extra AI bill — but you do need your own agent. Running agent tasks needs an
+      account: you get a one-day free trial, and a subscription after that. Everything local —
+      waking her, talking, listening — keeps working either way.
     </p>
 
     <p style="margin:28px 0 12px;">
       <a href={dmgURL} class="btn">Download Minnie {version} →</a>
     </p>
     <p class="mono" style="opacity:.7;font-size:14px;">
-      Apple Silicon · macOS 14+ · ~146 MB
+      Apple Silicon · macOS 14+ · ~148 MB
     </p>
 
     <!-- The install block. This is the make-or-break section of the page: an

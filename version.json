@@ -1,8 +1,8 @@
 {
-  "latest": "0.9.7",
-  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.7-beta/Minnie-0.9.7-beta.dmg",
-  "sha256": "499460fbb05056ae3f761c99e4bc6cf506699fd31de0dff090b95e3d13190a70",
-  "notes": "Voice rewritten: she could go completely silent on Hindi replies, and Hinglish spoke in an American accent. Both fixed \u2014 tell me if anything sounds off.",
+  "latest": "0.9.8",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.8-beta/Minnie-0.9.8-beta.dmg",
+  "sha256": "e3f217bb90f5a113cd1f97415e2c66e9bd6ea5a9470dc43a206f40a178300278",
+  "notes": "Everything since August: browser sign-in for 12 tools, a feedback box, microphone picker and test, and a reworked Brain & Tools. Minnie now needs an account \u2014 1-day trial, then a subscription. Waking, talking and listening stay free.",
   "mandatory": false,
   "minSupportedVersion": ""
 }
