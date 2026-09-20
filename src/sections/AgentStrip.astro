@@ -1,0 +1,90 @@
+---
+// Brief §8.3 — "Works with your agent".
+//
+// This is the agent-agnostic framing the brief says to lead with: Minnie sits
+// on top of whatever agent the developer already runs, so there is no switching
+// cost and no second AI bill. Claude Code is the full experience today; the
+// others run more autonomously because the voice-consent flow is Claude Code
+// for now, which is why they are marked "supported" rather than "available".
+const agents = [
+  { name: "Claude Code", state: "Available now", now: true },
+  { name: "Gemini CLI", state: "Supported", now: false },
+  { name: "Codex", state: "Supported", now: false },
+  { name: "Custom CLI", state: "Supported", now: false },
+];
+---
+
+<section class="sec agents" id="agents">
+  <div class="wrap">
+    <div class="agents__grid">
+      <div class="agents__copy reveal-up">
+        <span class="eyebrow">Works with your agent</span>
+        <h2 class="h2">Bring your own agent and skills.</h2>
+        <p class="lede">
+          Minnie adds the face, the voice and the consent layer. Your agent keeps its own
+          login and does all the reasoning — so there is no second AI bill, and nothing you
+          already built gets thrown away.
+        </p>
+      </div>
+
+      <ul class="agents__list reveal-up">
+        {agents.map((a) => (
+          <li class="agents__item">
+            <span class="agents__name">{a.name}</span>
+            <span class:list={["agents__state", a.now && "agents__state--now"]}>
+              {a.state}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .agents__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .agents__grid { grid-template-columns: 1.05fr 0.95fr; gap: 48px; }
+  }
+
+  .agents__copy .lede { margin-top: 12px; }
+
+  .agents__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+  }
+  .agents__item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--card);
+    padding: 16px 20px;
+  }
+  .agents__name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    letter-spacing: -0.01em;
+  }
+  .agents__state {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  /* Only the one that actually has the full voice-consent flow gets the accent. */
+  .agents__state--now { color: var(--accent); }
+</style>

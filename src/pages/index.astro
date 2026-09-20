@@ -4,9 +4,14 @@ import Navbar from "../components/Navbar.astro";
 import Marquee from "../components/Marquee.astro";
 import Hero from "../sections/Hero.astro";
 import Benefits from "../sections/Benefits.astro";
+import AgentStrip from "../sections/AgentStrip.astro";
 import Screenshots from "../sections/Screenshots.astro";
 import Demo from "../sections/Demo.astro";
+import Trust from "../sections/Trust.astro";
 import Privacy from "../sections/Privacy.astro";
+import Customize from "../sections/Customize.astro";
+import MCP from "../sections/MCP.astro";
+import Comparison from "../sections/Comparison.astro";
 import Pricing from "../sections/Pricing.astro";
 import FAQ from "../sections/FAQ.astro";
 import FinalCTA from "../sections/FinalCTA.astro";
@@ -45,6 +50,9 @@ const promises = [
     <!-- 3 core benefit cards + bring-your-own-agent strip -->
     <Benefits />
 
+    <!-- Brief §8.3 — the agent-agnostic framing, lead with it -->
+    <AgentStrip />
+
     <!-- Real screenshots — the claims above, photographed. Sits before the
          playground so proof lands before the interactive toy. -->
     <Screenshots />
@@ -52,11 +60,23 @@ const promises = [
     <!-- Live playground: type at her, she picks tools and asks permission -->
     <Demo />
 
+    <!-- Brief §8.5 — the consent moat. The brief says give it real estate. -->
+    <Trust />
+
     <!-- Local & private: on-device voice, local CLI, no telemetry -->
     <Privacy />
 
     <!-- What it costs. Required on the site by Dodo's verification checklist, and
          it has to match the form: $29/year subscription. -->
+    <!-- Brief §8.7 — make her yours -->
+    <Customize />
+
+    <!-- Brief §8.8 — connect your tools -->
+    <MCP />
+
+    <!-- Brief §8.9 — vs a chatbot, vs a plain CLI -->
+    <Comparison />
+
     <Pricing />
 
     <!-- Accordion FAQ -->
