@@ -1,11 +1,18 @@
 ---
 import Pet from "../components/Pet.astro";
+import PetStage from "../components/PetStage.astro";
 
+// Four species ship in the app. The blurbs describe what each one is like to
+// live with rather than restating "it's a pet" four times.
 const species = [
-  { id: "minnie", label: "Minnie", tint: "var(--pink)" },
-  { id: "panda", label: "Panda", tint: "var(--sunk)" },
-  { id: "raccoon", label: "Raccoon", tint: "var(--sunk)" },
-  { id: "dog", label: "Dog", tint: "var(--yellow)" },
+  { id: "minnie",  label: "Minnie",  tint: "var(--pink)",
+    blurb: "The default. A round pink blob who watches your cursor and bounces when a run goes green." },
+  { id: "panda",   label: "Panda",   tint: "var(--sunk)",
+    blurb: "Slower, heavier, calmer. The one to pick if you want company that doesn't fidget." },
+  { id: "raccoon", label: "Raccoon", tint: "var(--sunk)",
+    blurb: "Nosy and quick. Reacts hardest to a finished task, and to a failed one." },
+  { id: "dog",     label: "Dog",     tint: "var(--yellow)",
+    blurb: "Eager and loyal. Sits closest to your cursor and is the first to notice you're back." },
 ];
 
 const personas = [
@@ -46,6 +53,15 @@ const quotes = {
         Pick a species, pick a temperament, give her a name. Change your mind on a Tuesday. She
         adapts to your vibe, not the other way round.
       </p>
+
+      <ul class="species">
+        {species.map((s) => (
+          <li class="species__item">
+            <span class="species__name">{s.label}</span>
+            <span class="species__blurb">{s.blurb}</span>
+          </li>
+        ))}
+      </ul>
 
       <div class="custom__controls">
         <div>
@@ -101,6 +117,12 @@ const quotes = {
       </div>
     </div>
   </div>
+
+  <div class="wrap custom__states">
+    <span class="eyebrow">Her moods</span>
+    <h3 class="custom__statesh">Whatever she's doing, you can see it.</h3>
+    <PetStage />
+  </div>
 </section>
 
 <script define:vars={{ quotes }}>
@@ -150,6 +172,18 @@ const quotes = {
 </script>
 
 <style>
+  .species { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 1px;
+             background: var(--line); border: 1px solid var(--line);
+             border-radius: var(--r-lg); overflow: hidden; }
+  .species__item { background: var(--card); padding: 14px 18px; display: flex;
+                   flex-direction: column; gap: 3px; }
+  .species__name { font-family: var(--font-display); font-size: 19px; letter-spacing: -0.01em; }
+  .species__blurb { font-size: 14px; line-height: 1.5; color: var(--ink-dim); }
+  .custom__states { margin-top: 56px; padding-top: 34px; border-top: 1px solid var(--line);
+                    display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .custom__statesh { font-family: var(--font-display); font-size: clamp(22px, 2.6vw, 28px);
+                     font-weight: 400; margin: 0 0 14px; text-align: center; }
+
   .custom__grid {
     display: grid;
     gap: 48px;

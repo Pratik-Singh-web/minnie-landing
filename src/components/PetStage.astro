@@ -21,6 +21,7 @@ const states = [
   { id: "asking",    label: "Asking",    pose: "idle",  status: "asking",    line: "Before anything she can't take back, she stops and asks out loud. This is the one that matters." },
   { id: "hidden",    label: "Hidden",    pose: "idle",  status: "hidden",    line: "Tucked off-screen while you focus. One shortcut and she's back where she was." },
 ];
+const { picker = true } = Astro.props;
 const initial = states[0];
 ---
 
@@ -47,20 +48,22 @@ const initial = states[0];
       <span class="stage__peek" aria-hidden="true">⌥Space to bring her back</span>
     </div>
 
-    <div class="picker" role="group" aria-label="Minnie's states" id="react-picker">
-      {states.map((s, i) => (
-        <button
-          type="button"
-          class="picker__btn"
-          data-go={s.id}
-          data-pose={s.pose}
-          data-status={s.status}
-          aria-pressed={i === 0 ? "true" : "false"}
-        >{s.label}</button>
-      ))}
-    </div>
+    {picker && (
+      <div class="picker" role="group" aria-label="Minnie's states" id="react-picker">
+        {states.map((s, i) => (
+          <button
+            type="button"
+            class="picker__btn"
+            data-go={s.id}
+            data-pose={s.pose}
+            data-status={s.status}
+            aria-pressed={i === 0 ? "true" : "false"}
+          >{s.label}</button>
+        ))}
+      </div>
+    )}
 
-    <p class="react__line" id="react-line">{initial.line}</p>
+    {picker && <p class="react__line" id="react-line">{initial.line}</p>}
   </div>
 
 <style>

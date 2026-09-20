@@ -5,11 +5,6 @@ import PetStage from "../components/PetStage.astro";
 <section class="hero">
   <div class="wrap hero__grid">
     <div>
-      <span class="hero__stamp">
-        <span class="hero__dot blink"></span>
-        macOS · your agent, now with legs
-      </span>
-
       <h1 class="h1 hero__title">
         Give your AI agent<br />
         <span class="slab hero__slab">a body.</span>
@@ -24,27 +19,16 @@ import PetStage from "../components/PetStage.astro";
            WaitlistForm.astro stays on disk for the v1 launch. -->
       <div id="waitlist" class="hero__form">
         <a href={`${import.meta.env.BASE_URL}download`} class="btn">Download the free beta →</a>
-        <p class="hero__badge">
-          <span aria-hidden="true">🔒</span>
-          On-device voice · runs on your Mac · nothing leaves unless you ask
-        </p>
         <p class="hero__plat">
-          free while in beta · Apple Silicon · macOS 14+
+          Free while in beta · macOS 14+ · Apple Silicon only
         </p>
       </div>
     </div>
 
     <div class="hero__right">
-      <PetStage />
+      <PetStage picker={false} />
     </div>
 
-
-    <ol class="steps">
-      <li><span class="steps__n">01</span> Install<span class="steps__arrow" aria-hidden="true">→</span></li>
-      <li><span class="steps__n">02</span> Talk to her<span class="steps__arrow" aria-hidden="true">→</span></li>
-      <li><span class="steps__n">03</span> She asks first<span class="steps__arrow" aria-hidden="true">→</span></li>
-      <li><span class="steps__n">04</span> She does it</li>
-    </ol>
   </div>
 </section>
 

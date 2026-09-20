@@ -6,7 +6,6 @@ import Hero from "../sections/Hero.astro";
 import Benefits from "../sections/Benefits.astro";
 import AgentStrip from "../sections/AgentStrip.astro";
 import Screenshots from "../sections/Screenshots.astro";
-import Demo from "../sections/Demo.astro";
 import Trust from "../sections/Trust.astro";
 import Privacy from "../sections/Privacy.astro";
 import Customize from "../sections/Customize.astro";
@@ -57,8 +56,8 @@ const promises = [
          playground so proof lands before the interactive toy. -->
     <Screenshots />
 
-    <!-- Live playground: type at her, she picks tools and asks permission -->
-    <Demo />
+    <!-- The pets themselves, in the slot the playground used to hold -->
+    <Customize />
 
     <!-- Brief §8.5 — the consent moat. The brief says give it real estate. -->
     <Trust />
@@ -68,8 +67,6 @@ const promises = [
 
     <!-- What it costs. Required on the site by Dodo's verification checklist, and
          it has to match the form: $29/year subscription. -->
-    <!-- Brief §8.7 — make her yours -->
-    <Customize />
 
     <!-- Brief §8.8 — connect your tools -->
     <MCP />

@@ -1,26 +1,28 @@
 ---
+// Six capabilities, each one something the shipping app actually does.
+//
+// MEDIA SLOT: each tile renders a tinted panel with its glyph. When real
+// renders or app captures exist, drop them in as `image` and the panel becomes
+// the frame — the copy, grid and order all stay.
 const benefits = [
-  {
-    icon: "⚡",
-    tint: "var(--yellow)",
-    title: "She does the thing",
-    body: "Minnie drives your CLI agent: real files, real shell commands, real test runs. A browser chatbot hands you a paragraph. Minnie hands you the patch.",
-    chips: ["writes code", "runs tests"],
-  },
-  {
-    icon: "🗣️",
-    tint: "var(--pink)",
-    title: "She asks out loud",
-    body: "Before touching a file or firing a command she says it: “I want to run pytest. Ok?” Answer with your voice — allow, deny, or let her off the leash.",
-    chips: ["voice consent", "you decide"],
-  },
-  {
-    icon: "🔒",
-    tint: "#3fd07a",
-    title: "She never phones home",
-    body: "On-device Apple speech, your own local agent CLI, zero telemetry. Your codebase, your secrets and your auth stay on the Mac they started on.",
-    chips: ["no cloud logs", "keychain auth"],
-  },
+  { glyph: "🗣️", tint: "var(--pink)",
+    title: "Talks back",
+    body: "Say her name and talk. She answers out loud, on-device." },
+  { glyph: "⚡", tint: "var(--yellow)",
+    title: "Runs commands",
+    body: "Real files, real shell, real test runs — on your Mac, not in a tab." },
+  { glyph: "🧠", tint: "var(--accent-t)",
+    title: "Works with your agent",
+    body: "Claude Code today; Gemini, Codex and custom CLIs supported." },
+  { glyph: "🔌", tint: "var(--sunk)",
+    title: "Connects your tools",
+    body: "Linear, Notion, Sentry, Jira, Asana and more — sign in once." },
+  { glyph: "🌙", tint: "var(--pink)",
+    title: "Stays out of the way",
+    body: "Patrols, naps, and pauses herself when you go fullscreen." },
+  { glyph: "📋", tint: "var(--sunk)",
+    title: "Shows her work",
+    body: "Every task she ran, every tool she called, in one list." },
 ];
 
 const agents = ["Claude Code (full)", "Gemini CLI", "Codex", "Custom agents"];
@@ -39,37 +41,32 @@ const agents = ["Claude Code (full)", "Gemini CLI", "Codex", "Custom agents"];
 
     <div class="benefits__grid">
       {benefits.map((b) => (
-        <div class="card card--lift benefits__card reveal-up">
-          <div>
-            <div class="tile benefits__icon jitter" style={`background:${b.tint};`}>{b.icon}</div>
-            <h3 class="benefits__h">{b.title}</h3>
-            <p class="benefits__body">{b.body}</p>
+        <div class="benefits__card reveal-up">
+          <div class="benefits__media" style={`background:${b.tint};`}>
+            <span class="benefits__glyph" aria-hidden="true">{b.glyph}</span>
           </div>
-          <div class="benefits__chips">
-            {b.chips.map((c) => <span class="tag">{c}</span>)}
-          </div>
+          <h3 class="benefits__h">{b.title}</h3>
+          <p class="benefits__body">{b.body}</p>
         </div>
       ))}
     </div>
 
-    <div class="strip reveal-up">
-      <div class="strip__copy">
-        <h4 class="strip__h">Bring your own agent + skills</h4>
-        <p class="strip__p">
-          She rides on the CLI agent you've already got logged in. Nothing to switch, nothing extra
-          to pay.
-        </p>
-      </div>
-      <div class="strip__chips">
-        {agents.map((a, i) => (
-          <span class={i === 0 ? "strip__chip strip__chip--on" : "strip__chip"}>{a}</span>
-        ))}
-      </div>
-    </div>
   </div>
 </section>
 
 <style>
+  .benefits__grid { display: grid; grid-template-columns: 1fr; gap: 30px 26px; }
+  @media (min-width: 680px) { .benefits__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .benefits__grid { grid-template-columns: repeat(3, 1fr); } }
+  .benefits__card { display: flex; flex-direction: column; gap: 10px; }
+  .benefits__media { aspect-ratio: 16 / 10; border-radius: var(--r-lg);
+                     border: 1px solid var(--line); display: grid; place-items: center;
+                     overflow: hidden; }
+  .benefits__glyph { font-size: 40px; line-height: 1; }
+  .benefits__h { margin: 4px 0 0; font-family: var(--font-display); font-size: 21px;
+                 font-weight: 400; letter-spacing: -0.01em; }
+  .benefits__body { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-dim); }
+
   .benefits__grid {
     display: grid;
     gap: 26px;
