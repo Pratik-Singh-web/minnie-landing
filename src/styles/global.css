@@ -32,18 +32,18 @@
   color-scheme: light;
 
   /* Oat — the ground. Carries most of every screen. */
-  --paper: #fdfcf9;
+  --paper: #faf7fc;
   --card: #ffffff;
-  --sunk: #f7f4ed;
-  --line: #e9e4da;
-  --ink: #221b14;
-  --ink-dim: #7a6b58;
-  --ink-soft: #9c8d79;
+  --sunk: #f4eff8;
+  --line: #e8e0ee;
+  --ink: #2a1b38;
+  --ink-dim: #6b5c7a;
+  --ink-soft: #8d80a0;
 
   /* Petrol — the one brand accent. */
-  --accent: #c2560d;
-  --accent-d: #97420a;
-  --accent-t: #fdf0e6;
+  --accent: #d92a5c;
+  --accent-d: #ad1f48;
+  --accent-t: #fdeef3;
   --on-accent: #ffffff;
 
   /* Reserved for the consent flow. Never decorative. */
@@ -55,18 +55,19 @@
   /* Deep band + decorative tints. --yellow and --pink are kept only so the
      section-scoped styles that reference them keep resolving; they are tints
      now, not brand colours. */
-  --band: #2a1608;
-  --green-deep: #2a1608;
+  --band: #2b1338;
+  --green-deep: #2b1338;
   --on-band: #f3fbfd;
-  --on-band-dim: #e8c49b;
-  --yellow: #fbf1e6;
-  --pink: #f7f4ed;
+  --on-band-dim: #e0c2f0;
+  --yellow: #fdeef3;
+  --pink: #f4eff8;
 
   /* Soft, not brutalist. The 3px press shadow lives on .btn only. */
   --sh: none;
   --sh-sm: none;
   --sh-lg: none;
 
+  --wash: linear-gradient(170deg, #fdf2f8 0%, #f7f2fb 38%, #f2f5fd 100%);
   --r-sm: 7px;
   --r-md: 10px;
   --r-lg: 12px;
@@ -76,17 +77,17 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --paper: #14110c;
-  --card: #1d1811;
-  --sunk: #241e16;
-  --line: #332a20;
-  --ink: #f7f1e6;
-  --ink-dim: #a8977f;
-  --ink-soft: #7d6e5b;
+  --paper: #16101d;
+  --card: #1f1729;
+  --sunk: #261d32;
+  --line: #362a45;
+  --ink: #f6f0fa;
+  --ink-dim: #a99bbb;
+  --ink-soft: #7d6f90;
 
-  --accent: #f0813a;
-  --accent-d: #c4611d;
-  --accent-t: #331c0c;
+  --accent: #ff6d95;
+  --accent-d: #d94670;
+  --accent-t: #331623;
   --on-accent: #08222a;
 
   --green: #3fd07a;
@@ -94,12 +95,12 @@
   --red: #ff6b5e;
   --on-green: #0b2415;
 
-  --band: #1f1208;
-  --green-deep: #1f1208;
+  --band: #1d1128;
+  --green-deep: #1d1128;
   --on-band: #f7f1e6;
-  --on-band-dim: #e8c49b;
-  --yellow: #2e1c0e;
-  --pink: #241e16;
+  --on-band-dim: #e0c2f0;
+  --yellow: #331623;
+  --pink: #261d32;
 
   --sh: none;
   --sh-sm: none;
@@ -128,6 +129,8 @@ body {
 body {
   margin: 0;
   background: var(--paper);
+  background-image: var(--wash);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 16.5px;
