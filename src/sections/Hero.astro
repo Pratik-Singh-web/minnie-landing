@@ -19,8 +19,11 @@ import PetStage from "../components/PetStage.astro";
            WaitlistForm.astro stays on disk for the v1 launch. -->
       <div id="waitlist" class="hero__form">
         <a href={`${import.meta.env.BASE_URL}download`} class="btn">Download the free beta →</a>
+        <!-- Not "free while in beta" any more: since 2026-09-09 the core is free
+             permanently, and a line implying the price starts later is the same
+             mismatch the pricing section exists to avoid — pointing the other way. -->
         <p class="hero__plat">
-          Free while in beta · macOS 14+ · Apple Silicon only
+          Free · macOS 14+ · Apple Silicon only
         </p>
       </div>
     </div>

@@ -11,11 +11,21 @@
 // The $39 strikethrough is gone on purpose. It was never a real price, and an
 // invented "was" figure is a fake anchor — the kind of thing a compliance
 // reviewer is specifically looking for.
+//
+// REWRITTEN 2026-09-26 (C3). The model changed on 2026-09-09: the core is free
+// permanently and what is sold is a CHARACTER, one-time. The $29/year above was
+// therefore advertising a product that no longer exists — the same mismatch this
+// file's own comment warns about, pointing the other way.
+//
+// ⚠️ Characters are named but NOT priced, because none exists yet. Naming a
+// figure for something unbuilt is exactly the invented number the note above
+// refuses. Add the price when the first character ships (C6/C7) — and tell Dodo
+// at the same time.
 const features = [
+  "Everything she does — voice, wake word, real tasks on your Mac",
   "Bring your own AI account — we never bill you for AI",
-  "Voice control, and your own tools connected over MCP",
-  "Up to 3 Macs on one licence",
-  "A year of updates",
+  "Your own tools connected over MCP",
+  "No trial, no subscription, no card",
 ];
 ---
 
@@ -23,19 +33,19 @@ const features = [
   <div class="wrap">
     <div class="pricing__head reveal-slam">
       <span class="eyebrow">Pricing</span>
-      <h2 class="h2">Free in open beta. Then $29 a year.</h2>
+      <h2 class="h2">Free. Forever.</h2>
     </div>
 
     <div class="pricing__wrap reveal-up">
       <div class="card pricing__card">
-        <span class="pricing__badge jitter">Free in beta</span>
+        <span class="pricing__badge jitter">Free</span>
 
-        <h3 class="pricing__h">Minnie Pro</h3>
+        <h3 class="pricing__h">Minnie</h3>
         <p class="pricing__limit">macOS · Apple Silicon</p>
 
         <div class="pricing__row">
-          <span class="pricing__now">$29</span>
-          <span class="pricing__unit">per year</span>
+          <span class="pricing__now">$0</span>
+          <span class="pricing__unit">forever</span>
         </div>
 
         <div class="pricing__list">
@@ -48,10 +58,11 @@ const features = [
         </div>
 
         <a href={`${import.meta.env.BASE_URL}download`} class="btn pricing__cta">
-          Download free while she's in beta
+          Download Minnie
         </a>
         <p class="pricing__note">
-          1-day free trial, no card · 30-day refund · cancel any time
+          Later: extra characters — a look, moves and a voice of their own —
+          will be one-time purchases. Everything above stays free.
         </p>
       </div>
     </div>
@@ -158,11 +169,14 @@ const features = [
     padding: 16px;
     font-size: 16.5px;
   }
+  /* Sentence case, not the old uppercase micro-type: this is now a sentence
+     about what will cost money later, and uppercase at 10.5px is unreadable
+     past about six words. */
   .pricing__note {
-    margin: 12px 0 0;
+    margin: 14px 0 0;
     text-align: center;
-    font-size: 10.5px;
-    text-transform: uppercase;
+    font-size: 12.5px;
+    line-height: 1.5;
     color: var(--ink-soft);
   }
 </style>
