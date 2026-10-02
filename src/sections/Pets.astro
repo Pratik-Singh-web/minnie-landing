@@ -31,7 +31,7 @@ const moods = [
       {moods.map((m) => (
         <li class="pets__item">
           <div class="pets__art">
-            <Minnie state={m.state} size={220} label={`Minnie, ${m.name.toLowerCase()}`} />
+            <Minnie state={m.state} size={220} tile label={`Minnie, ${m.name.toLowerCase()}`} />
             <button type="button" class="pets__heart" aria-pressed="false" aria-label={`Favourite: ${m.name}`}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
             </button>

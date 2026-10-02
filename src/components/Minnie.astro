@@ -10,6 +10,10 @@
 // Switch her state from a script by setting one attribute:
 //   el.dataset.state = "happy"
 // The loader below watches for that and swaps the clip.
+//
+// DARK MODE: the opaque clips can't sit on a dark page. By default they fall
+// back to the nearest alpha clip (happy → float, think/sleep → sit). Pass
+// `tile` to keep the real mood instead, on a cream clay tile.
 export type MinnieState = "sit" | "float" | "happy" | "think" | "sleep";
 
 interface Props {
@@ -18,8 +22,9 @@ interface Props {
   id?: string;
   class?: string;
   label?: string;
+  tile?: boolean;
 }
-const { state = "sit", size = 200, id, class: cls, label = "Minnie" } = Astro.props;
+const { state = "sit", size = 200, id, class: cls, label = "Minnie", tile = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -27,6 +32,7 @@ const base = import.meta.env.BASE_URL;
   id={id}
   class:list={["minnie", cls]}
   data-state={state}
+  data-tile={tile ? "" : undefined}
   data-base={`${base}minnie/`}
   style={`--size:${size}px`}
   role="img"
@@ -64,11 +70,22 @@ const base = import.meta.env.BASE_URL;
   /* The opaque clips are encoded with their background lifted to ~253 (the
      ceiling for standard-range video); the 1.2% brightness takes it to 255 and
      multiply then makes it vanish into the page white. */
-  .minnie[data-state="happy"] .minnie__v,
-  .minnie[data-state="think"] .minnie__v,
-  .minnie[data-state="sleep"] .minnie__v {
+  /* Keyed on the clip actually loaded (data-clip, set by the loader), not on
+     the requested state: in dark mode an opaque state may be playing an
+     alpha clip, and multiplying that against a dark page would black it out. */
+  .minnie[data-clip="happy"] .minnie__v,
+  .minnie[data-clip="think"] .minnie__v,
+  .minnie[data-clip="sleep"] .minnie__v {
     mix-blend-mode: multiply;
     filter: brightness(1.012);
+  }
+
+  /* Dark mode, tiled: the clip sits on a cream clay tile (every tiled clip,
+     so a row of them matches). Multiply against cream leaves exactly the
+     tile colour behind the opaque clips. */
+  :root[data-theme="dark"] .minnie[data-tile] {
+    background: #fff1de;
+    border-radius: 30px;
   }
 
   /* A short squash when she changes state, so it reads as a reaction. */
@@ -94,13 +111,22 @@ const base = import.meta.env.BASE_URL;
     (/Safari/.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|Edg|OPR|Android/.test(ua));
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // Opaque clips can't go on a dark page; untiled ones borrow an alpha clip.
+  const DARK_FALLBACK: Record<string, string> = { happy: "float", think: "sit", sleep: "sit" };
+  const effective = (el: HTMLElement) => {
+    const s = el.dataset.state || "sit";
+    const dark = document.documentElement.dataset.theme === "dark";
+    return dark && !ALPHA.has(s) && !el.hasAttribute("data-tile") ? DARK_FALLBACK[s] ?? "sit" : s;
+  };
+
   const srcFor = (base: string, s: string) =>
     ALPHA.has(s) ? `${base}${s}.${webkit ? "mov" : "webm"}` : `${base}${s}.mp4`;
 
   const load = (el: HTMLElement) => {
     const v = el.querySelector("video");
     if (!v) return;
-    const s = el.dataset.state || "sit";
+    const s = effective(el);
+    el.dataset.clip = s;
     const base = el.dataset.base || "/minnie/";
     v.poster = `${base}${s}.webp`;
     if (still) return; // the poster is the whole show
@@ -136,8 +162,15 @@ const base = import.meta.env.BASE_URL;
     }
   });
 
-  document.querySelectorAll<HTMLElement>(".minnie").forEach((el) => {
+  const all = document.querySelectorAll<HTMLElement>(".minnie");
+  all.forEach((el) => {
     io.observe(el);
     mo.observe(el, { attributes: true, attributeFilter: ["data-state"] });
+  });
+
+  // Theme toggled: re-pick every clip (the dark fallback may change it).
+  new MutationObserver(() => all.forEach(load)).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
   });
 </script>

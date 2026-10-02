@@ -83,6 +83,7 @@
   --green-deep: #2e1b12;
   --on-band: #fffcf7;
   --on-band-dim: #c9b3a4;
+  --foot: #2e1b12;
 
   /* Legacy names, kept so older section styles still resolve. */
   --yellow: #ffe7cc;         /* Clay.peachPastel */
@@ -102,40 +103,44 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --paper: #0b0b0b;
-  --card: #141312;
-  --sunk: #171613;
-  --line: #2b2825;
-  --ink: #f7f6f5;
-  --ink-dim: #a8a29c;
-  --ink-soft: #7d7873;
+  /* Ember after dark — the same fire on warm brown-black, never neutral grey.
+     Every text pair here clears 4.5:1 (most clear 6:1). */
+  --paper: #1a100b;
+  --card: #24170f;
+  --sunk: #2a1b13;
+  --line: #3d2a20;
+  --ink: #fff1de;            /* bg0 as text — 16.8:1 */
+  --ink-dim: #d2b8a6;        /* 9.9:1 */
+  --ink-soft: #a88e7e;       /* 6.1:1 */
 
-  /* Brightened so it still separates from the near-black ground. */
-  --accent: #f5c04f;
-  --accent-h: #f8cd6c;
-  --accent-d: #b07d16;
-  --accent-t: #2a210f;
-  --accent-ink: #f5c04f;
-  --on-accent: #0b0b0b;
+  /* Spark's mid body is the fill here: it glows on dark where coral would
+     look muddy. Accent TEXT is her flame tip. */
+  --accent: #f07818;
+  --peach: #f7b23f;
+  --accent-h: #ff8a3d;
+  --accent-d: #b8390f;
+  --accent-t: #3a2010;
+  --accent-ink: #f7b23f;     /* 10.2:1 */
+  --on-accent: #2e1b12;      /* 5.8:1 on #f07818 */
+  --grad: linear-gradient(135deg, #f07818, #f7b23f);
 
-  --quip: #a583f0;
+  --quip: #a08cf8;           /* periwinkle, lifted for dark — 6.8:1 */
 
-  --green: #3fd07a;
-  --caution: #e0a83c;
-  --red: #ff6b5e;
-  --on-green: #0b2415;
+  --green: #1fb88a;
+  --caution: #ffd21e;
+  --red: #ff5c8a;
+  --on-green: #2e1b12;
 
-  /* NOT inverted. A cream panel here would sit under cards and tables that
-     are themselves dark — light slab, dark table, unreadable header row. So on
-     a black page the panel that breaks the rhythm is a *raised* black, one
-     step off the ground, and everything inside it keeps its dark styling. */
-  --band: #141312;
-  --green-deep: #141312;
-  --on-band: #f7f6f5;
-  --on-band-dim: #a8a29c;
+  /* Panels are a raised step off the page and carry an edge; the footer sits
+     one step BELOW the page, so the two never read as the same surface. */
+  --band: #24170f;
+  --green-deep: #24170f;
+  --on-band: #fff1de;
+  --on-band-dim: #d2b8a6;
+  --foot: #120a06;
 
-  --yellow: #171613;
-  --pink: #171613;
+  --yellow: #2a1b13;
+  --pink: #2a1b13;
 
   --sh: none;
   --sh-sm: none;
@@ -894,6 +899,7 @@ textarea {
 
 /* On the ink panels the full honey reads fine, and the darker ink would not. */
 .panel .slab { color: var(--peach); }
+:root[data-theme="dark"] .panel { border: 1px solid var(--line); }
 
 .caption {
   margin: 14px 0 0;

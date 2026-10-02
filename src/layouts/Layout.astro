@@ -89,10 +89,20 @@ const faqLd = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Light only, like the reference design. The dark tokens stay in
-         global.css, but nothing switches to them any more. -->
-    <script is:inline>document.documentElement.setAttribute("data-theme", "light");</script>
-    <meta name="theme-color" content="#fffcf7" />
+    <!-- Theme before first paint, so there is no flash. A choice made with the
+         nav toggle wins; otherwise follow the system. -->
+    <script is:inline>
+      (function () {
+        var t;
+        try { t = localStorage.getItem("minnie-theme"); } catch (e) {}
+        if (t !== "light" && t !== "dark") {
+          t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+    <meta name="theme-color" content="#fffcf7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a100b" media="(prefers-color-scheme: dark)" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <!-- Favicons. Google fetches /favicon.ico on its own schedule and wants a
