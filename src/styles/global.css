@@ -53,15 +53,19 @@
   --ink-dim: #686460;
   --ink-soft: #8c8681;
 
-  /* Orange — the one brand accent. --accent-d is its shadow, not a hover. */
-  --accent: #f95d02;
-  --accent-h: #ec3023;
-  --accent-d: #b74308;
-  --accent-t: #fff2e9;
+  /* Honey — Minnie's own colour, taken from her belly and ears. It is a fill
+     colour: buttons, the logo tile, bands, focus rings. --accent-d is its
+     shadow, not a hover. Yellow is too light to read as text on white, so any
+     accent TEXT on a light surface uses --accent-ink instead. */
+  --accent: #f0b83c;
+  --accent-h: #f5c65a;
+  --accent-d: #b07d16;
+  --accent-t: #fdf3dc;
+  --accent-ink: #b7800f;
   --on-accent: #0b0b0b;
 
   /* The aside voice — the pet talking back. Never used for chrome. */
-  --quip: #c94b8c;
+  --quip: #7a4bd8;
 
   /* Reserved for the consent flow. Never decorative. */
   --green: #287447;
@@ -105,13 +109,14 @@
   --ink-soft: #7d7873;
 
   /* Brightened so it still separates from the near-black ground. */
-  --accent: #ff7a2f;
-  --accent-h: #ff9354;
-  --accent-d: #bf5313;
-  --accent-t: #2a1a0f;
+  --accent: #f5c04f;
+  --accent-h: #f8cd6c;
+  --accent-d: #b07d16;
+  --accent-t: #2a210f;
+  --accent-ink: #f5c04f;
   --on-accent: #0b0b0b;
 
-  --quip: #ef7ab3;
+  --quip: #a583f0;
 
   --green: #3fd07a;
   --caution: #e0a83c;
@@ -172,7 +177,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 
 input,
@@ -377,7 +382,7 @@ textarea {
 .slab {
   display: inline-block;
   background: transparent;
-  color: var(--accent);
+  color: var(--accent-ink);
   border: 0;
   box-shadow: none;
   padding: 0;
@@ -465,7 +470,7 @@ textarea {
 
 /* ─── Controls ───────────────────────────────────────────────────────────── */
 /* Orange with ink text on a 4px hard shadow — it should read as a key you can
-   press. The text is black on purpose: white on #f95d02 fails contrast at this
+   press. The text is black on purpose: white on honey fails contrast at this
    size, and the semantic green is reserved for "allow" in the consent UI. */
 .btn {
   display: inline-flex;
@@ -634,7 +639,7 @@ textarea {
   text-underline-offset: 3px;
 }
 .prose-a:hover {
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 
 /* ---- legal / long-form page shell -------------------------------------
@@ -763,7 +768,7 @@ textarea {
   text-decoration-color: var(--accent);
   text-underline-offset: 3px;
 }
-.post__body a:hover { color: var(--accent); }
+.post__body a:hover { color: var(--accent-ink); }
 .post__body strong { color: var(--ink); }
 .post__body img {
   display: block;
@@ -883,6 +888,9 @@ textarea {
   color: var(--paper);
   border-color: var(--ink);
 }
+
+/* On the ink panels the full honey reads fine, and the darker ink would not. */
+.panel .slab { color: var(--accent); }
 
 .caption {
   margin: 14px 0 0;

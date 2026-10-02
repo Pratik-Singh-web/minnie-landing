@@ -5,7 +5,7 @@
     {
       "name": "minnie-landing",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["astro", "dev"],
+      "runtimeArgs": ["astro", "dev", "--port", "4330"],
       "port": 4330
     }
   ]
