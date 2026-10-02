@@ -24,10 +24,11 @@ export const jurisdiction = "India";
 export const contactEmail = "support@heyminnie.com";
 
 /** Kept in one place so all four pages carry the same date. */
-export const updated = "23 August 2026";
+export const updated = "3 October 2026";
 
-/** Price shown on the pricing section, repeated in terms + refund. */
-export const price = "$29 per year";
+// No `price` any more: since 2026-09-09 the app is free for life, and the
+// optional one-time purchases (characters) have no price until one ships. Add
+// it back here — and tell Dodo — when the first one goes on sale.
 
 /** How long after purchase a refund is unconditional. */
 export const refundDays = 30;

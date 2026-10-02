@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
-import { contactEmail, updated, legalName, jurisdiction, price, deviceLimit, refundDays } from "../legal";
+import { contactEmail, updated, legalName, jurisdiction, refundDays } from "../legal";
 
 const base = import.meta.env.BASE_URL;
 
@@ -14,7 +14,7 @@ const link = "prose-a";
 
 <Layout
   title="Terms of Service — Minnie"
-  description="The agreement for using Minnie: your licence, what the subscription includes, and what you take responsibility for when an AI agent runs on your Mac."
+  description="The agreement for using Minnie: a free licence, optional one-time purchases, and what you take responsibility for when an AI agent runs on your Mac."
 >
   <Navbar />
 
@@ -40,31 +40,20 @@ const link = "prose-a";
 
     <h2 class={h2}>Your licence</h2>
     <p class={p}>
-      A paid subscription grants you a personal, non-exclusive, non-transferable
-      licence to use Minnie on up to <strong>{deviceLimit} Macs</strong> that you own
-      or control, for as long as the subscription is active. You may not resell,
-      sublicense, or redistribute the app or your licence key, and you may not remove
-      or work around the licensing checks.
+      Minnie is free. We grant you a personal, non-exclusive, non-transferable licence
+      to use her, at no charge, on Macs that you own or control. You may not resell,
+      sublicense, or redistribute the app, or any licence key that comes with a
+      purchase, and you may not remove or work around its licensing checks.
     </p>
 
-    <h2 class={h2}>Trial, price and renewal</h2>
+    <h2 class={h2}>Price</h2>
     <ul class={ul}>
-      <li>Minnie includes a <strong>free trial</strong>, with no card required.</li>
-      <li>After that, Minnie is <strong>{price}</strong>, billed annually and renewing automatically until you cancel.</li>
-      <li>You can cancel any time. Cancelling stops the next renewal; <strong>your access continues to the end of the period you have already paid for</strong>.</li>
-      <li>If a renewal payment fails we do not cut you off immediately — there is a grace period for the bank or card to sort itself out.</li>
-      <li>We may change the price. An existing subscription keeps its price for the period already paid, and we will tell you before a change affects a renewal.</li>
+      <li><strong>Minnie is free for life</strong> — the app and everything she does, with no trial, no subscription and no card.</li>
+      <li>Later we may offer <strong>optional extra characters</strong> — a look, moves and a voice of their own — as <strong>one-time purchases</strong>. Each shows its price before you buy. None is a subscription, and none renews.</li>
+      <li>Nothing that is free today will be moved behind a payment.</li>
     </ul>
     <p class={p}>
-      Refunds are covered by our <a class={link} href={`${base}refund`}>Refund &amp; Cancellation Policy</a> — {refundDays} days, no reason needed.
-    </p>
-
-    <h2 class={h2}>When the subscription ends</h2>
-    <p class={p}>
-      Minnie does not brick herself. When a trial or subscription ends she stops
-      running agent tasks, but she still appears, listens, and speaks, and everything
-      she has stored on your Mac stays exactly where it is. Nothing is deleted and
-      nothing is held hostage.
+      Refunds for purchases are covered by our <a class={link} href={`${base}refund`}>Refund &amp; Cancellation Policy</a> — {refundDays} days, no reason needed.
     </p>
 
     <h2 class={h2}>What you are responsible for</h2>
@@ -112,7 +101,7 @@ const link = "prose-a";
     <p class={p}>
       Minnie can download and install her own updates. Features may be added, changed
       or removed as the product develops. If we ever discontinue Minnie entirely, we
-      will give notice and refund the unused part of any current subscription period.
+      will give notice first.
     </p>
 
     <h2 class={h2}>Warranty</h2>
@@ -134,10 +123,9 @@ const link = "prose-a";
 
     <h2 class={h2}>Ending the agreement</h2>
     <p class={p}>
-      You can stop using Minnie and cancel at any time. We may suspend or end access
-      if these terms are seriously or repeatedly broken — for example licence-key
-      abuse or using Minnie to attack other systems. If we end your access for a
-      reason that is not your breach, we refund the unused part of the period.
+      You can stop using Minnie at any time. We may suspend or end access if these
+      terms are seriously or repeatedly broken — for example licence-key abuse or
+      using Minnie to attack other systems.
     </p>
 
     <h2 class={h2}>Governing law</h2>
@@ -151,7 +139,7 @@ const link = "prose-a";
     <p class={p}>
       We may update these terms as Minnie changes. The date at the top always says
       when. Continuing to use Minnie after a change means you accept the new version;
-      if you do not, cancel and we will refund the unused part of your period.
+      if you do not, you can stop using her at any time.
     </p>
 
     <h2 class={h2}>Contact</h2>
