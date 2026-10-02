@@ -1,0 +1,216 @@
+---
+import Pet from "../components/Pet.astro";
+const base = import.meta.env.BASE_URL;
+
+// Her real states. The quip under her changes with each one.
+const states = [
+  { id: "idle", label: "Idle", pose: "idle", quip: "Watching your cursor." },
+  { id: "listening", label: "Listening", pose: "idle", quip: "Go on. All ears." },
+  { id: "working", label: "Working", pose: "think", quip: "Running the tests. Shh." },
+  { id: "asking", label: "Asking", pose: "idle", quip: "Can I edit this file?" },
+];
+---
+
+<section id="features" class="wrap blk">
+  <div class="head">
+    <div>
+      <p class="eyebrow">Talk to her</p>
+      <h2 class="h2">Say it out loud.<br />She gets to work.</h2>
+    </div>
+    <div class="head__copy">
+      <p>
+        Ask in plain words, by voice or by typing. Minnie hands it to the coding agent you already
+        use and stays on screen while it runs.
+      </p>
+    </div>
+  </div>
+
+  <div class="talk">
+    <div class="card talk__card">
+      <div class="talk__tabs" role="tablist">
+        <button type="button" role="tab" aria-selected="true" data-mode="voice">By voice</button>
+        <button type="button" role="tab" aria-selected="false" data-mode="type">By typing</button>
+      </div>
+
+      <div class="talk__body">
+        <p class="talk__label">Tell her what you need</p>
+        <p class="talk__status" id="talk-status"><span class="talk__dot"></span><span id="talk-status-text">Say her name to start.</span></p>
+        <textarea
+          id="talk-input"
+          class="field talk__field"
+          rows="3"
+          placeholder="Run the tests and fix whatever breaks."
+        ></textarea>
+
+        <div class="talk__row">
+          <a href={`${base}download`} class="btn">Download the free beta</a>
+          <a href={`${base}#agents`} class="btn btn--card btn--sm">Which agents?</a>
+        </div>
+        <p class="caption">Voice runs on-device. Nothing is sent until you say so.</p>
+      </div>
+    </div>
+
+    <div class="talk__side">
+      <div class="pills" id="talk-pills" role="group" aria-label="Her states">
+        {states.map((s, i) => (
+          <button type="button" data-state={s.id} data-pose={s.pose} data-quip={s.quip} aria-pressed={i === 0 ? "true" : "false"}>
+            {s.label}
+          </button>
+        ))}
+      </div>
+      <div class="talk__pet">
+        <Pet id="talk-pet" size={200} />
+      </div>
+      <p class="talk__name">
+        <strong>Minnie</strong>
+        <span class="quip" id="talk-quip">{states[0].quip}</span>
+      </p>
+      <p class="caption">Placeholder art. The states are the real ones.</p>
+    </div>
+  </div>
+
+  <p class="talk__foot">She's a <span class="slab">good</span> listener.</p>
+</section>
+
+<style>
+  .talk {
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+  @media (min-width: 900px) { .talk { grid-template-columns: 1fr 1fr; gap: 64px; } }
+
+  .talk__card {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .talk__tabs {
+    display: flex;
+    gap: 22px;
+    padding: 0 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .talk__tabs button {
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 16px 0 14px;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .talk__tabs button[aria-selected="true"] {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  .talk__body { padding: 22px; }
+  .talk__label {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .talk__status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0 14px;
+    font-size: 14.5px;
+    color: var(--ink-dim);
+  }
+  .talk__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 99px;
+    background: var(--line);
+    transition: background 0.2s ease;
+  }
+  .talk__status.is-on .talk__dot { background: var(--accent); }
+  .talk__field {
+    width: 100%;
+    resize: none;
+    line-height: 1.5;
+  }
+  .talk__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .talk__side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .talk__pet { margin: 30px 0 18px; }
+  .talk__name {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: -0.03em;
+  }
+  .talk__name strong { font-weight: 800; }
+  .talk__name .quip { font-size: 16px; }
+
+  .talk__foot {
+    margin: 28px 0 0;
+    font-size: 15px;
+    font-weight: 650;
+  }
+</style>
+
+<script>
+  const pills = document.getElementById("talk-pills");
+  const pet = document.getElementById("talk-pet");
+  const quip = document.getElementById("talk-quip");
+  const input = document.getElementById("talk-input") as HTMLTextAreaElement | null;
+  const status = document.getElementById("talk-status");
+  const statusText = document.getElementById("talk-status-text");
+
+  const setState = (id: string) => {
+    const btn = pills?.querySelector<HTMLButtonElement>(`[data-state="${id}"]`);
+    if (!btn || !pet || !quip) return;
+    pills!.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+    pet.setAttribute("data-pose", btn.dataset.pose || "idle");
+    quip.textContent = btn.dataset.quip || "";
+    pet.classList.remove("is-pop");
+    void (pet as unknown as HTMLElement).getBoundingClientRect();
+    pet.classList.add("is-pop");
+  };
+
+  pills?.addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>("button");
+    if (b?.dataset.state) setState(b.dataset.state);
+  });
+
+  // Typing makes her listen; stopping hands it to the agent.
+  let t: number | undefined;
+  input?.addEventListener("input", () => {
+    const has = input.value.trim().length > 0;
+    status?.classList.toggle("is-on", has);
+    if (statusText) statusText.textContent = has ? "She's listening." : "Say her name to start.";
+    setState(has ? "listening" : "idle");
+    clearTimeout(t);
+    if (has) t = window.setTimeout(() => setState("working"), 1200);
+  });
+
+  // Voice / typing tabs only change the hint — it's a demo, not the app.
+  document.querySelectorAll<HTMLButtonElement>(".talk__tabs button").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".talk__tabs button").forEach((x) => x.setAttribute("aria-selected", String(x === tab)));
+      if (statusText && !input?.value.trim()) {
+        statusText.textContent = tab.dataset.mode === "voice" ? "Say her name to start." : "Type a request below.";
+      }
+      input?.focus();
+    });
+  });
+</script>

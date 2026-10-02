@@ -1,0 +1,117 @@
+---
+import Pet from "../components/Pet.astro";
+const base = import.meta.env.BASE_URL;
+
+// The four species that ship in the app.
+const pets = [
+  { id: "minnie", name: "Minnie", kind: "Default", line: "Bounces when a run goes green." },
+  { id: "panda", name: "Panda", kind: "Calm", line: "Company that doesn't fidget." },
+  { id: "raccoon", name: "Raccoon", kind: "Nosy", line: "Takes a failed build personally." },
+  { id: "dog", name: "Dog", kind: "Loyal", line: "First to notice you're back." },
+] as const;
+---
+
+<section id="customize" class="wide blk pets">
+  <div class="pets__inner">
+    <div class="head">
+      <div>
+        <p class="eyebrow">Pick a pet</p>
+        <h2 class="h2">Four pets.<br />One on your desk.</h2>
+      </div>
+      <div class="head__copy">
+        <p>
+          Pick a species and a temperament, then give her a name. Change your mind on a Tuesday.
+        </p>
+        <a href={`${base}download`} class="btn btn--card btn--sm">Meet them in the app</a>
+      </div>
+    </div>
+
+    <ul class="pets__grid">
+      {pets.map((p) => (
+        <li class="pets__item">
+          <div class="pets__art">
+            <Pet size={150} species={p.id} />
+            <button type="button" class="pets__heart" aria-pressed="false" aria-label={`Favourite ${p.name}`}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+            </button>
+          </div>
+          <div class="pets__meta">
+            <strong>{p.name}</strong>
+            <span>{p.kind}</span>
+          </div>
+          <p class="pets__line">{p.line}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .pets {
+    border-top: 1px solid var(--line);
+    padding-top: 36px;
+  }
+  .pets__inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 8px;
+  }
+
+  .pets__grid {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 28px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (min-width: 900px) { .pets__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+  .pets__art {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    transition: transform 0.25s ease;
+  }
+  .pets__item:hover .pets__art { transform: translateY(-4px); }
+  .pets__art > :global(span) { max-width: 70%; height: auto !important; }
+
+  .pets__heart {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    background: none;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .pets__heart:hover { color: var(--ink); }
+  .pets__heart[aria-pressed="true"] { color: var(--accent); }
+  .pets__heart[aria-pressed="true"] svg { fill: currentColor; }
+
+  .pets__meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .pets__meta strong { font-size: 18px; letter-spacing: -0.03em; }
+  .pets__meta span { font-size: 12px; color: var(--ink-soft); }
+  .pets__line {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: var(--ink-dim);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".pets__heart").forEach((h) =>
+    h.addEventListener("click", () => h.setAttribute("aria-pressed", String(h.getAttribute("aria-pressed") !== "true")))
+  );
+</script>

@@ -1,0 +1,48 @@
+<section class="wrap blk road">
+  <div>
+    <p class="eyebrow">Where she's heading</p>
+    <h2 class="h2">More than<br /><span class="slab">a desk pet.</span></h2>
+    <p class="road__lede">
+      The idea is simple: your agent should have a presence you can see, hear and say no to.
+    </p>
+  </div>
+
+  <dl class="road__list">
+    <div>
+      <dt>Today</dt>
+      <dd>Runs Claude Code with voice and out-loud consent on macOS, and drives Gemini CLI, Codex and custom agents.</dd>
+    </div>
+    <div>
+      <dt>Next</dt>
+      <dd>Windows, and new characters — each with a look, moves and a voice of their own.</dd>
+    </div>
+  </dl>
+</section>
+
+<style>
+  .road {
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) { .road { grid-template-columns: 1fr 1fr; gap: 64px; } }
+  .road__lede {
+    margin: 20px 0 0;
+    max-width: 26rem;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+  }
+  .road__list { margin: 0; align-self: end; }
+  .road__list div {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 16px;
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+  .road__list div:last-child { border-bottom: 1px solid var(--line); }
+  .road__list dt { font-weight: 800; letter-spacing: -0.02em; }
+  .road__list div:last-child dt { color: var(--accent); }
+  .road__list dd { margin: 0; color: var(--ink-dim); line-height: 1.55; }
+</style>

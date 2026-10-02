@@ -1,0 +1,154 @@
+---
+import Pet from "../components/Pet.astro";
+const base = import.meta.env.BASE_URL;
+
+const moments = [
+  { id: "pass", label: "Tests pass", bubble: "✓ All green. Want me to commit?", quip: "she's very proud.", pose: "idle" },
+  { id: "ask", label: "Needs a yes", bubble: "I want to run the migration. Ok?", quip: "she'll wait.", pose: "think" },
+  { id: "hide", label: "Hide her", bubble: "⌥Space brings me back.", quip: "see you in a bit.", pose: "idle" },
+];
+
+const points = [
+  "On-device voice by default",
+  "Your local agent CLI does the thinking",
+  "No screen capture. No telemetry.",
+  "Secrets in your macOS Keychain",
+];
+---
+
+<section id="privacy" class="wrap blk">
+  <div class="local">
+    <div class="local__art">
+      <p class="local__bubble" id="local-bubble">{moments[0].bubble}</p>
+      <Pet id="local-pet" size={200} species="minnie" />
+      <p class="quip local__quip" id="local-quip">{moments[0].quip}</p>
+      <div class="pills" id="local-pills" role="group" aria-label="Moments">
+        {moments.map((m, i) => (
+          <button type="button" data-bubble={m.bubble} data-quip={m.quip} data-pose={m.pose} aria-pressed={i === 0 ? "true" : "false"}>{m.label}</button>
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <p class="eyebrow">On-device · Local · Private</p>
+      <h2 class="h2">Lives on your Mac.<br /><span class="slab">Stays on your Mac.</span></h2>
+      <p class="local__lede">
+        She floats above your windows and reacts to what your agent is doing. Your code, your voice
+        and your secrets never leave the machine unless a tool you approved sends them.
+      </p>
+      <p class="local__small">
+        No account needed to run the app. Wipe her memory of you whenever you like.
+      </p>
+      <div class="local__btns">
+        <a href={`${base}download`} class="btn">Download the free beta</a>
+        <a href={`${base}privacy`} class="btn btn--card">Privacy policy</a>
+      </div>
+      <p class="local__plat">macOS 14+ · Apple Silicon · Floating desktop window</p>
+    </div>
+  </div>
+
+  <div class="local__row">
+    <div>
+      <h3 class="local__h3">Nothing leaves. Here's why.</h3>
+      <p class="local__small">Local-first all the way down. No fine print, no asterisk.</p>
+    </div>
+    <ul class="local__box">
+      {points.map((p) => <li>{p}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .local {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  @media (min-width: 900px) { .local { grid-template-columns: 1fr 1fr; } }
+
+  .local__art {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .local__bubble {
+    margin: 0 0 12px;
+    padding: 9px 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--paper);
+  }
+  .local__quip { margin: 6px 0 22px; align-self: flex-end; margin-right: 12%; }
+
+  .local__lede {
+    margin: 22px 0 0;
+    max-width: 30rem;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .local__small {
+    margin: 14px 0 0;
+    max-width: 30rem;
+    font-size: 14.5px;
+    color: var(--ink-dim);
+  }
+  .local__btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 26px;
+  }
+  .local__plat {
+    margin: 18px 0 0;
+    font-size: 14px;
+    color: var(--ink-dim);
+  }
+
+  .local__row {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr;
+    align-items: center;
+    margin-top: 64px;
+  }
+  @media (min-width: 900px) { .local__row { grid-template-columns: 1fr 1fr; gap: 48px; } }
+  .local__h3 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+  }
+  .local__box {
+    margin: 0;
+    padding: 22px 24px;
+    list-style: none;
+    border-radius: 14px;
+    background: var(--sunk);
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    line-height: 2;
+  }
+  .local__box li::before { content: "✓  "; color: var(--accent); }
+</style>
+
+<script>
+  const pills = document.getElementById("local-pills");
+  const bubble = document.getElementById("local-bubble");
+  const quip = document.getElementById("local-quip");
+  const pet = document.getElementById("local-pet");
+  pills?.addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>("button");
+    if (!b || !bubble || !quip || !pet) return;
+    pills.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    bubble.textContent = b.dataset.bubble || "";
+    quip.textContent = b.dataset.quip || "";
+    pet.setAttribute("data-pose", b.dataset.pose || "idle");
+    pet.classList.remove("is-pop");
+    void (pet as unknown as HTMLElement).getBoundingClientRect();
+    pet.classList.add("is-pop");
+  });
+</script>

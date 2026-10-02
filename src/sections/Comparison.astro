@@ -50,8 +50,9 @@ const verdict = (v: string) => (v === "YES" ? "var(--green)" : "var(--red)");
 <style>
   .cmp {
     border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 14px;
     background: var(--sunk);
-    box-shadow: 10px 10px 0 var(--yellow);
+    box-shadow: none;
     overflow: hidden;
   }
   .cmp__scroll { overflow-x: auto; }
@@ -70,9 +71,11 @@ const verdict = (v: string) => (v === "YES" ? "var(--green)" : "var(--red)");
   .cmp__table th {
     padding: 18px;
     font-family: var(--font-display);
-    font-size: 14.5px;
-    font-weight: 400;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
+    color: var(--ink-soft);
   }
   .cmp__mine { color: var(--on-band-dim); }
 
@@ -84,7 +87,7 @@ const verdict = (v: string) => (v === "YES" ? "var(--green)" : "var(--red)");
   }
   .cmp__cap { font-weight: 700; }
   .cmp__yes {
-    background: var(--yellow);
+    background: var(--accent-t);
     color: var(--ink);
   }
 </style>

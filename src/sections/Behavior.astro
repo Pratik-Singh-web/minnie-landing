@@ -1,0 +1,213 @@
+---
+import Pet from "../components/Pet.astro";
+
+// Each node is one of her states; the run walks them in this order.
+const nodes = [
+  { id: "idle", label: "Idle", kind: "Loop", x: 38, y: 16 },
+  { id: "listening", label: "Listening", kind: "Loop", x: 6, y: 60 },
+  { id: "working", label: "Working", kind: "Loop", x: 38, y: 74 },
+  { id: "asking", label: "Asking", kind: "Waits", x: 70, y: 60 },
+];
+---
+
+<section id="behavior" class="wrap blk">
+  <div class="head">
+    <div>
+      <p class="eyebrow">How she behaves</p>
+      <h2 class="h2">Watch her<br /><span class="slab">think out loud.</span></h2>
+    </div>
+    <div class="head__copy">
+      <p>
+        Every state means something. You can tell working from stuck, and asking from idle, without
+        reading a single log line.
+      </p>
+    </div>
+  </div>
+
+  <div class="beh">
+    <div class="card beh__card">
+      <div class="beh__top">
+        <strong>Her states</strong>
+        <span>4 states · 4 transitions</span>
+      </div>
+
+      <div class="beh__graph" id="beh-graph" data-on="idle">
+        <svg class="beh__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M44 24 C 24 30, 16 44, 16 60" />
+          <path d="M26 68 L 38 78" />
+          <path d="M60 78 L 72 68" />
+          <path d="M82 60 C 84 40, 70 22, 60 22" />
+        </svg>
+        <span class="beh__edge" style="left:12%; top:36%">you say her name</span>
+        <span class="beh__edge" style="left:22%; top:86%">agent runs</span>
+        <span class="beh__edge" style="left:62%; top:86%">needs a yes</span>
+        <span class="beh__edge" style="left:76%; top:30%">done</span>
+
+        {nodes.map((n) => (
+          <button type="button" class="beh__node" data-node={n.id} style={`left:${n.x}%; top:${n.y}%`}>
+            <span class="beh__dot"></span>
+            <strong>{n.label}</strong>
+            <em>{n.kind}</em>
+          </button>
+        ))}
+      </div>
+
+      <p class="beh__foot">Click a state, or run a task.</p>
+    </div>
+
+    <div class="beh__side">
+      <p class="quip beh__quip" id="beh-quip">waiting. very patiently.</p>
+      <Pet id="beh-pet" size={190} />
+      <button type="button" class="btn" id="beh-run">Run a task</button>
+      <p class="caption">A preview of how she moves between states.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .beh {
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+  @media (min-width: 900px) { .beh { grid-template-columns: 1.3fr 0.7fr; } }
+
+  .beh__card { border-radius: 16px; overflow: hidden; }
+  .beh__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+  }
+  .beh__top span { color: var(--ink-soft); }
+
+  .beh__graph {
+    position: relative;
+    height: 320px;
+    background-image: radial-gradient(color-mix(in srgb, var(--ink) 14%, transparent) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+  .beh__lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: var(--ink-soft);
+    stroke-width: 0.35;
+    stroke-dasharray: 1 1;
+  }
+  .beh__edge {
+    position: absolute;
+    font-size: 11px;
+    color: var(--ink-soft);
+    background: var(--paper);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  .beh__node {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 150px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    font: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .beh__node em {
+    margin-left: auto;
+    font-style: normal;
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+  .beh__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 99px;
+    background: var(--ink-soft);
+  }
+  .beh__graph[data-on="idle"] [data-node="idle"],
+  .beh__graph[data-on="listening"] [data-node="listening"],
+  .beh__graph[data-on="working"] [data-node="working"],
+  .beh__graph[data-on="asking"] [data-node="asking"] {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-t);
+  }
+  .beh__graph[data-on="idle"] [data-node="idle"] .beh__dot,
+  .beh__graph[data-on="listening"] [data-node="listening"] .beh__dot,
+  .beh__graph[data-on="working"] [data-node="working"] .beh__dot,
+  .beh__graph[data-on="asking"] [data-node="asking"] .beh__dot { background: var(--accent); }
+
+  .beh__foot {
+    margin: 0;
+    padding: 12px 18px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+
+  .beh__side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+  .beh__quip { align-self: flex-end; margin-bottom: -10px; }
+
+  @media (max-width: 640px) {
+    .beh__graph { height: 380px; }
+    .beh__node { min-width: 0; padding: 10px; font-size: 14px; }
+    .beh__node em { display: none; }
+    .beh__edge { display: none; }
+  }
+</style>
+
+<script>
+  const QUIPS: Record<string, [string, string]> = {
+    idle: ["waiting. very patiently.", "idle"],
+    listening: ["ears up. go on.", "idle"],
+    working: ["busy. very busy.", "think"],
+    asking: ["one sec — can I?", "idle"],
+  };
+  const graph = document.getElementById("beh-graph");
+  const pet = document.getElementById("beh-pet");
+  const quip = document.getElementById("beh-quip");
+  const run = document.getElementById("beh-run") as HTMLButtonElement | null;
+
+  const go = (id: string) => {
+    if (!graph || !pet || !quip) return;
+    graph.dataset.on = id;
+    quip.textContent = QUIPS[id][0];
+    pet.setAttribute("data-pose", QUIPS[id][1]);
+    pet.classList.remove("is-pop");
+    void (pet as unknown as HTMLElement).getBoundingClientRect();
+    pet.classList.add("is-pop");
+  };
+
+  graph?.addEventListener("click", (e) => {
+    const n = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-node]");
+    if (n) go(n.dataset.node!);
+  });
+
+  run?.addEventListener("click", () => {
+    run.disabled = true;
+    const seq = ["listening", "working", "asking", "working", "idle"];
+    seq.forEach((s, i) => setTimeout(() => {
+      go(s);
+      if (i === seq.length - 1) run.disabled = false;
+    }, 900 * (i + 1)));
+    go("idle");
+  });
+</script>

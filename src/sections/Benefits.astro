@@ -5,19 +5,19 @@
 // renders or app captures exist, drop them in as `image` and the panel becomes
 // the frame — the copy, grid and order all stay.
 const benefits = [
-  { glyph: "🗣️", tint: "var(--pink)",
+  { glyph: "🗣️", tint: "var(--sunk)",
     title: "Talks back",
     body: "Say her name and talk. She answers out loud, on-device." },
-  { glyph: "⚡", tint: "var(--yellow)",
+  { glyph: "⚡", tint: "var(--sunk)",
     title: "Runs commands",
     body: "Real files, real shell, real test runs — on your Mac, not in a tab." },
-  { glyph: "🧠", tint: "var(--accent-t)",
+  { glyph: "🧠", tint: "var(--sunk)",
     title: "Works with your agent",
     body: "Claude Code today; Gemini, Codex and custom CLIs supported." },
   { glyph: "🔌", tint: "var(--sunk)",
     title: "Connects your tools",
     body: "Linear, Notion, Sentry, Jira, Asana and more — sign in once." },
-  { glyph: "🌙", tint: "var(--pink)",
+  { glyph: "🌙", tint: "var(--sunk)",
     title: "Stays out of the way",
     body: "Patrols, naps, and pauses herself when you go fullscreen." },
   { glyph: "📋", tint: "var(--sunk)",
@@ -93,11 +93,10 @@ const agents = ["Claude Code (full)", "Gemini CLI", "Codex", "Custom agents"];
   .benefits__h {
     margin: 0 0 12px;
     font-family: var(--font-display);
-    font-size: 23px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-    line-height: 1;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
     color: var(--ink);
   }
   .benefits__body {
@@ -139,9 +138,8 @@ const agents = ["Claude Code (full)", "Gemini CLI", "Codex", "Custom agents"];
     margin: 0 0 6px;
     font-family: var(--font-display);
     font-size: 18px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
+    font-weight: 700;
+    letter-spacing: -0.035em;
   }
   .strip__p {
     margin: 0;

@@ -89,27 +89,10 @@ const faqLd = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Set theme before paint to avoid a flash of the wrong theme. Paper-light
-         is the design's default; a stored choice always wins. -->
-    <script is:inline>
-      (function () {
-        try {
-          var s = localStorage.getItem("minnie-theme");
-          document.documentElement.setAttribute(
-            "data-theme",
-            s === "dark" || s === "light"
-              ? s
-              : window.matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light"
-          );
-        } catch (e) {
-          document.documentElement.setAttribute("data-theme", "light");
-        }
-      })();
-    </script>
-    <meta name="theme-color" content="#fbf7ee" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#14110c" media="(prefers-color-scheme: dark)" />
+    <!-- Light only, like the reference design. The dark tokens stay in
+         global.css, but nothing switches to them any more. -->
+    <script is:inline>document.documentElement.setAttribute("data-theme", "light");</script>
+    <meta name="theme-color" content="#ffffff" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <!-- Favicons. Google fetches /favicon.ico on its own schedule and wants a
@@ -143,12 +126,13 @@ const faqLd = {
       <script type="application/ld+json" set:html={JSON.stringify(data)} />
     ))}
 
-    <!-- Fonts: Outfit (display), Karla (body), Space Mono (code) -->
+    <!-- Fonts: Bricolage Grotesque carries display AND body — the system is a
+         single grotesque at two weights. JetBrains Mono is only for code. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap"
     />
 
     <title>{title}</title>

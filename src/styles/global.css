@@ -1,29 +1,42 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Minnie — "petrol on oat" design system.
+   Minnie — "ink on white" design system.
 
-   A warm oat ground carries ~90% of every surface; petrol is the single brand
-   accent and is spent sparingly (primary button, one word in a headline,
-   tints). Borders are hairlines, corners are generous, and the only hard
-   shadow left is the 3px press under a button — so shadow means "push me".
+   A studio-grotesque system: a plain white ground, hairline rules, and one
+   saturated orange that does all the pointing. There is no wash, no tint
+   behind the page, and no decorative colour — contrast comes from type weight
+   and whitespace, not from surfaces.
 
-   Red, amber and green are RESERVED for the consent flow (deny / caution /
-   allow) and are never decorative. That reservation is why the accent is
-   cool: measured against those three, every warm candidate collided
-   (amber sat 9° from caution, copper 16°), and petrol clears all three by 48°
-   while staying 24° off the default AI blue.
+   Three rules carry the whole look:
 
-   Token names are unchanged from the old system so section-scoped styles keep
-   resolving; only their values moved. --yellow and --pink are now tints, not
-   flat brand colours.
+     1. HEADLINES ARE TWO-TONE. Line one is ink, line two is orange. That is
+        the brand gesture; it is why `.slab` exists and why it is applied to a
+        whole line rather than a single word.
+     2. LABELS ARE BARE. An eyebrow is 12px/700 uppercase with 0.13em
+        tracking and no box around it. Chips and outlined pills are gone.
+     3. THE PRIMARY BUTTON IS ORANGE WITH INK TEXT, sitting on a 4px hard
+        shadow. Black-on-orange is deliberate: it reads as a physical key, and
+        white-on-orange fails contrast at this weight.
 
-   Light is the default; dark keeps the warmth and brightens the accent.
+   Sections are separated by air, not by rules — `.sec` no longer draws a
+   bottom border. A single ink panel (`.sec--deep`) breaks the rhythm once.
+
+   Red, amber and green stay RESERVED for the consent flow (deny / caution /
+   allow) and are never decorative. Orange sits 18° off the reserved caution
+   amber and is only ever used on interactive chrome, so the two never read as
+   the same signal.
+
+   Token names are unchanged from the previous system so every section-scoped
+   style keeps resolving; only their values moved. --yellow and --pink are
+   tints kept alive for that reason alone.
+
+   Light is the real design. Dark is a faithful inversion, not a second brand.
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @theme {
-  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --font-sans: "Nunito Sans", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
 }
 
@@ -31,83 +44,97 @@
 :root[data-theme="light"] {
   color-scheme: light;
 
-  /* Oat — the ground. Carries most of every screen. */
-  --paper: #f7ece8;
-  --card: #fdf8f5;
-  --sunk: #f0e2dd;
-  --line: #e4d4ce;
-  --ink: #3a2b33;
-  --ink-dim: #6e5a62;
-  --ink-soft: #937f88;
+  /* The ground is plain white. --sunk is the only off-white. */
+  --paper: #ffffff;
+  --card: #ffffff;
+  --sunk: #f7f6f5;
+  --line: #e5e2df;
+  --ink: #0b0b0b;
+  --ink-dim: #686460;
+  --ink-soft: #8c8681;
 
-  /* Petrol — the one brand accent. */
-  --accent: #c0416a;
-  --accent-d: #9d3155;
-  --accent-t: #fae9ef;
-  --on-accent: #ffffff;
+  /* Orange — the one brand accent. --accent-d is its shadow, not a hover. */
+  --accent: #f95d02;
+  --accent-h: #ec3023;
+  --accent-d: #b74308;
+  --accent-t: #fff2e9;
+  --on-accent: #0b0b0b;
+
+  /* The aside voice — the pet talking back. Never used for chrome. */
+  --quip: #c94b8c;
 
   /* Reserved for the consent flow. Never decorative. */
-  --green: #1f7a45;
-  --caution: #8a6009;
-  --red: #b23b32;
+  --green: #287447;
+  --caution: #8a5a12;
+  --red: #b12b35;
   --on-green: #ffffff;
 
-  /* Deep band + decorative tints. --yellow and --pink are kept only so the
-     section-scoped styles that reference them keep resolving; they are tints
-     now, not brand colours. */
-  --band: #3b2b35;
-  --green-deep: #3b2b35;
-  --on-band: #f3fbfd;
-  --on-band-dim: #e8c9ba;
-  --yellow: #fae9ef;
-  --pink: #f0e2dd;
+  /* The single ink panel. */
+  --band: #0b0b0b;
+  --green-deep: #0b0b0b;
+  --on-band: #ffffff;
+  --on-band-dim: #b8b3af;
 
-  /* Soft, not brutalist. The 3px press shadow lives on .btn only. */
+  /* Kept only so section-scoped styles referencing them keep resolving. Both
+     resolve to the single off-white: the old system tinted tiles peach or grey
+     more or less at random, and on a white ground that drift reads as a bug. */
+  --yellow: #f7f6f5;
+  --pink: #f7f6f5;
+
+  /* The only shadow in the system is the 4px press under .btn. */
   --sh: none;
   --sh-sm: none;
   --sh-lg: none;
 
-  --wash: radial-gradient(120% 70% at 50% 108%, #f6d9c4 0%, rgba(246,217,196,0) 62%),
-          linear-gradient(168deg, #f4e4e2 0%, #f7ece8 46%, #efe0e4 100%);
-  --r-sm: 7px;
-  --r-md: 10px;
-  --r-lg: 12px;
+  --wash: none;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
   --r-pill: 999px;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --paper: #4a3743;
-  --wash: radial-gradient(120% 70% at 50% 108%, #a9727a 0%, rgba(169,114,122,0) 60%),
-          linear-gradient(168deg, #3f2d39 0%, #4a3743 48%, #574050 100%);
-  --card: #574250;
-  --sunk: #402f3a;
-  --line: #634c5b;
-  --ink: #f7efe9;
-  --ink-dim: #ddd0cc;
-  --ink-soft: #b09aa1;
+  --paper: #0b0b0b;
+  --card: #141312;
+  --sunk: #171613;
+  --line: #2b2825;
+  --ink: #f7f6f5;
+  --ink-dim: #a8a29c;
+  --ink-soft: #7d7873;
 
-  --accent: #ff7ea3;
-  --accent-d: #e06489;
-  --accent-t: #5e4451;
-  --on-accent: #08222a;
+  /* Brightened so it still separates from the near-black ground. */
+  --accent: #ff7a2f;
+  --accent-h: #ff9354;
+  --accent-d: #bf5313;
+  --accent-t: #2a1a0f;
+  --on-accent: #0b0b0b;
+
+  --quip: #ef7ab3;
 
   --green: #3fd07a;
   --caution: #e0a83c;
   --red: #ff6b5e;
   --on-green: #0b2415;
 
-  --band: #33262e;
-  --green-deep: #33262e;
-  --on-band: #f7f1e6;
-  --on-band-dim: #e8c9ba;
-  --yellow: #5e4451;
-  --pink: #402f3a;
+  /* NOT inverted. A cream panel here would sit under cards and tables that
+     are themselves dark — light slab, dark table, unreadable header row. So on
+     a black page the panel that breaks the rhythm is a *raised* black, one
+     step off the ground, and everything inside it keeps its dark styling. */
+  --band: #141312;
+  --green-deep: #141312;
+  --on-band: #f7f6f5;
+  --on-band-dim: #a8a29c;
+
+  --yellow: #171613;
+  --pink: #171613;
 
   --sh: none;
   --sh-sm: none;
   --sh-lg: none;
+
+  --wash: none;
 }
 
 *,
@@ -119,9 +146,10 @@
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* The tilted cards and offset shadows poke past the viewport edge by design.
+/* Rotated quips and oversized art poke past the viewport edge by design.
    `clip` trims that without creating a scroll container, so the sticky nav and
    the scroll-driven reveals keep working. */
 html,
@@ -132,12 +160,11 @@ body {
 body {
   margin: 0;
   background: var(--paper);
-  background-image: var(--wash);
-  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 16.5px;
-  line-height: 1.62;
+  font-size: 16px;
+  line-height: 1.55;
+  font-optical-sizing: auto;
 }
 
 a {
@@ -155,12 +182,14 @@ textarea {
 }
 
 ::selection {
-  background: var(--accent-t);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 /* ─── Keyframes ──────────────────────────────────────────────────────────
-   Deliberately stepped (steps(n)) so motion reads as stop-motion, not easing. */
+   Entrances are a short rise. The stop-motion slams belonged to the previous
+   system; the names are kept because sections reference them, but every one
+   now resolves to the same quiet rise. */
 @keyframes rise {
   0% { opacity: 0; transform: translateY(14px); }
   100% { opacity: 1; transform: none; }
@@ -223,11 +252,8 @@ textarea {
   animation-range: entry 0% cover 14%;
   animation-timing-function: linear;
   animation-fill-mode: both;
+  animation-name: rise;
 }
-.reveal-slam,
-.reveal-up,
-.reveal-l,
-.reveal-r { animation-name: rise; }
 
 /* Idle motion is gone from the chrome. The pet keeps her own blink — she is
    the character, and the character is allowed to move. */
@@ -253,76 +279,101 @@ textarea {
   padding: 0 24px;
 }
 
+/* Air, not rules. The bottom border every section used to draw is gone;
+   sections are told apart by the space between them. */
 .sec {
-  padding: 46px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 88px 0;
+  border-bottom: 0;
+}
+@media (max-width: 760px) {
+  .sec { padding: 60px 0; }
 }
 
-/* Two quiet bands instead of four loud ones.
-
-   --deep is the single dark panel that breaks the page rhythm; only its
-   heading flips to cream, so the cards inside still read as light objects.
-   --yellow is no longer yellow — it is a one-step oat tint. Because it no
-   longer re-pins --ink, the dark-mode bug where its cards rendered blank
-   (cream text on a cream card) cannot come back. */
+/* The one panel that breaks the rhythm: a rounded ink slab, inset from the
+   viewport edge rather than bleeding to it. Only its head flips to cream, so
+   cards inside still read as light objects. */
 .sec--deep {
   background: var(--band);
+  border: 1px solid transparent;
+  border-radius: 28px;
+  margin: 0 16px;
+  padding: 76px 0;
 }
+/* In dark mode the panel is only one step lighter than the page, so it needs
+   an edge to read as a panel at all. */
+:root[data-theme="dark"] .sec--deep { border-color: var(--line); }
 .sec--deep .sec-head {
   --ink: var(--on-band);
   --ink-dim: var(--on-band-dim);
   --ink-soft: var(--on-band-dim);
   color: var(--ink);
 }
+@media (max-width: 760px) {
+  .sec--deep { border-radius: 20px; margin: 0 12px; padding: 56px 0; }
+}
+
+/* Not yellow any more — the one off-white in the system. */
 .sec--yellow {
   background: var(--sunk);
 }
 
 /* ─── Type ───────────────────────────────────────────────────────────────── */
+/* A bare label. No border, no chip, no background — the modifiers below are
+   kept so existing markup keeps parsing, but they all render identically. */
 .eyebrow {
-  display: inline-block;
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
+  display: block;
+  border: 0;
+  border-radius: 0;
   background: transparent;
-  color: var(--accent-d);
-  padding: 3px 9px;
+  color: var(--ink);
+  padding: 0;
   font-family: var(--font-sans);
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.13em;
 }
-.eyebrow--pink { background: var(--pink); color: var(--ink); }
-.eyebrow--green { background: var(--green); color: var(--on-green); border-color: transparent; }
-.eyebrow--card { background: var(--card); color: var(--ink); }
-.eyebrow--ink { background: var(--ink); color: var(--paper); border-color: transparent; }
-.sec--deep .eyebrow { background: rgba(255, 255, 255, 0.08); color: var(--on-band); border-color: rgba(255, 255, 255, 0.16); }
+.eyebrow--pink,
+.eyebrow--green,
+.eyebrow--card,
+.eyebrow--ink {
+  background: transparent;
+  color: var(--ink);
+  border-color: transparent;
+}
+.sec--deep .eyebrow {
+  background: transparent;
+  color: var(--on-band);
+  border-color: transparent;
+}
 
+/* Grotesque, heavy, and tracked tight enough that the two lines lock into a
+   block. The -0.065em is doing most of the work. */
 .h1 {
-  margin: 22px 0 0;
+  margin: 18px 0 0;
   font-family: var(--font-display);
-  font-size: clamp(44px, 6.4vw, 78px);
-  font-weight: 400;
+  font-size: clamp(44px, 5.2vw, 74px);
+  font-weight: 800;
   line-height: 1.02;
-  letter-spacing: -0.022em;
+  letter-spacing: -0.065em;
   color: var(--ink);
   text-wrap: balance;
 }
 
 .h2 {
-  margin: 16px 0 0;
+  margin: 14px 0 0;
   font-family: var(--font-display);
-  font-size: clamp(28px, 3.4vw, 38px);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.06;
+  font-size: clamp(36px, 4.1vw, 59px);
+  font-weight: 800;
+  line-height: 1.03;
+  letter-spacing: -0.065em;
   color: var(--ink);
   text-wrap: balance;
 }
 
-/* The rotated, outlined highlight block inside a headline. */
-/* Was a rotated, outlined block. Now the accent simply colours the word —
-   the emphasis comes from hue, not from another bordered object. */
+/* The brand gesture: the second line of a headline, in orange. Applied to a
+   whole line, not a word — that is what makes the two-tone read as a block
+   rather than as a highlighted term. */
 .slab {
   display: inline-block;
   background: transparent;
@@ -334,8 +385,8 @@ textarea {
 
 .lede {
   margin: 14px 0 0;
-  font-size: 17px;
-  line-height: 1.6;
+  font-size: 16.5px;
+  line-height: 1.55;
   color: var(--ink-dim);
   text-wrap: pretty;
 }
@@ -344,84 +395,141 @@ textarea {
   font-family: var(--font-mono);
 }
 
+/* The section head is a two-column split on desktop: label and headline on
+   the left, supporting paragraph on the right, its first line aligned to the
+   top of the headline. Every `.sec-head` on the site is exactly
+   eyebrow → h2 → lede, so the placement below is explicit rather than
+   auto-flowed — anything else dropped in lands in normal flow underneath. */
 .sec-head {
-  max-width: 38rem;
-  margin-bottom: 24px;
+  max-width: none;
+  margin-bottom: 44px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.sec-head > .lede { max-width: 34rem; }
+@media (min-width: 900px) {
+  .sec-head {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    column-gap: 64px;
+  }
+  .sec-head > .eyebrow { grid-column: 1; grid-row: 1; }
+  .sec-head > .h2 { grid-column: 1; grid-row: 2; }
+  .sec-head > .lede { grid-column: 2; grid-row: 2; margin-top: 6px; }
+}
+
+/* The pet's aside — a handwritten-feeling note in the margin. Colour and a
+   degree of rotation are the whole effect; it is never a control. */
+.quip {
+  display: inline-block;
+  color: var(--quip);
+  font-size: 16.5px;
+  font-weight: 650;
+  line-height: 1.35;
+  transform: rotate(-4deg);
+  transform-origin: left center;
+}
+.quip__sub {
+  display: block;
+  margin-top: 8px;
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  font-weight: 500;
+  transform: rotate(4deg);
 }
 
 /* ─── Surfaces ───────────────────────────────────────────────────────────── */
 .card {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  box-shadow: var(--sh-sm);
+  border-radius: 14px;
+  box-shadow: none;
 }
 
-/* A gentle lift, not a slide out of a hard shadow. */
 .card--lift {
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
+  transition: transform 0.16s ease, border-color 0.16s ease;
 }
 .card--lift:hover {
   transform: translateY(-2px);
-  box-shadow: var(--sh);
+  border-color: var(--ink-soft);
 }
-/* Rounded tint tile that holds an emoji or the pet. */
+
 .tile {
   border: 1px solid var(--line);
-  border-radius: var(--r-sm);
+  border-radius: var(--r-md);
+  background: var(--sunk);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 /* ─── Controls ───────────────────────────────────────────────────────────── */
-/* Pill with a 3px press. The primary action is petrol, never the semantic
-   green — green means "allow" and has to stay reserved for the consent UI. */
+/* Orange with ink text on a 4px hard shadow — it should read as a key you can
+   press. The text is black on purpose: white on #f95d02 fails contrast at this
+   size, and the semantic green is reserved for "allow" in the consent UI. */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 11px 22px;
+  padding: 14px 22px;
   border: 0;
-  border-radius: var(--r-pill);
+  border-radius: 10px;
   background: var(--accent);
   color: var(--on-accent);
-  font-family: var(--font-display);
-  font-size: 13.5px;
+  font-family: var(--font-sans);
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: 0;
-  box-shadow: 0 2px 0 var(--accent-d);
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 0 var(--accent-d);
   cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
   white-space: nowrap;
 }
 .btn:hover {
+  background: var(--accent-h);
   color: var(--on-accent);
   transform: translateY(1px);
-  box-shadow: 0 2px 0 var(--accent-d);
+  box-shadow: 0 3px 0 var(--accent-d);
 }
 .btn:active {
-  transform: translateY(3px);
+  transform: translateY(4px);
   box-shadow: 0 0 0 var(--accent-d);
 }
-.btn--sm { padding: 10px 20px; font-size: 14px; }
-.btn--yellow { background: var(--accent-t); color: var(--accent-d); box-shadow: 0 3px 0 var(--line); }
+.btn--sm { padding: 11px 16px; font-size: 15px; box-shadow: 0 3px 0 var(--accent-d); }
+.btn--sm:hover { box-shadow: 0 2px 0 var(--accent-d); }
+
+/* The secondary action: a hairline outline, no fill, no shadow. */
+.btn--yellow,
 .btn--card {
-  background: var(--card);
+  background: transparent;
   color: var(--ink);
-  border: 1px solid var(--line);
-  box-shadow: 0 3px 0 var(--line);
+  border: 1px solid color-mix(in srgb, var(--ink) 24%, transparent);
+  box-shadow: none;
+  font-weight: 650;
+  padding: 13px 18px;
+  border-radius: 10px;
 }
-.btn--card:hover { color: var(--ink); }
+.btn--yellow:hover,
+.btn--card:hover {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--ink);
+  transform: none;
+  box-shadow: none;
+}
+.btn--yellow:active,
+.btn--card:active { transform: translateY(1px); box-shadow: none; }
+.btn--card.btn--sm,
+.btn--yellow.btn--sm { padding: 10px 14px; }
 
 .field {
   min-width: 0;
-  padding: 13px 18px;
-  font-size: 15px;
+  padding: 13px 16px;
+  font-size: 15.5px;
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: var(--r-md);
+  border-radius: 10px;
   color: var(--ink);
   outline: none;
   transition: border-color 0.14s ease, box-shadow 0.14s ease;
@@ -432,16 +540,15 @@ textarea {
   box-shadow: 0 0 0 3px var(--accent-t);
 }
 
-/* Small outlined mono tag. */
 .tag {
   display: inline-flex;
   align-items: center;
   border: 1px solid var(--line);
-  border-radius: var(--r-sm);
+  border-radius: 8px;
   background: var(--sunk);
-  padding: 3px 8px;
+  padding: 4px 9px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 11.5px;
   color: var(--ink-dim);
 }
 
@@ -449,25 +556,31 @@ textarea {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  background: var(--card);
+  width: 40px;
+  height: 40px;
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  border-radius: 10px;
+  background: transparent;
   color: var(--ink);
   cursor: pointer;
-  transition: background 0.14s ease, color 0.14s ease;
+  transition: border-color 0.14s ease, color 0.14s ease;
 }
 .icon-btn:hover {
-  background: var(--accent-t);
-  color: var(--accent-d);
+  border-color: var(--ink);
+  background: transparent;
+  color: var(--ink);
 }
 
 /* ─── Marquee band ───────────────────────────────────────────────────────── */
 .marquee {
+  border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  padding: 12px 0;
+  padding: 16px 0;
   overflow: hidden;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  color: var(--ink-soft);
 }
 .marquee__track {
   display: flex;
@@ -697,4 +810,82 @@ textarea {
   margin: 36px 0;
   border: 0;
   border-top: 1px solid var(--line);
+}
+
+/* ─── Page rhythm (masko-style layout) ───────────────────────────────────
+   Two widths: `.wrap` (1180) for ordinary sections and `.wide` (1280) for the
+   panels that sit slightly outside the text column. Every block is separated
+   by the same 96px of air. */
+.blk { margin-top: 96px; }
+@media (max-width: 760px) { .blk { margin-top: 72px; } }
+
+.wide {
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(100% - 32px);
+  max-width: 1280px;
+}
+
+/* The ink panel: rounded 30px, inset from the page edge. */
+.panel {
+  background: var(--band);
+  color: var(--on-band);
+  border-radius: 30px;
+  padding: 64px;
+  --ink: #ffffff;
+  --ink-dim: #b8b3af;
+  --ink-soft: #8c8681;
+  --line: #2b2825;
+}
+@media (max-width: 760px) { .panel { padding: 40px 22px; border-radius: 22px; } }
+
+.eyebrow { margin-bottom: 18px; }
+.h2 { margin-top: 0; }
+
+/* Section head: headline left, supporting copy right, aligned to its top. */
+.head {
+  display: grid;
+  gap: 18px 64px;
+  grid-template-columns: 1fr;
+  margin-bottom: 44px;
+}
+.head__copy {
+  max-width: 26rem;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-dim);
+  text-wrap: pretty;
+}
+.head__copy p { margin: 0; }
+.head__copy .btn { margin-top: 18px; }
+@media (min-width: 900px) {
+  .head { grid-template-columns: 1fr 1fr; align-items: end; }
+  .head__copy { justify-self: start; padding-bottom: 6px; }
+}
+
+/* Black segmented pills — the selector style used throughout. */
+.pills { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.pills button {
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 650;
+  padding: 7px 13px;
+  border-radius: 9px;
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.14s ease, color 0.14s ease, border-color 0.14s ease;
+}
+.pills button:hover { border-color: var(--ink); }
+.pills button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.caption {
+  margin: 14px 0 0;
+  font-size: 12.5px;
+  color: var(--ink-soft);
 }

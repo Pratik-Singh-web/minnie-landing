@@ -1,0 +1,186 @@
+---
+import Pet from "../components/Pet.astro";
+const base = import.meta.env.BASE_URL;
+
+// Claude Code is the full experience; the others run more autonomously because
+// the voice-consent flow is Claude Code only for now.
+const main = [
+  { name: "Claude Code", body: "The full experience: voice, wake word and the out-loud consent flow." },
+  { name: "Gemini CLI", body: "Runs more autonomously. Consent prompts are Claude Code only for now." },
+  { name: "Codex", body: "Same as Gemini CLI: real tasks, fewer interruptions." },
+];
+const more = [
+  { name: "Antigravity", body: "Supported" },
+  { name: "Custom CLI", body: "Any command-line agent" },
+];
+const tools = ["GitHub", "Notion", "Slack", "Postgres", "Figma", "Google Workspace", "Custom MCP"];
+---
+
+<section id="agents" class="wrap blk">
+  <div class="head">
+    <div>
+      <p class="eyebrow">Bring your own</p>
+      <h2 class="h2">Your agent.<br /><span class="slab">Your tools.</span></h2>
+    </div>
+    <div class="head__copy">
+      <p>
+        Minnie adds the face, the voice and the consent layer. Your agent keeps its own login and
+        does all the reasoning, so there is no second AI bill.
+      </p>
+    </div>
+  </div>
+
+  <div class="stack">
+    <div class="card stack__card">
+      <h3 class="stack__h">Choose your agent.</h3>
+      <p class="stack__sub">Whatever already lives in your terminal.</p>
+
+      <ul class="stack__list">
+        {main.map((a) => (
+          <li>
+            <strong>{a.name}</strong>
+            <span>{a.body}</span>
+          </li>
+        ))}
+      </ul>
+      <ul class="stack__grid">
+        {more.map((a) => (
+          <li>
+            <strong>{a.name}</strong>
+            <span>{a.body}</span>
+          </li>
+        ))}
+      </ul>
+
+      <p class="stack__note">Install the agent once and log in. Her onboarding does the rest.</p>
+      <a href={`${base}#faq`} class="btn btn--card btn--sm">Agents &amp; setup</a>
+    </div>
+
+    <div id="mcp" class="card stack__card">
+      <h3 class="stack__h">Connect your tools.</h3>
+      <p class="stack__sub">A one-click catalog over Model Context Protocol.</p>
+
+      <p class="stack__label">Your connections</p>
+      <div class="stack__chips">
+        {tools.map((t, i) => (
+          <button type="button" class="stack__chip" aria-pressed={i < 3 ? "true" : "false"}>{t}</button>
+        ))}
+      </div>
+
+      <div class="stack__pet">
+        <Pet size={110} species="raccoon" />
+        <p class="quip">She still asks before using them.</p>
+      </div>
+
+      <p class="stack__note">Tokens live in your macOS Keychain. Sign in with Google for Gmail, Calendar and Chat.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stack {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) { .stack { grid-template-columns: 1fr 1fr; } }
+
+  .stack__card {
+    border-radius: 18px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .stack__h {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+  }
+  .stack__sub {
+    margin: 8px 0 22px;
+    font-size: 15px;
+    color: var(--ink-dim);
+  }
+
+  .stack__list,
+  .stack__grid {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+  }
+  .stack__list li,
+  .stack__grid li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+    font-size: 14.5px;
+    color: var(--ink-dim);
+  }
+  .stack__list strong,
+  .stack__grid strong {
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .stack__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+  }
+
+  .stack__note {
+    margin: 18px 0 14px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+
+  .stack__label {
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .stack__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  .stack__chip {
+    font: inherit;
+    font-size: 13.5px;
+    font-weight: 650;
+    padding: 6px 11px;
+    border-radius: 8px;
+    border: 1px dashed color-mix(in srgb, var(--ink) 25%, transparent);
+    background: transparent;
+    color: var(--ink-dim);
+    cursor: pointer;
+  }
+  .stack__chip[aria-pressed="true"] {
+    border-style: solid;
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .stack__chip[aria-pressed="true"]::before { content: "✓ "; color: var(--accent); }
+
+  .stack__pet {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-top: 26px;
+  }
+  .stack__pet .quip { font-size: 16px; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".stack__chip").forEach((c) =>
+    c.addEventListener("click", () => c.setAttribute("aria-pressed", String(c.getAttribute("aria-pressed") !== "true")))
+  );
+</script>

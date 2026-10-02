@@ -10,8 +10,10 @@ interface Props {
   hop?: boolean;
   jitter?: boolean;
   id?: string;
+  /** The four species the app ships. Placeholder art: one body, recoloured. */
+  species?: "minnie" | "panda" | "raccoon" | "dog";
 }
-const { pose = "idle", size = 112, hop = false, jitter = false, id } = Astro.props;
+const { pose = "idle", size = 112, hop = false, jitter = false, id, species = "minnie" } = Astro.props;
 const height = Math.round((size * 178) / 140);
 const anim = hop ? "hop 1.1s steps(4,end) infinite" : jitter ? "jitter 1.1s steps(2,end) infinite" : "none";
 ---
@@ -21,6 +23,7 @@ const anim = hop ? "hop 1.1s steps(4,end) infinite" : jitter ? "jitter 1.1s step
     id={id}
     class="pet"
     data-pose={pose}
+    data-species={species}
     viewBox="0 0 140 178"
     width="100%"
     height="100%"
@@ -28,7 +31,7 @@ const anim = hop ? "hop 1.1s steps(4,end) infinite" : jitter ? "jitter 1.1s step
     role="img"
     aria-label="Minnie the desktop pet"
   >
-    <g stroke="#2b2118" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" fill="#f7f2e6">
+    <g stroke="#2b2118" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" style="fill: var(--pet-body)">
       <!-- feet -->
       <ellipse cx="50" cy="158" rx="17" ry="10" />
       <ellipse cx="90" cy="158" rx="17" ry="10" />
@@ -45,23 +48,25 @@ const anim = hop ? "hop 1.1s steps(4,end) infinite" : jitter ? "jitter 1.1s step
 
       <!-- body + belly -->
       <ellipse cx="70" cy="122" rx="42" ry="37" />
-      <ellipse cx="70" cy="128" rx="23" ry="20" fill="#f0b83c" />
+      <ellipse cx="70" cy="128" rx="23" ry="20" style="fill: var(--pet-accent)" />
 
       <!-- ears + head. Each ear is its own group so it can twitch on its
            own timing — two ears moving in lockstep reads mechanical. -->
       <g class="pet__ear pet__ear--l">
-        <circle cx="44" cy="40" r="17" />
-        <circle cx="40" cy="34" r="7" fill="#f0b83c" stroke-width="0" />
+        <circle cx="44" cy="40" r="17" style="fill: var(--pet-ear)" />
+        <circle cx="40" cy="34" r="7" style="fill: var(--pet-inner)" stroke-width="0" />
       </g>
       <g class="pet__ear pet__ear--r">
-        <circle cx="96" cy="40" r="17" />
-        <circle cx="100" cy="34" r="7" fill="#f0b83c" stroke-width="0" />
+        <circle cx="96" cy="40" r="17" style="fill: var(--pet-ear)" />
+        <circle cx="100" cy="34" r="7" style="fill: var(--pet-inner)" stroke-width="0" />
       </g>
       <circle cx="70" cy="66" r="37" />
+      <!-- raccoon's mask; hidden for every other species -->
+      <path class="pet__mask" d="M34 60 q18 -12 36 -2 q18 -10 36 2 q-4 14 -18 14 q-10 0 -18 -6 q-8 6 -18 6 q-14 0 -18 -14z" stroke-width="0" />
 
       <!-- cheeks -->
-      <circle cx="46" cy="76" r="7" fill="#f0b83c" stroke-width="0" />
-      <circle cx="94" cy="76" r="7" fill="#f0b83c" stroke-width="0" />
+      <circle cx="46" cy="76" r="7" style="fill: var(--pet-cheek)" stroke-width="0" />
+      <circle cx="94" cy="76" r="7" style="fill: var(--pet-cheek)" stroke-width="0" />
 
       <!-- eyes — round when idle, taller and lifted when thinking -->
       <g data-p="idle" class="pet__eyes" fill="#2b2118" stroke-width="0">
@@ -85,6 +90,40 @@ const anim = hop ? "hop 1.1s steps(4,end) infinite" : jitter ? "jitter 1.1s step
 </span>
 
 <style is:global>
+  /* Species palettes. Minnie is the default and matches the app icon. */
+  .pet {
+    --pet-body: #f7f2e6;
+    --pet-ear: #f7f2e6;
+    --pet-inner: #f0b83c;
+    --pet-accent: #f0b83c;
+    --pet-cheek: #f0b83c;
+  }
+  .pet[data-species="panda"] {
+    --pet-body: #fbfaf6;
+    --pet-ear: #2b2118;
+    --pet-inner: #2b2118;
+    --pet-accent: #ebe7de;
+    --pet-cheek: #f2b7b0;
+  }
+  .pet[data-species="raccoon"] {
+    --pet-body: #c3bdb5;
+    --pet-ear: #8a827a;
+    --pet-inner: #ece7df;
+    --pet-accent: #ece7df;
+    --pet-cheek: transparent;
+  }
+  .pet[data-species="dog"] {
+    --pet-body: #ecc79c;
+    --pet-ear: #9b6a3f;
+    --pet-inner: #9b6a3f;
+    --pet-accent: #f8e9d4;
+    --pet-cheek: #e59f7c;
+  }
+  .pet__mask { display: none; fill: #5b534c; }
+  .pet[data-species="raccoon"] .pet__mask { display: inline; }
+  /* On the mask the dark pupils need a light rim to stay visible. */
+  .pet[data-species="raccoon"] .pet__eyes { fill: #fbfaf6; }
+
   .pet[data-pose="idle"] [data-p="think"],
   .pet[data-pose="think"] [data-p="idle"] {
     display: none;

@@ -1,187 +1,105 @@
 ---
-import PetStage from "../components/PetStage.astro";
+import Pet from "../components/Pet.astro";
+const base = import.meta.env.BASE_URL;
 ---
 
-<section class="hero">
-  <div class="wrap hero__grid">
-    <div>
-      <h1 class="h1 hero__title">
-        Give your AI agent<br />
-        <span class="slab hero__slab">a body.</span>
-      </h1>
+<section class="hero wrap">
+  <div class="hero__copy">
+    <h1 class="h1 hero__title">
+      Give your AI agent<br />
+      <span class="slab">a body.</span>
+    </h1>
 
-      <p class="hero__lede">
-        A macOS desktop pet that runs the AI coding agent you already use — talk to her, watch
-        her work. Zero extra AI cost. Nothing leaves your Mac.
-      </p>
+    <p class="hero__lede">
+      A macOS desktop pet that runs the AI coding agent you already use. Talk to her, watch her
+      work, and say yes before she touches anything. Zero extra AI cost.
+    </p>
 
-      <!-- The waitlist is retired now there's a build to download.
-           WaitlistForm.astro stays on disk for the v1 launch. -->
-      <div id="waitlist" class="hero__form">
-        <a href={`${import.meta.env.BASE_URL}download`} class="btn">Download the free beta →</a>
-        <!-- Not "free while in beta" any more: since 2026-09-09 the core is free
-             permanently, and a line implying the price starts later is the same
-             mismatch the pricing section exists to avoid — pointing the other way. -->
-        <p class="hero__plat">
-          Free · macOS 14+ · Apple Silicon only
-        </p>
-      </div>
+    <div class="hero__actions">
+      <a href={`${base}download`} class="btn">Download the free beta</a>
+      <a href={`${base}#features`} class="btn btn--card">See what she does</a>
     </div>
+  </div>
 
-    <div class="hero__right">
-      <PetStage picker={false} />
+  <div class="hero__art">
+    <div class="hero__pet" id="hero-pet-wrap">
+      <Pet id="hero-pet" size={250} />
     </div>
-
+    <p class="quip hero__quip">
+      You look busy. I'll wait.
+      <span class="quip__sub">She means it. She has nothing else on.</span>
+    </p>
   </div>
 </section>
 
 <style>
   .hero {
-    position: relative;
-    padding: 64px 0 72px;
-    border-bottom: 1px solid var(--line);
-    overflow: hidden;
-  }
-  .hero__grid {
     display: grid;
-    gap: 48px;
     grid-template-columns: 1fr;
+    gap: 40px;
     align-items: center;
+    padding-top: 48px;
+    padding-bottom: 48px;
+    min-height: 560px;
   }
-  @media (min-width: 1000px) {
-    .hero__grid { grid-template-columns: 1.15fr 0.85fr; }
+  @media (min-width: 960px) {
+    .hero { grid-template-columns: 1fr 1fr; }
   }
 
-  .hero__stamp {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 14px;
-    border: 1px solid var(--line);
-    background: var(--yellow);
-    color: var(--ink);
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    box-shadow: var(--sh-sm);
+  .hero__title { margin: 0; }
+  @media (min-width: 720px) {
+    .hero__title { text-wrap: nowrap; }
   }
-  .hero__dot {
-    width: 8px;
-    height: 8px;
-    background: var(--ink);
-    flex-shrink: 0;
-  }
-
-  .hero__title {
-    font-size: clamp(42px, 5.9vw, 76px);
-    line-height: 1.0;
-    letter-spacing: -0.032em;
-    text-wrap: nowrap;
-  }
-  .hero__slab { margin-top: 2px; }
 
   .hero__lede {
-    margin: 22px 0 0;
-    max-width: 30rem;
-    font-size: 17px;
-    line-height: 1.6;
+    margin: 25px 0 0;
+    max-width: 450px;
+    font-size: 20px;
+    line-height: 1.5;
     color: var(--ink-dim);
     text-wrap: pretty;
   }
+  @media (max-width: 560px) { .hero__lede { font-size: 17px; } }
 
-  .hero__form {
-    margin-top: 30px;
-    width: 100%;
-    max-width: 30rem;
-  }
-
-  .hero__right {
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
-  .hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 16px;
-    padding: 7px 13px;
-    border: 1px solid var(--line);
-    border-radius: var(--r-pill);
-    background: var(--card);
-    font-size: 12.5px;
-    color: var(--ink-dim);
-    text-wrap: pretty;
-  }
-  .hero__plat {
-    margin-top: 10px;
-    font-size: 14.5px;
-    color: var(--ink-soft);
-  }
-
-  /* ── Process strip ──────────────────────────────────────────────────── */
-  .steps {
+  .hero__actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 10px 22px;
-    margin: 44px 0 0;
-    padding: 20px 0 0;
-    border-top: 1px solid var(--line);
-    list-style: none;
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 700;
+    gap: 18px;
+    margin-top: 32px;
   }
-  .steps li {
-    display: inline-flex;
+
+  .hero__art {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 9px;
   }
-  .steps__n {
-    font-size: 11px;
-    font-weight: 400;
-    color: var(--accent);
+  .hero__pet { transition: transform 0.25s ease; }
+  .hero__quip {
+    align-self: flex-end;
+    margin: 18px 6% 0 0;
+    font-size: 18px;
   }
-  .steps__arrow {
-    margin-left: 13px;
-    color: var(--ink-soft);
-    font-weight: 400;
-  }
-  @media (max-width: 720px) {
-    .steps { font-size: 14.5px; gap: 8px 16px; }
-    .steps__arrow { display: none; }
-  }
+  @media (max-width: 959px) { .hero__quip { align-self: center; margin-right: 0; } }
 </style>
 
 <script>
-  // ── She tracks the cursor, in 4px steps so it stays stop-motion ───────────
+  // She leans toward the cursor, a few pixels at most.
   const wrap = document.getElementById("hero-pet-wrap");
-  if (wrap && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    window.addEventListener(
+  const pet = document.getElementById("hero-pet");
+  if (wrap && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    addEventListener(
       "mousemove",
       (e) => {
         const r = wrap.getBoundingClientRect();
-        const dx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
-        const dy = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
-        const sx = Math.round((dx * 14) / 4) * 4;
-        const sy = Math.round((dy * 10) / 4) * 4;
-        wrap.style.transform = `translate(${sx}px,${sy}px)`;
+        const dx = (e.clientX - (r.left + r.width / 2)) / innerWidth;
+        const dy = (e.clientY - (r.top + r.height / 2)) / innerHeight;
+        wrap.style.transform = `translate(${dx * 16}px, ${dy * 10}px)`;
       },
       { passive: true }
     );
   }
-
-  // ── Hovering her makes her think ──────────────────────────────────────────
-  const pet = document.getElementById("hero-pet");
-  const status = document.getElementById("hero-status");
-  wrap?.addEventListener("mouseenter", () => {
-    if (pet) pet.dataset.pose = "think";
-    if (status) status.textContent = "status: thinking";
-  });
-  wrap?.addEventListener("mouseleave", () => {
-    if (pet) pet.dataset.pose = "idle";
-    if (status) status.textContent = "status: idle";
-  });
+  wrap?.addEventListener("mouseenter", () => pet?.setAttribute("data-pose", "think"));
+  wrap?.addEventListener("mouseleave", () => pet?.setAttribute("data-pose", "idle"));
 </script>

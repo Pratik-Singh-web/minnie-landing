@@ -1,84 +1,78 @@
 ---
 import Pet from "../components/Pet.astro";
+const base = import.meta.env.BASE_URL;
 ---
 
-<section class="final">
-  <div class="final__inner">
-    <div class="tile final__pet">
-      <Pet size={100} hop />
+<section class="wide panel final">
+  <div class="final__top">
+    <div>
+      <p class="eyebrow final__eyebrow">Free open beta</p>
+      <h2 class="h2 final__h">Give your agent<br /><span class="slab">a body.</span></h2>
+      <p class="final__p">Free forever. Bring the coding agent you already pay for.</p>
     </div>
+    <a href={`${base}download`} class="btn">Download the free beta</a>
+  </div>
 
-    <span class="eyebrow eyebrow--card">free open beta</span>
-
-    <h2 class="final__h">
-      Give your AI agent<br />
-      <span class="slab final__slab">a body.</span>
-    </h2>
-
-    <p class="final__p">
-      Free while she's in beta. Bring the coding agent you already pay for — Minnie gives it a
-      body, a voice, and a place on your desktop.
-    </p>
-
-    <div class="final__form">
-      <a href={`${import.meta.env.BASE_URL}download`} class="btn">Download the free beta →</a>
-    </div>
+  <div class="final__bottom">
+    <button type="button" class="final__pet" id="final-pet" aria-label="Pat her">
+      <Pet size={54} />
+    </button>
+    <span class="final__hint">Pat her</span>
+    <span class="quip final__quip" id="final-quip">she'd like that.</span>
   </div>
 </section>
 
 <style>
-  .final {
-    padding: 84px 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .final__inner {
-    margin: 0 auto;
-    max-width: 780px;
-    padding: 0 24px;
-    text-align: center;
+  .final { margin-top: 120px; }
+  .final__top {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 28px;
   }
-
-  .final__pet {
-    width: 132px;
-    height: 152px;
-    background: var(--pink);
-    box-shadow: var(--sh);
-    transform: rotate(-3deg);
-    margin-bottom: 24px;
-    padding: 10px;
-  }
-
-  .final__h {
-    margin: 10px 0 0;
-    font-family: var(--font-display);
-    font-size: clamp(26px, 3.2vw, 36px);
-    font-weight: 400;
-    line-height: 1.04;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-  }
-  .final__slab {
-    background: transparent;
-    color: var(--accent);
-    transform: none;
-    margin-top: 10px;
-  }
-
+  .final__eyebrow { color: #fff; }
+  .final__h { color: #fff; }
   .final__p {
-    margin: 26px 0 0;
-    max-width: 32rem;
+    margin: 22px 0 0;
     font-size: 17px;
-    line-height: 1.6;
     color: var(--ink-dim);
   }
 
-  .final__form {
-    margin-top: 28px;
+  .final__bottom {
     display: flex;
-    justify-content: center;
-    width: 100%;
+    align-items: center;
+    gap: 14px;
+    margin-top: 44px;
+    font-size: 13px;
+    color: var(--ink-soft);
   }
+  .final__pet {
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 999px;
+    border: 0;
+    background: #fff;
+    cursor: pointer;
+    transform: rotate(-6deg);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .final__pet:hover { transform: rotate(0) scale(1.06); }
+  .final__pet.is-pat { transform: rotate(0) translateY(-10px) scale(1.1); }
+  .final__quip { font-size: 15px; }
 </style>
+
+<script>
+  const btn = document.getElementById("final-pet");
+  const quip = document.getElementById("final-quip");
+  const lines = ["she'd like that.", "again.", "ok, one more.", "you're very good at this."];
+  let n = 0;
+  btn?.addEventListener("click", () => {
+    btn.classList.add("is-pat");
+    setTimeout(() => btn.classList.remove("is-pat"), 300);
+    n = (n + 1) % lines.length;
+    if (quip) quip.textContent = lines[n];
+  });
+</script>

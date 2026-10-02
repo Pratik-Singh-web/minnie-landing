@@ -5,13 +5,13 @@ import PetStage from "../components/PetStage.astro";
 // Four species ship in the app. The blurbs describe what each one is like to
 // live with rather than restating "it's a pet" four times.
 const species = [
-  { id: "minnie",  label: "Minnie",  tint: "var(--pink)",
+  { id: "minnie",  label: "Minnie",  tint: "var(--sunk)",
     blurb: "The default. A round pink blob who watches your cursor and bounces when a run goes green." },
   { id: "panda",   label: "Panda",   tint: "var(--sunk)",
     blurb: "Slower, heavier, calmer. The one to pick if you want company that doesn't fidget." },
   { id: "raccoon", label: "Raccoon", tint: "var(--sunk)",
     blurb: "Nosy and quick. Reacts hardest to a finished task, and to a failed one." },
-  { id: "dog",     label: "Dog",     tint: "var(--yellow)",
+  { id: "dog",     label: "Dog",     tint: "var(--sunk)",
     blurb: "Eager and loyal. Sits closest to your cursor and is the first to notice you're back." },
 ];
 
@@ -239,16 +239,19 @@ const quotes = {
     transition: none;
   }
   .opt:hover {
-    background: var(--yellow);
+    background: var(--sunk);
     color: var(--ink);
   }
+  /* Selected is ink, not green. Green means "allow" in the consent UI and
+     cannot also mean "this is the option you picked". */
   .opt--on,
   .opt--on:hover {
-    background: var(--green);
-    color: var(--on-green);
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
     font-weight: 700;
-    box-shadow: 2px 2px 0 var(--line);
-    transform: translate(2px, 2px);
+    box-shadow: none;
+    transform: none;
   }
 
   .custom__right {

@@ -1,87 +1,60 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
-import Marquee from "../components/Marquee.astro";
 import Hero from "../sections/Hero.astro";
-import Benefits from "../sections/Benefits.astro";
-import AgentStrip from "../sections/AgentStrip.astro";
-import Screenshots from "../sections/Screenshots.astro";
-import Trust from "../sections/Trust.astro";
-import Privacy from "../sections/Privacy.astro";
-import Customize from "../sections/Customize.astro";
-import MCP from "../sections/MCP.astro";
-import Comparison from "../sections/Comparison.astro";
+import Talk from "../sections/Talk.astro";
+import Consent from "../sections/Consent.astro";
+import Stack from "../sections/Stack.astro";
+import Moods from "../sections/Moods.astro";
+import Pets from "../sections/Pets.astro";
+import Behavior from "../sections/Behavior.astro";
+import Local from "../sections/Local.astro";
 import Pricing from "../sections/Pricing.astro";
 import FAQ from "../sections/FAQ.astro";
+import Roadmap from "../sections/Roadmap.astro";
 import FinalCTA from "../sections/FinalCTA.astro";
 import Footer from "../components/Footer.astro";
-
-const tools = [
-  "Bash",
-  "Read",
-  "Edit",
-  "Write",
-  "Grep",
-  '"I want to run pytest. Ok?"',
-  "MCP · GitHub",
-  "MCP · Notion",
-];
-
-const promises = [
-  "Deny is a hug, not a scold",
-  "Zero extra AI cost",
-  "Runs on your Mac",
-  "On-device voice",
-];
 ---
 
 <Layout>
-  <!-- Sticky nav + reading-progress bar -->
   <Navbar />
 
   <main id="top">
-    <!-- Hero: headline, waitlist, and the pet who watches your cursor -->
+    <!-- Headline left, the pet right -->
     <Hero />
 
-    <!-- Tools she can reach, scrolling past -->
-    <Marquee items={tools} />
+    <!-- Talk to her: the request card and her states -->
+    <Talk />
 
-    <!-- 3 core benefit cards + bring-your-own-agent strip -->
-    <Benefits />
+    <!-- The ink panel: the consent moat -->
+    <Consent />
 
-    <!-- Brief §8.3 — the agent-agnostic framing, lead with it -->
-    <AgentStrip />
+    <!-- Bring your own agent + MCP tools, as two cards -->
+    <Stack />
 
-    <!-- Real screenshots — the claims above, photographed. Sits before the
-         playground so proof lands before the interactive toy. -->
-    <Screenshots />
+    <!-- Orange band -->
+    <Moods />
 
-    <!-- The pets themselves, in the slot the playground used to hold -->
-    <Customize />
+    <!-- The four species -->
+    <Pets />
 
-    <!-- Brief §8.5 — the consent moat. The brief says give it real estate. -->
-    <Trust />
+    <!-- State graph you can click through -->
+    <Behavior />
 
-    <!-- Local & private: on-device voice, local CLI, no telemetry -->
-    <Privacy />
-
-    <!-- Brief §8.8 — connect your tools -->
-    <MCP />
-
-    <!-- Brief §8.9 — vs a chatbot, vs a plain CLI -->
-    <Comparison />
+    <!-- Local & private -->
+    <Local />
 
     <!-- What it costs. Required on the site by Dodo's verification checklist, and
-         it has to match what Dodo is told. Since 2026-09-09 that is: the core is
-         free, and characters are one-time purchases that do not exist yet. The
-         comment that used to sit forty lines above this, detached from the
-         component it described, said "$29/year subscription". -->
+         it has to match what Dodo is told: the core is free, and characters are
+         one-time purchases that do not exist yet. -->
     <Pricing />
 
-    <!-- Accordion FAQ -->
     <FAQ />
 
-    <!-- Last call for the waitlist -->
+    <!-- Today / Next -->
+    <Roadmap />
+
+    <!-- Closing ink panel -->
     <FinalCTA />
   </main>
 

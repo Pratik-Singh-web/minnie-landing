@@ -3,6 +3,43 @@ import Pet from "./Pet.astro";
 import { contactEmail } from "../legal";
 const base = import.meta.env.BASE_URL;
 const year = new Date().getFullYear();
+
+const cols = [
+  {
+    h: "Product",
+    links: [
+      { t: "Features", href: `${base}#features` },
+      { t: "Pets", href: `${base}#customize` },
+      { t: "Pricing", href: `${base}#pricing` },
+      { t: "Download beta", href: `${base}download` },
+    ],
+  },
+  {
+    h: "Works with",
+    links: [
+      { t: "Claude Code", href: `${base}#agents` },
+      { t: "Gemini CLI", href: `${base}#agents` },
+      { t: "Codex", href: `${base}#agents` },
+      { t: "MCP tools", href: `${base}#mcp` },
+    ],
+  },
+  {
+    h: "Resources",
+    links: [
+      { t: "Blog", href: `${base}blog/` },
+      { t: "FAQ", href: `${base}#faq` },
+      { t: "Support", href: `${base}support` },
+      { t: "Send feedback", href: `mailto:${contactEmail}` },
+    ],
+  },
+  {
+    h: "Connect",
+    links: [
+      { t: "X (Twitter)", href: "https://x.com/Sym6ol_", ext: true },
+      { t: "GitHub", href: "https://github.com/Pratik-Singh-web/Minnie", ext: true },
+    ],
+  },
+];
 ---
 
 <footer class="foot">
@@ -10,136 +47,105 @@ const year = new Date().getFullYear();
     <div class="foot__cols">
       <div>
         <div class="foot__brand">
-          <span class="foot__mark">
-            <Pet size={22} />
-          </span>
-          <span class="foot__word">Minnie</span>
+          <span class="foot__mark"><Pet size={26} /></span>
+          <span class="foot__word">minnie</span>
         </div>
-        <p class="foot__blurb">
-          A native macOS companion that brings your AI coding agent to life. She listens, runs your
-          agent, asks permission, and reacts.
-        </p>
-        <span class="foot__meta">on-device voice · runs on your mac · local-only</span>
+        <p class="foot__blurb">A desktop pet for your AI coding agent.<br />She listens, works, and asks first.</p>
       </div>
 
-      <div>
-        <h4 class="foot__h">Product</h4>
-        <div class="foot__links">
-          <a href={`${import.meta.env.BASE_URL}#features`}>Features</a>
-          <a href={`${import.meta.env.BASE_URL}#privacy`}>Privacy</a>
-          <a href={`${base}blog/`}>Blog</a>
-          <a href={`${import.meta.env.BASE_URL}download`}>Download beta</a>
+      {cols.map((c) => (
+        <div>
+          <h4 class="foot__h">{c.h}</h4>
+          <ul class="foot__links">
+            {c.links.map((l) => (
+              <li>
+                <a href={l.href} {...(l.ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{l.t}</a>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
-
-      <div>
-        <h4 class="foot__h">Connect</h4>
-        <div class="foot__links">
-          <a href="https://x.com/Sym6ol_" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
-          <a href="https://github.com/Pratik-Singh-web/Minnie" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href={`${import.meta.env.BASE_URL}#faq`}>FAQ</a>
-          <a href={`${base}support`}>Support</a>
-          <a href={`mailto:${contactEmail}`}>Send feedback</a>
-        </div>
-      </div>
+      ))}
     </div>
 
     <div class="foot__rule">
       <span>© {year} Minnie</span>
-      <span class="foot__links foot__legal">
-        <a href={`${base}terms`}>Terms</a>
-        <a href={`${base}privacy`}>Privacy</a>
-        <a href={`${base}refund`}>Refunds</a>
-        <a href={`${base}support`}>Support</a>
-      </span>
-      <span class="foot__tag">Deny is a hug, not a scold</span>
+      <a href={`${base}privacy`}>Privacy</a>
+      <a href={`${base}terms`}>Terms</a>
+      <a href={`${base}refund`}>Refunds</a>
     </div>
   </div>
 </footer>
 
 <style>
   .foot {
-    width: 100%;
-    background: var(--green-deep);
-    color: #b9cfc0;
-    padding: 52px 0 32px;
+    margin-top: 64px;
+    padding: 80px 0 32px;
+    background: #0b0b0b;
+    color: #b8b3af;
   }
-
   .foot__cols {
     display: grid;
     gap: 36px;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  @media (min-width: 800px) {
-    .foot__cols { grid-template-columns: 2fr 1fr 1fr; }
+  .foot__cols > :first-child { grid-column: 1 / -1; }
+  @media (min-width: 900px) {
+    .foot__cols { grid-template-columns: 1.6fr repeat(4, 1fr); }
+    .foot__cols > :first-child { grid-column: auto; }
   }
 
   .foot__brand {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 14px;
   }
   .foot__mark {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    background: var(--pink);
-    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--accent);
+    overflow: hidden;
   }
   .foot__word {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--on-band);
-    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.06em;
+    color: #fff;
   }
-
   .foot__blurb {
-    margin: 0 0 14px;
-    font-size: 16px;
-    max-width: 26rem;
+    margin: 16px 0 0;
+    font-size: 15px;
     line-height: 1.6;
-  }
-  .foot__meta {
-    font-size: 11px;
-    text-transform: uppercase;
-    color: #8ba393;
   }
 
   .foot__h {
-    margin: 0 0 14px;
-    font-family: var(--font-display);
-    font-size: 14.5px;
-    font-weight: 400;
-    color: var(--on-band-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    margin: 0 0 16px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--accent);
   }
   .foot__links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 9px;
-    font-size: 16px;
+    gap: 10px;
+    font-size: 14.5px;
   }
-  .foot__links a { color: #b9cfc0; }
-  .foot__links a:hover { color: var(--on-band-dim); }
+  .foot a { color: #e9e6e2; }
+  .foot a:hover { color: var(--accent); }
 
   .foot__rule {
-    margin-top: 40px;
-    padding-top: 22px;
-    border-top: 1px solid rgba(255, 255, 255, 0.16);
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    font-size: 11px;
-    text-transform: uppercase;
+    gap: 22px;
+    margin-top: 64px;
+    padding-top: 22px;
+    border-top: 1px solid #2b2825;
+    font-size: 13px;
   }
-  .foot__legal { flex-direction: row; }
-  .foot__tag { color: var(--on-band-dim); }
 </style>

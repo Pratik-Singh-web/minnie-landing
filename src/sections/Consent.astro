@@ -1,0 +1,160 @@
+---
+import Pet from "../components/Pet.astro";
+---
+
+<section id="consent" class="wide blk panel consent">
+  <div class="consent__copy">
+    <h2 class="h2">Ask first.<br /><span class="slab">Act second.</span></h2>
+    <p class="consent__lede">
+      Before anything she can't take back — an edit, a command, a push — she stops and asks out
+      loud. Say no and she steps back. Nothing half-done.
+    </p>
+
+    <p class="eyebrow consent__eyebrow">Example request</p>
+    <p class="consent__quote">"I want to edit <code>mock_users.py</code> to add the test login. Ok?"</p>
+
+    <button type="button" class="btn" id="consent-replay">Replay request <span aria-hidden="true">↻</span></button>
+  </div>
+
+  <div class="consent__art">
+    <div class="consent__scene" id="consent-scene" data-step="ask">
+      <div class="consent__pet"><Pet id="consent-pet" size={190} pose="think" /></div>
+      <div class="consent__cloud" aria-hidden="true">
+        <span class="consent__op">Edit · mock_users.py</span>
+        <span class="consent__q">Add the test login. Ok?</span>
+        <span class="consent__btns">
+          <span class="consent__deny">Deny</span>
+          <span class="consent__allow">Allow once</span>
+        </span>
+      </div>
+    </div>
+    <p class="caption">Allow once, for this session, or not at all.</p>
+  </div>
+</section>
+
+<style>
+  .consent {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (min-width: 900px) { .consent { grid-template-columns: 1fr 1fr; } }
+
+  .consent .h2 { color: #fff; }
+  .consent__lede {
+    margin: 22px 0 0;
+    max-width: 26rem;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+  }
+  .consent__eyebrow { margin: 32px 0 10px; color: var(--ink-dim); }
+  .consent__quote {
+    margin: 0 0 28px;
+    max-width: 24rem;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.45;
+    color: #fff;
+  }
+  .consent__quote code {
+    font-family: var(--font-mono);
+    font-size: 16px;
+  }
+
+  .consent__art {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .consent__scene {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 440px;
+    min-height: 300px;
+  }
+  .consent__pet { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+  .consent__scene[data-step="ask"] .consent__pet,
+  .consent__scene[data-step="yes"] .consent__pet { transform: translateX(-90px); }
+
+  .consent__cloud {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 210px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px;
+    border-radius: 14px;
+    background: #fff;
+    color: #0b0b0b;
+    opacity: 0;
+    transform: translateY(-50%) scale(0.92);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .consent__scene[data-step="ask"] .consent__cloud,
+  .consent__scene[data-step="yes"] .consent__cloud {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  .consent__op {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #686460;
+  }
+  .consent__q { font-size: 15px; font-weight: 650; line-height: 1.35; }
+  .consent__btns { display: flex; gap: 6px; margin-top: 4px; }
+  .consent__btns span {
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 11px;
+    border-radius: 8px;
+    border: 1px solid #e5e2df;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  /* Allow stays the reserved green — it is a verdict, not decoration. */
+  .consent__allow { background: var(--green); color: #fff; border-color: transparent !important; }
+  .consent__scene[data-step="yes"] .consent__allow { transform: scale(0.94); }
+  .consent__scene[data-step="yes"] .consent__q::after { content: " ✓"; color: var(--green); }
+
+  @media (max-width: 520px) {
+    .consent__scene { flex-direction: column; min-height: 0; gap: 16px; }
+    .consent__scene .consent__pet { transform: none !important; }
+    .consent__cloud { position: static; transform: none !important; }
+  }
+</style>
+
+<script>
+  const scene = document.getElementById("consent-scene");
+  const pet = document.getElementById("consent-pet");
+  let timers: number[] = [];
+
+  const play = () => {
+    if (!scene || !pet) return;
+    timers.forEach(clearTimeout);
+    timers = [];
+    scene.dataset.step = "idle";
+    pet.setAttribute("data-pose", "idle");
+    timers.push(window.setTimeout(() => { scene.dataset.step = "ask"; pet.setAttribute("data-pose", "think"); }, 500));
+    timers.push(window.setTimeout(() => { scene.dataset.step = "yes"; }, 2300));
+    timers.push(window.setTimeout(() => { scene.dataset.step = "done"; pet.setAttribute("data-pose", "idle"); }, 3400));
+  };
+
+  document.getElementById("consent-replay")?.addEventListener("click", play);
+
+  // Play once the first time it scrolls into view.
+  if (scene && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        play();
+        io.disconnect();
+      }
+    }, { threshold: 0.5 });
+    io.observe(scene);
+  }
+</script>
