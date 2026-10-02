@@ -1,31 +1,6 @@
 ---
-// Keep these in sync with the FAQPage structured data in Layout.astro.
-const faqs = [
-  {
-    q: "Does Minnie cost extra to run the AI?",
-    a: "No. She drives the agent CLI you already use; it holds its own auth and does the reasoning. Zero extra AI cost.",
-  },
-  {
-    q: "Which agents work?",
-    a: "Claude Code today, with the full experience. Gemini CLI, Codex, Antigravity and custom command-line agents work too — they run more autonomously, since the voice-consent flow is Claude Code only for now.",
-  },
-  {
-    q: "Is my code private?",
-    a: "Yes. On-device voice by default, a local agent CLI, no screen capture, no telemetry. Secrets live in your macOS Keychain, and nothing leaves your Mac unless a tool you approved sends it.",
-  },
-  {
-    q: "Do I need to set anything up?",
-    a: "Install the agent CLI once (Claude Code, say) and log in. Minnie's onboarding walks you through the rest.",
-  },
-  {
-    q: "Can I connect my own tools?",
-    a: "Yes — a one-click MCP catalog (GitHub, Notion, Slack, Postgres, Figma…), custom servers, and native Sign in with Google for Gmail, Calendar and Chat.",
-  },
-  {
-    q: "Does it work on Windows?",
-    a: "macOS first. Windows is on the roadmap.",
-  },
-];
+// One source with the FAQPage structured data in Layout.astro.
+import { faqs } from "../site";
 ---
 
 <section id="faq" class="wrap blk">

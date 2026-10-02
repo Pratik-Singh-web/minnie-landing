@@ -5,25 +5,31 @@ const base = import.meta.env.BASE_URL;
 
 <section class="hero wrap">
   <div class="hero__copy">
+    <p class="hero__free"><span class="hero__dot" aria-hidden="true"></span>Free for life · No subscription · No card</p>
     <h1 class="h1 hero__title">
       Give your AI agent<br />
       <span class="slab">a body.</span>
     </h1>
 
     <p class="hero__lede">
-      A macOS desktop pet that runs the AI coding agent you already use. Talk to her, watch her
-      work, and say yes before she touches anything. Zero extra AI cost.
+      A free macOS desktop pet that runs the AI coding agent you already use — Claude Code,
+      Gemini CLI or Codex. Talk to her, watch her work, and say yes before she touches anything.
     </p>
 
     <div class="hero__actions">
-      <a href={`${base}download`} class="btn">Download the free beta</a>
+      <a href={`${base}download`} class="btn">Download free for Mac</a>
       <a href={`${base}#features`} class="btn btn--card">See what she does</a>
     </div>
+    <ul class="hero__facts">
+      <li><strong>$0</strong> forever</li>
+      <li><strong>$0</strong> extra AI cost</li>
+      <li>macOS 14+ · Apple Silicon</li>
+    </ul>
   </div>
 
   <div class="hero__art">
     <div class="hero__pet" id="hero-pet-wrap">
-      <Minnie id="hero-pet" state="float" size={340} />
+      <Minnie id="hero-pet" state="float" size={340} label="Minnie, a flame-shaped desktop pet, floating" />
     </div>
     <p class="quip hero__quip">
       You look busy. I'll wait.
@@ -44,6 +50,28 @@ const base = import.meta.env.BASE_URL;
   }
   @media (min-width: 960px) {
     .hero { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* The lifetime-free promise, above the headline: the first thing read. */
+  .hero__free {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 22px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--accent-t);
+    color: var(--accent-ink);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .hero__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 99px;
+    background: var(--green);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 25%, transparent);
   }
 
   .hero__title { margin: 0; }
@@ -68,6 +96,18 @@ const base = import.meta.env.BASE_URL;
     gap: 18px;
     margin-top: 32px;
   }
+
+  .hero__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    margin: 26px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14.5px;
+    color: var(--ink-dim);
+  }
+  .hero__facts strong { color: var(--ink); font-weight: 800; }
 
   .hero__art {
     position: relative;

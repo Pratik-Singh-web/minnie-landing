@@ -11,7 +11,8 @@ const moments = [
 const points = [
   "On-device voice by default",
   "Your local agent CLI does the thinking",
-  "No screen capture. No telemetry.",
+  "No screen capture",
+  "Analytics never see your code or keys",
   "Secrets in your macOS Keychain",
 ];
 ---
@@ -33,8 +34,9 @@ const points = [
       <p class="eyebrow">On-device · Local · Private</p>
       <h2 class="h2">Lives on your Mac.<br /><span class="slab">Stays on your Mac.</span></h2>
       <p class="local__lede">
-        She floats above your windows and reacts to what your agent is doing. Your code, your voice
-        and your secrets never leave the machine unless a tool you approved sends them.
+        She floats above your windows and reacts to what your agent is doing. Your voice is
+        transcribed on your Mac, your secrets stay in the Keychain, and nothing reaches a tool
+        unless you say yes.
       </p>
       <p class="local__small">
         No account needed to run the app. Wipe her memory of you whenever you like.
@@ -49,8 +51,8 @@ const points = [
 
   <div class="local__row">
     <div>
-      <h3 class="local__h3">Nothing leaves. Here's why.</h3>
-      <p class="local__small">Local-first all the way down. No fine print, no asterisk.</p>
+      <h3 class="local__h3">What stays put. Here's how.</h3>
+      <p class="local__small">Local-first, with the small print spelled out in the <a class="prose-a" href={`${base}privacy`}>privacy policy</a>.</p>
     </div>
     <ul class="local__box">
       {points.map((p) => <li>{p}</li>)}

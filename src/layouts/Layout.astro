@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { faqs, version, dmgURL } from "../site";
 
 interface Props {
   title?: string;
@@ -12,8 +13,9 @@ interface Props {
 
 const {
   jsonLd,
-  title = "Minnie — Give your AI agent a body | macOS AI desktop pet",
-  description = "Minnie is a native macOS desktop pet that runs your AI coding agent — talk to her, she executes real tasks, asks permission out loud, and stays fully local. Zero extra AI cost.",
+  // Leads with what people search for: free, Mac, desktop pet, Claude Code.
+  title = "Minnie: free AI desktop pet for Mac that runs Claude Code",
+  description = "Minnie is a free-for-life Mac desktop pet that runs your AI coding agent: Claude Code, Gemini CLI or Codex. Talk to her, approve every action. No subscription.",
 } = Astro.props;
 
 // Live URL derives from astro.config `site` + `base` (GitHub Pages today).
@@ -30,47 +32,57 @@ const ogImage = new URL(`${base}og-image.png`, site).href;
 const CF_ANALYTICS_TOKEN = "d0fa9b521df5404090089c004d4ace87"; // Cloudflare Web Analytics beacon token (public by design)
 
 // Structured data (§12) — SoftwareApplication + FAQPage for rich results.
+const logo = new URL(`${base}icon-512x512.png`, site).href;
 const softwareLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   name: "Minnie",
+  alternateName: "Minnie desktop pet",
   applicationCategory: "DeveloperApplication",
-  operatingSystem: "macOS",
+  applicationSubCategory: "AI coding assistant",
+  operatingSystem: "macOS 14 or later (Apple Silicon)",
+  softwareVersion: version,
+  downloadUrl: dmgURL,
+  url: site,
+  image: logo,
+  screenshot: ogImage,
   description,
+  isAccessibleForFree: true,
+  featureList: [
+    "Desktop pet that runs Claude Code, Gemini CLI, Codex or a custom agent CLI",
+    "Voice requests with on-device speech recognition",
+    "Asks out loud before edits and commands (Claude Code)",
+    "One-click MCP tools: GitHub, Notion, Slack, Postgres, Figma",
+    "Secrets stored in the macOS Keychain",
+  ],
   offers: {
     "@type": "Offer",
     price: "0",
     priceCurrency: "USD",
-    description: "Free during the open beta.",
+    availability: "https://schema.org/InStock",
+    description: "Free for life. Optional extra characters may be sold later as one-time purchases.",
   },
+  publisher: { "@id": `${site}#org` },
 };
 
-const faqs = [
-  {
-    q: "Does Minnie cost extra to run the AI?",
-    a: "No. She drives the agent CLI you already use; it holds its own auth and does the reasoning. Zero extra AI cost.",
-  },
-  {
-    q: "Which agents work?",
-    a: "Claude Code today, with the full experience. Gemini CLI, Codex, Antigravity and custom command-line agents work too — they run more autonomously, since the voice-consent flow is Claude Code only for now.",
-  },
-  {
-    q: "Is my code private?",
-    a: "Yes. On-device voice by default, a local agent CLI, no screen capture, no telemetry. Secrets live in your macOS Keychain, and nothing leaves your Mac unless a tool you approved sends it.",
-  },
-  {
-    q: "Do I need to set anything up?",
-    a: "Install the agent CLI once (Claude Code, say) and log in. Minnie's onboarding walks you through the rest.",
-  },
-  {
-    q: "Can I connect my own tools?",
-    a: "Yes — a one-click MCP catalog (GitHub, Notion, Slack, Postgres, Figma…), custom servers, and native Sign in with Google for Gmail, Calendar and Chat.",
-  },
-  {
-    q: "Does it work on Windows?",
-    a: "macOS first. Windows is on the roadmap.",
-  },
-];
+const orgLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${site}#org`,
+  name: "Minnie",
+  url: site,
+  logo,
+  sameAs: ["https://x.com/Sym6ol_"],
+};
+
+const webLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Minnie",
+  url: site,
+  publisher: { "@id": `${site}#org` },
+};
+
 
 const faqLd = {
   "@context": "https://schema.org",
@@ -105,6 +117,7 @@ const faqLd = {
     <meta name="theme-color" content="#1a100b" media="(prefers-color-scheme: dark)" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title="The Minnie blog" href={`${base}rss.xml`} />
     <!-- Favicons. Google fetches /favicon.ico on its own schedule and wants a
          square icon that is a multiple of 48px, so the .ico is a real multi-size
          icon (16/32/48) and the linked PNGs are 96 and 192 — NOT the 32px one
@@ -125,14 +138,17 @@ const faqLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Minnie, a flame-shaped desktop pet for your AI coding agent" />
+    <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Sym6ol_" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Structured data (rich results). Pages that describe something other
          than the app pass their own via the `jsonLd` prop. -->
-    {(jsonLd ?? [softwareLd, faqLd]).map((data) => (
+    {(jsonLd ?? [softwareLd, orgLd, webLd, faqLd]).map((data) => (
       <script type="application/ld+json" set:html={JSON.stringify(data)} />
     ))}
 

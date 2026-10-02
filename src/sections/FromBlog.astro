@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+const base = import.meta.env.BASE_URL;
+
+// The three newest posts. Links from the homepage are the strongest internal
+// signal a post gets, so new posts surface here automatically.
+const posts = (await getCollection("blog", ({ data }) => import.meta.env.DEV || !data.draft))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+---
+
+<section class="wrap blk" aria-labelledby="fromblog-h">
+  <div class="head">
+    <div>
+      <p class="eyebrow">From the blog</p>
+      <h2 class="h2" id="fromblog-h">Guides for coding<br /><span class="slab">with an AI agent.</span></h2>
+    </div>
+    <div class="head__copy">
+      <p>Voice prompts, permission prompts, MCP and privacy, written for people who use these tools every day.</p>
+      <a href={`${base}blog/`} class="btn btn--card btn--sm">All posts</a>
+    </div>
+  </div>
+
+  <ul class="fb">
+    {posts.map((p) => (
+      <li>
+        <a class="card fb__card" href={`${base}blog/${p.id}/`}>
+          <span class="fb__tag">{p.data.tags[0] ?? "guide"}</span>
+          <h3 class="fb__title">{p.data.title}</h3>
+          <p class="fb__desc">{p.data.description}</p>
+          <span class="fb__more">Read →</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .fb {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) { .fb { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  .fb__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 24px;
+    border-radius: 20px;
+    color: var(--ink);
+    transition: border-color 0.15s ease;
+  }
+  .fb__card:hover { border-color: var(--accent); color: var(--ink); }
+  .fb__tag {
+    align-self: flex-start;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--accent-t);
+    color: var(--accent-ink);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+  .fb__title {
+    margin: 14px 0 8px;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.035em;
+  }
+  .fb__desc {
+    margin: 0 0 18px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-dim);
+  }
+  .fb__more {
+    margin-top: auto;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent-ink);
+  }
+</style>
