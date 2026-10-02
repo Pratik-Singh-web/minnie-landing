@@ -2,6 +2,7 @@
 title: "A desktop pet for your Mac that actually does work"
 description: "Desktop pets used to be pure decoration. Minnie sits on your Mac like one, but she runs your AI coding agent, asks before she acts, and costs nothing extra."
 pubDate: 2026-10-02
+updatedDate: 2026-10-03
 tags: ["desktop pet", "macos", "ai agent"]
 draft: false
 ---
@@ -51,17 +52,20 @@ and nothing is left half-done.
 We wrote more about how the voice side works in
 [Talk to Claude Code with your voice on a Mac](/blog/talk-to-claude-code-with-your-voice/).
 
-## Four pets, one desk
+## Meet Minnie
 
-Minnie is the default, but the app ships four species:
+Minnie is a little spark: a warm, flame-shaped character with big eyes and a wisp
+of a tail. Each of her moods means something, so you can read her from across the
+screen:
 
-- **Minnie**, round and bouncy, the one who celebrates when a run goes green
-- **Panda**, slower and calmer, for company that doesn't fidget
-- **Raccoon**, nosy and quick, who takes a failed build personally
-- **Dog**, eager and loyal, the first to notice you're back
+- **Sitting**, calm and idle, waiting for you to need her
+- **Happy**, when a run goes green
+- **Thinking**, while the agent reasons, so you can tell working from stuck
+- **On the move**, floating over when she needs a yes
+- **Sleeping**, tucked away while you focus
 
-Pick one, pick a temperament, give her a name. None of it changes what the agent
-can do. It changes what it feels like to work next to.
+Give her a name and a temperament. None of it changes what the agent can do. It
+changes what it feels like to work next to.
 
 ## What it costs
 

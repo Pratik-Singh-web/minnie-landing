@@ -1,0 +1,143 @@
+---
+// Minnie herself — the real character, as short looping clips.
+//
+// Two kinds of clip live in public/minnie/ (see scripts/build-minnie.sh):
+//   sit, float            TRUE alpha. WebM (VP9) for Chrome/Firefox/Edge,
+//                         HEVC .mov for Safari/iOS. Safe on any background.
+//   happy, think, sleep   OPAQUE on #F9F9F9, blended away with `multiply`.
+//                         White sections only — never on the ink panels.
+//
+// Switch her state from a script by setting one attribute:
+//   el.dataset.state = "happy"
+// The loader below watches for that and swaps the clip.
+export type MinnieState = "sit" | "float" | "happy" | "think" | "sleep";
+
+interface Props {
+  state?: MinnieState;
+  size?: number;
+  id?: string;
+  class?: string;
+  label?: string;
+}
+const { state = "sit", size = 200, id, class: cls, label = "Minnie" } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<span
+  id={id}
+  class:list={["minnie", cls]}
+  data-state={state}
+  data-base={`${base}minnie/`}
+  style={`--size:${size}px`}
+  role="img"
+  aria-label={label}
+>
+  <video
+    class="minnie__v"
+    muted
+    autoplay
+    loop
+    playsinline
+    preload="none"
+    poster={`${base}minnie/${state}.webp`}
+    aria-hidden="true"
+  ></video>
+</span>
+
+<style is:global>
+  .minnie {
+    position: relative;
+    display: inline-block;
+    width: var(--size);
+    height: var(--size);
+    max-width: 100%;
+    aspect-ratio: 1;
+    flex-shrink: 0;
+  }
+  .minnie__v {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: transparent;
+  }
+  /* The opaque clips are encoded with their background lifted to ~253 (the
+     ceiling for standard-range video); the 1.2% brightness takes it to 255 and
+     multiply then makes it vanish into the page white. */
+  .minnie[data-state="happy"] .minnie__v,
+  .minnie[data-state="think"] .minnie__v,
+  .minnie[data-state="sleep"] .minnie__v {
+    mix-blend-mode: multiply;
+    filter: brightness(1.012);
+  }
+
+  /* A short squash when she changes state, so it reads as a reaction. */
+  .minnie.is-pop { animation: minniePop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes minniePop {
+    0% { transform: scale(1); }
+    38% { transform: scale(1.07, 0.94); }
+    100% { transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .minnie.is-pop { animation: none; }
+  }
+</style>
+
+<script>
+  const ALPHA = new Set(["sit", "float"]);
+  // Every browser on iOS is WebKit, and WebKit can't play VP9 alpha — but it
+  // can play HEVC alpha, which nothing else can.
+  const ua = navigator.userAgent;
+  const webkit =
+    /iP(hone|ad|od)/.test(ua) ||
+    (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ||
+    (/Safari/.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|Edg|OPR|Android/.test(ua));
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const srcFor = (base: string, s: string) =>
+    ALPHA.has(s) ? `${base}${s}.${webkit ? "mov" : "webm"}` : `${base}${s}.mp4`;
+
+  const load = (el: HTMLElement) => {
+    const v = el.querySelector("video");
+    if (!v) return;
+    const s = el.dataset.state || "sit";
+    const base = el.dataset.base || "/minnie/";
+    v.poster = `${base}${s}.webp`;
+    if (still) return; // the poster is the whole show
+    const src = srcFor(base, s);
+    if (v.getAttribute("src") !== src) {
+      v.setAttribute("src", src);
+      v.load();
+    }
+    if (el.dataset.visible === "1") v.play().catch(() => {});
+  };
+
+  // Load and play only while on screen; pause when scrolled away.
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        const el = e.target as HTMLElement;
+        el.dataset.visible = e.isIntersecting ? "1" : "0";
+        if (e.isIntersecting) load(el);
+        else el.querySelector("video")?.pause();
+      }
+    },
+    { rootMargin: "200px" }
+  );
+
+  // A state change from any section script swaps the clip.
+  const mo = new MutationObserver((muts) => {
+    for (const m of muts) {
+      const el = m.target as HTMLElement;
+      el.classList.remove("is-pop");
+      void el.offsetWidth;
+      el.classList.add("is-pop");
+      load(el);
+    }
+  });
+
+  document.querySelectorAll<HTMLElement>(".minnie").forEach((el) => {
+    io.observe(el);
+    mo.observe(el, { attributes: true, attributeFilter: ["data-state"] });
+  });
+</script>

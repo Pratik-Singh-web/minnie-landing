@@ -44,56 +44,58 @@
 :root[data-theme="light"] {
   color-scheme: light;
 
-  /* The ground is plain white. --sunk is the only off-white. */
-  --paper: #ffffff;
+  /* "Ember" — the macOS app's palette (MinnieTheme.swift), sampled from Spark
+     herself. Token NAMES are the site's old ones so every section keeps
+     resolving; only the values follow the app. App name in brackets. */
+
+  /* Ground: warm clay white, cream for sunk tiles. */
+  --paper: #fffcf7;          /* Clay.surface */
   --card: #ffffff;
-  --sunk: #f7f6f5;
-  --line: #e5e2df;
-  --ink: #0b0b0b;
-  --ink-dim: #686460;
-  --ink-soft: #8c8681;
+  --sunk: #fff1de;           /* bg0 */
+  --line: #f0e0d0;
+  --ink: #2e1b12;            /* ink — from her eye colour */
+  --ink-dim: #6b4a3a;        /* inkSoft — secondary text that passes 4.5:1 */
+  --ink-soft: #9a7a68;       /* inkDim — muted only, never body copy */
 
-  /* Honey — Minnie's own colour, taken from her belly and ears. It is a fill
-     colour: buttons, the logo tile, bands, focus rings. --accent-d is its
-     shadow, not a hover. Yellow is too light to read as text on white, so any
-     accent TEXT on a light surface uses --accent-ink instead. */
-  --accent: #f0b83c;
-  --accent-h: #f5c65a;
-  --accent-d: #b07d16;
-  --accent-t: #fdf3dc;
-  --accent-ink: #b7800f;
-  --on-accent: #0b0b0b;
+  /* Fire. --accent is the fill; it is too light to be text on a light ground,
+     so accent TEXT uses --accent-ink (ember, 5.7:1 on paper). On the ink
+     panels accent text uses --peach (8.9:1) instead. */
+  --accent: #e05c18;         /* coral — PRIMARY, Spark's body */
+  --peach: #f7b23f;          /* peach — her flame tip, gradient end */
+  --accent-h: #ea6a26;
+  --accent-d: #b8390f;       /* ember — pressed states, the button's shadow */
+  --accent-t: #ffeacd;       /* glow — her specular highlight */
+  --accent-ink: #b8390f;     /* ember — fire as text */
+  --on-accent: #2e1b12;      /* ink on fire: white on coral fails (3.7:1) */
+  --grad: linear-gradient(135deg, #e05c18, #f7b23f); /* Theme.primary — all CTAs */
 
-  /* The aside voice — the pet talking back. Never used for chrome. */
-  --quip: #7a4bd8;
+  /* The aside voice — periwinkle, the app's "thinking" colour. */
+  --quip: #7a5af0;
 
-  /* Reserved for the consent flow. Never decorative. */
-  --green: #287447;
-  --caution: #8a5a12;
-  --red: #b12b35;
-  --on-green: #ffffff;
+  /* Semantics are deliberately NOT fire. */
+  --green: #1fb88a;          /* mint — success / allow */
+  --caution: #ffd21e;        /* amber — lemon, not brand orange */
+  --red: #a8123f;            /* dangerInk — danger as text */
+  --on-green: #2e1b12;       /* white on mint fails (2.5:1) */
 
-  /* The single ink panel. */
-  --band: #0b0b0b;
-  --green-deep: #0b0b0b;
-  --on-band: #ffffff;
-  --on-band-dim: #b8b3af;
+  /* The ink panels and the footer: warm near-black, not grey. */
+  --band: #2e1b12;
+  --green-deep: #2e1b12;
+  --on-band: #fffcf7;
+  --on-band-dim: #c9b3a4;
 
-  /* Kept only so section-scoped styles referencing them keep resolving. Both
-     resolve to the single off-white: the old system tinted tiles peach or grey
-     more or less at random, and on a white ground that drift reads as a bug. */
-  --yellow: #f7f6f5;
-  --pink: #f7f6f5;
+  /* Legacy names, kept so older section styles still resolve. */
+  --yellow: #ffe7cc;         /* Clay.peachPastel */
+  --pink: #ffe3d0;           /* Clay.pinkPastel */
 
-  /* The only shadow in the system is the 4px press under .btn. */
   --sh: none;
   --sh-sm: none;
   --sh-lg: none;
 
   --wash: none;
-  --r-sm: 8px;
-  --r-md: 12px;
-  --r-lg: 16px;
+  --r-sm: 12px;
+  --r-md: 20px;
+  --r-lg: 30px;
   --r-pill: 999px;
 }
 
@@ -480,7 +482,7 @@ textarea {
   padding: 14px 22px;
   border: 0;
   border-radius: 10px;
-  background: var(--accent);
+  background: var(--grad);
   color: var(--on-accent);
   font-family: var(--font-sans);
   font-size: 16px;
@@ -492,7 +494,8 @@ textarea {
   white-space: nowrap;
 }
 .btn:hover {
-  background: var(--accent-h);
+  background: var(--grad);
+  filter: brightness(1.06);
   color: var(--on-accent);
   transform: translateY(1px);
   box-shadow: 0 3px 0 var(--accent-d);
@@ -837,10 +840,10 @@ textarea {
   color: var(--on-band);
   border-radius: 30px;
   padding: 64px;
-  --ink: #ffffff;
-  --ink-dim: #b8b3af;
-  --ink-soft: #8c8681;
-  --line: #2b2825;
+  --ink: #fffcf7;
+  --ink-dim: #c9b3a4;
+  --ink-soft: #a08878;
+  --line: #4a2e22;
 }
 @media (max-width: 760px) { .panel { padding: 40px 22px; border-radius: 22px; } }
 
@@ -890,7 +893,7 @@ textarea {
 }
 
 /* On the ink panels the full honey reads fine, and the darker ink would not. */
-.panel .slab { color: var(--accent); }
+.panel .slab { color: var(--peach); }
 
 .caption {
   margin: 14px 0 0;

@@ -1,5 +1,5 @@
 ---
-import Pet from "../components/Pet.astro";
+import Minnie from "../components/Minnie.astro";
 
 // Each node is one of her states; the run walks them in this order.
 const nodes = [
@@ -57,7 +57,7 @@ const nodes = [
 
     <div class="beh__side">
       <p class="quip beh__quip" id="beh-quip">waiting. very patiently.</p>
-      <Pet id="beh-pet" size={190} />
+      <Minnie id="beh-pet" state="sit" size={240} />
       <button type="button" class="btn" id="beh-run">Run a task</button>
       <p class="caption">A preview of how she moves between states.</p>
     </div>
@@ -176,10 +176,10 @@ const nodes = [
 
 <script>
   const QUIPS: Record<string, [string, string]> = {
-    idle: ["waiting. very patiently.", "idle"],
-    listening: ["ears up. go on.", "idle"],
+    idle: ["waiting. very patiently.", "sit"],
+    listening: ["all ears. go on.", "happy"],
     working: ["busy. very busy.", "think"],
-    asking: ["one sec — can I?", "idle"],
+    asking: ["one sec — can I?", "float"],
   };
   const graph = document.getElementById("beh-graph");
   const pet = document.getElementById("beh-pet");
@@ -190,10 +190,7 @@ const nodes = [
     if (!graph || !pet || !quip) return;
     graph.dataset.on = id;
     quip.textContent = QUIPS[id][0];
-    pet.setAttribute("data-pose", QUIPS[id][1]);
-    pet.classList.remove("is-pop");
-    void (pet as unknown as HTMLElement).getBoundingClientRect();
-    pet.classList.add("is-pop");
+    pet.dataset.state = QUIPS[id][1];
   };
 
   graph?.addEventListener("click", (e) => {

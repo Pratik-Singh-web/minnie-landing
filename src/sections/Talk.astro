@@ -1,13 +1,13 @@
 ---
-import Pet from "../components/Pet.astro";
+import Minnie from "../components/Minnie.astro";
 const base = import.meta.env.BASE_URL;
 
 // Her real states. The quip under her changes with each one.
 const states = [
-  { id: "idle", label: "Idle", pose: "idle", quip: "Watching your cursor." },
-  { id: "listening", label: "Listening", pose: "idle", quip: "Go on. All ears." },
+  { id: "idle", label: "Idle", pose: "sit", quip: "Watching your cursor." },
+  { id: "listening", label: "Listening", pose: "happy", quip: "Go on. All ears." },
   { id: "working", label: "Working", pose: "think", quip: "Running the tests. Shh." },
-  { id: "asking", label: "Asking", pose: "idle", quip: "Can I edit this file?" },
+  { id: "asking", label: "Asking", pose: "float", quip: "Can I edit this file?" },
 ];
 ---
 
@@ -59,13 +59,12 @@ const states = [
         ))}
       </div>
       <div class="talk__pet">
-        <Pet id="talk-pet" size={200} />
+        <Minnie id="talk-pet" state="sit" size={260} />
       </div>
       <p class="talk__name">
         <strong>Minnie</strong>
         <span class="quip" id="talk-quip">{states[0].quip}</span>
       </p>
-      <p class="caption">Placeholder art. The states are the real ones.</p>
     </div>
   </div>
 
@@ -149,7 +148,7 @@ const states = [
     align-items: center;
     text-align: center;
   }
-  .talk__pet { margin: 30px 0 18px; }
+  .talk__pet { margin: 22px 0 12px; }
   .talk__name {
     display: flex;
     align-items: baseline;
@@ -180,11 +179,8 @@ const states = [
     const btn = pills?.querySelector<HTMLButtonElement>(`[data-state="${id}"]`);
     if (!btn || !pet || !quip) return;
     pills!.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
-    pet.setAttribute("data-pose", btn.dataset.pose || "idle");
+    pet.dataset.state = btn.dataset.pose || "sit";
     quip.textContent = btn.dataset.quip || "";
-    pet.classList.remove("is-pop");
-    void (pet as unknown as HTMLElement).getBoundingClientRect();
-    pet.classList.add("is-pop");
   };
 
   pills?.addEventListener("click", (e) => {

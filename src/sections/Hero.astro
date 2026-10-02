@@ -1,5 +1,5 @@
 ---
-import Pet from "../components/Pet.astro";
+import Minnie from "../components/Minnie.astro";
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -23,7 +23,7 @@ const base = import.meta.env.BASE_URL;
 
   <div class="hero__art">
     <div class="hero__pet" id="hero-pet-wrap">
-      <Pet id="hero-pet" size={250} />
+      <Minnie id="hero-pet" state="float" size={340} />
     </div>
     <p class="quip hero__quip">
       You look busy. I'll wait.
@@ -100,6 +100,7 @@ const base = import.meta.env.BASE_URL;
       { passive: true }
     );
   }
-  wrap?.addEventListener("mouseenter", () => pet?.setAttribute("data-pose", "think"));
-  wrap?.addEventListener("mouseleave", () => pet?.setAttribute("data-pose", "idle"));
+  // Hovering her makes her happy.
+  wrap?.addEventListener("mouseenter", () => pet && (pet.dataset.state = "happy"));
+  wrap?.addEventListener("mouseleave", () => pet && (pet.dataset.state = "float"));
 </script>

@@ -1,5 +1,4 @@
 ---
-import Pet from "./Pet.astro";
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -7,9 +6,7 @@ const base = import.meta.env.BASE_URL;
 <header class="nav">
   <div class="nav__inner">
     <a href={base} class="nav__brand" aria-label="Minnie home">
-      <span class="nav__mark">
-        <Pet size={22} />
-      </span>
+      <img class="nav__mark" src={`${base}favicon-96x96.png`} width="34" height="34" alt="" />
       <span class="nav__word">minnie</span>
       <span class="nav__script">beta</span>
     </a>
@@ -45,15 +42,11 @@ const base = import.meta.env.BASE_URL;
     align-items: center;
     gap: 9px;
   }
+  /* The macOS app icon, so the site, the tab and the Dock all match. */
   .nav__mark {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 9px;
-    background: var(--accent);
-    overflow: hidden;
+    display: block;
+    width: 34px;
+    height: 34px;
     flex-shrink: 0;
   }
   .nav__word {

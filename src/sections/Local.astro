@@ -1,11 +1,11 @@
 ---
-import Pet from "../components/Pet.astro";
+import Minnie from "../components/Minnie.astro";
 const base = import.meta.env.BASE_URL;
 
 const moments = [
-  { id: "pass", label: "Tests pass", bubble: "✓ All green. Want me to commit?", quip: "she's very proud.", pose: "idle" },
-  { id: "ask", label: "Needs a yes", bubble: "I want to run the migration. Ok?", quip: "she'll wait.", pose: "think" },
-  { id: "hide", label: "Hide her", bubble: "⌥Space brings me back.", quip: "see you in a bit.", pose: "idle" },
+  { id: "pass", label: "Tests pass", bubble: "✓ All green. Want me to commit?", quip: "she's very proud.", pose: "happy" },
+  { id: "ask", label: "Needs a yes", bubble: "I want to run the migration. Ok?", quip: "she'll wait.", pose: "float" },
+  { id: "hide", label: "Hide her", bubble: "⌥Space brings me back.", quip: "zzz.", pose: "sleep" },
 ];
 
 const points = [
@@ -20,7 +20,7 @@ const points = [
   <div class="local">
     <div class="local__art">
       <p class="local__bubble" id="local-bubble">{moments[0].bubble}</p>
-      <Pet id="local-pet" size={200} species="minnie" />
+      <Minnie id="local-pet" state="happy" size={260} />
       <p class="quip local__quip" id="local-quip">{moments[0].quip}</p>
       <div class="pills" id="local-pills" role="group" aria-label="Moments">
         {moments.map((m, i) => (
@@ -146,9 +146,6 @@ const points = [
     pills.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
     bubble.textContent = b.dataset.bubble || "";
     quip.textContent = b.dataset.quip || "";
-    pet.setAttribute("data-pose", b.dataset.pose || "idle");
-    pet.classList.remove("is-pop");
-    void (pet as unknown as HTMLElement).getBoundingClientRect();
-    pet.classList.add("is-pop");
+    pet.dataset.state = b.dataset.pose || "sit";
   });
 </script>

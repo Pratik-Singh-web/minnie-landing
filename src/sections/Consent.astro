@@ -1,5 +1,5 @@
 ---
-import Pet from "../components/Pet.astro";
+import Minnie from "../components/Minnie.astro";
 ---
 
 <section id="consent" class="wide blk panel consent">
@@ -18,7 +18,7 @@ import Pet from "../components/Pet.astro";
 
   <div class="consent__art">
     <div class="consent__scene" id="consent-scene" data-step="ask">
-      <div class="consent__pet"><Pet id="consent-pet" size={190} pose="think" /></div>
+      <div class="consent__pet"><Minnie id="consent-pet" state="sit" size={240} /></div>
       <div class="consent__cloud" aria-hidden="true">
         <span class="consent__op">Edit · mock_users.py</span>
         <span class="consent__q">Add the test login. Ok?</span>
@@ -41,7 +41,7 @@ import Pet from "../components/Pet.astro";
   }
   @media (min-width: 900px) { .consent { grid-template-columns: 1fr 1fr; } }
 
-  .consent .h2 { color: #fff; }
+  .consent .h2 { color: var(--on-band); }
   .consent__lede {
     margin: 22px 0 0;
     max-width: 26rem;
@@ -56,7 +56,7 @@ import Pet from "../components/Pet.astro";
     font-size: 19px;
     font-weight: 600;
     line-height: 1.45;
-    color: #fff;
+    color: var(--on-band);
   }
   .consent__quote code {
     font-family: var(--font-mono);
@@ -79,7 +79,7 @@ import Pet from "../components/Pet.astro";
   }
   .consent__pet { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
   .consent__scene[data-step="ask"] .consent__pet,
-  .consent__scene[data-step="yes"] .consent__pet { transform: translateX(-90px); }
+  .consent__scene[data-step="yes"] .consent__pet { transform: translateX(-110px); }
 
   .consent__cloud {
     position: absolute;
@@ -90,9 +90,9 @@ import Pet from "../components/Pet.astro";
     flex-direction: column;
     gap: 8px;
     padding: 14px;
-    border-radius: 14px;
-    background: #fff;
-    color: #0b0b0b;
+    border-radius: 20px;
+    background: linear-gradient(#ffffff, #fff0e2); /* Theme.cloud */
+    color: #2e1b12;
     opacity: 0;
     transform: translateY(-50%) scale(0.92);
     transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
@@ -105,7 +105,7 @@ import Pet from "../components/Pet.astro";
   .consent__op {
     font-family: var(--font-mono);
     font-size: 11px;
-    color: #686460;
+    color: #6b4a3a;
   }
   .consent__q { font-size: 15px; font-weight: 650; line-height: 1.35; }
   .consent__btns { display: flex; gap: 6px; margin-top: 4px; }
@@ -114,11 +114,11 @@ import Pet from "../components/Pet.astro";
     font-weight: 700;
     padding: 6px 11px;
     border-radius: 8px;
-    border: 1px solid #e5e2df;
+    border: 1px solid #f0e0d0;
     transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
   }
   /* Allow stays the reserved green — it is a verdict, not decoration. */
-  .consent__allow { background: var(--green); color: #fff; border-color: transparent !important; }
+  .consent__allow { background: var(--green); color: var(--on-green); border-color: transparent !important; }
   .consent__scene[data-step="yes"] .consent__allow { transform: scale(0.94); }
   .consent__scene[data-step="yes"] .consent__q::after { content: " ✓"; color: var(--green); }
 
@@ -138,11 +138,13 @@ import Pet from "../components/Pet.astro";
     if (!scene || !pet) return;
     timers.forEach(clearTimeout);
     timers = [];
+    // The ink panel only gets the true-alpha clips (sit, float); the opaque
+    // ones would show their white background here.
     scene.dataset.step = "idle";
-    pet.setAttribute("data-pose", "idle");
-    timers.push(window.setTimeout(() => { scene.dataset.step = "ask"; pet.setAttribute("data-pose", "think"); }, 500));
+    pet.dataset.state = "sit";
+    timers.push(window.setTimeout(() => { scene.dataset.step = "ask"; pet.dataset.state = "float"; }, 500));
     timers.push(window.setTimeout(() => { scene.dataset.step = "yes"; }, 2300));
-    timers.push(window.setTimeout(() => { scene.dataset.step = "done"; pet.setAttribute("data-pose", "idle"); }, 3400));
+    timers.push(window.setTimeout(() => { scene.dataset.step = "done"; pet.dataset.state = "sit"; }, 3400));
   };
 
   document.getElementById("consent-replay")?.addEventListener("click", play);
