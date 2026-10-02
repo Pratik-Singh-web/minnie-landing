@@ -121,6 +121,11 @@ const base = import.meta.env.BASE_URL;
     return dark && !ALPHA.has(s) && !el.hasAttribute("data-tile") ? DARK_FALLBACK[s] ?? "sit" : s;
   };
 
+  // Where each opaque clip starts: its most characteristic moment, so a card
+  // reads as its mood at a glance instead of every clip opening on the same
+  // neutral frame. The posters are cut at the same times (build-minnie.sh).
+  const START: Record<string, number> = { happy: 1.5, think: 2.75, sleep: 2.25 };
+
   const srcFor = (base: string, s: string) =>
     ALPHA.has(s) ? `${base}${s}.${webkit ? "mov" : "webm"}` : `${base}${s}.mp4`;
 
@@ -135,6 +140,8 @@ const base = import.meta.env.BASE_URL;
     const src = srcFor(base, s);
     if (v.getAttribute("src") !== src) {
       v.setAttribute("src", src);
+      const t = START[s];
+      if (t) v.addEventListener("loadedmetadata", () => { v.currentTime = t; }, { once: true });
       v.load();
     }
     if (el.dataset.visible === "1") v.play().catch(() => {});

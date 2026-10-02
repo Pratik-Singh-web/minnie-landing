@@ -33,7 +33,10 @@ if [ "$1" = "opaque" ]; then
   lv="scale=480:480,colorlevels=rimax=0.935:gimax=0.935:bimax=0.935"
   ffmpeg -v error -y -i "$3" -an -vf "$lv" -c:v libx264 -preset slow -crf 26 \
     -pix_fmt yuv420p -movflags +faststart "$OUT/$2.mp4"
-  ffmpeg -v error -y -i "$3" -vf "$lv" -frames:v 1 -c:v libwebp -quality 80 "$OUT/$2.webp"
+  # Poster at the clip's most characteristic moment (4th arg, seconds), so a
+  # card reads as its mood before playback. Keep in step with START in
+  # src/components/Minnie.astro, which starts playback at the same moment.
+  ffmpeg -v error -y -ss "${4:-0}" -i "$3" -vf "$lv" -frames:v 1 -c:v libwebp -quality 80 "$OUT/$2.webp"
   exit 0
 fi
 OUT="$(dirname "$0")/../public/minnie"
@@ -70,4 +73,5 @@ still "$3" 2.5 float
 # page — so they must only be used on WHITE sections, never on the ink panels.
 # If stacked-alpha versions arrive, run them through `clip` above instead.
 #
-#   sh scripts/build-minnie.sh opaque <name> <clip.mp4>
+#   sh scripts/build-minnie.sh opaque <name> <clip.mp4> [poster_seconds]
+#   (current: happy 1.5, think 2.75, sleep 2.25)
