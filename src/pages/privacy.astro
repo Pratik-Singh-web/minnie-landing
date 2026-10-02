@@ -38,7 +38,7 @@ const link = "prose-a";
     <ul class={ul}>
       <li>Your conversations, files and task history live <strong>on your Mac</strong>, in a local database and the macOS Keychain. We cannot read them.</li>
       <li>What you ask Minnie to do is sent to <strong>the AI provider you choose</strong> — that is how the agent works at all.</li>
-      <li>We hold an <strong>account record</strong> (email, plan, a hashed device id) so your subscription works.</li>
+      <li>If you make an account, we hold an <strong>account record</strong> (email, any purchases, a hashed device id) so your setup and purchases follow you to a new Mac. An account is optional.</li>
       <li>We collect <strong>product analytics</strong> — which screens and steps people use. Never message text, replies, file paths or keys. You can turn it off.</li>
       <li>We never see your card. Payments are handled by our payment provider.</li>
       <li>We do not sell your data, and there is no advertising anywhere in Minnie.</li>
@@ -123,10 +123,10 @@ const link = "prose-a";
     </p>
     <ul class={ul}>
       <li>Your <strong>email address, name and profile picture</strong>, from the Google account you sign in with. Signing in to Minnie does not request access to your Gmail or Calendar — that is a separate, optional connection you make yourself.</li>
-      <li>Your <strong>plan and its dates</strong>, and the customer and subscription ids from our payment provider.</li>
-      <li>Your <strong>licence key</strong>, if you have one.</li>
+      <li>Any <strong>purchases</strong> you make, and the customer id from our payment provider.</li>
+      <li>Your <strong>licence key</strong>, if a purchase gave you one.</li>
       <li>For each Mac you activate: a <strong>SHA-256 hash of the hardware identifier</strong> — never the identifier itself — plus the device name, macOS version and app version, so the device limit can be enforced.</li>
-      <li>A small number of <strong>account events</strong> (activation, trial start and end) that have to sit next to a licence.</li>
+      <li>A small number of <strong>account events</strong> (activation, purchases) that have to sit next to a licence.</li>
     </ul>
 
     <h2 class={h2}>Product analytics</h2>
