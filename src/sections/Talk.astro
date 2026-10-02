@@ -2,12 +2,13 @@
 import Minnie from "../components/Minnie.astro";
 const base = import.meta.env.BASE_URL;
 
-// Her real states. The quip under her changes with each one.
+// Her states, each with its own clip. The quip under her changes with each.
 const states = [
-  { id: "idle", label: "Idle", pose: "sit", quip: "Watching your cursor." },
-  { id: "listening", label: "Listening", pose: "happy", quip: "Go on. All ears." },
-  { id: "working", label: "Working", pose: "think", quip: "Running the tests. Shh." },
-  { id: "asking", label: "Asking", pose: "float", quip: "Can I edit this file?" },
+  { id: "idle", label: "Idle", pose: "rest", quip: "Settled in. Watching your cursor." },
+  { id: "listening", label: "Listening", pose: "stand", quip: "Up and listening. Go on." },
+  { id: "working", label: "Working", pose: "think", quip: "Thinking it through. Shh." },
+  { id: "happy", label: "Happy", pose: "happy", quip: "Tests passed!" },
+  { id: "walking", label: "Walking", pose: "float", quip: "On her way over." },
 ];
 ---
 
@@ -59,7 +60,7 @@ const states = [
         ))}
       </div>
       <div class="talk__pet">
-        <Minnie id="talk-pet" state="sit" size={260} />
+        <Minnie id="talk-pet" state="rest" size={260} tile />
       </div>
       <p class="talk__name">
         <strong>Minnie</strong>
@@ -179,7 +180,7 @@ const states = [
     const btn = pills?.querySelector<HTMLButtonElement>(`[data-state="${id}"]`);
     if (!btn || !pet || !quip) return;
     pills!.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
-    pet.dataset.state = btn.dataset.pose || "sit";
+    pet.dataset.state = btn.dataset.pose || "rest";
     quip.textContent = btn.dataset.quip || "";
   };
 

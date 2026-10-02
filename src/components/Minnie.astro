@@ -2,7 +2,9 @@
 // Minnie herself — the real character, as short looping clips.
 //
 // Two kinds of clip live in public/minnie/ (see scripts/build-minnie.sh):
-//   sit, float            TRUE alpha. WebM (VP9) for Chrome/Firefox/Edge,
+//   sit, float            TRUE alpha. (sit = stand → sit down → stand up)
+//   stand, rest           TRUE alpha, cut from `sit`: only standing / only
+//                         seated, each ping-ponged so it loops cleanly. WebM (VP9) for Chrome/Firefox/Edge,
 //                         HEVC .mov for Safari/iOS. Safe on any background.
 //   happy, think, sleep   OPAQUE on #F9F9F9, blended away with `multiply`.
 //                         White sections only — never on the ink panels.
@@ -12,9 +14,9 @@
 // The loader below watches for that and swaps the clip.
 //
 // DARK MODE: the opaque clips can't sit on a dark page. By default they fall
-// back to the nearest alpha clip (happy → float, think/sleep → sit). Pass
+// back to the nearest alpha clip (happy → stand, think/sleep → rest). Pass
 // `tile` to keep the real mood instead, on a cream clay tile.
-export type MinnieState = "sit" | "float" | "happy" | "think" | "sleep";
+export type MinnieState = "sit" | "stand" | "rest" | "float" | "happy" | "think" | "sleep";
 
 interface Props {
   state?: MinnieState;
@@ -101,7 +103,7 @@ const base = import.meta.env.BASE_URL;
 </style>
 
 <script>
-  const ALPHA = new Set(["sit", "float"]);
+  const ALPHA = new Set(["sit", "stand", "rest", "float"]);
   // Every browser on iOS is WebKit, and WebKit can't play VP9 alpha — but it
   // can play HEVC alpha, which nothing else can.
   const ua = navigator.userAgent;
@@ -112,7 +114,7 @@ const base = import.meta.env.BASE_URL;
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Opaque clips can't go on a dark page; untiled ones borrow an alpha clip.
-  const DARK_FALLBACK: Record<string, string> = { happy: "float", think: "sit", sleep: "sit" };
+  const DARK_FALLBACK: Record<string, string> = { happy: "stand", think: "rest", sleep: "rest" };
   const effective = (el: HTMLElement) => {
     const s = el.dataset.state || "sit";
     const dark = document.documentElement.dataset.theme === "dark";

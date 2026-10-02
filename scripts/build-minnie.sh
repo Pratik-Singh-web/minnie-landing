@@ -11,6 +11,20 @@
 # Pass clips by what they SHOW, not their file names — the first export had the
 # two .mp4 names swapped.
 set -e
+if [ "$1" = "segment" ]; then
+  # sh scripts/build-minnie.sh segment <name> <stacked.mp4> <first_frame> <end_frame>
+  # Cuts one pose out of a stacked-alpha clip and ping-pongs it (forward, then
+  # back) so it loops with no jump. Writes WebM, Safari HEVC-alpha .mov and a
+  # poster. Used for `stand` (frames 0-29) and `rest` (44-97) of the sitting clip.
+  OUT="$(dirname "$0")/../public/minnie"
+  f="[0:v]trim=start_frame=${4}:end_frame=${5},setpts=PTS-STARTPTS,split[s1][s2];[s2]reverse,trim=start_frame=1,setpts=PTS-STARTPTS[r];[s1][r]concat=n=2:v=1[p];[p]split[q1][q2];[q1]crop=iw:ih/2:0:0[c];[q2]crop=iw:ih/2:0:ih/2,format=gray[a];[c][a]alphamerge,scale=480:480"
+  ffmpeg -v error -y -i "$3" -filter_complex "${f},format=yuva420p" -an -c:v libvpx-vp9 -pix_fmt yuva420p \
+    -crf 34 -b:v 0 -row-mt 1 -auto-alt-ref 0 "$OUT/$2.webm"
+  ffmpeg -v error -y -i "$3" -filter_complex "${f},format=bgra" -an -c:v hevc_videotoolbox -alpha_quality 0.9 \
+    -b:v 1500k -tag:v hvc1 -movflags +faststart "$OUT/$2.mov"
+  ffmpeg -v error -y -i "$3" -filter_complex "${f},format=yuva420p" -frames:v 1 -c:v libwebp -quality 80 "$OUT/$2.webp"
+  exit 0
+fi
 if [ "$1" = "opaque" ]; then
   OUT="$(dirname "$0")/../public/minnie"
   # Lift #F9F9F9 (and the slightly darker vignette) to pure white, so

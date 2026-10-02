@@ -57,7 +57,7 @@ const nodes = [
 
     <div class="beh__side">
       <p class="quip beh__quip" id="beh-quip">waiting. very patiently.</p>
-      <Minnie id="beh-pet" state="sit" size={240} />
+      <Minnie id="beh-pet" state="rest" size={240} />
       <button type="button" class="btn" id="beh-run">Run a task</button>
       <p class="caption">A preview of how she moves between states.</p>
     </div>
@@ -176,8 +176,8 @@ const nodes = [
 
 <script>
   const QUIPS: Record<string, [string, string]> = {
-    idle: ["waiting. very patiently.", "sit"],
-    listening: ["all ears. go on.", "happy"],
+    idle: ["waiting. very patiently.", "rest"],
+    listening: ["all ears. go on.", "stand"],
     working: ["busy. very busy.", "think"],
     asking: ["one sec — can I?", "float"],
   };
