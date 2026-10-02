@@ -76,12 +76,17 @@ const base = import.meta.env.BASE_URL;
     align-items: center;
   }
   .hero__pet { transition: transform 0.25s ease; }
+  /* Centred under her. The clip's square frame leaves ~18% empty below her
+     tail, so the caption is pulled up into that gap rather than starting
+     after the frame. Rotation pivots on the centre so it stays centred. */
   .hero__quip {
-    align-self: flex-end;
-    margin: 18px 6% 0 0;
+    align-self: center;
+    margin: -48px 0 0;
     font-size: 18px;
+    text-align: center;
+    transform-origin: center;
   }
-  @media (max-width: 959px) { .hero__quip { align-self: center; margin-right: 0; } }
+  .hero__quip .quip__sub { transform-origin: center; }
 </style>
 
 <script>
