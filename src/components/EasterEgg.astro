@@ -1,0 +1,409 @@
+---
+import Minnie from "./Minnie.astro";
+const base = import.meta.env.BASE_URL;
+
+// The easter egg: type "hey minnie" anywhere (or tap the footer "psst", or tap
+// the hero Minnie five times) and she floats in and walks you through one real
+// session — request → listen → agent works → she asks → you answer → she
+// reacts. Each step says in one line what is happening and why it helps, so
+// the toy doubles as the clearest explanation of the product on the site.
+//
+// Requests are pre-scripted. Nothing is sent anywhere; free text is matched to
+// the nearest script.
+---
+
+<div class="egg" id="egg" hidden>
+  <div class="egg__win" role="dialog" aria-modal="false" aria-labelledby="egg-title">
+    <div class="egg__bar">
+      <span class="egg__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="egg__title" id="egg-title">Minnie · your desktop</span>
+      <button type="button" class="egg__x" id="egg-close" aria-label="Close">×</button>
+    </div>
+
+    <div class="egg__stage">
+      <div class="egg__pet">
+        <Minnie id="egg-pet" state="float" size={150} label="Minnie" />
+      </div>
+      <div class="egg__talk">
+        <p class="egg__bubble" id="egg-bubble" aria-live="polite"></p>
+        <pre class="egg__term" id="egg-term" hidden></pre>
+        <div class="egg__actions" id="egg-actions"></div>
+      </div>
+    </div>
+
+    <div class="egg__foot">
+      <p class="egg__why" id="egg-why"></p>
+      <ol class="egg__steps" id="egg-steps" aria-label="Progress">
+        <li></li><li></li><li></li><li></li><li></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ base }}>
+  const egg = document.getElementById("egg");
+  const pet = document.getElementById("egg-pet");
+  const bubble = document.getElementById("egg-bubble");
+  const term = document.getElementById("egg-term");
+  const actions = document.getElementById("egg-actions");
+  const why = document.getElementById("egg-why");
+  const steps = [...document.querySelectorAll("#egg-steps li")];
+  let timers = [];
+
+  // One script per request: the command the agent runs, what she asks before
+  // running it, and what she says when it lands.
+  const SCRIPTS = {
+    tests: {
+      label: "Run the tests",
+      lines: ["$ npm test", "  running 42 tests…"],
+      ask: "I want to run <code>npm test</code>. Ok?",
+      done: "All green! 42 passed. Want me to commit?",
+    },
+    changed: {
+      label: "What changed today?",
+      lines: ["$ git log --since=midnight --oneline", "  reading 6 commits…"],
+      ask: "I want to run <code>git log</code> to read today's commits. Ok?",
+      done: "Six commits today — mostly the login fix. I can summarise them.",
+    },
+    prs: {
+      label: "Any PRs waiting on me?",
+      lines: ["→ github · list_pull_requests", "  review_requested: you"],
+      ask: "I want to use <b>GitHub</b> to list your pull requests. Ok?",
+      done: "Two are waiting. One's yours from Tuesday.",
+    },
+    custom: {
+      label: "",
+      lines: ["→ handing your request to Claude Code", "  planning the change…"],
+      ask: "I want to edit <code>src/app.ts</code> to do that. Ok?",
+      done: "Done! The change is in your git diff for review.",
+    },
+  };
+
+  const clear = () => { timers.forEach(clearTimeout); timers = []; };
+  const later = (ms, fn) => timers.push(setTimeout(fn, ms));
+  const say = (html) => { bubble.innerHTML = html; };
+  const explain = (text) => { why.textContent = text; };
+  const state = (s) => { pet.dataset.state = s; };
+  const step = (n) => steps.forEach((li, i) => li.classList.toggle("on", i <= n));
+
+  const btn = (text, onClick, kind = "") => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = `egg__btn ${kind}`;
+    b.textContent = text;
+    b.addEventListener("click", onClick);
+    return b;
+  };
+  const setActions = (...nodes) => { actions.replaceChildren(...nodes); actions.querySelector("button, input")?.focus({ preventScroll: true }); };
+
+  function hello() {
+    clear(); step(-1); term.hidden = true; state("float");
+    say("Psst. You found me! 👋 Want to see how I work? It takes 30 seconds.");
+    explain("This is what I'm like on your Mac: a little spark that floats above your windows.");
+    setActions(btn("Show me", ask, "egg__btn--go"), btn("Not now", close));
+  }
+
+  function ask() {
+    clear(); step(0); term.hidden = true; state("stand");
+    say("I'm listening. What should we do?");
+    explain("On your Mac you just say my name, or type to me. Pick one — or write your own.");
+    const chips = ["tests", "changed", "prs"].map((k) => btn(SCRIPTS[k].label, () => work(k), "egg__chip"));
+    const form = document.createElement("form");
+    form.className = "egg__form";
+    const input = document.createElement("input");
+    input.className = "egg__input";
+    input.placeholder = "…or type a request";
+    input.setAttribute("aria-label", "Type a request for Minnie");
+    input.maxLength = 80;
+    form.append(input, btn("Ask", () => {}, "egg__btn--go"));
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const t = input.value.trim().toLowerCase();
+      if (!t) return;
+      const k = /test/.test(t) ? "tests" : /chang|commit|today|log/.test(t) ? "changed" : /pr|pull|review|github/.test(t) ? "prs" : "custom";
+      work(k);
+    });
+    const wrap = document.createElement("div");
+    wrap.className = "egg__choices";
+    wrap.append(...chips);
+    setActions(wrap, form);
+  }
+
+  function work(k) {
+    clear(); step(1); state("think");
+    const s = SCRIPTS[k];
+    say("On it — handing that to your coding agent…");
+    explain("I don't have my own AI. Claude Code (or Gemini CLI, Codex…) does the thinking, on your account — so I cost nothing extra.");
+    actions.replaceChildren();
+    term.hidden = false;
+    term.textContent = "";
+    s.lines.forEach((line, i) => later(500 + i * 700, () => { term.textContent += (i ? "\n" : "") + line; }));
+    later(500 + s.lines.length * 700 + 500, () => consent(k));
+  }
+
+  function consent(k) {
+    clear(); step(2); state("float");
+    say(SCRIPTS[k].ask);
+    explain("Before anything I can't take back, I stop and ask — out loud on your Mac, even if the terminal is buried.");
+    setActions(btn("Allow once", () => allowed(k), "egg__btn--allow"), btn("Deny", denied));
+  }
+
+  function allowed(k) {
+    clear(); step(3); state("happy");
+    term.textContent += "\n  ✓ done";
+    say(SCRIPTS[k].done);
+    explain("You stayed in your flow. I only interrupted when it mattered, and now you can see it worked.");
+    later(400, () => setActions(btn("What else?", outro, "egg__btn--go")));
+  }
+
+  function denied() {
+    clear(); step(3); state("rest");
+    term.textContent += "\n  ✗ skipped — nothing changed";
+    say("No problem. Nothing changed. 💛");
+    explain("Saying no is a normal answer, not an error. No half-finished edits, no mess in your git diff.");
+    later(400, () => setActions(btn("What else?", outro, "egg__btn--go")));
+  }
+
+  function outro() {
+    clear(); step(4); term.hidden = true; state("happy");
+    say("That's me! You talk, your agent works, I ask first. And I'm <b>free for life</b>.");
+    explain("I also nap while you focus (⌥Space brings me back) and celebrate when a build goes green.");
+    const dl = document.createElement("a");
+    dl.className = "egg__btn egg__btn--go";
+    dl.href = `${base}download`;
+    dl.textContent = "Download free for Mac";
+    setActions(dl, btn("Again", ask), btn("Nap time", nap));
+  }
+
+  function nap() {
+    clear(); state("sleep");
+    say("Zzz… type “hey minnie” to wake me.");
+    explain("");
+    actions.replaceChildren();
+    later(1800, close);
+  }
+
+  let lastFocus = null;
+  function open() {
+    if (!egg.hidden) return;
+    lastFocus = document.activeElement;
+    egg.hidden = false;
+    requestAnimationFrame(() => egg.classList.add("is-in"));
+    try { localStorage.setItem("minnie-egg", "found"); } catch (e) {}
+    hello();
+  }
+  function close() {
+    clear();
+    egg.classList.remove("is-in");
+    later(260, () => { egg.hidden = true; });
+    lastFocus?.focus?.({ preventScroll: true });
+  }
+  window.minnieEgg = open;
+
+  document.getElementById("egg-close")?.addEventListener("click", close);
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && !egg.hidden) close(); });
+
+  // Trigger 1: type "hey minnie" (spaces optional) anywhere outside a field.
+  let typed = "";
+  addEventListener("keydown", (e) => {
+    const t = e.target;
+    if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+    if (e.key.length !== 1 || e.metaKey || e.ctrlKey || e.altKey) return;
+    typed = (typed + e.key.toLowerCase()).replace(/[^a-z]/g, "").slice(-9);
+    if (typed.endsWith("heyminnie")) { typed = ""; open(); }
+  });
+
+  // Trigger 2: the footer "psst" (works on phones, where there's no typing).
+  document.querySelectorAll("[data-egg]").forEach((el) => el.addEventListener("click", open));
+
+  // Trigger 3: tap the hero Minnie five times.
+  let taps = 0, tapTimer;
+  document.getElementById("hero-pet-wrap")?.addEventListener("click", () => {
+    taps++; clearTimeout(tapTimer);
+    tapTimer = setTimeout(() => { taps = 0; }, 1500);
+    if (taps >= 5) { taps = 0; open(); }
+  });
+
+  // For the curious.
+  console.log("%c🔥 psst — type “hey minnie” anywhere on this page.", "color:#e05c18;font:600 14px system-ui");
+</script>
+
+<style is:global>
+  /* Global on purpose: the buttons, chips and input are created by the script
+     at runtime, and Astro's scoped styles only reach markup that exists at
+     build time. Every selector is namespaced .egg / .egg__ instead. */
+  .egg {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 80;
+    width: min(440px, calc(100vw - 32px));
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .egg.is-in { opacity: 1; transform: none; }
+  .egg[hidden] { display: none; }
+  @media (max-width: 560px) { .egg { right: 16px; bottom: 16px; } }
+
+  .egg__win {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--card);
+    color: var(--ink);
+    box-shadow: 0 18px 50px rgba(46, 27, 18, 0.22), 0 2px 6px rgba(46, 27, 18, 0.12);
+  }
+
+  /* A macOS-style title bar, so it reads as "this is your desktop". */
+  .egg__bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    background: var(--sunk);
+  }
+  .egg__dots { display: flex; gap: 6px; }
+  .egg__dots i { width: 11px; height: 11px; border-radius: 99px; background: #ff5f57; }
+  .egg__dots i:nth-child(2) { background: #febc2e; }
+  .egg__dots i:nth-child(3) { background: #28c840; }
+  .egg__title { flex: 1; font-size: 12.5px; font-weight: 700; color: var(--ink-dim); text-align: center; }
+  .egg__x {
+    width: 26px;
+    height: 26px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--ink-dim);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .egg__x:hover { background: var(--line); color: var(--ink); }
+
+  .egg__stage {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 16px 16px 6px;
+  }
+  .egg__pet .minnie { width: 120px; height: 120px; }
+
+  .egg__bubble {
+    position: relative;
+    margin: 0;
+    padding: 11px 13px;
+    border-radius: 14px;
+    background: linear-gradient(#ffffff, #fff0e2);
+    color: #2e1b12;
+    font-size: 14.5px;
+    font-weight: 600;
+    line-height: 1.4;
+    box-shadow: 0 1px 0 rgba(46, 27, 18, 0.08);
+  }
+  .egg__bubble::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    background: #fff8ef;
+    transform: rotate(45deg);
+  }
+  .egg__bubble code {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    padding: 1px 4px;
+    border-radius: 4px;
+    background: rgba(46, 27, 18, 0.08);
+  }
+
+  .egg__term {
+    margin: 8px 0 0;
+    padding: 9px 11px;
+    border-radius: 10px;
+    background: #1a100b;
+    color: #f7b23f;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    min-height: 3.2em;
+  }
+
+  .egg__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .egg__choices { display: flex; flex-wrap: wrap; gap: 6px; }
+  .egg__form { display: flex; gap: 6px; width: 100%; }
+  .egg__input {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper);
+    color: var(--ink);
+    font: inherit;
+    font-size: 13.5px;
+  }
+  .egg__input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-t); }
+
+  .egg__btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .egg__btn:hover { border-color: var(--ink); color: var(--ink); }
+  .egg__btn--go {
+    border-color: transparent;
+    background: var(--grad);
+    color: var(--on-accent);
+    box-shadow: 0 2px 0 var(--accent-d);
+  }
+  .egg__btn--go:hover { color: var(--on-accent); filter: brightness(1.06); border-color: transparent; }
+  .egg__btn--allow { border-color: transparent; background: var(--green); color: var(--on-green); }
+  .egg__btn--allow:hover { color: var(--on-green); border-color: transparent; filter: brightness(1.06); }
+  .egg__chip { font-weight: 600; border-style: dashed; }
+
+  .egg__foot { padding: 4px 16px 14px; }
+  .egg__why {
+    margin: 6px 0 10px;
+    min-height: 2.6em;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-dim);
+  }
+  .egg__steps { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .egg__steps li {
+    flex: 1;
+    height: 4px;
+    border-radius: 99px;
+    background: var(--line);
+    transition: background 0.3s ease;
+  }
+  .egg__steps li.on { background: var(--accent); }
+
+  @media (max-width: 420px) {
+    .egg__stage { grid-template-columns: 84px 1fr; }
+    .egg__pet .minnie { width: 84px; height: 84px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .egg { transition: none; }
+  }
+</style>
