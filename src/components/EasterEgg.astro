@@ -190,6 +190,7 @@ const base = import.meta.env.BASE_URL;
     egg.hidden = false;
     requestAnimationFrame(() => egg.classList.add("is-in"));
     try { localStorage.setItem("minnie-egg", "found"); } catch (e) {}
+    window.minnieSecret?.("hey");
     hello();
   }
   function close() {

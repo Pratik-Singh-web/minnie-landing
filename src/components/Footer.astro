@@ -1,6 +1,7 @@
 ---
 import { contactEmail } from "../legal";
 import EasterEgg from "./EasterEgg.astro";
+import Secrets from "./Secrets.astro";
 const base = import.meta.env.BASE_URL;
 const year = new Date().getFullYear();
 
@@ -72,12 +73,14 @@ const cols = [
       <a href={`${base}privacy`}>Privacy</a>
       <a href={`${base}terms`}>Terms</a>
       <a href={`${base}refund`}>Refunds</a>
+      <span class="foot__count" data-secret-count hidden></span>
       <button type="button" class="foot__psst" data-egg title="Say hi">psst… type “hey minnie”</button>
     </div>
   </div>
 </footer>
 
 <EasterEgg />
+<Secrets />
 
 <style>
   .foot {
@@ -139,6 +142,12 @@ const cols = [
   .foot a:hover { color: var(--peach); }
 
   /* The easter egg's hint, and its trigger on phones (no keyboard to type on). */
+  .foot__count {
+    margin-left: auto;
+    font-size: 13px;
+    color: var(--peach);
+  }
+  .foot__count:not([hidden]) + .foot__psst { margin-left: 0; }
   .foot__psst {
     margin-left: auto;
     padding: 0;
