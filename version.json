@@ -1,8 +1,8 @@
 {
-  "latest": "0.9.8",
-  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.8-beta/Minnie-0.9.8-beta.dmg",
-  "sha256": "e3f217bb90f5a113cd1f97415e2c66e9bd6ea5a9470dc43a206f40a178300278",
-  "notes": "Everything since August: browser sign-in for 12 tools, a feedback box, microphone picker and test, and a reworked Brain & Tools. Minnie now needs an account \u2014 1-day trial, then a subscription. Waking, talking and listening stay free.",
+  "latest": "0.9.9",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.9-beta/Minnie-0.9.9-beta.dmg",
+  "sha256": "f56000eeec93d5e9c3aa0ef05ca6787cd4721600a8b890d92c8c4d59cafb46d3",
+  "notes": "Minnie is free — no trial, no card, no subscription. The 1-day trial 0.9.8 announced is gone. Also: a real character (the ember-spirit, now the default), several tasks at once, dark mode, petting, and the “when you’re away” settings, which had never once run.",
   "mandatory": false,
   "minSupportedVersion": ""
 }

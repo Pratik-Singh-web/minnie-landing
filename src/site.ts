@@ -5,7 +5,7 @@
 /** Current beta release. The download page and the app's structured data use it.
  *  Keep in step with version.json in the repo root, which the in-app update
  *  check reads. */
-export const version = "0.9.8";
+export const version = "0.9.9";
 export const dmgURL = `https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v${version}-beta/Minnie-${version}-beta.dmg`;
 
 export const faqs = [
