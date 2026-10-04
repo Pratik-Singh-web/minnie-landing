@@ -1,8 +1,8 @@
 {
-  "latest": "0.9.9",
-  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.9-beta/Minnie-0.9.9-beta.dmg",
-  "sha256": "f56000eeec93d5e9c3aa0ef05ca6787cd4721600a8b890d92c8c4d59cafb46d3",
-  "notes": "Minnie is free — no trial, no card, no subscription. The 1-day trial 0.9.8 announced is gone. Also: a real character (the ember-spirit, now the default), several tasks at once, dark mode, petting, and the “when you’re away” settings, which had never once run.",
+  "latest": "0.9.10",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.10-beta/Minnie-0.9.10-beta.dmg",
+  "sha256": "17b4084ab2b5070a7afbee30fae4a8df84a16284355c22b9625c5934280b52af",
+  "notes": "She flies — say “idhar aa” or “udd ja”, double-click her, press ⌥⇧F, or throw her. And she notices your pointer: stroke her and she lights up. Both were promised in 0.9.9 and were not in it; they are in this one.",
   "mandatory": false,
   "minSupportedVersion": ""
 }
