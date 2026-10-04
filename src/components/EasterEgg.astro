@@ -170,7 +170,7 @@ const base = import.meta.env.BASE_URL;
     explain("I also nap while you focus (⌥Space brings me back) and celebrate when a build goes green.");
     const dl = document.createElement("a");
     dl.className = "egg__btn egg__btn--go";
-    dl.href = `${base}download`;
+    dl.href = `${base}download/`;
     dl.textContent = "Download free for Mac";
     setActions(dl, btn("Again", ask), btn("Nap time", nap));
   }

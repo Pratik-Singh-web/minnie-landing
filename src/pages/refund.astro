@@ -3,8 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import { contactEmail, updated, refundDays } from "../legal";
+import { pageLd } from "../site";
 
 const base = import.meta.env.BASE_URL;
+const site = Astro.site?.href ?? "https://heyminnie.com/";
 
 const h2 = "prose-h2";
 const p = "prose-p";
@@ -15,6 +17,8 @@ const link = "prose-a";
 <Layout
   title="Refund & Cancellation Policy — Minnie"
   description="Minnie is free for life. For optional one-time purchases: a full refund within thirty days, no reason needed, and nothing to cancel."
+  jsonLd={[pageLd({ url: new URL("refund/", site).href, name: "Refund & Cancellation Policy", description: "Minnie is free for life. For optional one-time purchases: a full refund within thirty days, no reason needed, and nothing to cancel.", site, type: "WebPage" })]}
+  breadcrumbs={[{ name: "Refunds", href: `${base}refund/` }]}
 >
   <Navbar />
 
@@ -74,7 +78,7 @@ const link = "prose-a";
       email you paid with and we will find the rest.
     </p>
     <p class={p}>
-      See also the <a class={link} href={`${base}terms`}>Terms of Service</a> and the <a class={link} href={`${base}privacy`}>Privacy Policy</a>.
+      See also the <a class={link} href={`${base}terms/`}>Terms of Service</a> and the <a class={link} href={`${base}privacy/`}>Privacy Policy</a>.
     </p>
   </main>
 

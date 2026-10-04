@@ -1,0 +1,105 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import { getCollection } from "astro:content";
+
+const base = import.meta.env.BASE_URL;
+
+// GitHub Pages serves this file for any unknown path. Before it existed the
+// 404 was Pages' own: no nav, no links, nothing to do but close the tab — so
+// every stale or mistyped link to the site was a dead end.
+const posts = (
+  await getCollection("blog", ({ data }) => import.meta.env.DEV || !data.draft)
+)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+
+const go = [
+  { t: "Download the free beta", href: `${base}download/` },
+  { t: "What Minnie does", href: `${base}#features` },
+  { t: "Read the blog", href: `${base}blog/` },
+  { t: "Get support", href: `${base}support/` },
+];
+---
+
+<Layout
+  title="Page not found — Minnie"
+  description="That page isn't here. Minnie is a free macOS desktop pet that runs the AI coding agent you already use."
+  jsonLd={[]}
+  noindex
+>
+  <Navbar />
+
+  <main class="legal">
+    <a href={base} class="legal__back mono">← back to home</a>
+
+    <h1 class="legal__h1">404</h1>
+    <p class="legal__date mono">That page isn't here.</p>
+
+    <p class="prose-p" style="margin-top:28px;">
+      The link may be old, or it may have a typo. Minnie herself is fine — she's
+      downstairs, waiting. Here's where you probably meant to go:
+    </p>
+
+    <ul class="nf__go">
+      {go.map((g) => <li><a href={g.href}>{g.t}</a></li>)}
+    </ul>
+
+    <h2 class="prose-h2">Latest from the blog</h2>
+    <ul class="nf__posts">
+      {posts.map((post) => (
+        <li>
+          <a href={`${base}blog/${post.id}/`}>{post.data.title}</a>
+          <span>{post.data.description}</span>
+        </li>
+      ))}
+    </ul>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .nf__go {
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .nf__go a {
+    display: inline-block;
+    padding: 10px 16px;
+    border: 3px solid var(--ink);
+    background: var(--paper);
+    color: var(--ink);
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .nf__go a:hover {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+    background: var(--accent-t);
+  }
+  .nf__posts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+  }
+  .nf__posts li { display: grid; gap: 4px; }
+  .nf__posts a {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 2px solid var(--accent);
+    justify-self: start;
+  }
+  .nf__posts a:hover { background: var(--accent-t); }
+  .nf__posts span { font-size: 15px; opacity: 0.75; line-height: 1.5; }
+</style>

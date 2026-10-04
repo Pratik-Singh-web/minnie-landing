@@ -3,8 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import { contactEmail, updated, legalName } from "../legal";
+import { pageLd } from "../site";
 
 const base = import.meta.env.BASE_URL;
+const site = Astro.site?.href ?? "https://heyminnie.com/";
 
 const h2 = "prose-h2";
 const p = "prose-p";
@@ -13,8 +15,10 @@ const link = "prose-a";
 ---
 
 <Layout
-  title="Privacy Policy — Minnie"
+  title="Privacy Policy — what Minnie keeps on your Mac"
   description="Exactly what Minnie sees, what stays on your Mac, and what leaves it. Written against the app's actual behaviour, including the parts that are not local."
+  jsonLd={[pageLd({ url: new URL("privacy/", site).href, name: "Privacy Policy", description: "Exactly what Minnie sees, what stays on your Mac, and what leaves it. Written against the app's actual behaviour, including the parts that are not local.", site, type: "WebPage" })]}
+  breadcrumbs={[{ name: "Privacy", href: `${base}privacy/` }]}
 >
   <Navbar />
 

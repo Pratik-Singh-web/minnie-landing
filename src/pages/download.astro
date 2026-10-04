@@ -4,9 +4,10 @@ import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
 const base = import.meta.env.BASE_URL;
+const site = Astro.site?.href ?? "https://heyminnie.com/";
 
 // Version and DMG link live in src/site.ts (keep in step with version.json).
-import { version, dmgURL } from "../site";
+import { version, dmgURL, pageLd } from "../site";
 const expires = "2 January 2027";
 
 const h2 = "prose-h2";
@@ -17,7 +18,9 @@ const link = "prose-a";
 
 <Layout
   title="Download Minnie for Mac — free AI desktop pet"
-  description="Download the Minnie beta for Apple Silicon Macs. Minnie is a native macOS desktop pet that runs the AI coding agent you already use. Free, with no trial and no subscription."
+  description="Download the free Minnie beta for Apple Silicon Macs — a native desktop pet that runs the AI coding agent you already use. No trial, no subscription."
+  jsonLd={[pageLd({ url: new URL("download/", site).href, name: "Download Minnie for Mac", description: "Download the free Minnie beta for Apple Silicon Macs — a native desktop pet that runs the AI coding agent you already use. No trial, no subscription.", site, type: "WebPage" })]}
+  breadcrumbs={[{ name: "Download", href: `${base}download/` }]}
 >
   <Navbar />
 

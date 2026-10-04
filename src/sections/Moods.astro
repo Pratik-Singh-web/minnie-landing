@@ -11,9 +11,9 @@ const s = `${import.meta.env.BASE_URL}minnie/`;
     </div>
 
     <div class="moods__stickers" id="moods">
-      <span class="moods__s" style="--r:-8deg"><img src={`${s}still-curious.webp`} width="70" height="70" alt="Minnie, curious" /></span>
-      <span class="moods__s" style="--r:4deg"><img src={`${s}still-content.webp`} width="70" height="70" alt="Minnie, content" /></span>
-      <span class="moods__s" style="--r:-3deg"><img src={`${s}still-cheeky.webp`} width="70" height="70" alt="Minnie, cheeky" /></span>
+      <span class="moods__s" style="--r:-8deg"><img src={`${s}still-curious.webp`} width="70" height="70" alt="Minnie, curious" loading="lazy" decoding="async" /></span>
+      <span class="moods__s" style="--r:4deg"><img src={`${s}still-content.webp`} width="70" height="70" alt="Minnie, content" loading="lazy" decoding="async" /></span>
+      <span class="moods__s" style="--r:-3deg"><img src={`${s}still-cheeky.webp`} width="70" height="70" alt="Minnie, cheeky" loading="lazy" decoding="async" /></span>
     </div>
 
     <button type="button" class="moods__btn" id="moods-btn">Say hi <span aria-hidden="true">↓</span></button>

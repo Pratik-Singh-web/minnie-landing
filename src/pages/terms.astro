@@ -3,8 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import { contactEmail, updated, legalName, jurisdiction, refundDays } from "../legal";
+import { pageLd } from "../site";
 
 const base = import.meta.env.BASE_URL;
+const site = Astro.site?.href ?? "https://heyminnie.com/";
 
 const h2 = "prose-h2";
 const p = "prose-p";
@@ -13,8 +15,10 @@ const link = "prose-a";
 ---
 
 <Layout
-  title="Terms of Service — Minnie"
+  title="Terms of Service — Minnie for Mac"
   description="The agreement for using Minnie: a free licence, optional one-time purchases, and what you take responsibility for when an AI agent runs on your Mac."
+  jsonLd={[pageLd({ url: new URL("terms/", site).href, name: "Terms of Service", description: "The agreement for using Minnie: a free licence, optional one-time purchases, and what you take responsibility for when an AI agent runs on your Mac.", site, type: "WebPage" })]}
+  breadcrumbs={[{ name: "Terms", href: `${base}terms/` }]}
 >
   <Navbar />
 
@@ -53,7 +57,7 @@ const link = "prose-a";
       <li>Nothing that is free today will be moved behind a payment.</li>
     </ul>
     <p class={p}>
-      Refunds for purchases are covered by our <a class={link} href={`${base}refund`}>Refund &amp; Cancellation Policy</a> — {refundDays} days, no reason needed.
+      Refunds for purchases are covered by our <a class={link} href={`${base}refund/`}>Refund &amp; Cancellation Policy</a> — {refundDays} days, no reason needed.
     </p>
 
     <h2 class={h2}>What you are responsible for</h2>

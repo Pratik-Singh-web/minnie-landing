@@ -10,16 +10,40 @@ export async function getStaticPaths() {
     ({ data }) => import.meta.env.DEV || !data.draft
   );
 
+  const base = import.meta.env.BASE_URL;
+
+  // Two sibling links per post, ranked by shared tags and then by recency.
+  // Without this, four of the nine posts were dead ends: the only way from one
+  // to another was back out through /blog/, so crawl depth and the link graph
+  // both stopped at the index.
+  const related = (post: (typeof posts)[number]) =>
+    posts
+      .filter((p) => p.id !== post.id)
+      .map((p) => ({
+        p,
+        shared: p.data.tags.filter((t) => post.data.tags.includes(t)).length,
+      }))
+      .sort(
+        (a, b) =>
+          b.shared - a.shared || b.p.data.pubDate.getTime() - a.p.data.pubDate.getTime()
+      )
+      .slice(0, 2)
+      .map(({ p }) => ({
+        href: `${base}blog/${p.id}/`,
+        title: p.data.title,
+        description: p.data.description,
+      }));
+
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post, related: related(post) },
   }));
 }
 
-const { post } = Astro.props;
+const { post, related } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data}>
+<BlogPost {...post.data} related={related}>
   <Content />
 </BlogPost>

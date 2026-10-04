@@ -9,13 +9,22 @@ interface Props {
   pubDate: Date;
   updatedDate?: Date;
   tags?: string[];
+  /** Siblings to link at the foot of the post. Chosen in [...slug].astro by
+   *  shared tags, because most posts carried no link to another post and the
+   *  blog index was the only path between them. */
+  related?: { href: string; title: string; description: string }[];
 }
 
-const { title, description, pubDate, updatedDate, tags = [] } = Astro.props;
+const { title, description, pubDate, updatedDate, tags = [], related = [] } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
 const site = Astro.site?.href ?? "https://heyminnie.com/";
 const url = new URL(Astro.url.pathname, site).href;
+
+// Google truncates a title around 60 characters. Appending " — Minnie" to an
+// already-long headline pushed five posts past that, cutting the brand (or the
+// end of the headline) off in results — so the suffix is added only when it fits.
+const pageTitle = title.length <= 49 ? `${title} — Minnie` : title;
 
 const fmt = (d: Date) =>
   d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
@@ -30,14 +39,32 @@ const postLd = {
   description,
   datePublished: pubDate.toISOString(),
   ...(updatedDate ? { dateModified: updatedDate.toISOString() } : {}),
-  author: { "@type": "Organization", name: "Minnie", url: site },
-  publisher: { "@type": "Organization", name: "Minnie", url: site },
+  ...(tags.length ? { keywords: tags.join(", ") } : {}),
+  inLanguage: "en",
+  author: { "@type": "Person", name: "Pratik Singh", url: "https://x.com/Sym6ol_" },
+  publisher: {
+    "@type": "Organization",
+    name: "Minnie",
+    url: site,
+    logo: new URL(`${base}icon-512x512.png`, site).href,
+  },
   mainEntityOfPage: { "@type": "WebPage", "@id": url },
   image: new URL(`${base}og-image.png`, site).href,
+  isPartOf: { "@type": "Blog", name: "The Minnie blog", url: new URL(`${base}blog/`, site).href },
 };
 ---
 
-<Layout title={`${title} — Minnie`} description={description} jsonLd={[postLd]}>
+<Layout
+  title={pageTitle}
+  description={description}
+  jsonLd={[postLd]}
+  ogType="article"
+  article={{ published: pubDate, modified: updatedDate, tags }}
+  breadcrumbs={[
+    { name: "Blog", href: `${base}blog/` },
+    { name: title, href: Astro.url.pathname },
+  ]}
+>
   <Navbar />
 
   <main class="legal">
@@ -53,7 +80,62 @@ const postLd = {
     <div class="post__body">
       <slot />
     </div>
+
+    {related.length > 0 && (
+      <aside class="post__related">
+        <h2 class="post__related-h">Keep reading</h2>
+        <ul class="post__related-list">
+          {related.map((r) => (
+            <li>
+              <a href={r.href}>{r.title}</a>
+              <span>{r.description}</span>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    )}
   </main>
 
   <Footer />
 </Layout>
+
+<style>
+  .post__related {
+    margin-top: 64px;
+    padding-top: 28px;
+    border-top: 3px solid var(--ink);
+  }
+  .post__related-h {
+    margin: 0 0 18px;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--mono, monospace);
+  }
+  .post__related-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+  }
+  .post__related-list li {
+    display: grid;
+    gap: 4px;
+  }
+  .post__related-list a {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 2px solid var(--accent);
+    justify-self: start;
+  }
+  .post__related-list a:hover { background: var(--accent-t); }
+  .post__related-list span {
+    font-size: 15px;
+    opacity: 0.75;
+    line-height: 1.5;
+  }
+</style>

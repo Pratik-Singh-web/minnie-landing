@@ -12,7 +12,7 @@ const cols = [
       { t: "Features", href: `${base}#features` },
       { t: "Pets", href: `${base}#customize` },
       { t: "Pricing", href: `${base}#pricing` },
-      { t: "Download beta", href: `${base}download` },
+      { t: "Download beta", href: `${base}download/` },
     ],
   },
   {
@@ -29,7 +29,7 @@ const cols = [
     links: [
       { t: "Blog", href: `${base}blog/` },
       { t: "FAQ", href: `${base}#faq` },
-      { t: "Support", href: `${base}support` },
+      { t: "Support", href: `${base}support/` },
       { t: "Send feedback", href: `mailto:${contactEmail}` },
     ],
   },
@@ -48,7 +48,7 @@ const cols = [
     <div class="foot__cols">
       <div>
         <div class="foot__brand">
-          <img class="foot__mark" src={`${base}favicon-96x96.png`} width="40" height="40" alt="" />
+          <img class="foot__mark" src={`${base}favicon-96x96.png`} width="40" height="40" alt="" loading="lazy" decoding="async" />
           <span class="foot__word">minnie</span>
         </div>
         <p class="foot__blurb">A desktop pet for your AI coding agent.<br />She listens, works, and asks first.</p>
@@ -56,7 +56,10 @@ const cols = [
 
       {cols.map((c) => (
         <div>
-          <h4 class="foot__h">{c.h}</h4>
+          {/* h2, not h4: these are top-level labels inside the footer
+              landmark, and an h4 straight after the page's h2s left every
+              page with a broken heading ladder. Styling is on the class. */}
+          <h2 class="foot__h">{c.h}</h2>
           <ul class="foot__links">
             {c.links.map((l) => (
               <li>
@@ -70,9 +73,9 @@ const cols = [
 
     <div class="foot__rule">
       <span>© {year} Minnie</span>
-      <a href={`${base}privacy`}>Privacy</a>
-      <a href={`${base}terms`}>Terms</a>
-      <a href={`${base}refund`}>Refunds</a>
+      <a href={`${base}privacy/`}>Privacy</a>
+      <a href={`${base}terms/`}>Terms</a>
+      <a href={`${base}refund/`}>Refunds</a>
       <span class="foot__count" data-secret-count hidden></span>
       <button type="button" class="foot__psst" data-egg title="Say hi">psst… type “hey minnie”</button>
     </div>

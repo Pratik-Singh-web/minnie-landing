@@ -9,12 +9,12 @@ const base = import.meta.env.BASE_URL;
       <h2 class="h2 final__h">Give your agent<br /><span class="slab">a body.</span></h2>
       <p class="final__p">Free forever. Bring the coding agent you already pay for.</p>
     </div>
-    <a href={`${base}download`} class="btn">Download free for Mac</a>
+    <a href={`${base}download/`} class="btn">Download free for Mac</a>
   </div>
 
   <div class="final__bottom">
     <button type="button" class="final__pet" id="final-pet" aria-label="Pat her">
-      <img src={`${base}minnie/still-curious.webp`} width="62" height="62" alt="" />
+      <img src={`${base}minnie/still-curious.webp`} width="62" height="62" alt="" loading="lazy" decoding="async" />
     </button>
     <span class="final__hint">Pat her</span>
     <span class="quip final__quip" id="final-quip">she'd like that.</span>

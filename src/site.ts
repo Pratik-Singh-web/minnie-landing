@@ -38,3 +38,33 @@ export const faqs = [
     a: "macOS first (macOS 14 or later, Apple Silicon). Windows is on the roadmap.",
   },
 ];
+
+/** Structured data for a page that is NOT the app's home page.
+ *
+ *  Every page used to inherit the home page's SoftwareApplication + FAQPage,
+ *  so the same seven FAQ answers claimed to live at six URLs — the exact
+ *  duplication that gets an FAQ rich result dropped. Pages now pass their own
+ *  node: a WebPage (or a narrower subtype) tied back to the one Organization.
+ */
+export function pageLd(opts: {
+  /** Absolute URL of the page. */
+  url: string;
+  name: string;
+  description: string;
+  /** Site root, used to point at the shared Organization @id. */
+  site: string;
+  /** A narrower schema.org type where one fits, e.g. ContactPage. */
+  type?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": opts.type ?? "WebPage",
+    "@id": opts.url,
+    url: opts.url,
+    name: opts.name,
+    description: opts.description,
+    inLanguage: "en",
+    isPartOf: { "@type": "WebSite", name: "Minnie", url: opts.site },
+    publisher: { "@id": `${opts.site}#org` },
+  };
+}

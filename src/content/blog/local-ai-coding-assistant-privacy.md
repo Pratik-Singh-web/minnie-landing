@@ -1,6 +1,6 @@
 ---
 title: "What a local-first AI coding assistant keeps on your Mac"
-description: "\"Private\" means different things for different AI tools. Here's exactly what Minnie keeps on your Mac, and what your agent's model provider still sees."
+description: "\"Private\" means different things for different AI tools. Exactly what Minnie keeps on your Mac, and what your agent's model provider sees."
 pubDate: 2026-10-02
 updatedDate: 2026-10-03
 tags: ["privacy", "macos", "ai agent"]
