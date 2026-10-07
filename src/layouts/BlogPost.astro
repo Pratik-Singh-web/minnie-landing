@@ -16,9 +16,11 @@ interface Props {
   /** Tags with a hub page to point at. A tag used by only one post has no hub,
    *  so its `href` is undefined and it renders as plain text. */
   tagLinks?: { label: string; href?: string }[];
+  /** This post's generated social card, as a path from the site root. */
+  ogImagePath: string;
 }
 
-const { title, description, pubDate, updatedDate, tags = [], related = [], tagLinks = [] } = Astro.props;
+const { title, description, pubDate, updatedDate, tags = [], related = [], tagLinks = [], ogImagePath } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
 const site = Astro.site?.href ?? "https://heyminnie.com/";
@@ -52,7 +54,7 @@ const postLd = {
     logo: new URL(`${base}icon-512x512.png`, site).href,
   },
   mainEntityOfPage: { "@type": "WebPage", "@id": url },
-  image: new URL(`${base}og-image.png`, site).href,
+  image: new URL(`${base}${ogImagePath}`, site).href,
   isPartOf: { "@type": "Blog", name: "The Minnie blog", url: new URL(`${base}blog/`, site).href },
 };
 ---
@@ -61,6 +63,7 @@ const postLd = {
   title={pageTitle}
   description={description}
   jsonLd={[postLd]}
+  ogImagePath={ogImagePath}
   ogType="article"
   article={{ published: pubDate, modified: updatedDate, tags }}
   breadcrumbs={[

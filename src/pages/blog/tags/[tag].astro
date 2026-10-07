@@ -90,6 +90,7 @@ const hubLd = [
   title={`${Label} — guides from the Minnie blog`}
   description={intro}
   jsonLd={hubLd}
+  ogImagePath={`og/tag-${Astro.params.tag}.png`}
   breadcrumbs={[
     { name: "Blog", href: `${base}blog/` },
     { name: Label, href: Astro.url.pathname },

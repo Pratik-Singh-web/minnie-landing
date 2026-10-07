@@ -22,6 +22,12 @@ interface Props {
    *  every unknown path, so a self-referencing canonical would invite Google
    *  to index "page not found" as if it were a real page. */
   noindex?: boolean;
+  /** Path to a social card, relative to the site root, e.g. "og/<slug>.png".
+   *  Pages that pass one get their own card; everything else shares the hand-
+   *  made og-image.png. Blog pages pass a card generated at build time from
+   *  their own title — thirteen identical previews in a timeline is thirteen
+   *  links nobody clicks. */
+  ogImagePath?: string;
 }
 
 const {
@@ -30,6 +36,7 @@ const {
   article,
   breadcrumbs = [],
   noindex = false,
+  ogImagePath,
   // Leads with what people search for: free, Mac, desktop pet, Claude Code.
   title = "Minnie: free AI desktop pet for Mac that runs Claude Code",
   description = "Minnie is a free-for-life Mac desktop pet that runs your AI coding agent: Claude Code, Gemini CLI or Codex. Talk to her, approve every action. No subscription.",
@@ -40,7 +47,7 @@ const {
 const base = import.meta.env.BASE_URL;
 const site = Astro.site?.href ?? "https://heyminnie.com/";
 const canonical = new URL(Astro.url.pathname, site).href;
-const ogImage = new URL(`${base}og-image.png`, site).href;
+const ogImage = new URL(`${base}${ogImagePath ?? "og-image.png"}`, site).href;
 
 // Cloudflare Web Analytics (cookieless, privacy-first). To enable:
 //   Cloudflare dashboard → Analytics & Logs → Web Analytics → "Add a site" →

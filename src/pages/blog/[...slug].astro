@@ -51,14 +51,14 @@ export async function getStaticPaths() {
 
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: { post, related: related(post), tagLinks: tagLinks(post) },
+    props: { post, related: related(post), tagLinks: tagLinks(post), ogImagePath: `og/${post.id}.png` },
   }));
 }
 
-const { post, related, tagLinks } = Astro.props;
+const { post, related, tagLinks, ogImagePath } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data} related={related} tagLinks={tagLinks}>
+<BlogPost {...post.data} related={related} tagLinks={tagLinks} ogImagePath={ogImagePath}>
   <Content />
 </BlogPost>
