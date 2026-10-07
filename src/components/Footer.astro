@@ -37,7 +37,10 @@ const cols = [
     h: "Connect",
     links: [
       { t: "X (Twitter)", href: "https://x.com/Sym6ol_", ext: true },
-      { t: "GitHub", href: "https://github.com/Pratik-Singh-web/Minnie", ext: true },
+      // No GitHub link: the app repo is private, so the link 404'd for every
+      // visitor who clicked it. Put it back only when that repo is public —
+      // and add it to the Organization `sameAs` in Layout.astro at the same
+      // time, since the two have to agree about where Minnie lives.
     ],
   },
 ];

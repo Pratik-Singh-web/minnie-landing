@@ -88,7 +88,10 @@ const orgLd = {
   name: "Minnie",
   url: site,
   logo,
-  sameAs: ["https://x.com/Sym6ol_", "https://github.com/Pratik-Singh-web/Minnie"],
+  // `sameAs` is a list of profiles Google will FETCH to corroborate this
+  // Organization. The GitHub entry pointed at a private repo, so the one
+  // verification it offered resolved to a 404 — worse than listing nothing.
+  sameAs: ["https://x.com/Sym6ol_"],
 };
 
 const webLd = {
