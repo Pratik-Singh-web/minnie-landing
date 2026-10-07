@@ -214,12 +214,28 @@ export async function renderOgCard({ title, eyebrow, footnote, subtitle, chips =
           ],
         }),
 
+        /* Bottom-RIGHT, not bottom-left.
+         *
+         * X's summary_large_image draws the page title as a dark chip anchored
+         * to the bottom-left corner OF THE IMAGE, over whatever is there. With
+         * the mark on the left it landed across "heyminnie.com" and the date.
+         * Facebook, LinkedIn, Slack and Discord all render the title below the
+         * image and clip nothing, so the left corner is a hazard on exactly one
+         * platform — and it is the platform this audience uses.
+         *
+         * Right-aligning sidesteps it entirely rather than guessing at the
+         * overlay's height, which X is free to change. */
         el("div", {
-          style: { display: "flex", alignItems: "center", padding: "0 72px", gap: 18 },
+          style: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            padding: "0 72px",
+            gap: 18,
+          },
           children: [
-            el("img", { src: mark, width: 64, height: 64, style: { borderRadius: 16 } }),
             el("div", {
-              style: { display: "flex", flexDirection: "column" },
+              style: { display: "flex", flexDirection: "column", alignItems: "flex-end" },
               children: [
                 el("div", {
                   style: { display: "flex", fontSize: 30, fontWeight: 800, color: CREAM, letterSpacing: -0.5 },
@@ -235,6 +251,7 @@ export async function renderOgCard({ title, eyebrow, footnote, subtitle, chips =
                   : []),
               ],
             }),
+            el("img", { src: mark, width: 64, height: 64, style: { borderRadius: 16 } }),
           ],
         }),
       ],
