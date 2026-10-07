@@ -118,7 +118,15 @@ export async function renderOgCard({ title, eyebrow, footnote, subtitle, chips =
         justifyContent: "space-between",
         background: INK,
         fontFamily: "Bricolage",
-        padding: "0 0 56px",
+        /* The 96px bottom gutter is not taste, it is clearance.
+         *
+         * X's title overlay is anchored to the image's bottom edge and is
+         * roughly 75px tall at 1200x630. Right-aligning the domain row was not
+         * enough on its own: the chip's WIDTH scales with the title, and a
+         * 56-character headline makes it span almost the full card. So the row
+         * also sits clear of the band vertically. Measured against the longest
+         * title on the site; shorter ones have more room, never less. */
+        padding: "0 0 96px",
       },
       children: [
         // The flame gradient, as a bar. Same gradient as every CTA on the site,
