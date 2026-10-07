@@ -1,8 +1,8 @@
 ---
 title: "What a local-first AI coding assistant keeps on your Mac"
-description: "\"Private\" means different things for different AI tools. Exactly what Minnie keeps on your Mac, and what your agent's model provider sees."
+description: "\"Private\" means different things for different AI tools. What Minnie keeps on your Mac, what your agent's provider sees, and what to ask any tool."
 pubDate: 2026-10-02
-updatedDate: 2026-10-03
+updatedDate: 2026-10-07
 tags: ["privacy", "macos", "ai agent"]
 draft: false
 ---
@@ -21,17 +21,61 @@ terminal. Minnie adds no new place for your code or your messages to go.
 What Minnie itself collects is small and listed below: anonymous usage analytics,
 which you can switch off, and an account only if you choose to make one.
 
+## The question that actually matters
+
+"Is it private?" is not a useful question, because every vendor answers yes. A
+better one:
+
+> **How many new places does my code go because I installed this?**
+
+Count them. For a tool that bundles its own model, the answer is at least one — the
+tool's own backend — and often more, because the tool's backend then talks to a
+model provider on your behalf, and now two companies have your code instead of one.
+For a tool that drives the agent you already use, the answer can be zero.
+
+That is a structural property, not a policy promise. Policies change at the next
+funding round. Architecture is harder to quietly reverse.
+
+## Where your data actually goes
+
+Worth mapping out, because the parts are easy to conflate:
+
+| What | Where it goes |
+|---|---|
+| Your voice | Transcribed on your Mac. Does not leave it. |
+| Your screen | Nowhere. Never captured. |
+| Your prompt, after transcription | To your agent CLI, locally |
+| Your code and context | From your agent to **its** provider, under your existing account — exactly as in a terminal |
+| Tokens and API keys | macOS Keychain, encrypted by the OS |
+| Tool calls you approve | To that tool. GitHub gets the GitHub request, and nothing else does. |
+| Anonymous usage events | To us. Never content. Switchable off. |
+
+The row that does the heavy lifting is the fourth. Your code goes to Anthropic,
+Google or OpenAI because you chose Claude Code, Gemini CLI or Codex — and it would
+go there whether or not Minnie existed.
+
 ## What stays on your Mac
 
 **Your voice.** Speech recognition runs on device by default, using Apple's local
 speech. Your microphone audio is transcribed on your Mac. You can bring your own key
-for a cloud voice if you prefer, and that is your choice to make.
+for a cloud voice if you prefer, and that is your choice to make — made deliberately,
+rather than being the default nobody mentioned.
 
 **Your screen.** Minnie never captures or records your screen. She sees only what
-you hand her and what your agent reports back.
+you hand her and what your agent reports back. This is worth stating plainly because
+a growing number of AI desktop tools do take screenshots, continuously, as their core
+mechanism. That is a legitimate design — it is also an entirely different privacy
+proposition, and it should be an informed choice rather than a surprise.
 
 **Your secrets.** API keys and connector tokens live in the macOS Keychain,
 encrypted by the operating system, never in plain text.
+
+That last one is a bigger deal than it sounds. The normal way to configure an MCP
+server is a JSON file with the token pasted into it, sitting unencrypted in your home
+directory — which means it is in your backups, it is readable by anything running as
+you, and it is one careless `git add .` from being public. The Keychain is not
+magic, and anything running as you can still ask for access, but it removes the
+plaintext-on-disk problem entirely.
 
 **Your memory.** You can wipe what she remembers about you whenever you like.
 
@@ -42,10 +86,13 @@ Being honest about this matters more than sounding perfectly private:
 - **Your agent talks to its provider.** When Claude Code, Gemini CLI or Codex
   reasons about your code, it sends context to Anthropic, Google or OpenAI under
   your existing account and their terms. Minnie doesn't change that and doesn't add
-  a copy.
+  a copy. If retention matters to you — and for work code it may — that is a
+  question for your agent's provider and your plan with them, where the answer
+  differs considerably between consumer and enterprise tiers.
 - **Tools you approve send what they need.** If you connect GitHub and approve a
   pull request lookup, that request goes to GitHub. Nothing goes out through a tool
-  unless you said yes.
+  unless you said yes. Scoping those tokens properly is covered in [MCP servers,
+  explained](/blog/mcp-servers-for-coding-agents/).
 - **Anonymous usage analytics.** Minnie records which parts of the app get used,
   such as the app launching, an onboarding step finishing or a task completing, so we
   can see where people get stuck. The events are tied to a random id made on
@@ -56,10 +103,40 @@ Being honest about this matters more than sounding perfectly private:
 - **An account, only if you make one.** It's optional. It saves your setup so a new
   Mac can pick up where you left off, and holds your email and licence details.
 
-So the question to ask about any AI coding tool is not "is it private?" but "how
-many new places does my code go?" With Minnie, the answer is none beyond the agent
-and tools you already chose. Your code and your conversations stay out of
-everything Minnie collects.
+So the answer to the question above, for Minnie, is none beyond the agent and tools
+you already chose. Your code and your conversations stay out of everything Minnie
+collects.
+
+## Questions to ask any AI coding tool
+
+Useful well beyond this one. If a vendor cannot answer these in a sentence each,
+that is itself the answer:
+
+1. **Does it have its own model, or does it drive mine?** If its own: your code now
+   goes somewhere new, and that somewhere has its own retention policy.
+2. **Does it capture the screen?** Continuously, or on demand, or never?
+3. **Where does speech get transcribed?** On device, or streamed somewhere?
+4. **Where do my tokens live?** Keychain, or a plaintext config file?
+5. **What is in the telemetry?** "Anonymous" is not an answer. *Content or not
+   content* is the answer.
+6. **Can I turn the telemetry off and keep using the product?** If not, it is not
+   optional.
+7. **Does it work without an account?** An account that is required for a local tool
+   is usually there for someone else's benefit.
+
+## If your code belongs to an employer
+
+Worth a separate thought, because the calculus is different.
+
+The relevant question is usually not about the desktop app at all — it is about which
+model provider your agent talks to, on what plan, and whether your organisation has
+an agreement with them. A companion app that adds no new destination does not change
+your compliance position; one that proxies your code through its own backend very
+much does.
+
+If you are on a managed Mac, note too that Claude Code's permission rules can be set
+centrally and cannot be loosened locally. That is a feature, and it interacts with
+everything here.
 
 ## Why local-first suits a desktop companion
 
@@ -67,6 +144,10 @@ Something that sits on your desktop all day is close to everything you do. That 
 exactly why it shouldn't be watching. Keeping the voice on device, the secrets in
 the Keychain and the screen out of reach means having her around costs you nothing
 in privacy.
+
+There is also a commercial version of this argument, which is in [Why Minnie is
+free](/blog/free-ai-coding-companion-bring-your-own-agent/): a tool that makes no
+money from your usage has no reason to be interested in it.
 
 ## The checklist
 
@@ -76,6 +157,7 @@ in privacy.
 - Usage analytics never include your code, messages or keys, and switch off in one click
 - Secrets in the macOS Keychain
 - Nothing sent through a tool without your yes
+- No account required
 
 The full details are in the [privacy policy](/privacy/).
 

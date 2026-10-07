@@ -825,6 +825,36 @@ textarea {
   border-top: 1px solid var(--line);
 }
 
+/* Markdown tables. Nothing in the blog used one until the posts grew long
+   enough to want a comparison grid, and an unstyled <table> next to this much
+   deliberate type reads as a rendering bug. Borders match the card treatment
+   used everywhere else; the wrapper keeps a wide table from pushing the whole
+   page sideways on a phone. */
+.post__body table {
+  width: 100%;
+  margin: 0 0 20px;
+  border-collapse: collapse;
+  font-size: 15px;
+  display: block;
+  overflow-x: auto;
+}
+.post__body thead th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--sunk);
+  color: var(--ink);
+}
+.post__body th,
+.post__body td {
+  border: 1px solid var(--line);
+  padding: 10px 14px;
+  vertical-align: top;
+}
+
 /* ─── Page rhythm (masko-style layout) ───────────────────────────────────
    Two widths: `.wrap` (1180) for ordinary sections and `.wide` (1280) for the
    panels that sit slightly outside the text column. Every block is separated
