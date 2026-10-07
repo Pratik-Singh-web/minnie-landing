@@ -82,7 +82,12 @@ const pet = () =>
  *  card on the short ones or wraps the long ones to five cramped lines, and
  *  satori gives us no way to measure and re-fit, so the steps are picked
  *  against the real set rather than computed. */
-const titleSize = (t: string) => (t.length <= 42 ? 66 : t.length <= 54 ? 58 : 52);
+const titleSize = (t: string, dense: boolean) => {
+  const base = t.length <= 42 ? 66 : t.length <= 54 ? 58 : 52;
+  // A card carrying a subtitle and chips has roughly a third less vertical
+  // room, so the headline steps down rather than pushing the rest off.
+  return dense ? Math.round(base * 0.82) : base;
+};
 
 const el = (type: string, props: Record<string, unknown>) => ({ type, props });
 
@@ -92,9 +97,15 @@ export interface OgCard {
   eyebrow?: string;
   /** Optional date line next to the domain. */
   footnote?: string;
+  /** A sentence under the headline. Used by the pages that are selling
+   *  something (home, download) rather than the posts, where the headline is
+   *  the whole message and a second paragraph just shrinks it. */
+  subtitle?: string;
+  /** Short claims as pills. Three is the limit the width allows. */
+  chips?: string[];
 }
 
-export async function renderOgCard({ title, eyebrow, footnote }: OgCard): Promise<Buffer> {
+export async function renderOgCard({ title, eyebrow, footnote, subtitle, chips = [] }: OgCard): Promise<Buffer> {
   const petImage = await pet();
 
   const svg = await satori(
@@ -146,7 +157,7 @@ export async function renderOgCard({ title, eyebrow, footnote }: OgCard): Promis
             el("div", {
               style: {
                 display: "flex",
-                fontSize: titleSize(title),
+                fontSize: titleSize(title, Boolean(subtitle)),
                 fontWeight: 800,
                 lineHeight: 1.12,
                 letterSpacing: -1.5,
@@ -157,6 +168,46 @@ export async function renderOgCard({ title, eyebrow, footnote }: OgCard): Promis
               },
               children: title,
             }),
+            ...(subtitle
+              ? [
+                  el("div", {
+                    style: {
+                      display: "flex",
+                      fontSize: 27,
+                      fontWeight: 400,
+                      lineHeight: 1.4,
+                      color: DIM,
+                      marginTop: 20,
+                      maxWidth: 680,
+                    },
+                    children: subtitle,
+                  }),
+                ]
+              : []),
+            ...(chips.length
+              ? [
+                  el("div", {
+                    style: { display: "flex", gap: 12, marginTop: 30 },
+                    children: chips.map((c) =>
+                      el("div", {
+                        style: {
+                          display: "flex",
+                          fontSize: 20,
+                          fontWeight: 400,
+                          color: CREAM,
+                          // No background-image support for borders in satori,
+                          // so the pill is a flat border in the accent, not the
+                          // gradient the site uses on its own chips.
+                          border: `2px solid ${CORAL}`,
+                          borderRadius: 999,
+                          padding: "7px 18px",
+                        },
+                        children: c,
+                      })
+                    ),
+                  }),
+                ]
+              : []),
           ],
         }),
             el("img", { src: petImage, width: 300, height: 300 }),

@@ -38,6 +38,31 @@ export async function getStaticPaths() {
     }));
 
   return [
+    // The two cards that get shared most. The home page previously used a
+    // hand-made og-image.png from the site's PREVIOUS design system — pink and
+    // black, built around the paw icon, with copy that no longer matches the
+    // page ("your agent, now with legs"). The site is warm coral and peach with
+    // Minnie herself, so the most-shared link on the site was advertising a
+    // design that no longer exists.
+    {
+      params: { slug: "home" },
+      props: {
+        title: "Give your AI agent a body.",
+        eyebrow: "Free for Mac · macOS 14+",
+        subtitle:
+          "A desktop pet that runs the AI coding agent you already use — Claude Code, Gemini CLI or Codex.",
+        chips: ["Zero extra AI cost", "On-device voice", "Asks before it acts"],
+      },
+    },
+    {
+      params: { slug: "download" },
+      props: {
+        title: "Download Minnie for Mac",
+        eyebrow: "Free · open beta",
+        subtitle: "No trial, no subscription, no card. Bring the coding agent you already pay for.",
+        chips: ["Apple Silicon", "macOS 14+", "~148 MB"],
+      },
+    },
     {
       params: { slug: "blog" },
       props: {
