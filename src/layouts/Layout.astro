@@ -101,7 +101,13 @@ const orgLd = {
   "@id": `${site}#org`,
   name: "Minnie",
   url: site,
+  /* `logo` stays the square mark — Google wants a square for the knowledge
+   * panel and a 1200x630 card there would be wrong. `image` is the separate
+   * "representative picture" slot, and it is the one an unfurler reaches for.
+   * Leaving it unset let Google fall back to the logo, which is how a share
+   * into Chat ended up as a cropped 512px paw. */
   logo,
+  image: ogImage,
   // `sameAs` is a list of profiles Google will FETCH to corroborate this
   // Organization. The GitHub entry pointed at a private repo, so the one
   // verification it offered resolved to a 404 — worse than listing nothing.
@@ -113,6 +119,7 @@ const webLd = {
   "@type": "WebSite",
   name: "Minnie",
   url: site,
+  image: ogImage,
   publisher: { "@id": `${site}#org` },
 };
 
