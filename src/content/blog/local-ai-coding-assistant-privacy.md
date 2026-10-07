@@ -19,7 +19,7 @@ agent sends your prompts to its own model provider, the same as when you use it 
 terminal. Minnie adds no new place for your code or your messages to go.
 
 What Minnie itself collects is small and listed below: anonymous usage analytics,
-which you can switch off, and an account only if you choose to make one.
+which you can switch off, and the Google sign-in she asks for on setup.
 
 ## The question that actually matters
 
@@ -49,6 +49,7 @@ Worth mapping out, because the parts are easy to conflate:
 | Tokens and API keys | macOS Keychain, encrypted by the OS |
 | Tool calls you approve | To that tool. GitHub gets the GitHub request, and nothing else does. |
 | Anonymous usage events | To us. Never content. Switchable off. |
+| Your sign-in | Google, then us: your email and licence details. Not your code. |
 
 The row that does the heavy lifting is the fourth. Your code goes to Anthropic,
 Google or OpenAI because you chose Claude Code, Gemini CLI or Codex — and it would
@@ -100,8 +101,11 @@ Being honest about this matters more than sounding perfectly private:
   replies, tool arguments, file paths or keys. When a setting changes we record
   which one, never its value. Turn it off in **Settings ▸ Privacy & Safety** and
   Minnie works exactly the same.
-- **An account, only if you make one.** It's optional. It saves your setup so a new
-  Mac can pick up where you left off, and holds your email and licence details.
+- **A Google sign-in.** Minnie asks you to sign in on setup. It holds your email
+  and licence details and saves your setup, so a new Mac picks up where you left
+  off. It is the only thing she asks you for — she asks for it instead of money —
+  and it is worth saying plainly that this is a cost, not a feature: see the
+  question about accounts below, which Minnie does not pass cleanly.
 
 So the answer to the question above, for Minnie, is none beyond the agent and tools
 you already chose. Your code and your conversations stay out of everything Minnie
@@ -121,8 +125,12 @@ that is itself the answer:
    content* is the answer.
 6. **Can I turn the telemetry off and keep using the product?** If not, it is not
    optional.
-7. **Does it work without an account?** An account that is required for a local tool
-   is usually there for someone else's benefit.
+7. **Does it work without an account?** A local tool that requires one should be
+   able to say what it is for. **Minnie does not pass this one cleanly**: she asks
+   you to sign in with Google before she runs. The trade she is offering is an
+   account instead of a payment, and you are entitled to decide that is a bad
+   trade — but you should be told it is the trade, which is why it is written here
+   rather than left out of the list.
 
 ## If your code belongs to an employer
 
@@ -157,7 +165,7 @@ money from your usage has no reason to be interested in it.
 - Usage analytics never include your code, messages or keys, and switch off in one click
 - Secrets in the macOS Keychain
 - Nothing sent through a tool without your yes
-- No account required
+- One Google sign-in, and no card
 
 The full details are in the [privacy policy](/privacy/).
 
