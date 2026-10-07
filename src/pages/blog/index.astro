@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../components/Navbar.astro";
 import Footer from "../../components/Footer.astro";
+import { tagSlug } from "../../site";
 
 const base = import.meta.env.BASE_URL;
 const site = Astro.site?.href ?? "https://heyminnie.com/";
@@ -10,6 +11,18 @@ const site = Astro.site?.href ?? "https://heyminnie.com/";
 const posts = (
   await getCollection("blog", ({ data }) => import.meta.env.DEV || !data.draft)
 ).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+// Topics with a hub page, commonest first. The index is the only page that
+// links to every hub, so without this row the hubs are reachable only from
+// whichever posts happen to carry the tag.
+const tagCount = new Map<string, number>();
+for (const post of posts)
+  for (const t of post.data.tags) tagCount.set(t, (tagCount.get(t) ?? 0) + 1);
+
+const topics = [...tagCount.entries()]
+  .filter(([, n]) => n >= 2)
+  .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  .map(([label, n]) => ({ label, n, href: `${base}blog/tags/${tagSlug(label)}/` }));
 
 const fmt = (d: Date) =>
   d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
@@ -44,6 +57,14 @@ const blogLd = {
     <h1 class="legal__h1">Blog</h1>
     <p class="legal__date mono">Notes from building Minnie</p>
 
+    {topics.length > 0 && (
+      <nav class="topics" aria-label="Browse by topic">
+        {topics.map((t) => (
+          <a class="topics__pill mono" href={t.href}>{t.label} <span>{t.n}</span></a>
+        ))}
+      </nav>
+    )}
+
     {
       posts.length === 0 ? (
         <p class="prose-p" style="margin-top:28px;">Nothing published yet.</p>
@@ -65,3 +86,26 @@ const blogLd = {
 
   <Footer />
 </Layout>
+
+<style>
+  .topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 22px;
+  }
+  .topics__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 12px;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--card, transparent);
+  }
+  .topics__pill:hover { border-color: var(--accent); background: var(--accent-t); }
+  .topics__pill span { opacity: 0.5; }
+</style>

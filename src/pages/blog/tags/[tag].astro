@@ -1,0 +1,122 @@
+---
+/* Topic hubs, one per tag.
+ *
+ * Why these exist: nine posts all hung off a single flat /blog/ index, so the
+ * only shape Google could see was "a blog". A hub per topic gives the cluster a
+ * page to point at — "claude code" and "desktop pet" are the two things this
+ * site is actually about — and turns a tag written in frontmatter into an
+ * internal link instead of decoration.
+ *
+ * A hub with one post on it is just a worse copy of that post, so single-post
+ * tags don't get a page at all (see MIN_POSTS). They still render as plain text
+ * on the post; only the link is withheld. */
+import { getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import Navbar from "../../../components/Navbar.astro";
+import Footer from "../../../components/Footer.astro";
+import { pageLd, tagSlug, tagIntros } from "../../../site";
+
+export async function getStaticPaths() {
+  // A hub needs at least this many posts to be worth indexing. Declared in here
+  // rather than at module scope: Astro evaluates getStaticPaths in isolation, so
+  // a const outside it is not in scope at build time.
+  const MIN_POSTS = 2;
+
+  const posts = (
+    await getCollection("blog", ({ data }) => import.meta.env.DEV || !data.draft)
+  ).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+  const byTag = new Map<string, { label: string; posts: typeof posts }>();
+  for (const post of posts) {
+    for (const tag of post.data.tags) {
+      const slug = tagSlug(tag);
+      if (!slug) continue;
+      const entry = byTag.get(slug) ?? { label: tag, posts: [] };
+      entry.posts.push(post);
+      byTag.set(slug, entry);
+    }
+  }
+
+  return [...byTag.entries()]
+    .filter(([, { posts }]) => posts.length >= MIN_POSTS)
+    .map(([slug, { label, posts }]) => ({
+      params: { tag: slug },
+      props: { label, posts },
+    }));
+}
+
+const { label, posts } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const site = Astro.site?.href ?? "https://heyminnie.com/";
+const url = new URL(Astro.url.pathname, site).href;
+
+// Title case for display; the frontmatter writes tags in lower case so they read
+// as prose, but a page heading that says "claude code" looks like a typo.
+const Label = label.replace(/\b[a-z]/g, (c) => c.toUpperCase());
+
+const intro =
+  tagIntros[label.toLowerCase()] ??
+  `Posts about ${label} from the Minnie blog — notes on running an AI coding agent on a Mac.`;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+
+// CollectionPage + an ItemList of the posts. The list is what tells Google the
+// hub is a real index of this topic rather than a tag cloud entry.
+const hubLd = [
+  pageLd({
+    url,
+    name: `${Label} — the Minnie blog`,
+    description: intro,
+    site,
+    type: "CollectionPage",
+  }),
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `Posts about ${label}`,
+    itemListElement: posts.map((post, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: new URL(`${base}blog/${post.id}/`, site).href,
+      name: post.data.title,
+    })),
+  },
+];
+---
+
+<Layout
+  title={`${Label} — guides from the Minnie blog`}
+  description={intro}
+  jsonLd={hubLd}
+  breadcrumbs={[
+    { name: "Blog", href: `${base}blog/` },
+    { name: Label, href: Astro.url.pathname },
+  ]}
+>
+  <Navbar />
+
+  <main class="legal">
+    <a href={`${base}blog/`} class="legal__back mono">← all posts</a>
+
+    <h1 class="legal__h1">{Label}</h1>
+    <p class="legal__date mono">{posts.length} posts</p>
+
+    <p class="prose-p" style="margin-top:24px;">{intro}</p>
+
+    <ul class="postlist">
+      {posts.map((post) => (
+        <li class="postlist__item">
+          <a class="postlist__link" href={`${base}blog/${post.id}/`}>
+            <span class="postlist__date mono">{fmt(post.data.pubDate)}</span>
+            <h2 class="postlist__title">{post.data.title}</h2>
+            <p class="postlist__desc">{post.data.description}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+
+  <Footer />
+</Layout>

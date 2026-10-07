@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BlogPost from "../../layouts/BlogPost.astro";
+import { tagSlug } from "../../site";
 
 export async function getStaticPaths() {
   // Drafts stay visible on `astro dev` and vanish from the production build,
@@ -11,6 +12,20 @@ export async function getStaticPaths() {
   );
 
   const base = import.meta.env.BASE_URL;
+
+  // Which tags earned a hub page. src/pages/blog/tags/[tag].astro only builds a
+  // hub once a tag has two or more posts, so linking every tag blindly would
+  // point some posts at a 404. Count here and hand the layout a href only where
+  // one exists.
+  const tagCount = new Map<string, number>();
+  for (const p of posts)
+    for (const t of p.data.tags) tagCount.set(t, (tagCount.get(t) ?? 0) + 1);
+
+  const tagLinks = (post: (typeof posts)[number]) =>
+    post.data.tags.map((t) => ({
+      label: t,
+      href: (tagCount.get(t) ?? 0) >= 2 ? `${base}blog/tags/${tagSlug(t)}/` : undefined,
+    }));
 
   // Two sibling links per post, ranked by shared tags and then by recency.
   // Without this, four of the nine posts were dead ends: the only way from one
@@ -36,14 +51,14 @@ export async function getStaticPaths() {
 
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: { post, related: related(post) },
+    props: { post, related: related(post), tagLinks: tagLinks(post) },
   }));
 }
 
-const { post, related } = Astro.props;
+const { post, related, tagLinks } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data} related={related}>
+<BlogPost {...post.data} related={related} tagLinks={tagLinks}>
   <Content />
 </BlogPost>

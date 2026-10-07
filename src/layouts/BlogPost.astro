@@ -13,9 +13,12 @@ interface Props {
    *  shared tags, because most posts carried no link to another post and the
    *  blog index was the only path between them. */
   related?: { href: string; title: string; description: string }[];
+  /** Tags with a hub page to point at. A tag used by only one post has no hub,
+   *  so its `href` is undefined and it renders as plain text. */
+  tagLinks?: { label: string; href?: string }[];
 }
 
-const { title, description, pubDate, updatedDate, tags = [], related = [] } = Astro.props;
+const { title, description, pubDate, updatedDate, tags = [], related = [], tagLinks = [] } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
 const site = Astro.site?.href ?? "https://heyminnie.com/";
@@ -74,7 +77,12 @@ const postLd = {
     <p class="legal__date mono">
       {fmt(pubDate)}
       {updatedDate ? ` · updated ${fmt(updatedDate)}` : ""}
-      {tags.length > 0 ? ` · ${tags.join(" · ")}` : ""}
+      {tagLinks.map((t) => (
+        <>
+          {" · "}
+          {t.href ? <a class="post__tag" href={t.href}>{t.label}</a> : t.label}
+        </>
+      ))}
     </p>
 
     <div class="post__body">
@@ -100,6 +108,12 @@ const postLd = {
 </Layout>
 
 <style>
+  .post__tag {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+  }
+  .post__tag:hover { background: var(--accent-t); }
   .post__related {
     margin-top: 64px;
     padding-top: 28px;

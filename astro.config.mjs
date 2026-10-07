@@ -51,6 +51,9 @@ export default defineConfig({
           priority:
             path === '/' ? 1.0
             : path === '/download/' ? 0.9
+            // Topic hubs index posts; they should not outrank the posts
+            // themselves, so they sit between a post and a policy page.
+            : path.startsWith('/blog/tags/') ? 0.5
             : path.startsWith('/blog/') ? 0.7
             : 0.4,
           changefreq:

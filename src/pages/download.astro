@@ -10,6 +10,56 @@ const site = Astro.site?.href ?? "https://heyminnie.com/";
 import { version, dmgURL, pageLd } from "../site";
 const expires = "2 January 2027";
 
+const downloadURL = new URL("download/", site).href;
+const pageDesc =
+  "Download the free Minnie beta for Apple Silicon Macs — a native desktop pet that runs the AI coding agent you already use. No trial, no subscription.";
+
+// HowTo for the install. The three steps below are the only reason this page
+// needs explaining at all — an unsigned app that wants a Terminal command is
+// where most people give up — and they are also what someone types into a
+// search box ("how to open an app macOS could not verify"). Marking them up
+// means the steps can be answered in the result instead of only on the page.
+//
+// The step text is written out rather than read off the DOM: structured data
+// has to match what a visitor sees, and the visible steps carry markup and a
+// copy button that would make a scraped string nonsense.
+const howToLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Install Minnie on a Mac",
+  description:
+    "Install the Minnie beta on an Apple Silicon Mac, including the step that clears the macOS quarantine flag on an unsigned app.",
+  totalTime: "PT2M",
+  estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: "0" },
+  supply: [
+    { "@type": "HowToSupply", name: "An Apple Silicon Mac running macOS 14 or later" },
+    { "@type": "HowToSupply", name: "An AI coding agent CLI such as Claude Code, already installed and logged in" },
+  ],
+  tool: [{ "@type": "HowToTool", name: "Terminal" }],
+  step: [
+    {
+      "@type": "HowToStep",
+      name: "Open the disk image",
+      text: `Double-click Minnie-${version}-beta.dmg in your Downloads folder.`,
+      url: `${downloadURL}#install`,
+    },
+    {
+      "@type": "HowToStep",
+      name: "Copy the app and clear the quarantine flag",
+      text:
+        "In Terminal, run: ditto --noextattr --norsrc /Volumes/Minnie*/Minnie.app /Applications/Minnie.app, then xattr -dr com.apple.quarantine /Applications/Minnie.app, then open /Applications/Minnie.app. Dragging the app out of the disk image instead copies the quarantine flag with it, which makes the macOS warning stickier than it needs to be.",
+      url: `${downloadURL}#install`,
+    },
+    {
+      "@type": "HowToStep",
+      name: "Find her in the menu bar",
+      text:
+        "Minnie has no Dock icon. Click the paw at the top of your screen to wake her. If macOS says it could not verify the app, open System Settings, then Privacy & Security, scroll to the bottom and click Open Anyway.",
+      url: `${downloadURL}#install`,
+    },
+  ],
+};
+
 const h2 = "prose-h2";
 const p = "prose-p";
 const ul = "prose-ul";
@@ -19,7 +69,10 @@ const link = "prose-a";
 <Layout
   title="Download Minnie for Mac — free AI desktop pet"
   description="Download the free Minnie beta for Apple Silicon Macs — a native desktop pet that runs the AI coding agent you already use. No trial, no subscription."
-  jsonLd={[pageLd({ url: new URL("download/", site).href, name: "Download Minnie for Mac", description: "Download the free Minnie beta for Apple Silicon Macs — a native desktop pet that runs the AI coding agent you already use. No trial, no subscription.", site, type: "WebPage" })]}
+  jsonLd={[
+    pageLd({ url: downloadURL, name: "Download Minnie for Mac", description: pageDesc, site, type: "WebPage" }),
+    howToLd,
+  ]}
   breadcrumbs={[{ name: "Download", href: `${base}download/` }]}
 >
   <Navbar />
@@ -53,7 +106,7 @@ const link = "prose-a";
          ways that vary by machine and OS version; telling someone they'll see no
          warning and then showing them one reads as "this app is broken", which is
          the exact impression this section exists to prevent. -->
-    <h2 class={h2}>Installing</h2>
+    <h2 class={h2} id="install">Installing</h2>
 
     <p class={p}>
       Takes about a minute. <strong>macOS will probably warn you about this app</strong> and

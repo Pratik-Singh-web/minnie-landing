@@ -68,3 +68,37 @@ export function pageLd(opts: {
     publisher: { "@id": `${opts.site}#org` },
   };
 }
+
+/** Tag → URL segment. Tags are written as prose in the frontmatter ("claude
+ *  code"), and a URL cannot carry a space, so every place that builds or reads
+ *  a tag URL has to agree on one transform. This is it. */
+export const tagSlug = (tag: string) =>
+  tag.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+/** One line per tag, used as the hub page's intro and meta description.
+ *
+ *  A hub with nothing but a list of links is a doorway page in Google's eyes;
+ *  a sentence that says what the topic is and why these posts belong together
+ *  is the difference between a page that ranks and one that gets ignored. Tags
+ *  without an entry fall back to a generic line, so adding a tag never breaks
+ *  the build — but a tag worth ranking for deserves its own sentence. */
+export const tagIntros: Record<string, string> = {
+  "claude code": "Guides for running Claude Code on a Mac: voice input, permission prompts, MCP servers, and giving the agent a window of its own.",
+  "desktop pet": "Desktop pets that do more than wander across your wallpaper — what they are, how they behave, and what happens when one is wired to a coding agent.",
+  macos: "Mac-specific notes: Gatekeeper warnings, unsigned apps, on-device speech, the Keychain, and the bits of macOS that an AI agent has to live inside.",
+  voice: "Talking to a coding agent instead of typing at it — how dictation differs from prompting, and what makes a spoken request land.",
+  mcp: "Model Context Protocol: what it is, which servers are worth connecting, and how an agent reaches GitHub, Notion, Slack or your database.",
+  privacy: "What stays on your Mac and what leaves it when you run an AI coding agent — told in specifics, not reassurance.",
+  permissions: "Approving what an agent does: why the prompts exist, what they actually protect, and how to keep them without babysitting a terminal.",
+  security: "The sharp edges of letting an AI agent run commands on a machine you care about.",
+  "gemini cli": "Running Google's Gemini CLI on a Mac, and how it differs from Claude Code in practice.",
+  codex: "Running OpenAI's Codex CLI on a Mac, and where it fits next to Claude Code and Gemini CLI.",
+  "ai agent": "Coding agents as programs that live on your machine: what they can reach, what they cost, and how to keep them legible.",
+  pricing: "What AI coding tools actually cost once you count the model bill underneath the app.",
+  install: "Getting things onto a Mac and running: disk images, quarantine flags, CLIs and first launches.",
+  gatekeeper: "macOS code signing and notarization, and what the warnings do and don't tell you about an app.",
+  prompting: "Writing requests a coding agent understands the first time.",
+  productivity: "Working faster with an agent without losing track of what it did.",
+  integrations: "Wiring a coding agent into the tools you already use.",
+  comparison: "Honest side-by-side looks at the tools in this space, including the ones we don't make.",
+};
