@@ -360,5 +360,18 @@ export async function renderOgCard({ title, badge, eyebrow, footnote, subtitle, 
     { width: WIDTH, height: HEIGHT, fonts }
   );
 
-  return sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
+  /* flatten() before png() matters more than it looks.
+   *
+   * satori emits an SVG with no background of its own, so sharp rasterises it
+   * to RGBA and every card shipped with an alpha channel it had no use for —
+   * the card is opaque ink from edge to edge. Several unfurlers, Google's among
+   * them, quietly drop a transparent PNG rather than compositing it, which
+   * shows up as a preview with no image at all and no error anywhere.
+   *
+   * Flattening onto INK gives a 3-channel PNG that is byte-identical in
+   * appearance and smaller. */
+  return sharp(Buffer.from(svg))
+    .flatten({ background: INK })
+    .png({ compressionLevel: 9 })
+    .toBuffer();
 }
