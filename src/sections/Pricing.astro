@@ -27,6 +27,11 @@ const features = [
   "Your own tools connected over MCP",
   "No trial, no subscription, no card",
 ];
+
+// C6b — what is on sale comes from /catalogue, never from a constant here.
+// Empty is the normal state today and renders nothing.
+import { fetchCatalogue, priceText } from "../catalogue";
+const onSale = await fetchCatalogue();
 ---
 
 <section id="pricing" class="sec">
@@ -60,10 +65,30 @@ const features = [
         <a href={`${import.meta.env.BASE_URL}download/`} class="btn pricing__cta">
           Download Minnie
         </a>
-        <p class="pricing__note">
-          Later: extra characters — a look, moves and a voice of their own —
-          will be one-time purchases. Everything above stays free.
-        </p>
+        {onSale.length === 0 ? (
+          <p class="pricing__note">
+            Later: extra characters — a look, moves and a voice of their own —
+            will be one-time purchases. Everything above stays free.
+          </p>
+        ) : (
+          <div class="pricing__chars">
+            <p class="pricing__note">
+              Optional extra characters — a look, moves and a voice of their own.
+              One-time, never a subscription. Everything above stays free.
+            </p>
+            <ul class="pricing__charlist">
+              {onSale.map((c) => (
+                <li>
+                  <strong>{c.name}</strong>
+                  {c.blurb && <span class="pricing__charblurb"> — {c.blurb}</span>}
+                  {/* No price means not on sale yet. It renders as nothing,
+                      never as "free" and never as a zero. */}
+                  {priceText(c) && <span class="pricing__charprice">{priceText(c)}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   </div>
@@ -173,6 +198,22 @@ const features = [
   /* Sentence case, not the old uppercase micro-type: this is now a sentence
      about what will cost money later, and uppercase at 10.5px is unreadable
      past about six words. */
+  .pricing__charlist {
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+  }
+  .pricing__charlist li {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 0.95rem;
+  }
+  .pricing__charblurb { color: var(--ink-soft); flex: 1; }
+  .pricing__charprice { font-weight: 700; white-space: nowrap; }
+
   .pricing__note {
     margin: 14px 0 0;
     text-align: center;
