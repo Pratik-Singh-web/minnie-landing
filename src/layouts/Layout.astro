@@ -66,7 +66,15 @@ const softwareLd = {
   softwareVersion: version,
   downloadUrl: dmgURL,
   url: site,
-  image: logo,
+  /* `image` is the app's representative picture, and Google's own unfurlers
+   * prefer structured data over Open Graph — Chat was pulling this and
+   * showing the 512px paw icon cropped to a wide box, with "Minnie" from
+   * Organization.name as the title, while og:image sat unread. So it points
+   * at the social card, which is what the link is meant to look like.
+   *
+   * Organization.logo below deliberately still points at the square icon:
+   * that one IS a logo, and Google wants a square mark for it. */
+  image: ogImage,
   screenshot: ogImage,
   description,
   isAccessibleForFree: true,
