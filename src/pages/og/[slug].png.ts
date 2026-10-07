@@ -48,9 +48,13 @@ export async function getStaticPaths() {
       params: { slug: "home" },
       props: {
         title: "Give your AI agent a body.",
-        eyebrow: "Free for Mac · macOS 14+",
+        // "Free" carries the badge rather than sitting in the eyebrow: it is
+        // the claim most likely to stop a scroll, and the one that has to
+        // survive the card being scaled to a thumbnail.
+        badge: "Free forever",
+        eyebrow: "macOS 14+",
         subtitle:
-          "A desktop pet that runs the coding agent you already pay for. Talk to her, watch her work, and say yes before she touches anything.",
+          "A desktop pet that runs the coding agent you already pay for. No subscription, no card, no second AI bill.",
         bubble: "\u201CI want to run pytest. Ok?\u201D",
         worksWith: ["Claude Code", "Gemini CLI", "Codex"],
       },
@@ -59,7 +63,8 @@ export async function getStaticPaths() {
       params: { slug: "download" },
       props: {
         title: "Download Minnie for Mac",
-        eyebrow: "Free · open beta",
+        badge: "Free forever",
+        eyebrow: "Open beta",
         subtitle: "No trial, no subscription, no card. Bring the coding agent you already pay for.",
         chips: ["Apple Silicon", "macOS 14+", "~148 MB"],
       },

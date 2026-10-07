@@ -93,6 +93,11 @@ const el = (type: string, props: Record<string, unknown>) => ({ type, props });
 
 export interface OgCard {
   title: string;
+  /** A filled pill, drawn before the eyebrow. For the one claim that should
+   *  survive being scaled to a thumbnail — on this site, that it costs nothing.
+   *  Set in CORAL with INK text: the palette notes that white on coral is
+   *  3.7:1 and fails, which is why --on-accent is the dark ink. */
+  badge?: string;
   /** Small line above the headline — a tag, or a section name. */
   eyebrow?: string;
   /** Optional date line next to the domain. */
@@ -115,7 +120,7 @@ export interface OgCard {
   worksWith?: string[];
 }
 
-export async function renderOgCard({ title, eyebrow, footnote, subtitle, chips = [], bubble, worksWith = [] }: OgCard): Promise<Buffer> {
+export async function renderOgCard({ title, badge, eyebrow, footnote, subtitle, chips = [], bubble, worksWith = [] }: OgCard): Promise<Buffer> {
   const petImage = await pet();
 
   const svg = await satori(
@@ -156,19 +161,45 @@ export async function renderOgCard({ title, eyebrow, footnote, subtitle, chips =
         el("div", {
           style: { display: "flex", flexDirection: "column", flexGrow: 1, justifyContent: "center" },
           children: [
-            ...(eyebrow
+            ...(badge || eyebrow
               ? [
                   el("div", {
-                    style: {
-                      display: "flex",
-                      fontSize: 22,
-                      fontWeight: 400,
-                      letterSpacing: 2.5,
-                      textTransform: "uppercase",
-                      color: PEACH,
-                      marginBottom: 22,
-                    },
-                    children: eyebrow,
+                    style: { display: "flex", alignItems: "center", gap: 16, marginBottom: 22 },
+                    children: [
+                      ...(badge
+                        ? [
+                            el("div", {
+                              style: {
+                                display: "flex",
+                                background: CORAL,
+                                color: INK,
+                                fontSize: 21,
+                                fontWeight: 800,
+                                letterSpacing: 1.5,
+                                textTransform: "uppercase",
+                                borderRadius: 999,
+                                padding: "8px 20px",
+                              },
+                              children: badge,
+                            }),
+                          ]
+                        : []),
+                      ...(eyebrow
+                        ? [
+                            el("div", {
+                              style: {
+                                display: "flex",
+                                fontSize: 22,
+                                fontWeight: 400,
+                                letterSpacing: 2.5,
+                                textTransform: "uppercase",
+                                color: PEACH,
+                              },
+                              children: eyebrow,
+                            }),
+                          ]
+                        : []),
+                    ],
                   }),
                 ]
               : []),
@@ -196,7 +227,10 @@ export async function renderOgCard({ title, eyebrow, footnote, subtitle, chips =
                       lineHeight: 1.4,
                       color: DIM,
                       marginTop: 20,
-                      maxWidth: 680,
+                      // Wide enough for the home subtitle to set on two lines.
+                      // At 680 it broke to three and orphaned a single word,
+                      // which on a card this size reads as a mistake.
+                      maxWidth: 726,
                     },
                     children: subtitle,
                   }),
