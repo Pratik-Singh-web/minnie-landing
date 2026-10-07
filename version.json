@@ -1,8 +1,8 @@
 {
-  "latest": "0.9.10",
-  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.10-beta/Minnie-0.9.10-beta.dmg",
-  "sha256": "17b4084ab2b5070a7afbee30fae4a8df84a16284355c22b9625c5934280b52af",
-  "notes": "She flies — say “idhar aa” or “udd ja”, double-click her, press ⌥⇧F, or throw her. And she notices your pointer: stroke her and she lights up. Both were promised in 0.9.9 and were not in it; they are in this one.",
+  "latest": "0.9.11",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.11-beta/Minnie-0.9.11-beta.dmg",
+  "sha256": "030bf05bc7fabb8315a88852c05be3cfae45bb03706db5e74b0fca63d78785e2",
+  "notes": "Minnie now asks you to sign in. She is still free, and always will be — the account is what she asks for instead of money. If Google can't be reached she still runs. One thing to expect: an update can sign you out (the build is unsigned), and she won't ask twice.",
   "mandatory": false,
   "minSupportedVersion": ""
 }
