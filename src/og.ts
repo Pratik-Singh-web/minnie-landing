@@ -103,9 +103,19 @@ export interface OgCard {
   subtitle?: string;
   /** Short claims as pills. Three is the limit the width allows. */
   chips?: string[];
+  /** A line of hers, drawn as a speech bubble beside her.
+   *
+   *  The home card's job is to explain the product in one glance, and the thing
+   *  that actually distinguishes it is not "desktop pet" — plenty of those —
+   *  but that she stops and asks before doing anything irreversible. A list of
+   *  features cannot show that; her asking can. */
+  bubble?: string;
+  /** Agent names for the "works with" line. Sits inside the text column, not
+   *  along the bottom, because the bottom-left belongs to X's title overlay. */
+  worksWith?: string[];
 }
 
-export async function renderOgCard({ title, eyebrow, footnote, subtitle, chips = [] }: OgCard): Promise<Buffer> {
+export async function renderOgCard({ title, eyebrow, footnote, subtitle, chips = [], bubble, worksWith = [] }: OgCard): Promise<Buffer> {
   const petImage = await pet();
 
   const svg = await satori(
@@ -216,9 +226,58 @@ export async function renderOgCard({ title, eyebrow, footnote, subtitle, chips =
                   }),
                 ]
               : []),
+            ...(worksWith.length
+              ? [
+                  el("div", {
+                    style: { display: "flex", alignItems: "center", gap: 14, marginTop: 34 },
+                    children: [
+                      el("div", {
+                        style: {
+                          display: "flex",
+                          fontSize: 17,
+                          letterSpacing: 2,
+                          textTransform: "uppercase",
+                          color: DIM,
+                        },
+                        children: "Works with",
+                      }),
+                      el("div", {
+                        style: { display: "flex", fontSize: 22, fontWeight: 800, color: CREAM },
+                        children: worksWith.join("  ·  "),
+                      }),
+                    ],
+                  }),
+                ]
+              : []),
           ],
         }),
-            el("img", { src: petImage, width: 300, height: 300 }),
+            // Her column: the bubble sits above her, so the eye goes line →
+            // character → what she is saying, which is the product in order.
+            el("div", {
+              style: { display: "flex", flexDirection: "column", alignItems: "center" },
+              children: [
+                ...(bubble
+                  ? [
+                      el("div", {
+                        style: {
+                          display: "flex",
+                          maxWidth: 300,
+                          background: CREAM,
+                          color: INK,
+                          fontSize: 23,
+                          fontWeight: 800,
+                          lineHeight: 1.3,
+                          borderRadius: 22,
+                          padding: "16px 22px",
+                          marginBottom: 14,
+                        },
+                        children: bubble,
+                      }),
+                    ]
+                  : []),
+                el("img", { src: petImage, width: bubble ? 240 : 300, height: bubble ? 240 : 300 }),
+              ],
+            }),
           ],
         }),
 

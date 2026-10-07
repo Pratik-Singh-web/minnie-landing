@@ -50,8 +50,9 @@ export async function getStaticPaths() {
         title: "Give your AI agent a body.",
         eyebrow: "Free for Mac · macOS 14+",
         subtitle:
-          "A desktop pet that runs the AI coding agent you already use — Claude Code, Gemini CLI or Codex.",
-        chips: ["Zero extra AI cost", "On-device voice", "Asks before it acts"],
+          "A desktop pet that runs the coding agent you already pay for. Talk to her, watch her work, and say yes before she touches anything.",
+        bubble: "\u201CI want to run pytest. Ok?\u201D",
+        worksWith: ["Claude Code", "Gemini CLI", "Codex"],
       },
     },
     {
