@@ -1,0 +1,117 @@
+---
+// The unsubscribe that works for someone who has deleted the app (C4b).
+//
+// It needs no sign-in and no Minnie — the token in the link is the credential.
+// MONETIZATION_V3_PLAN §7 makes a working one a hard gate on sending the first
+// marketing email at all, so this page exists before any email does.
+//
+// ⚠️ The button POSTs. Mail clients and corporate scanners FETCH links, so a
+// page that unsubscribed on load would unsubscribe people by software they
+// never asked to act for them. A human presses it, or nothing happens.
+//
+// Deliberately NOT in the footer nav: the only way here is a link in an email.
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import { contactEmail } from "../legal";
+
+const base = import.meta.env.BASE_URL;
+const endpoint = "https://wytvopdirhaszdeqdtau.supabase.co/functions/v1/unsubscribe";
+
+const h2 = "prose-h2";
+const p = "prose-p";
+const link = "prose-a";
+---
+
+<Layout
+  title="Unsubscribe from Minnie emails"
+  description="Stop receiving emails about Minnie. One click, no sign-in, and it does not affect the app or anything you have bought."
+  noindex={true}
+>
+  <Navbar />
+
+  <main class="legal">
+    <a href={base} class="legal__back mono">← back to home</a>
+
+    <h1 class="legal__h1">Unsubscribe</h1>
+
+    <p class={p} style="margin-top:28px;" id="intro">
+      This stops the occasional email about Minnie — new characters, big changes.
+      Nothing else changes: the app keeps working exactly as it does now, you stay
+      signed in, and anything you have bought stays yours.
+    </p>
+
+    <p style="margin:28px 0 12px;">
+      <button class="btn" id="go" type="button">Unsubscribe me</button>
+    </p>
+
+    <p class={p} id="result" role="status" aria-live="polite"></p>
+
+    <h2 class={h2}>Receipts are separate</h2>
+    <p class={p}>
+      If you ever buy something, the receipt comes from our payment provider
+      because you bought it. This does not stop those, and nothing can — they are
+      the record of a transaction, not marketing.
+    </p>
+
+    <h2 class={h2}>If the link has stopped working</h2>
+    <p class={p}>
+      Email <a class={link} href={`mailto:${contactEmail}`}>{contactEmail}</a> from
+      the address you want removed and a person will do it by hand. You do not have
+      to explain why.
+    </p>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script define:vars={{ endpoint }}>
+  const token = new URLSearchParams(location.search).get("t")
+             ?? new URLSearchParams(location.search).get("token");
+  const go = document.getElementById("go");
+  const out = document.getElementById("result");
+
+  function say(msg, ok) {
+    out.textContent = msg;
+    out.style.color = ok ? "var(--ink)" : "var(--ink-soft)";
+  }
+
+  if (!token) {
+    go.disabled = true;
+    say("This page needs the link from the email — it carries the bit that says which address to remove. If you have lost it, write to us instead.", false);
+  }
+
+  go?.addEventListener("click", async () => {
+    go.disabled = true;
+    const was = go.textContent;
+    go.textContent = "Working…";
+    try {
+      const r = await fetch(endpoint, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (d.ok) {
+        go.remove();
+        say(d.email
+          ? `Done — ${d.email} will not get marketing email from us again.`
+          : "Done — that address will not get marketing email from us again.", true);
+      } else if (r.status === 404) {
+        // Honest rather than reassuring: a link that does not match anything is
+        // not the same as "you are unsubscribed", and saying so would be a lie
+        // that leaves someone still on a list.
+        say("That link does not match anything we hold. It may already have been used, or the account may have been deleted — either way you are not on the list. If you still get email, write to us.", false);
+        go.textContent = was;
+      } else {
+        say("Something went wrong at our end, and your request was not recorded. Try again in a minute, or email us and a person will do it by hand.", false);
+        go.disabled = false;
+        go.textContent = was;
+      }
+    } catch {
+      say("Could not reach us — check your connection and try again, or email us and a person will do it by hand.", false);
+      go.disabled = false;
+      go.textContent = was;
+    }
+  });
+</script>
