@@ -79,8 +79,9 @@ Everything she does today, permanently:
 - Your tools connected over MCP
 - No trial, no subscription, no card
 
-An account is optional. It only saves your setup so a new Mac can pick up where you
-left off.
+Minnie asks you to sign in with Google. That is the only thing she asks for — it is
+free, nothing is charged now or later, and it is what lets your setup follow you to a
+new Mac or a reinstall.
 
 ## "Free" is a claim, so here is the business model
 

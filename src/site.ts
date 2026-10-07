@@ -27,7 +27,7 @@ export const faqs = [
   },
   {
     q: "Do I need to set anything up?",
-    a: "Install the agent CLI once (Claude Code, say) and log in. Minnie's onboarding walks you through the rest.",
+    a: "Two things, both one-off. Sign in to Minnie with Google — that is free and it is the only thing she asks for — and install the agent CLI you want her to drive (Claude Code, say) and log into that. Her onboarding walks you through both.",
   },
   {
     q: "Can I connect my own tools?",
