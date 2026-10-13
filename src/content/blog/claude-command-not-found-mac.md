@@ -1,9 +1,9 @@
 ---
 title: "zsh: command not found: claude on Mac, fixed"
 description: "Claude Code installed fine, and your Mac still says command not found. The five causes, in the order to check them, with the exact commands for zsh and bash."
-pubDate: 2026-10-27
+pubDate: 2026-10-14
 tags: ["claude code", "macos", "install"]
-draft: true
+draft: false
 ---
 
 You ran the installer, it finished without complaining, and then:

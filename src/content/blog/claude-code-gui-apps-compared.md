@@ -83,6 +83,8 @@ behaviour with the agent's state, typically wired up over MCP or hooks.
 
 They are charming, they are cheap to try, and they solve exactly the first half
 of problem 1 — *is it running?* — without pretending to solve anything else.
+There are more of them than there were a few months ago. We compare them in
+[Claude Code /buddy is gone. These pets replaced it](/blog/claude-code-buddy-pets/).
 
 ## Where Minnie fits
 

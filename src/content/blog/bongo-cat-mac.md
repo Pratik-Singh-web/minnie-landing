@@ -1,9 +1,9 @@
 ---
 title: "Bongo Cat on Mac: Steam vs the free open-source app"
 description: "There are two Bongo Cats, and both now run on a Mac. Which one to install, the permission macOS asks for, and why you should care what reads your keystrokes."
-pubDate: 2026-10-20
+pubDate: 2026-10-14
 tags: ["desktop pet", "macos", "install"]
-draft: true
+draft: false
 ---
 
 Bongo Cat is the cat that slaps the desk every time you press a key. It

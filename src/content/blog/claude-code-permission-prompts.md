@@ -171,6 +171,11 @@ Because the question follows you instead of waiting in the terminal, you stop
 being tempted to approve everything up front. The safe default stays the easy
 default — which is the only way a safe default survives contact with a deadline.
 
+If you would rather stay in the terminal, hooks can at least tell you a prompt
+is waiting. [Claude Code notifications on Mac: why they don't
+fire](/blog/claude-code-notifications-mac/) has a setup that alerts you the
+moment Claude asks, and only when you are not already looking.
+
 She also shows state the rest of the time, which solves the quieter half of the
 problem: knowing whether the agent is working, finished, or stuck waiting on you.
 There is more on why a desktop character is a good fit for that in

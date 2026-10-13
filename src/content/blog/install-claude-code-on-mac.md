@@ -2,6 +2,7 @@
 title: "Install Claude Code on a Mac, start to finish"
 description: "The short path to a working Claude Code on macOS: which installer to use, how to log in, what to do in your first repo, and what usually goes wrong."
 pubDate: 2026-10-07
+updatedDate: 2026-10-14
 tags: ["claude code", "macos", "install"]
 draft: false
 ---
@@ -96,10 +97,12 @@ a coding agent "not understanding the project" are a missing CLAUDE.md.
 
 ## The three things that go wrong
 
-**`claude: command not found` after a successful install.** The installer added a
-directory to your `PATH` in a shell config file that your current terminal had
-already read. Open a new window. If it persists, `claude doctor` will tell you
-which file it wrote to and whether your shell actually sources it.
+**`claude: command not found` after a successful install.** The installer put
+`claude` in `~/.local/bin`, but it does not add that folder to your `PATH`. It
+prints the line to add instead, and it is easy to scroll past. Add it to
+`~/.zshrc` (or `~/.bash_profile` for bash), then open a new window.
+[zsh: command not found: claude on Mac, fixed](/blog/claude-command-not-found-mac/)
+walks through this and the four other causes.
 
 **Two installs fighting.** `which -a claude` lists every one on your `PATH`. If
 there is more than one, remove all but the one you intend to keep.

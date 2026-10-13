@@ -2,6 +2,7 @@
 title: "Desktop pets for Mac: Shimeji, Bongo Cat and co"
 description: "A guide to desktop pets on macOS — the classics, the modern open-source ones, and the new kind that are wired to something real on your machine."
 pubDate: 2026-10-07
+updatedDate: 2026-10-13
 tags: ["desktop pet", "macos", "comparison"]
 draft: false
 ---
@@ -21,14 +22,21 @@ On a Mac in 2026 there are three groups worth knowing about.
 multiplies if you let it — and it spawned thousands of fan-made skins. The
 original is Java-based, which on a modern Mac is a nuisance.
 
-**Shijima** is the fix. It is a Shimeji simulator with no Java dependency, and it
-runs on macOS, Windows, Linux, iOS and Android. If you want the Shimeji
-experience on an Apple Silicon Mac, this is the sane way to get it.
+**Shijima** was the fix: a Shimeji simulator with no Java dependency, with a
+native Apple Silicon build for the Mac. Its developer discontinued the desktop
+version in 2026. The last build still runs, but nothing new is coming. We
+walk through it and the alternatives in [Shimeji on Mac in 2026: what still
+works](/blog/shimeji-mac/).
 
 **Bongo Cat** is the other classic: the cat that slaps the desk in time with your
 keystrokes. The widely used cross-platform build is open source, works offline,
-and collects nothing. It is a metronome for your typing and it is very good at
-being exactly that.
+collects nothing, and ships a native Apple Silicon download. It is a metronome
+for your typing and it is very good at being exactly that.
+
+**Desktop Goose** is the chaotic one. It honks, tracks mud across your windows
+and steals your cursor. The Mac build dates from 2020 and has a Rosetta
+problem coming, which we cover in [Desktop Goose on Mac: does it still work in
+2026?](/blog/desktop-goose-mac/)
 
 ## The modern ones
 
@@ -62,7 +70,9 @@ more information, faster, than a terminal you are not looking at.
 **OpenPets** and **Claudlet** both work this way: a companion on your desktop
 wired to a coding agent, usually over MCP or hooks, showing live agent state.
 They are small, free, and worth ten minutes of your time if you are curious about
-the idea.
+the idea. There are more of them every month. [Claude Code /buddy is gone.
+These pets replaced it](/blog/claude-code-buddy-pets/) compares the current
+crop.
 
 ## Minnie
 
@@ -88,8 +98,8 @@ reasoning — so there is no second bill. The app is free for life.
 ## Which should you install?
 
 - **You want a cute thing on your desktop and nothing more** → Shijima for the
-  Shimeji classic, Bongo Cat for the typing metronome, Paw-Paw for something that
-  feels Mac-native.
+  Shimeji classic (while it lasts), Bongo Cat for the typing metronome, Paw-Paw
+  for something that feels Mac-native.
 - **You want several pets roaming at once** → DPET.
 - **You run a coding agent and keep losing track of it** → OpenPets or Claudlet
   for state at a glance, or [Minnie](/download/) if you also want to talk to it

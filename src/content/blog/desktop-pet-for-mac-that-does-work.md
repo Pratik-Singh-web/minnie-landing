@@ -51,6 +51,9 @@ continues.
 Worse, an agent generates far too many events. Notify on every tool call and you
 have built a machine for training people to dismiss notifications without reading
 them, which is a bad outcome for every other notification on the machine too.
+(If you do want notifications, set them up so they fire only on the two events
+that matter. [Claude Code notifications on Mac](/blog/claude-code-notifications-mac/)
+shows how.)
 
 The alternative everyone reaches for second is a menu bar indicator. Better — it is
 persistent, it is always visible — but it has about four pixels of bandwidth. It can
