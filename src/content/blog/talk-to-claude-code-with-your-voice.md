@@ -5,6 +5,10 @@ pubDate: 2026-09-10
 updatedDate: 2026-10-07
 tags: ["claude code", "voice", "macos"]
 draft: false
+hero:
+  motif: "voice"
+  lines: ["Minnie, why is this test failing?"]
+  pose: "float"
 ---
 
 Claude Code lives in a terminal. That is the right call for a coding agent — it

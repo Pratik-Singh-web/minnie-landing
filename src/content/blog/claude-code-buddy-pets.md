@@ -4,6 +4,11 @@ description: "Anthropic's /buddy terminal pet lasted a week in April 2026. What 
 pubDate: 2026-10-13
 tags: ["claude code", "desktop pet", "comparison"]
 draft: false
+hero:
+  motif: "desktop"
+  lines: ["Claude Code"]
+  bubble: "Still working…"
+  pose: "sit"
 ---
 
 For about a week in April 2026, Claude Code had a pet. You typed `/buddy`, an

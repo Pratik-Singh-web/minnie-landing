@@ -5,6 +5,11 @@ pubDate: 2026-10-02
 updatedDate: 2026-10-07
 tags: ["desktop pet", "macos", "ai agent"]
 draft: false
+hero:
+  motif: "dialog"
+  lines: ["Minnie wants to run", "pytest -q"]
+  bubble: "Run the tests. Ok?"
+  pose: "stand"
 ---
 
 If you used a computer in the late nineties, you probably remember desktop pets: a

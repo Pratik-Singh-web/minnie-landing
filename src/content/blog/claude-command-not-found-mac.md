@@ -4,6 +4,10 @@ description: "Claude Code installed fine, and your Mac still says command not fo
 pubDate: 2026-10-14
 tags: ["claude code", "macos", "install"]
 draft: false
+hero:
+  motif: "terminal"
+  lines: ["$ claude", "zsh: command not found: claude", "$ which -a claude"]
+  pose: "stand"
 ---
 
 You ran the installer, it finished without complaining, and then:

@@ -4,6 +4,9 @@ description: "How claude --worktree works, the setup step everyone skips, what h
 pubDate: 2026-10-21
 tags: ["claude code", "productivity"]
 draft: true
+hero:
+  motif: terminal
+  lines: ["$ claude --worktree feature-auth", "Created .claude/worktrees/feature-auth", "$ claude -w fix-login-bug"]
 ---
 
 Sooner or later you want two Claude Code sessions at once. One builds a

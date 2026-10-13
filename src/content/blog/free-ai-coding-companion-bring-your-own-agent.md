@@ -5,6 +5,11 @@ pubDate: 2026-10-02
 updatedDate: 2026-10-07
 tags: ["pricing", "ai agent", "macos"]
 draft: false
+hero:
+  motif: "terminal"
+  lines: ["$ claude", "$ gemini", "$ codex"]
+  bubble: "No second AI bill"
+  pose: "rest"
 ---
 
 A lot of AI apps have the same pricing shape: a subscription for the app, with the

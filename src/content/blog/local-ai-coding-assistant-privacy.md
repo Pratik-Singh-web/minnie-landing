@@ -5,6 +5,11 @@ pubDate: 2026-10-02
 updatedDate: 2026-10-07
 tags: ["privacy", "macos", "ai agent"]
 draft: false
+hero:
+  motif: "terminal"
+  lines: ["$ ls ~/.claude", "$ cat ~/.claude/settings.json"]
+  bubble: "Stays on your Mac"
+  pose: "rest"
 ---
 
 Almost every AI tool says it is private. That word covers very different things,

@@ -4,6 +4,11 @@ description: "Claude Code only sends desktop alerts in three terminals, and its 
 pubDate: 2026-10-13
 tags: ["claude code", "macos", "permissions"]
 draft: false
+hero:
+  motif: "terminal"
+  lines: ["{", "  \"preferredNotifChannel\":", "    \"terminal_bell\"", "}"]
+  bubble: "Done! Come look."
+  pose: "float"
 ---
 
 You give Claude Code a task, switch to your browser, and come back ten minutes

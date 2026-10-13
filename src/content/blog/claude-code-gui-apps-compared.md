@@ -4,6 +4,11 @@ description: "Claude Code is a terminal tool, so every interface around it is th
 pubDate: 2026-10-07
 tags: ["claude code", "comparison", "macos"]
 draft: false
+hero:
+  motif: "desktop"
+  lines: ["Claude Code"]
+  bubble: "A face for your terminal"
+  pose: "stand"
 ---
 
 Claude Code is a command-line tool. That is a deliberate choice and a good one —

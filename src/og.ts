@@ -33,11 +33,11 @@ const HEIGHT = 630;
 
 // Values mirror :root in global.css. The dark card is the site's --band, not a
 // neutral black — the whole palette is warm and a grey card looks borrowed.
-const INK = "#2e1b12";
-const CREAM = "#fffcf7";
-const PEACH = "#f7b23f";
-const CORAL = "#e05c18";
-const DIM = "#c9b3a4";
+export const INK = "#2e1b12";
+export const CREAM = "#fffcf7";
+export const PEACH = "#f7b23f";
+export const CORAL = "#e05c18";
+export const DIM = "#c9b3a4";
 
 /* Paths resolve from the project root, NOT from `import.meta.url`.
  *
@@ -45,11 +45,11 @@ const DIM = "#c9b3a4";
  * run, so at read time `import.meta.url` points at the chunk and every relative
  * path below it is wrong. `process.cwd()` is the project root for both
  * `astro dev` and `astro build`, which is the only time this code runs. */
-const fromRoot = (...parts: string[]) => join(process.cwd(), ...parts);
+export const fromRoot = (...parts: string[]) => join(process.cwd(), ...parts);
 
 const font = (file: string) => readFileSync(fromRoot("src", "assets", "fonts", file));
 
-const fonts = [
+export const fonts = [
   { name: "Bricolage", data: font("BricolageGrotesque-Regular.ttf"), weight: 400 as const, style: "normal" as const },
   { name: "Bricolage", data: font("BricolageGrotesque-ExtraBold.ttf"), weight: 800 as const, style: "normal" as const },
 ];

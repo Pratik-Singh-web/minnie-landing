@@ -4,6 +4,11 @@ description: "There are two Bongo Cats, and both now run on a Mac. Which one to 
 pubDate: 2026-10-14
 tags: ["desktop pet", "macos", "install"]
 draft: false
+hero:
+  motif: desktop
+  lines: ["Bongo Cat"]
+  bubble: "Tap tap tap!"
+  pose: sit
 ---
 
 Bongo Cat is the cat that slaps the desk every time you press a key. It

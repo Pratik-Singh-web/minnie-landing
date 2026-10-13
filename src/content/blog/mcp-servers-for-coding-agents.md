@@ -5,6 +5,10 @@ pubDate: 2026-10-02
 updatedDate: 2026-10-07
 tags: ["mcp", "claude code", "integrations"]
 draft: false
+hero:
+  motif: "terminal"
+  lines: ["$ claude mcp list", "> /mcp"]
+  pose: "float"
 ---
 
 A coding agent that can only see your repository is useful. One that can also check

@@ -5,6 +5,10 @@ pubDate: 2026-10-02
 updatedDate: 2026-10-07
 tags: ["macos", "gatekeeper", "install"]
 draft: false
+hero:
+  motif: "terminal"
+  lines: ["$ cd /Applications", "$ xattr -l SomeApp.app", "$ spctl -a -vv SomeApp.app"]
+  pose: "stand"
 ---
 
 If you've downloaded an app from outside the Mac App Store, you've probably seen

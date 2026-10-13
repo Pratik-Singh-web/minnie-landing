@@ -4,6 +4,11 @@ description: "The Mac build of Desktop Goose dates from 2020. How to run it on a
 pubDate: 2026-10-13
 tags: ["desktop pet", "macos", "install"]
 draft: false
+hero:
+  motif: "desktop"
+  lines: ["Desktop Goose"]
+  bubble: "Honk?"
+  pose: "sit"
 ---
 
 Desktop Goose is the desktop pet that doesn't want to be your friend. It

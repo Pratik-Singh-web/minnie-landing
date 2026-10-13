@@ -5,6 +5,10 @@ pubDate: 2026-10-07
 updatedDate: 2026-10-13
 tags: ["desktop pet", "macos", "comparison"]
 draft: false
+hero:
+  motif: "desktop"
+  lines: ["Desktop pets"]
+  pose: "sit"
 ---
 
 A desktop pet is a small character that lives on top of your screen instead of

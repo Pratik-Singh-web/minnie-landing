@@ -5,6 +5,11 @@ pubDate: 2026-10-02
 updatedDate: 2026-10-07
 tags: ["claude code", "permissions", "security"]
 draft: false
+hero:
+  motif: dialog
+  lines: ["Claude wants to run", "npm install && npm test"]
+  bubble: "Okay to run this?"
+  pose: stand
 ---
 
 Claude Code asks for permission before it does anything consequential: editing a

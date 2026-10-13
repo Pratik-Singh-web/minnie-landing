@@ -5,6 +5,10 @@ pubDate: 2026-10-07
 updatedDate: 2026-10-14
 tags: ["claude code", "macos", "install"]
 draft: false
+hero:
+  motif: "terminal"
+  lines: ["$ claude --version", "$ claude doctor", "$ claude"]
+  pose: "float"
 ---
 
 Claude Code is Anthropic's coding agent for the terminal. Getting it running on a

@@ -5,6 +5,10 @@ pubDate: 2026-10-02
 updatedDate: 2026-10-07
 tags: ["voice", "prompting", "productivity"]
 draft: false
+hero:
+  motif: "voice"
+  lines: ["Fix the login bug, but don't touch the API"]
+  pose: "float"
 ---
 
 Typing a prompt gives you time to edit. Speaking one doesn't. You say it, it's

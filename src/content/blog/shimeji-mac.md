@@ -4,6 +4,10 @@ description: "The Mac app most people used for Shimeji was discontinued this yea
 pubDate: 2026-10-13
 tags: ["desktop pet", "macos", "install"]
 draft: false
+hero:
+  motif: "desktop"
+  lines: ["Shijima-Qt"]
+  pose: "sit"
 ---
 
 Shimeji are the little characters that climb your window edges, sit on top of

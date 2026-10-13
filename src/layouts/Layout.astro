@@ -183,6 +183,10 @@ const structured = [...(jsonLd ?? homeLd), ...(crumbLd ? [crumbLd] : [])];
     {noindex
       ? <meta name="robots" content="noindex, follow" />
       : <link rel="canonical" href={canonical} />}
+    <!-- Lets Google show a large image preview, most of all in Discover, which
+         only uses the big card when this is set. Without it the post heroes
+         can at most appear as small thumbnails. -->
+    {!noindex && <meta name="robots" content="max-image-preview:large" />}
     <link rel="alternate" type="application/rss+xml" title="The Minnie blog" href={`${base}rss.xml`} />
     <!-- Favicons. Google fetches /favicon.ico on its own schedule and wants a
          square icon that is a multiple of 48px, so the .ico is a real multi-size

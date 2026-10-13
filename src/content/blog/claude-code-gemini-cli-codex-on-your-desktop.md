@@ -5,6 +5,11 @@ pubDate: 2026-10-02
 updatedDate: 2026-10-07
 tags: ["claude code", "gemini cli", "codex"]
 draft: false
+hero:
+  motif: "terminal"
+  lines: ["$ claude", "$ gemini", "$ codex"]
+  bubble: "Pick your agent"
+  pose: "float"
 ---
 
 Most developers who use a coding agent have a favourite, and a lot of them switch

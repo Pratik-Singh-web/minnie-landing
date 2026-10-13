@@ -4,6 +4,10 @@ description: "Three terminal coding agents, three different temperaments. What e
 pubDate: 2026-10-07
 tags: ["claude code", "gemini cli", "codex", "comparison"]
 draft: false
+hero:
+  motif: "terminal"
+  lines: ["$ claude --version", "$ gemini --version", "$ codex --version"]
+  pose: "stand"
 ---
 
 Claude Code, OpenAI's Codex CLI and Google's Gemini CLI are the three terminal

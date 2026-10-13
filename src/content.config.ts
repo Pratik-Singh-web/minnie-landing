@@ -19,6 +19,19 @@ const blog = defineCollection({
     // so they never reach the sitemap and Google never sees a half-written post.
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
+    // The scene drawn in the post's hero image (src/hero.ts). Optional: any
+    // field left out falls back to a scene picked from the tags. Lines are what
+    // the scene shows: commands for a terminal (prefix "$ "), [heading, command]
+    // for a permission dialog, the spoken line for voice, the window title for
+    // a desktop.
+    hero: z
+      .object({
+        motif: z.enum(["terminal", "dialog", "desktop", "voice"]).optional(),
+        lines: z.array(z.string()).optional(),
+        bubble: z.string().optional(),
+        pose: z.enum(["float", "sit", "stand", "rest"]).optional(),
+      })
+      .optional(),
   }),
 });
 
