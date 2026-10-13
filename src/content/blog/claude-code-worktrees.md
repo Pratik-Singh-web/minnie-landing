@@ -112,6 +112,19 @@ break when moved.
 reach for the same port, and the second one fails or quietly picks another.
 Tell each session which port to use if you need both servers up at once.
 
+<aside class="say-it" aria-label="Doing this with Minnie">
+<p class="say-it__label">Or just say it</p>
+<p class="say-it__said">&ldquo;Minnie, work in a worktree for the auth feature and install the dependencies.&rdquo;</p>
+<div class="say-it__ask">
+<img src="/minnie/still-curious.webp" width="56" height="56" alt="" loading="lazy" />
+<div class="say-it__cloud">
+<p class="say-it__q">I want to run <code>npm install</code> in the new worktree. Ok?</p>
+<p class="say-it__btns" aria-hidden="true"><span class="say-it__btn say-it__btn--yes">Allow once</span><span class="say-it__btn">Deny</span></p>
+</div>
+</div>
+<p class="say-it__note">Claude Code creates worktrees when you ask it to. With <a href="/download/">Minnie</a> you can ask out loud, and the install that every new worktree needs comes to you as a question on your desktop, not a prompt waiting in a terminal you can’t see.</p>
+</aside>
+
 ## What happens when you exit
 
 This is where people lose work, or think they have. When you leave a

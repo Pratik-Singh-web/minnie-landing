@@ -69,6 +69,19 @@ To check what kind of app you have, select it in Finder and press ⌘I. Under
 **Kind**, "Application (Intel)" means it needs Rosetta, and "Application
 (Universal)" means it runs natively.
 
+<aside class="say-it" aria-label="Doing this with Minnie">
+<p class="say-it__label">Or just say it</p>
+<p class="say-it__said">&ldquo;Minnie, install Rosetta.&rdquo;</p>
+<div class="say-it__ask">
+<img src="/minnie/still-curious.webp" width="56" height="56" alt="" loading="lazy" />
+<div class="say-it__cloud">
+<p class="say-it__q">I want to run <code>softwareupdate --install-rosetta --agree-to-license</code>. Ok?</p>
+<p class="say-it__btns" aria-hidden="true"><span class="say-it__btn say-it__btn--yes">Allow once</span><span class="say-it__btn">Deny</span></p>
+</div>
+</div>
+<p class="say-it__note">With <a href="/download/">Minnie</a>, your coding agent runs the command and she asks first, with the command written out, so you know exactly what you’re agreeing to. Deny and nothing runs.</p>
+</aside>
+
 **4. Allow what it asks for.** A goose that grabs your cursor and moves things
 around may need permissions. If macOS asks for Accessibility access in Privacy
 & Security, that's what it's for. If it never asks and the goose never touches

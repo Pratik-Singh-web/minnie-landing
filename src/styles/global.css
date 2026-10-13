@@ -936,3 +936,79 @@ textarea {
   font-size: 12.5px;
   color: var(--ink-soft);
 }
+
+/* ---- "Or just say it" box ---------------------------------------------
+   Sits right after a manual step in a troubleshooting post and shows the
+   same step done through Minnie: the sentence you'd say, then her ask with
+   the exact command, the way she shows it on the desktop. Used only on posts
+   where the agent can genuinely do that step, so it is hand-written raw HTML
+   in each post rather than a template stamped onto every page. The buttons
+   are a picture of her UI, not controls, so they are aria-hidden spans. */
+.post__body .say-it {
+  margin: 28px 0;
+  padding: 20px 22px;
+  border: 2px solid var(--ink);
+  border-radius: var(--r-md, 16px);
+  background: var(--card);
+  box-shadow: 4px 4px 0 var(--accent);
+}
+.post__body .say-it__label {
+  margin: 0 0 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.post__body .say-it__said {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 19px;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.post__body .say-it__ask {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 0 0 14px;
+}
+.post__body .say-it__ask img {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.post__body .say-it__cloud {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--accent-t);
+}
+.post__body .say-it__q {
+  margin: 0 0 10px;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.post__body .say-it__btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.post__body .say-it__btn {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+}
+.post__body .say-it__btn--yes {
+  border-color: transparent;
+  background: var(--grad);
+  color: var(--on-accent);
+}
+.post__body .say-it__note { margin: 0; font-size: 14.5px; }

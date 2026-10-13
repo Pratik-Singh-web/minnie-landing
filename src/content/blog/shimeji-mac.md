@@ -82,6 +82,19 @@ two things usually fix it. If the shimeji came as a folder, compress it into a
 zip first. Otherwise, try the archive in Shijima-Web (below). If it fails
 there too, the archive itself is the problem, not the Mac.
 
+<aside class="say-it" aria-label="Doing this with Minnie">
+<p class="say-it__label">Or just say it</p>
+<p class="say-it__said">&ldquo;Minnie, Shijima-Qt says it’s damaged. Clear the quarantine flag on it.&rdquo;</p>
+<div class="say-it__ask">
+<img src="/minnie/still-curious.webp" width="56" height="56" alt="" loading="lazy" />
+<div class="say-it__cloud">
+<p class="say-it__q">I want to run <code>xattr -dr com.apple.quarantine</code> on Shijima-Qt in Applications. Ok?</p>
+<p class="say-it__btns" aria-hidden="true"><span class="say-it__btn say-it__btn--yes">Allow once</span><span class="say-it__btn">Deny</span></p>
+</div>
+</div>
+<p class="say-it__note">If you use <a href="/download/">Minnie</a>, your coding agent can do this step for you. She shows you the exact command before anything runs, and nothing happens until you say yes. Only say yes for an app you’ve already decided to trust.</p>
+</aside>
+
 ## Option 2: ShimejiEE cross-platform (Java)
 
 This is LavenderSnek's fork of Kilkakon's Shimeji-ee, merged with an older Mac

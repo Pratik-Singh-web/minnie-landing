@@ -2,7 +2,7 @@
 title: "\"Apple could not verify\" this app: what it means"
 description: "Why macOS warns about unsigned apps, what the warning does and doesn't tell you, how to check an app yourself, and how to open one you trust."
 pubDate: 2026-10-02
-updatedDate: 2026-10-07
+updatedDate: 2026-10-14
 tags: ["macos", "gatekeeper", "install"]
 draft: false
 hero:
@@ -93,6 +93,19 @@ That last one is worth a look on anything you are unsure about. If you believe y
 downloaded an app from a developer's own site and the quarantine attribute records a
 different domain, stop.
 
+<aside class="say-it" aria-label="Doing this with Minnie">
+<p class="say-it__label">Or just say it</p>
+<p class="say-it__said">&ldquo;Minnie, who signed SomeApp, and where did I download it from?&rdquo;</p>
+<div class="say-it__ask">
+<img src="/minnie/still-curious.webp" width="56" height="56" alt="" loading="lazy" />
+<div class="say-it__cloud">
+<p class="say-it__q">I want to run <code>codesign -dv</code> and <code>xattr -l</code> on SomeApp in Applications. Ok?</p>
+<p class="say-it__btns" aria-hidden="true"><span class="say-it__btn say-it__btn--yes">Allow once</span><span class="say-it__btn">Deny</span></p>
+</div>
+</div>
+<p class="say-it__note">With <a href="/download/">Minnie</a>, your coding agent runs these read-only checks and explains what they say. When the agent needs your permission to run them, she asks, and she shows you the command itself. Whether to trust the app is still your decision. An agent can read a signature for you, but it can’t vouch for a developer.</p>
+</aside>
+
 ## What changed in recent macOS
 
 For years the standard advice was: control-click the app, choose Open, and confirm.
@@ -150,8 +163,8 @@ Two routes.
 **Through System Settings.** The three steps listed earlier. This is the route
 Apple supports and the one to try first.
 
-**By removing the quarantine flag.** A Terminal command that copies the app into
-`/Applications` and strips the attribute, so the warning doesn't keep coming back:
+**By removing the quarantine flag.** A Terminal command that strips the attribute
+from the app in `/Applications`, so the warning doesn't keep coming back:
 
 ```
 xattr -dr com.apple.quarantine /Applications/SomeApp.app
