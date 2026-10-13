@@ -1,8 +1,8 @@
 {
-  "latest": "0.9.11",
-  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.11-beta/Minnie-0.9.11-beta.dmg",
-  "sha256": "030bf05bc7fabb8315a88852c05be3cfae45bb03706db5e74b0fca63d78785e2",
-  "notes": "Minnie now asks you to sign in. She is still free, and always will be — the account is what she asks for instead of money. If Google can't be reached she still runs. One thing to expect: an update can sign you out (the build is unsigned), and she won't ask twice.",
+  "latest": "0.9.12",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.12-beta/Minnie-0.9.12-beta.dmg",
+  "sha256": "d3bbce4f1f1e3e30350e609c764bd50efcf2e10de26921ca140886de3e2b8419",
+  "notes": "After your first task, Minnie asks once whether she may email you — change it any time in Settings ▸ Account ▸ Emails. Activity now shows each step's full output. Plus contrast fixes. An update can still sign you out (the build is unsigned).",
   "mandatory": false,
   "minSupportedVersion": ""
 }
