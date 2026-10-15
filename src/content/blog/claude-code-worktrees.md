@@ -1,9 +1,9 @@
 ---
 title: "Claude Code worktrees: run parallel sessions safely"
 description: "How claude --worktree works, the setup step everyone skips, what happens to your branch on exit, and how to keep track of three agents at once."
-pubDate: 2026-10-21
+pubDate: 2026-10-15
 tags: ["claude code", "productivity"]
-draft: true
+draft: false
 hero:
   motif: terminal
   lines: ["$ claude --worktree feature-auth", "Created .claude/worktrees/feature-auth", "$ claude -w fix-login-bug"]
