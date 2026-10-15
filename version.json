@@ -1,8 +1,8 @@
 {
-  "latest": "0.9.12",
-  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.12-beta/Minnie-0.9.12-beta.dmg",
-  "sha256": "d3bbce4f1f1e3e30350e609c764bd50efcf2e10de26921ca140886de3e2b8419",
-  "notes": "After your first task, Minnie asks once whether she may email you — change it any time in Settings ▸ Account ▸ Emails. Activity now shows each step's full output. Plus contrast fixes. An update can still sign you out (the build is unsigned).",
+  "latest": "0.9.13",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.13-beta/Minnie-0.9.13-beta.dmg",
+  "sha256": "aece9b5cf1361da2303a2225096fe81a810f96fe281355fa51d26463faf62876",
+  "notes": "Minnie now comes on screen when you launch her, and stays signed in between launches. Signing in with Google is now required to run tasks. After this update you may be asked to sign in once more.",
   "mandatory": false,
   "minSupportedVersion": ""
 }

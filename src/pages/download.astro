@@ -8,7 +8,7 @@ const site = Astro.site?.href ?? "https://heyminnie.com/";
 
 // Version and DMG link live in src/site.ts (keep in step with version.json).
 import { version, dmgURL, pageLd } from "../site";
-const expires = "11 January 2027";
+const expires = "13 January 2027";
 
 const downloadURL = new URL("download/", site).href;
 const pageDesc =
@@ -54,7 +54,7 @@ const howToLd = {
       "@type": "HowToStep",
       name: "Find her in the menu bar",
       text:
-        "Minnie has no Dock icon. Click the paw at the top of your screen to wake her. If macOS says it could not verify the app, open System Settings, then Privacy & Security, scroll to the bottom and click Open Anyway.",
+        "Minnie comes on screen by herself and has no Dock icon — the paw at the top of your screen brings her back if you hide her. If macOS says it could not verify the app, open System Settings, then Privacy & Security, scroll to the bottom and click Open Anyway.",
       url: `${downloadURL}#install`,
     },
   ],
@@ -153,8 +153,8 @@ open /Applications/Minnie.app</code></pre>
           <div class="install__body">
             <p class="install__t">Look in your menu bar</p>
             <p class="install__d">
-              Minnie has <strong>no Dock icon</strong> — that's deliberate. Find the paw at the
-              top of your screen and click it to wake her.
+              She comes on screen by herself. Minnie has <strong>no Dock icon</strong> — that's
+              deliberate. If you hide her, the paw at the top of your screen brings her back.
             </p>
           </div>
         </li>
