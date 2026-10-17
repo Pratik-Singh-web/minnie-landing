@@ -103,15 +103,16 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  /* Ember after dark — the same fire on warm brown-black, never neutral grey.
-     Every text pair here clears 4.5:1 (most clear 6:1). */
-  --paper: #1a100b;
-  --card: #24170f;
-  --sunk: #2a1b13;
-  --line: #3d2a20;
-  --ink: #fff1de;            /* bg0 as text — 16.8:1 */
-  --ink-dim: #d2b8a6;        /* 9.9:1 */
-  --ink-soft: #a88e7e;       /* 6.1:1 */
+  /* "Ember Noir" (2026-10-17) — near-black with only a trace of warmth, so
+     the fire is the one warm thing on the page and glows instead of sitting
+     in a brown that shares its hue. Every text pair clears 4.5:1 (most 6:1). */
+  --paper: #0d0907;
+  --card: #18110d;
+  --sunk: #1f1712;
+  --line: #2f241d;
+  --ink: #fff1de;            /* bg0 as text — 17.8:1 */
+  --ink-dim: #d6bfae;        /* 11.3:1 */
+  --ink-soft: #a6907f;       /* 6.5:1 */
 
   /* Spark's mid body is the fill here: it glows on dark where coral would
      look muddy. Accent TEXT is her flame tip. */
@@ -133,14 +134,14 @@
 
   /* Panels are a raised step off the page and carry an edge; the footer sits
      one step BELOW the page, so the two never read as the same surface. */
-  --band: #24170f;
-  --green-deep: #24170f;
+  --band: #18110d;
+  --green-deep: #18110d;
   --on-band: #fff1de;
-  --on-band-dim: #d2b8a6;
-  --foot: #120a06;
+  --on-band-dim: #d6bfae;
+  --foot: #070504;
 
-  --yellow: #2a1b13;
-  --pink: #2a1b13;
+  --yellow: #1f1712;
+  --pink: #1f1712;
 
   --sh: none;
   --sh-sm: none;
@@ -148,6 +149,19 @@
 
   --wash: none;
 }
+
+/* Ember Noir's one flourish: on a near-black page the fire is allowed to
+   glow. Dark only — light mode has no glow and stays pixel-unchanged. */
+:root[data-theme="dark"] .hero__art { isolation: isolate; }
+:root[data-theme="dark"] .hero__art::before {
+  content: "";
+  position: absolute;
+  inset: -10% -15%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgb(240 120 24 / 0.30), rgb(240 120 24 / 0));
+}
+:root[data-theme="dark"] { --btn-glow: 0 14px 38px rgb(240 120 24 / 0.32); }
 
 *,
 *::before,
@@ -493,7 +507,7 @@ textarea {
   font-size: 16px;
   font-weight: 700;
   letter-spacing: -0.01em;
-  box-shadow: 0 4px 0 var(--accent-d);
+  box-shadow: 0 4px 0 var(--accent-d), var(--btn-glow, 0 0 #0000);
   cursor: pointer;
   transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
   white-space: nowrap;
@@ -503,14 +517,14 @@ textarea {
   filter: brightness(1.06);
   color: var(--on-accent);
   transform: translateY(1px);
-  box-shadow: 0 3px 0 var(--accent-d);
+  box-shadow: 0 3px 0 var(--accent-d), var(--btn-glow, 0 0 #0000);
 }
 .btn:active {
   transform: translateY(4px);
   box-shadow: 0 0 0 var(--accent-d);
 }
-.btn--sm { padding: 11px 16px; font-size: 15px; box-shadow: 0 3px 0 var(--accent-d); }
-.btn--sm:hover { box-shadow: 0 2px 0 var(--accent-d); }
+.btn--sm { padding: 11px 16px; font-size: 15px; box-shadow: 0 3px 0 var(--accent-d), var(--btn-glow, 0 0 #0000); }
+.btn--sm:hover { box-shadow: 0 2px 0 var(--accent-d), var(--btn-glow, 0 0 #0000); }
 
 /* The secondary action: a hairline outline, no fill, no shadow. */
 .btn--yellow,
