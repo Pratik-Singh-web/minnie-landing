@@ -113,6 +113,23 @@ brew uninstall --cask codex
 npm uninstall -g @openai/codex
 ```
 
+**Watch for an npm copy that looks like Homebrew.** If you installed Node
+with Homebrew and then ran `npm install -g @openai/codex`, the `codex`
+command lands in `/opt/homebrew/bin` too. It looks like a Homebrew install,
+but it isn't one, so `brew upgrade --cask codex` fails with
+`Cask 'codex' is not installed`. The standalone installer makes the same
+assumption. On a Mac it treats any `codex` under `/opt/homebrew` as
+Homebrew's, so its offer to uninstall it fails the same way. Check what you
+really have:
+
+```bash
+ls -l "$(command -v codex)"
+```
+
+If the arrow points into `node_modules/@openai/codex`, it's npm. Remove it
+with `npm uninstall -g @openai/codex`, or update it with
+`npm install -g @openai/codex@latest`.
+
 Then open a new window and check `codex --version` matches what you expect.
 If a copy belongs to another app, leave it alone and make sure your own
 install comes first on your `PATH`, or the other app may stop working.
