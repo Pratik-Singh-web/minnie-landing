@@ -198,7 +198,7 @@ Mac](/blog/claude-code-vs-gemini-cli-vs-codex/) compares them by what each
 is actually good at.
 
 Whichever you land on, [Minnie](/download/) works with it. She supports
-Claude Code, Gemini CLI, Codex and Antigravity, so switching agents doesn't
+Claude Code, Gemini CLI, Codex and Antigravity CLI (`agy`), so switching agents doesn't
 mean giving up the voice control or the desktop pet. The details differ by
 agent, especially around permission prompts, and [Claude Code, Gemini CLI or
 Codex: one desktop pet for all](/blog/claude-code-gemini-cli-codex-on-your-desktop/)
