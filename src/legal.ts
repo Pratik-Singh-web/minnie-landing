@@ -24,7 +24,7 @@ export const jurisdiction = "India";
 export const contactEmail = "support@heyminnie.com";
 
 /** Kept in one place so all four pages carry the same date. */
-export const updated = "3 October 2026";
+export const updated = "19 October 2026";
 
 // No `price` any more: since 2026-09-09 the app is free for life, and the
 // optional one-time purchases (characters) have no price until one ships. Add

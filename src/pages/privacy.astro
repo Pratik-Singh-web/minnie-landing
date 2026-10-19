@@ -120,6 +120,25 @@ const link = "prose-a";
       record your screen.
     </p>
 
+    <h2 class={h2}>Food ordering (Swiggy, India)</h2>
+    <p class={p}>
+      Where it is available, you can connect your Swiggy account and order food
+      through Minnie. When you do, Minnie talks to Swiggy directly from your Mac.
+      Your Swiggy sign-in stays in your Mac's Keychain. Menus, carts, addresses and
+      orders are shown to you and are <strong>not stored by Minnie</strong> — her
+      activity history keeps that a Swiggy step happened, not its contents — and
+      none of it is sent to us.
+    </p>
+    <ul class={ul}>
+      <li><strong>Taps on the food card</strong> go from your Mac to Swiggy and nowhere else.</li>
+      <li><strong>Requests by voice or text</strong> ("order biryani") go to the AI provider you use, such as Claude, together with Swiggy's results for that request, so it can understand you.</li>
+      <li><strong>Placing an order</strong> always needs your confirmation on a card that shows Swiggy's total, the items, the payment method and the delivery address. Payment happens with Swiggy (cash on delivery, or UPI in your own UPI app) — Minnie never sees card or bank details.</li>
+    </ul>
+    <p class={p}>
+      Swiggy's handling of your data is governed by
+      <a class={link} href="https://www.swiggy.com/privacy-policy" target="_blank" rel="noopener noreferrer">Swiggy's Privacy Policy</a>.
+    </p>
+
     <h2 class={h2}>Your account</h2>
     <p class={p}>
       Minnie asks you to sign in with Google. She is free and always will be; the
@@ -207,8 +226,9 @@ const link = "prose-a";
     <p class={p}>
       Only the providers that operate the service, and only for that purpose:
       Supabase (accounts), PostHog (analytics), Dodo Payments (billing), Google
-      (waitlist storage and sign-in), GitHub (hosting and downloads), and whichever
-      AI, speech or connected-tool provider you choose. We do not sell or rent your
+      (waitlist storage and sign-in), GitHub (hosting and downloads), Swiggy (if you
+      connect it to order food), and whichever AI, speech or connected-tool provider
+      you choose. We do not sell or rent your
       information. We may disclose it if the law requires it.
     </p>
 
