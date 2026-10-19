@@ -2,6 +2,7 @@
 title: "Claude Code vs Gemini CLI vs Codex on a Mac"
 description: "Three terminal coding agents, three different temperaments. What each is good at, how they differ day to day, and why you do not have to pick just one."
 pubDate: 2026-10-07
+updatedDate: 2026-10-19
 tags: ["claude code", "gemini cli", "codex", "comparison"]
 draft: false
 hero:
@@ -53,10 +54,13 @@ can hold far more of a repository in mind at once, which matters for a specific
 job: understanding an unfamiliar, sprawling codebase. "Explain how this 400-file
 service fits together" is a question it answers better than the others.
 
-Its access story has moved around. Gemini CLI remains Apache-2.0 and still works,
-but Google shifted consumer and free access toward a separate tool,
-**Antigravity**, during 2026 — so the free allowance that made Gemini CLI famous
-may not be where you remember it. Check before you plan around it.
+Its access story changed in 2026. Since 18 June, Gemini CLI no longer serves
+the free tier or Google AI Pro and Ultra accounts. Those users moved to
+Google's **Antigravity CLI** (`agy`). Gemini CLI is still Apache-2.0 and still
+works with a paid Gemini API key or a company Code Assist licence. [Gemini CLI
+stopped working? Moving to Antigravity on
+Mac](/blog/gemini-cli-to-antigravity-cli-mac/) covers who is affected and how
+to move your setup.
 
 ## In practice: use more than one
 
