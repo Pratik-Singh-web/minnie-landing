@@ -3,7 +3,7 @@ title: "Install Codex CLI on a Mac: installers, PATH and sandbox"
 description: "Three ways to install OpenAI's Codex CLI on macOS, which file the installer quietly edits, how to untangle two copies, and what the Mac sandbox lets it do."
 pubDate: 2026-10-21
 tags: ["codex", "macos", "install"]
-draft: true
+draft: false
 hero:
   motif: terminal
   lines: ["$ codex --version", "$ codex login status", "$ codex doctor"]

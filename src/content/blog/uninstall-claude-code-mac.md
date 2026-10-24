@@ -3,7 +3,7 @@ title: "Uninstall Claude Code from a Mac completely"
 description: "Removing the claude command is one line. Removing Claude Code completely means your settings, its caches, and the login it keeps in the macOS Keychain."
 pubDate: 2026-10-23
 tags: ["claude code", "macos", "install"]
-draft: true
+draft: false
 hero:
   motif: terminal
   lines: ["$ claude doctor", "$ rm -f ~/.local/bin/claude", "$ rm -rf ~/.local/share/claude"]
