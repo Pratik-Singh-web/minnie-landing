@@ -3,7 +3,7 @@ title: "\"Apple could not verify claude\" on Mac: is it safe?"
 description: "macOS blocked Claude Code with a malware warning. Why it happens, how to check in one command that it's really Anthropic's, and the safe fixes in the right order."
 pubDate: 2026-10-25
 tags: ["claude code", "macos", "gatekeeper"]
-draft: true
+draft: false
 hero:
   motif: terminal
   lines: ["$ spctl -a -vv -t open …", "source=Notarized Developer ID", "origin=Anthropic PBC (Q6L2SF6YDW)"]
