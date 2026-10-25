@@ -230,6 +230,13 @@ Two less common problems on a Mac:
   install URL returned a web page, not the script. This is usually a network,
   proxy or region problem, not a problem with your Mac.
 
+If macOS blocks `claude` with a malware warning rather than not finding it,
+that's a different problem: see ["Apple could not verify claude" on
+Mac](/blog/apple-could-not-verify-claude-mac/). And if you've tried everything
+and want a clean slate, [Uninstall Claude Code from a Mac
+completely](/blog/uninstall-claude-code-mac/) removes every copy so you can
+reinstall once.
+
 ## Works in Terminal, not in an app?
 
 There's one last version of this problem. `claude` works fine in Terminal,

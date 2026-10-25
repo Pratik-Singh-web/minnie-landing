@@ -96,8 +96,11 @@ each action the way she does with Claude Code.
 If you use them, the practical advice is to set the approval behaviour you are
 comfortable with **in the agent's own settings**, before you point Minnie at it —
 and to be more conservative there than you would be with Claude Code, precisely
-because the out-loud backstop isn't there. Working on a branch, or in a `git
-worktree`, costs nothing and makes the whole question less tense.
+because the out-loud backstop isn't there. Working on a branch, or in a [git
+worktree](/blog/claude-code-worktrees/), costs nothing and makes the whole
+question less tense. For Codex, the sandbox decides what it can touch without
+asking. [Install Codex CLI on a Mac: installers, PATH and
+sandbox](/blog/install-codex-cli-mac/) explains what it allows on macOS.
 
 ## Antigravity and custom CLIs
 

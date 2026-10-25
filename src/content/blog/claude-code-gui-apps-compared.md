@@ -67,7 +67,9 @@ cross-platform, and has continued under the name Nimbalyst.
 
 If you are not already running agents in parallel, this is a lot of machinery for
 no benefit. If you are, the alternative is a grid of terminal tabs and a notebook,
-and these are plainly better than that.
+and these are plainly better than that. If you'd rather stay in the terminal,
+Claude Code's own `--worktree` flag handles the isolation part: [Claude Code
+worktrees: run parallel sessions safely](/blog/claude-code-worktrees/).
 
 ## Omnara
 

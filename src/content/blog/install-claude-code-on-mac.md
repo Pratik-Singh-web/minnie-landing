@@ -106,10 +106,14 @@ a coding agent "not understanding the project" are a missing CLAUDE.md.
 prints the line to add instead, and it is easy to scroll past. Add it to
 `~/.zshrc` (or `~/.bash_profile` for bash), then open a new window.
 [zsh: command not found: claude on Mac, fixed](/blog/claude-command-not-found-mac/)
-walks through this and the four other causes.
+walks through this and the four other causes. If macOS refuses to run `claude`
+with a malware warning instead, see ["Apple could not verify claude" on Mac: is
+it safe?](/blog/apple-could-not-verify-claude-mac/).
 
 **Two installs fighting.** `which -a claude` lists every one on your `PATH`. If
-there is more than one, remove all but the one you intend to keep.
+there is more than one, remove all but the one you intend to keep. If you
+would rather start clean, [Uninstall Claude Code from a Mac
+completely](/blog/uninstall-claude-code-mac/) shows how to remove every copy.
 
 **The permission prompts become invisible.** This is not an install problem, but
 it is the thing people hit in week one. Claude Code stops and asks before it
@@ -123,12 +127,18 @@ babysitting](/blog/claude-code-permission-prompts/).
 
 ## After it works
 
-Two things are worth doing next.
+A few things are worth doing next.
 
 **Connect your tools.** Model Context Protocol lets the agent reach GitHub,
 Notion, Slack, your database and so on, rather than being limited to the files in
 front of it. Start with one server, not six: [MCP servers, explained for people
 who just want it to work](/blog/mcp-servers-for-coding-agents/).
+
+**Let it run while you're away.** A Mac that sleeps freezes the task until you
+come back. [Keep your Mac awake while Claude Code
+works](/blog/keep-mac-awake-claude-code/) covers `caffeinate` and what closing
+the lid does. Once you want several tasks going at once, [Claude Code
+worktrees](/blog/claude-code-worktrees/) keeps them out of each other's files.
 
 **Get it out of the terminal.** Claude Code is a CLI, which means it has no
 window you keep looking at and no voice. If the "waiting on an approval you never

@@ -18,7 +18,10 @@ sounds.
 
 Minnie triggers this warning during the beta, so here is a plain explanation of
 what is going on, how to check an app for yourself, and how to decide whether to
-open one anyway.
+open one anyway. If the thing macOS is blocking is Claude Code's `claude`
+command, ["Apple could not verify claude" on Mac: is it
+safe?](/blog/apple-could-not-verify-claude-mac/) covers that case, including a
+one-command check that it's really Anthropic's.
 
 ## What the warning actually means
 

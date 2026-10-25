@@ -298,3 +298,6 @@ covers allow rules, plan mode, and what to pre-approve.
 - Check which app is in front before notifying, or `Stop` will chime on every
   reply.
 - No banner? Check Script Editor's notification permission, then Focus.
+- Walking away from a long task? [Keep your Mac awake while Claude Code
+  works](/blog/keep-mac-awake-claude-code/), or the task freezes when the Mac
+  sleeps and there's nothing to be notified about.

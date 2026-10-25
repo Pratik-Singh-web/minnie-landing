@@ -45,7 +45,8 @@ from Claude Code and often a better one.
 
 Access typically comes with a ChatGPT plan, with a per-token API option for
 automation. If you already pay OpenAI for something else, trying it costs nothing
-extra.
+extra. [Install Codex CLI on a Mac](/blog/install-codex-cli-mac/) covers the
+installers, PATH and the Mac sandbox.
 
 ## Gemini CLI
 

@@ -217,6 +217,9 @@ A few things help:
   with "don't ask again" in a worktree are shared across the repo's other
   worktrees, so [setting them up
   deliberately](/blog/claude-code-permission-prompts/) pays off.
+- **Keep the Mac awake for long runs.** Sleep freezes all three sessions at
+  once. [Keep your Mac awake while Claude Code
+  works](/blog/keep-mac-awake-claude-code/) covers `caffeinate`.
 
 This is also the problem we built [Minnie](/download/) for. She's a desktop
 pet that sits on your Mac and shows what your coding agent is doing, so
