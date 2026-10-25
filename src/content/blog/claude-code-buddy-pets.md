@@ -1,6 +1,6 @@
 ---
 title: "Claude Code /buddy is gone. These pets replaced it"
-description: "Anthropic's /buddy terminal pet lasted a week in April 2026. What happened, whether you can get it back, and the desktop pets that react to Claude Code now."
+description: "Anthropic's /buddy terminal pet lasted a week in April 2026. What happened, whether you can get it back, and the desktop pets that react to Claude Code."
 pubDate: 2026-10-13
 tags: ["claude code", "desktop pet", "comparison"]
 draft: false
@@ -185,4 +185,6 @@ what that warning does and doesn't tell you.
 
 If you want the wider tour of desktop pets, including the ones that don't
 touch your agent at all, see [Desktop pets for Mac: Shimeji, Bongo Cat and
-co](/blog/desktop-pets-for-mac/).
+co](/blog/desktop-pets-for-mac/). The classics each have their own guide:
+[Shimeji on Mac in 2026](/blog/shimeji-mac/), [Bongo Cat on
+Mac](/blog/bongo-cat-mac/) and [Desktop Goose on Mac](/blog/desktop-goose-mac/).

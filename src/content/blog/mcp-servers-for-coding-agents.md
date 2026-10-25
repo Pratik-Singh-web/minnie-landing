@@ -1,8 +1,8 @@
 ---
 title: "MCP servers, explained for people who just want it to work"
-description: "What Model Context Protocol is, how it lets your agent reach GitHub, Notion, Slack and your database, which servers to start with, and the security part."
+description: "What Model Context Protocol is, which servers to start with, where Claude Code, Codex and Gemini CLI keep their MCP config, and the security part."
 pubDate: 2026-10-02
-updatedDate: 2026-10-07
+updatedDate: 2026-10-25
 tags: ["mcp", "claude code", "integrations"]
 draft: false
 hero:
@@ -113,6 +113,48 @@ command or package, set environment variables and paste in a token. It's not har
 but it's fiddly, and a token pasted into a plain-text file is not ideal — it sits
 unencrypted on disk, it ends up in backups, and it is one `git add .` away from a
 very bad afternoon.
+
+## Where each agent keeps its MCP config
+
+Every agent stores the same thing, a named list of servers, but each keeps it
+in its own file under its own key. The key is the part people search for when
+a snippet from a README won't paste: it's `mcpServers` in the JSON files and
+`mcp_servers` in Codex's TOML.
+
+| Agent | File | Key |
+| --- | --- | --- |
+| Claude Code | `.mcp.json` in the project root (shared with the repo), or `~/.claude.json` (just you) | `mcpServers` |
+| Codex CLI | `~/.codex/config.toml` | `[mcp_servers.<name>]` |
+| Gemini CLI | `~/.gemini/settings.json`, or `.gemini/settings.json` in a project | `mcpServers` |
+
+A local server that runs as a command looks almost the same in the two JSON
+files:
+
+```json
+{
+  "mcpServers": {
+    "my-server": {
+      "command": "npx",
+      "args": ["-y", "some-mcp-server"]
+    }
+  }
+}
+```
+
+Codex wants the same fields as a TOML table, one per server:
+
+```toml
+[mcp_servers.my-server]
+command = "npx"
+args = ["-y", "some-mcp-server"]
+```
+
+Remote servers differ more. Claude Code takes `"type": "http"` and a `"url"`.
+Gemini CLI uses an `"httpUrl"` field instead. So when you move a server
+between agents, check the field names, not just the wrapper key.
+
+You rarely need to edit these by hand. `claude mcp add` and `codex mcp add`
+write the entry for you, in the right file.
 
 ## Connecting tools in Minnie
 

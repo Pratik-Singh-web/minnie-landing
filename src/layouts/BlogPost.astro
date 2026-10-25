@@ -28,10 +28,10 @@ const base = import.meta.env.BASE_URL;
 const site = Astro.site?.href ?? "https://heyminnie.com/";
 const url = new URL(Astro.url.pathname, site).href;
 
-// Google truncates a title around 60 characters. Appending " — Minnie" to an
-// already-long headline pushed five posts past that, cutting the brand (or the
-// end of the headline) off in results — so the suffix is added only when it fits.
-const pageTitle = title.length <= 49 ? `${title} — Minnie` : title;
+// No " — Minnie" suffix. The name is drowned out by Minnie Mouse, so it earns
+// no clicks from searchers, and it spends title width Google could show the
+// headline in. The brand still reaches results through og:site_name and JSON-LD.
+const pageTitle = title;
 
 const fmt = (d: Date) =>
   d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });

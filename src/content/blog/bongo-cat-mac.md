@@ -1,6 +1,6 @@
 ---
-title: "Bongo Cat on Mac: Steam vs the free open-source app"
-description: "There are two Bongo Cats, and both now run on a Mac. Which one to install, the permission macOS asks for, and why you should care what reads your keystrokes."
+title: "Bongo Cat on Mac: free open-source app vs Steam"
+description: "Two Bongo Cats run on a Mac: the free open-source app, no Steam needed, and the Steam game. Which to pick, and the permission macOS asks for."
 pubDate: 2026-10-14
 tags: ["desktop pet", "macos", "install"]
 draft: false
@@ -145,7 +145,9 @@ Claude Code, Gemini CLI or Codex underneath, and lets you talk to the agent out
 loud. She also asks before it does anything risky, so you can tell at a glance
 whether it's working, finished or waiting on you. [A desktop pet for your
 Mac that actually does work](/blog/desktop-pet-for-mac-that-does-work/)
-explains the idea.
+explains the idea. The other pets that react to a coding agent are compared in
+[Claude Code /buddy is gone. These pets replaced
+it](/blog/claude-code-buddy-pets/).
 
 For the rest of the genre, see [Desktop pets for Mac: Shimeji, Bongo Cat and
 co](/blog/desktop-pets-for-mac/), [Shimeji on Mac in 2026](/blog/shimeji-mac/)

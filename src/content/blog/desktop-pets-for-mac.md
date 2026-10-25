@@ -29,18 +29,20 @@ original is Java-based, which on a modern Mac is a nuisance.
 **Shijima** was the fix: a Shimeji simulator with no Java dependency, with a
 native Apple Silicon build for the Mac. Its developer discontinued the desktop
 version in 2026. The last build still runs, but nothing new is coming. We
-walk through it and the alternatives in [Shimeji on Mac in 2026: what still
-works](/blog/shimeji-mac/).
+walk through it and the alternatives in [Shimeji on Mac in 2026: Shijima and
+what still runs](/blog/shimeji-mac/).
 
 **Bongo Cat** is the other classic: the cat that slaps the desk in time with your
 keystrokes. The widely used cross-platform build is open source, works offline,
 collects nothing, and ships a native Apple Silicon download. It is a metronome
-for your typing and it is very good at being exactly that.
+for your typing and it is very good at being exactly that. There's also a Steam
+game with the same name, and [Bongo Cat on Mac: free open-source app vs
+Steam](/blog/bongo-cat-mac/) explains which one to install.
 
 **Desktop Goose** is the chaotic one. It honks, tracks mud across your windows
 and steals your cursor. The Mac build dates from 2020 and has a Rosetta
-problem coming, which we cover in [Desktop Goose on Mac: does it still work in
-2026?](/blog/desktop-goose-mac/)
+problem coming, which we cover in [Desktop Goose on Mac in 2026: it runs, for
+now](/blog/desktop-goose-mac/).
 
 ## The modern ones
 

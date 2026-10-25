@@ -1,6 +1,6 @@
 ---
 title: "\"Apple could not verify claude\" on Mac: is it safe?"
-description: "macOS blocked Claude Code with a malware warning. Why it happens, how to check in one command that it's really Anthropic's, and the safe fixes in the right order."
+description: "macOS blocked Claude Code with a malware warning. Why it happens, a one-command check that it's really Anthropic's, and the safe fixes in order."
 pubDate: 2026-10-25
 tags: ["claude code", "macos", "gatekeeper"]
 draft: false

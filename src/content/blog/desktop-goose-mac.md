@@ -1,6 +1,6 @@
 ---
-title: "Desktop Goose on Mac: does it still work in 2026?"
-description: "The Mac build of Desktop Goose dates from 2020. How to run it on an Apple Silicon Mac today, how to get rid of the goose, and what changes after macOS 27."
+title: "Desktop Goose on Mac in 2026: it runs, for now"
+description: "The Mac build of Desktop Goose dates from 2020. How to run it on Apple Silicon today, how to get rid of the goose, and what changes after macOS 27."
 pubDate: 2026-10-13
 tags: ["desktop pet", "macos", "install"]
 draft: false
@@ -129,12 +129,16 @@ something living on your desktop that will keep working after Rosetta:
   mascots, to Mac with a native Apple Silicon build. It's free and open source.
   It was discontinued in 2026 but still runs, and if you let your shimeji
   multiply, the result is goose-level chaos. The setup, and the other options,
-  are in [Shimeji on Mac in 2026: what still works](/blog/shimeji-mac/).
+  are in [Shimeji on Mac in 2026: Shijima and what still
+  runs](/blog/shimeji-mac/).
 - **Bongo Cat** is the opposite of chaos: a cat that slaps a desk in time with
   your typing. The open-source app has a native Apple Silicon build and is
-  actively updated.
+  actively updated. [Bongo Cat on Mac: free open-source app vs
+  Steam](/blog/bongo-cat-mac/) covers which version to get.
 - **Tamamon** is a free Apple Silicon pet that hatches and grows as you use
-  Claude. It's more Tamagotchi than goose.
+  Claude. It's more Tamagotchi than goose. It and the other pets that react to
+  Claude Code are in [Claude Code /buddy is gone. These pets replaced
+  it](/blog/claude-code-buddy-pets/).
 
 For the full tour, see [Desktop pets for Mac: Shimeji, Bongo Cat and
 co](/blog/desktop-pets-for-mac/).

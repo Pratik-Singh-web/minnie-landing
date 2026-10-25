@@ -1,8 +1,8 @@
 ---
 title: "Claude Code permission prompts, without the babysitting"
-description: "Claude Code asks before it runs tools — until the prompt sits unseen in a terminal. How to configure approvals properly and stop watching the window."
+description: "Claude Code asks before it runs tools. How to build an allowlist, or let /fewer-permission-prompts draft one, and stop watching the terminal window."
 pubDate: 2026-10-02
-updatedDate: 2026-10-07
+updatedDate: 2026-10-25
 tags: ["claude code", "permissions", "security"]
 draft: false
 hero:
@@ -111,6 +111,18 @@ did afterwards?*
 Add a `deny` for your secrets regardless: `Read(./.env)` and friends. Not because
 you expect the agent to misbehave, but because the contents of a `.env` file have no
 business being in a context window that gets sent to a model provider.
+
+### Fewer permission prompts: let Claude Code draft the list
+
+Writing that list from scratch is tedious, and Claude Code ships a skill that
+does the first pass: `/fewer-permission-prompts`. It scans your past session
+transcripts for the read-only Bash and MCP tool calls you keep approving, and
+proposes a prioritized allowlist for the project's `.claude/settings.json`.
+
+Treat what it proposes as a draft. Read every rule before you accept it and
+check it against the list above: reads and your usual test commands belong
+there. Anything that writes, pushes or installs does not, however often you've
+clicked yes to it.
 
 ## Use plan mode when you're not sure
 

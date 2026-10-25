@@ -1,7 +1,8 @@
 ---
 title: "zsh: command not found: claude on Mac, fixed"
-description: "Claude Code installed fine, and your Mac still says command not found. The five causes, in the order to check them, with the exact commands for zsh and bash."
+description: "Claude Code installed, but zsh says command not found: claude. The five causes in the order to check them, with the exact fix for zsh and bash."
 pubDate: 2026-10-14
+updatedDate: 2026-10-25
 tags: ["claude code", "macos", "install"]
 draft: false
 hero:
@@ -49,10 +50,22 @@ This is the most common one by a distance. The native installer, the
 command in `~/.local/bin`. Plenty of Macs don't have that folder on their
 `PATH`, so the shell never looks there.
 
-The installer knows this happens. If you scroll back through its output,
-you'll often find a line under *Setup notes* saying the native installation
-exists but `~/.local/bin` isn't in your PATH. **It tells you the fix, but it
-doesn't change your PATH for you.**
+### "Native installation exists but ~/.local/bin is not in your PATH"
+
+The installer knows this happens. Scroll back through its output and you'll
+often find a warning like this under *Setup notes*:
+
+```text
+⚠ Setup notes:
+  ● Native installation exists but ~/.local/bin is not in your PATH. Run:
+
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+```
+
+**It tells you the fix, but it doesn't change your PATH for you.** If you're
+on zsh, the command it prints is the right one: run it as shown, then confirm with
+`claude --version`. If you're on bash, the warning points you at `~/.bashrc`,
+which is the wrong file on a Mac. The bash fix below explains why.
 
 Check whether the folder is on your PATH:
 

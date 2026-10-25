@@ -1,6 +1,6 @@
 ---
 title: "Keep your Mac awake while Claude Code works"
-description: "You start a long Claude Code task, walk away, and come back to a Mac that fell asleep halfway through. How to stop that with caffeinate, and what closing the lid does."
+description: "A long Claude Code task, and your Mac fell asleep halfway through? How to stop that with caffeinate, and what closing the lid actually does."
 pubDate: 2026-10-17
 tags: ["claude code", "macos", "productivity"]
 draft: false

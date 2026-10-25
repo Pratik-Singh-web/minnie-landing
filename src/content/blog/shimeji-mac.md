@@ -1,6 +1,6 @@
 ---
-title: "Shimeji on Mac in 2026: what still works"
-description: "The Mac app most people used for Shimeji was discontinued this year. The options that still run on Apple Silicon, how to import a shimeji, and what to skip."
+title: "Shimeji on Mac in 2026: Shijima and what still runs"
+description: "The Mac app most people used for Shimeji was discontinued in 2026. What still runs on Apple Silicon, how to import a shimeji, and what to skip."
 pubDate: 2026-10-13
 tags: ["desktop pet", "macos", "install"]
 draft: false
@@ -165,7 +165,8 @@ look for apps with native Apple Silicon builds and recent releases:
   [Minnie](/download/), our own: a Mac desktop pet that runs your coding agent
   and asks out loud before it does anything risky.
 
-For the wider tour, including Desktop Goose and its Rosetta problem, see
-[Desktop pets for Mac: Shimeji, Bongo Cat and co](/blog/desktop-pets-for-mac/)
-and [Desktop Goose on Mac: does it still work in
-2026?](/blog/desktop-goose-mac/)
+For the wider tour, see [Desktop pets for Mac: Shimeji, Bongo Cat and
+co](/blog/desktop-pets-for-mac/). Desktop Goose and its Rosetta problem are in
+[Desktop Goose on Mac in 2026: it runs, for now](/blog/desktop-goose-mac/),
+and if you'd rather have a calm cat that drums along to your typing, see
+[Bongo Cat on Mac: free open-source app vs Steam](/blog/bongo-cat-mac/).

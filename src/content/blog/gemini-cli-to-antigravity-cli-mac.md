@@ -1,6 +1,6 @@
 ---
 title: "Gemini CLI stopped working? Moving to Antigravity on Mac"
-description: "Since June 2026, Gemini CLI no longer serves free and Google AI Pro accounts. Who is affected, the Homebrew trap on Macs, and how to move to Antigravity CLI."
+description: "Since June 2026, Gemini CLI no longer serves free and Google AI Pro accounts. Who is affected, the Homebrew trap, and how to move to Antigravity CLI."
 pubDate: 2026-10-19
 tags: ["gemini cli", "macos", "install"]
 draft: false
