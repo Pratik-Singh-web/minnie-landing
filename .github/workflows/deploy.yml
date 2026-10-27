@@ -56,3 +56,20 @@ jobs:
           # instantly — so a premature timeout costs you an empty commit to
           # retry. 25 minutes of patience is cheaper.
           timeout: 1500000
+
+  # After the site is live, tell search engines about posts that just went out:
+  # IndexNow for Bing and friends, and a sitemap resubmit for Google when the
+  # GSC_SERVICE_ACCOUNT secret is set. See scripts/notify-search-engines.mjs.
+  notify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Notify search engines
+        env:
+          GSC_SERVICE_ACCOUNT: ${{ secrets.GSC_SERVICE_ACCOUNT }}
+        run: node scripts/notify-search-engines.mjs

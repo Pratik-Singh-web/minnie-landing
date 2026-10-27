@@ -18,10 +18,15 @@ const postDates = Object.fromEntries(
     .map((f) => {
       const src = readFileSync(`./src/content/blog/${f}`, 'utf8');
       const read = (key) => src.match(new RegExp(`^${key}:\\s*(\\S+)`, 'm'))?.[1];
-      const d = read('updatedDate') ?? read('pubDate');
-      if (!d) throw new Error(`sitemap: ${f} has no pubDate`);
+      const pub = read('pubDate');
+      if (!pub) throw new Error(`sitemap: ${f} has no pubDate`);
+      // Same rule as src/published.ts: drafts and future-dated posts aren't
+      // live, so they must not push the blog index's lastmod into the future.
+      if (read('draft') === 'true' || new Date(pub).getTime() > Date.now()) return null;
+      const d = read('updatedDate') ?? pub;
       return [`/blog/${f.replace(/\.md$/, '')}/`, new Date(d).toISOString()];
     })
+    .filter(Boolean)
 );
 
 // Newest post date doubles as the blog index's lastmod.
