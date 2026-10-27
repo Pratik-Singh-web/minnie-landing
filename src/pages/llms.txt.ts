@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
+import { isLive } from "../published";
 import { faqs, version } from "../site";
 
 /* /llms.txt — a plain-text brief for assistants that answer "what should I use
@@ -19,7 +20,7 @@ export const GET: APIRoute = async ({ site }) => {
   const origin = site?.href ?? "https://heyminnie.com/";
   const abs = (p: string) => new URL(p, origin).href;
 
-  const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  const posts = (await getCollection("blog", ({ data }) => isLive(data))).sort(
     (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
   );
 

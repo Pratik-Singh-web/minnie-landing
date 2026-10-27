@@ -3,7 +3,7 @@ title: "Claude Code \"Stream idle timeout\": what it means, fixed"
 description: "API Error: Stream idle timeout in Claude Code means the response went quiet. Why it happens, the Mac sleep case, and when raising the timeout helps."
 pubDate: 2026-10-31
 tags: ["claude code", "macos", "errors"]
-draft: true
+draft: false
 hero:
   motif: terminal
   lines: ["$ claude", "API Error: Stream idle timeout", "$ claude update"]

@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
+import { isLive } from "../../published";
 import { renderOgCard } from "../../og";
 import { tagSlug } from "../../site";
 
@@ -15,7 +16,7 @@ import { tagSlug } from "../../site";
  * is, and the build would fail loudly on a duplicate path if one ever were.
  */
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  const posts = await getCollection("blog", ({ data }) => isLive(data));
 
   const fmt = (d: Date) =>
     d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });

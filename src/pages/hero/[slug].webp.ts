@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
+import { isVisible } from "../../published";
 import { defaultHero, renderHero, type Hero } from "../../hero";
 
 /* One hero per post, at /hero/<slug>.webp. A separate tree from /blog/ for the
@@ -9,7 +10,7 @@ import { defaultHero, renderHero, type Hero } from "../../hero";
  * A post's `hero` frontmatter overrides any part of the scene; anything it
  * leaves out comes from the tag-based default in src/hero.ts. */
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => import.meta.env.DEV || !data.draft);
+  const posts = await getCollection("blog", ({ data }) => isVisible(data));
   return posts.map((post) => {
     const fallback = defaultHero(post.data.tags);
     const own = post.data.hero ?? {};

@@ -1,14 +1,15 @@
 ---
 import { getCollection, render } from "astro:content";
+import { isVisible } from "../../published";
 import BlogPost from "../../layouts/BlogPost.astro";
 import { tagSlug } from "../../site";
 
 export async function getStaticPaths() {
-  // Drafts stay visible on `astro dev` and vanish from the production build,
-  // so they never reach the sitemap.
+  // Drafts and future-dated posts stay visible on `astro dev` and are left out
+  // of the production build until they go live, so they never reach the sitemap.
   const posts = await getCollection(
     "blog",
-    ({ data }) => import.meta.env.DEV || !data.draft
+    ({ data }) => isVisible(data)
   );
 
   const base = import.meta.env.BASE_URL;

@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { isVisible } from "../../published";
 import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../components/Navbar.astro";
 import Footer from "../../components/Footer.astro";
@@ -9,7 +10,7 @@ const base = import.meta.env.BASE_URL;
 const site = Astro.site?.href ?? "https://heyminnie.com/";
 
 const posts = (
-  await getCollection("blog", ({ data }) => import.meta.env.DEV || !data.draft)
+  await getCollection("blog", ({ data }) => isVisible(data))
 ).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
 // Topics with a hub page, commonest first. The index is the only page that

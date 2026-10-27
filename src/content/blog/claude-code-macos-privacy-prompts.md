@@ -3,7 +3,7 @@ title: "Claude Code keeps asking to access data from other apps"
 description: "\"2.1.xxx would like to access data from other apps\" on your Mac is Claude Code. Why the prompt names a version and returns after updates, and what to do."
 pubDate: 2026-11-04
 tags: ["claude code", "macos", "errors"]
-draft: true
+draft: false
 hero:
   motif: dialog
   lines: ["“2.1.218” would like to access data from other apps", "~/.local/share/claude/versions/2.1.218"]

@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
+import { isLive } from "../published";
 
 // Hand-rolled RSS 2.0 so the site needs no extra dependency. Linked from every
 // page's <head> (Layout.astro), which is how readers and aggregators find it.
@@ -8,7 +9,7 @@ const esc = (s: string) =>
 
 export const GET: APIRoute = async ({ site }) => {
   const base = new URL(import.meta.env.BASE_URL, site ?? "https://heyminnie.com/");
-  const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  const posts = (await getCollection("blog", ({ data }) => isLive(data))).sort(
     (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
   );
   const items = posts

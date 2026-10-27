@@ -1,10 +1,11 @@
 ---
 import { getCollection } from "astro:content";
+import { isVisible } from "../published";
 const base = import.meta.env.BASE_URL;
 
 // The three newest posts. Links from the homepage are the strongest internal
 // signal a post gets, so new posts surface here automatically.
-const posts = (await getCollection("blog", ({ data }) => import.meta.env.DEV || !data.draft))
+const posts = (await getCollection("blog", ({ data }) => isVisible(data)))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 3);
 ---

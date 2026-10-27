@@ -3,7 +3,7 @@ title: "Claude Code on Mac: Terminal vs iTerm2 vs Ghostty"
 description: "Which Mac terminal works best with Claude Code: notifications, Shift+Enter, Option as Meta, copy and paste, and the one setting each terminal needs."
 pubDate: 2026-10-29
 tags: ["claude code", "macos", "comparison"]
-draft: true
+draft: false
 hero:
   motif: terminal
   lines: ["$ claude", "> /terminal-setup", "> /tui fullscreen"]

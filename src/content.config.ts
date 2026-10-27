@@ -17,6 +17,8 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
     // Drafts render on `astro dev` but are dropped from the production build,
     // so they never reach the sitemap and Google never sees a half-written post.
+    // A finished post with a future pubDate needs no draft flag: it publishes
+    // itself on that date (src/published.ts).
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
     // The scene drawn in the post's hero image (src/hero.ts). Optional: any

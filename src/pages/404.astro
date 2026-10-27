@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import { getCollection } from "astro:content";
+import { isVisible } from "../published";
 
 const base = import.meta.env.BASE_URL;
 
@@ -10,7 +11,7 @@ const base = import.meta.env.BASE_URL;
 // 404 was Pages' own: no nav, no links, nothing to do but close the tab — so
 // every stale or mistyped link to the site was a dead end.
 const posts = (
-  await getCollection("blog", ({ data }) => import.meta.env.DEV || !data.draft)
+  await getCollection("blog", ({ data }) => isVisible(data))
 )
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 3);

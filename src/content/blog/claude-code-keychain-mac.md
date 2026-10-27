@@ -3,7 +3,7 @@ title: "Claude Code and the Mac keychain: login errors, fixed"
 description: "\"Couldn't save your login\", \"Keychain is not writable\" or a password prompt that won't stop. Why Claude Code fights the macOS keychain, and the fix."
 pubDate: 2026-11-02
 tags: ["claude code", "macos", "errors"]
-draft: true
+draft: false
 hero:
   motif: terminal
   lines: ["$ claude doctor", "macOS Keychain is not writable", "$ security unlock-keychain"]
