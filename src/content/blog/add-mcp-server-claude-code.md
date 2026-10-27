@@ -3,7 +3,7 @@ title: "How to add an MCP server to Claude Code"
 description: "The claude mcp add command for remote and local servers, which scope to pick, signing in with /mcp, and how to tell why a server won't connect."
 pubDate: 2026-10-27
 tags: ["mcp", "claude code", "integrations"]
-draft: true
+draft: false
 hero:
   motif: terminal
   lines: ["$ claude mcp add -t http notion …", "$ claude mcp list", "> /mcp"]

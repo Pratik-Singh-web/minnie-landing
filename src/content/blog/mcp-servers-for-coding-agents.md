@@ -154,7 +154,9 @@ Gemini CLI uses an `"httpUrl"` field instead. So when you move a server
 between agents, check the field names, not just the wrapper key.
 
 You rarely need to edit these by hand. `claude mcp add` and `codex mcp add`
-write the entry for you, in the right file.
+write the entry for you, in the right file. For Claude Code, [How to add an MCP
+server to Claude Code](/blog/add-mcp-server-claude-code/) covers the command,
+which scope to pick, and signing in with `/mcp`.
 
 ## Connecting tools in Minnie
 
