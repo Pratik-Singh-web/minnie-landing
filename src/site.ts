@@ -19,7 +19,7 @@ export const faqs = [
   },
   {
     q: "Do I need my own AI?",
-    a: "Yes. Minnie is the body; an AI you already use is her brain. Any one of these works: a Claude Pro or Max plan (through Claude Code), a ChatGPT plan (through Codex), a Google account with Gemini (through Gemini CLI), or an API key from Anthropic, OpenAI or Google. Without one she can still move, talk and listen, but she cannot do real tasks. Her onboarding helps you connect whichever you have.",
+    a: "Yes. Minnie is the body; an AI you already use is her brain. Any one of these works: a Claude Pro or Max plan (through Claude Code), a ChatGPT plan (through Codex), a Gemini API key (through Gemini CLI), or an API key from Anthropic, OpenAI or Google. Without one she can still move, talk and listen, but she cannot do real tasks. Her onboarding helps you connect whichever you have.",
   },
   {
     q: "Which agents work?",
