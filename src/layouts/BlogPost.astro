@@ -33,6 +33,23 @@ const url = new URL(Astro.url.pathname, site).href;
 // headline in. The brand still reaches results through og:site_name and JSON-LD.
 const pageTitle = title;
 
+// The pitch at the foot of every post. Posts used to end on "Keep reading" with
+// no way to the app, so search visitors who liked a post had nowhere to go.
+// Pet posts pull people who want a pet, coding posts people who use an agent,
+// and each hears the half of Minnie that matches what they came for. Claims
+// stay inside what the site already says (agents, Claude-only approvals,
+// Apple Silicon, free).
+const isPetPost = tags.includes("desktop pet") && !tags.includes("claude code");
+const cta = isPetPost
+  ? {
+      h: "A desktop pet that also does work",
+      p: "Minnie lives on your Mac like Shimeji or Bongo Cat. Ask her out loud and she runs Claude Code, Codex or Gemini CLI for you.",
+    }
+  : {
+      h: "Skip the terminal window",
+      p: "Minnie is a desktop pet that runs Claude Code, Codex or Gemini CLI for you. Talk to her out loud, and approve Claude Code's commands with a click.",
+    };
+
 const fmt = (d: Date) =>
   d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
@@ -112,6 +129,16 @@ const postLd = {
       <slot />
     </div>
 
+    <aside class="post__cta">
+      <img src={`${base}minnie/still-curious.webp`} width="72" height="72" alt="" loading="lazy" decoding="async" />
+      <div>
+        <h2 class="post__cta-h">{cta.h}</h2>
+        <p class="post__cta-p">{cta.p}</p>
+        <a href={`${base}download/`} class="btn btn--sm">Download Minnie, free →</a>
+        <span class="post__cta-meta mono">Apple Silicon · macOS 14+ · uses the AI plan you already have</span>
+      </div>
+    </aside>
+
     {related.length > 0 && (
       <aside class="post__related">
         <h2 class="post__related-h">Keep reading</h2>
@@ -146,6 +173,41 @@ const postLd = {
     border-bottom: 1px solid var(--accent);
   }
   .post__tag:hover { background: var(--accent-t); }
+  .post__cta {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 20px;
+    align-items: start;
+    padding: 24px;
+    border: 3px solid var(--ink);
+    border-radius: 18px;
+    background: var(--card);
+  }
+  .post__cta-h {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .post__cta-p {
+    margin: 8px 0 18px;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+  .post__cta-meta {
+    display: block;
+    margin-top: 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 520px) {
+    .post__cta { grid-template-columns: 1fr; gap: 12px; }
+    .post__cta .btn { white-space: normal; }
+  }
   .post__related {
     margin-top: 64px;
     padding-top: 28px;

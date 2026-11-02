@@ -1,7 +1,8 @@
 ---
-title: "Bongo Cat on Mac: free open-source app vs Steam"
-description: "Two Bongo Cats run on a Mac: the free open-source app, no Steam needed, and the Steam game. Which to pick, and the permission macOS asks for."
+title: "Bongo Cat for Mac: free, and no Steam needed"
+description: "Bongo Cat runs natively on a Mac, free and without Steam. How to install the open-source app on Apple Silicon or Intel, and when the Steam game is worth it."
 pubDate: 2026-10-14
+updatedDate: 2026-11-02
 tags: ["desktop pet", "macos", "install"]
 draft: false
 hero:

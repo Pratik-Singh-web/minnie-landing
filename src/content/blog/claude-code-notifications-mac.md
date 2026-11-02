@@ -1,7 +1,8 @@
 ---
-title: "Claude Code notifications on Mac: why they don't fire"
-description: "Claude Code only sends desktop alerts in three terminals, and its hook alerts can lag a minute. How to get told the moment it finishes or needs you."
+title: "Claude Code notifications not working on Mac? Fix it"
+description: "No alert when Claude Code finishes or asks permission? Which terminals notify out of the box, the one iTerm2 setting, and the fix for every other terminal."
 pubDate: 2026-10-13
+updatedDate: 2026-11-02
 tags: ["claude code", "macos", "permissions"]
 draft: false
 hero:

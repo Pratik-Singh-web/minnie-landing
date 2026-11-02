@@ -1,7 +1,8 @@
 ---
-title: "Shimeji on Mac in 2026: Shijima and what still runs"
-description: "The Mac app most people used for Shimeji was discontinued in 2026. What still runs on Apple Silicon, how to import a shimeji, and what to skip."
+title: "Shimeji for Mac in 2026: how to run it on Apple Silicon"
+description: "Yes, Shimeji still runs on a Mac. The free app that works on Apple Silicon, how to add your own shimeji, and the option for Intel Macs."
 pubDate: 2026-10-13
+updatedDate: 2026-11-02
 tags: ["desktop pet", "macos", "install"]
 draft: false
 hero:

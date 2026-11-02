@@ -1,8 +1,8 @@
 ---
 title: "zsh: command not found: claude on Mac, fixed"
-description: "Claude Code installed, but zsh says command not found: claude. The five causes in the order to check them, with the exact fix for zsh and bash."
+description: "Usually a one-line fix: add ~/.local/bin to your PATH. The exact command for zsh and bash, plus the four other causes in the order to check them."
 pubDate: 2026-10-14
-updatedDate: 2026-10-25
+updatedDate: 2026-11-02
 tags: ["claude code", "macos", "install"]
 draft: false
 hero:
@@ -16,6 +16,16 @@ You ran the installer, it finished without complaining, and then:
 ```text
 zsh: command not found: claude
 ```
+
+**Quick fix:** in most cases the native installer put Claude Code in
+`~/.local/bin` and that folder isn't on your PATH. On zsh, the Mac default,
+run this, then open a new terminal window and try `claude` again:
+
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+```
+
+If that didn't do it, or you're on bash, read on.
 
 Claude Code is almost certainly on your Mac. Your shell just can't find it.
 On macOS that comes down to five causes, and you can rule each one out in
@@ -103,7 +113,10 @@ Then check it worked:
 claude --version
 ```
 
-You should see a version number followed by `(Claude Code)`.
+You should see a version number followed by `(Claude Code)`. If you'd
+rather not keep a terminal window open for it, [Minnie](/download/) is a free
+desktop pet that runs Claude Code for you: talk to her out loud and approve
+its commands with a click.
 
 **If the `echo` command said `permission denied`,** your user can't write to
 your own shell config file, which usually means a past `sudo` left it owned by
