@@ -94,7 +94,7 @@ const link = "prose-a";
     </p>
 
     <p style="margin:28px 0 12px;">
-      <a href={dmgURL} class="btn">Download Minnie {version} →</a>
+      <a href={dmgURL} class="btn" id="dl-btn" data-version={version}>Download Minnie {version} →</a>
     </p>
     <p class="mono" style="opacity:.7;font-size:14px;">
       Apple Silicon · macOS 14+ · ~148 MB
@@ -314,6 +314,13 @@ open /Applications/Minnie.app</code></pre>
 </style>
 
 <script>
+  // Count the click (ACTIVATION_PLAN W1-1), then let the link do its job. The
+  // DMG starts and this page, with its install steps, stays on screen. Without
+  // JavaScript the link still works; it just isn't counted.
+  import { countDownload } from "../scripts/count-download";
+  const dl = document.getElementById("dl-btn");
+  dl?.addEventListener("click", () => countDownload(dl.dataset.version ?? "", "download"));
+
   // The command is three lines and easy to mistype; a wrong path fails silently.
   const btn = document.getElementById("copy-install");
   const src = document.getElementById("install-cmd");

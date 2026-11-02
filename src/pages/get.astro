@@ -1,0 +1,53 @@
+---
+// heyminnie.com/get — the shareable download link (Minnie repo,
+// docs/ACTIVATION_PLAN.md W1-1). Use it anywhere outside the download page:
+// a post, an email, a tweet. `?src=` names where the link was, e.g. /get/?src=blog.
+//
+// It counts the visit (src/scripts/count-download.ts), then hands the browser
+// the DMG. The download page's own button counts the same way but stays on that
+// page, so the install steps stay in front of the person.
+//
+// Without JavaScript nothing is counted and the link below still works.
+// noindex and out of the sitemap: this is a door, not a page.
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import { version, dmgURL } from "../site";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout
+  title="Downloading Minnie…"
+  description="Your Minnie download is starting."
+  noindex={true}
+>
+  <Navbar />
+
+  <main class="legal" id="get" data-version={version} data-dmg={dmgURL}>
+    <h1 class="legal__h1">Downloading Minnie {version}…</h1>
+    <p class="prose-p" style="margin-top:28px;">
+      Your download should start by itself. If it doesn't,
+      <a class="prose-a" href={dmgURL}>click here</a>.
+    </p>
+    <p class="prose-p">
+      Then follow the <a class="prose-a" href={`${base}download/#install`}>install steps</a>.
+      macOS will probably warn you once, because Minnie isn't signed by Apple yet.
+    </p>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  import { countDownload } from "../scripts/count-download";
+
+  const el = document.getElementById("get");
+  const version = el?.dataset.version ?? "";
+  const dmg = el?.dataset.dmg ?? "";
+  const src = new URLSearchParams(location.search).get("src") || "get";
+  countDownload(version, src);
+  // A DMG link doesn't leave the page, so this page (and its link to the
+  // install steps) stays on screen while the file arrives.
+  if (dmg) setTimeout(() => { location.href = dmg; }, 50);
+</script>

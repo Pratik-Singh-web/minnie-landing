@@ -44,7 +44,8 @@ export default defineConfig({
     sitemap({
       // 404.html is served by Pages for unknown paths; listing it in the
       // sitemap would be submitting a URL that is meant to 404.
-      filter: (page) => !page.includes('/404'),
+      // /get/ is the counted download door (get.astro), not a page to rank.
+      filter: (page) => !page.includes('/404') && !page.includes('/get/'),
       serialize(item) {
         const path = new URL(item.url).pathname;
         const lastmod = postDates[path] ?? (path === '/blog/' ? newestPost : undefined);
