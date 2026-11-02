@@ -1,8 +1,8 @@
 {
-  "latest": "0.9.13",
-  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.13-beta/Minnie-0.9.13-beta.dmg",
-  "sha256": "aece9b5cf1361da2303a2225096fe81a810f96fe281355fa51d26463faf62876",
-  "notes": "Minnie now comes on screen when you launch her, and stays signed in between launches. Signing in with Google is now required to run tasks. After this update you may be asked to sign in once more.",
+  "latest": "0.9.14",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.14-beta/Minnie-0.9.14-beta.dmg",
+  "sha256": "80a17156d44a47a7483315176495c8574513c93e17de8e5692cb6172671db8ae",
+  "notes": "No AI connected? She now says so and takes you to the fix. Setup asks which AI you use: Claude, ChatGPT or Gemini. Opening apps and sites, timers and volume work with no AI at all. After this update you may be asked to sign in once more.",
   "mandatory": false,
   "minSupportedVersion": ""
 }
