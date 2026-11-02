@@ -7,11 +7,7 @@ const base = import.meta.env.BASE_URL;
 const main = [
   { name: "Claude Code", body: "The full experience: voice, wake word and the out-loud consent flow." },
   { name: "Gemini CLI", body: "Runs more autonomously. Consent prompts are Claude Code only for now." },
-  { name: "Codex", body: "Same as Gemini CLI: real tasks, fewer interruptions." },
-];
-const more = [
-  { name: "Antigravity", body: "Supported" },
-  { name: "Custom CLI", body: "Any command-line agent" },
+  { name: "Codex", body: "Sign in with ChatGPT. Same as Gemini CLI: real tasks, fewer interruptions." },
 ];
 const tools = ["GitHub", "Notion", "Slack", "Postgres", "Figma", "Google Workspace", "Custom MCP"];
 ---
@@ -43,16 +39,7 @@ const tools = ["GitHub", "Notion", "Slack", "Postgres", "Figma", "Google Workspa
           </li>
         ))}
       </ul>
-      <ul class="stack__grid">
-        {more.map((a) => (
-          <li>
-            <strong>{a.name}</strong>
-            <span>{a.body}</span>
-          </li>
-        ))}
-      </ul>
-
-      <p class="stack__note">Install the agent once and log in. Her onboarding does the rest.</p>
+      <p class="stack__note">Minnie needs one of these as her brain. Connect it once; her onboarding shows you how.</p>
       <a href={`${base}#faq`} class="btn btn--card btn--sm">Agents &amp; setup</a>
     </div>
 
@@ -104,15 +91,13 @@ const tools = ["GitHub", "Notion", "Slack", "Postgres", "Figma", "Google Workspa
     color: var(--ink-dim);
   }
 
-  .stack__list,
-  .stack__grid {
+  .stack__list {
     margin: 0;
     padding: 0;
     list-style: none;
     width: 100%;
   }
-  .stack__list li,
-  .stack__grid li {
+  .stack__list li {
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -121,17 +106,10 @@ const tools = ["GitHub", "Notion", "Slack", "Postgres", "Figma", "Google Workspa
     font-size: 14.5px;
     color: var(--ink-dim);
   }
-  .stack__list strong,
-  .stack__grid strong {
+  .stack__list strong {
     font-size: 16px;
     color: var(--ink);
   }
-  .stack__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 24px;
-  }
-
   .stack__note {
     margin: 18px 0 14px;
     font-size: 13.5px;

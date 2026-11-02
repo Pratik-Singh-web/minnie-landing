@@ -33,7 +33,7 @@ const howToLd = {
   estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: "0" },
   supply: [
     { "@type": "HowToSupply", name: "An Apple Silicon Mac running macOS 14 or later" },
-    { "@type": "HowToSupply", name: "An AI coding agent CLI such as Claude Code, already installed and logged in" },
+    { "@type": "HowToSupply", name: "An AI to be Minnie's brain: Claude (through Claude Code), ChatGPT (through Codex), Gemini (through Gemini CLI), or an API key" },
   ],
   tool: [{ "@type": "HowToTool", name: "Terminal" }],
   step: [
@@ -92,6 +92,20 @@ const link = "prose-a";
       asks for. It is free, nothing is charged now or later, and it is what lets your setup
       follow you to a new Mac or a reinstall.
     </p>
+
+    <!-- ACTIVATION_PLAN W1-2. The first strangers installed, signed in, and then
+         found every task failing because no AI was connected. Say it before the
+         download, not after: this is the one thing she can't do without. -->
+    <div class="needs card">
+      <p class="needs__t">Minnie needs an AI brain.</p>
+      <p class="needs__d">
+        She's the body; an AI you already use does the thinking. Any one of these:{" "}
+        <strong>Claude</strong> (Pro or Max), <strong>ChatGPT</strong> (through Codex),{" "}
+        <strong>Gemini</strong> (through Gemini CLI), or an API key from Anthropic,
+        OpenAI or Google. Without one she can move, talk and listen, but she can't do
+        real tasks. Onboarding helps you connect whichever you have.
+      </p>
+    </div>
 
     <p style="margin:28px 0 12px;">
       <a href={dmgURL} class="btn" id="dl-btn" data-version={version}>Download Minnie {version} →</a>
@@ -306,6 +320,14 @@ open /Applications/Minnie.app</code></pre>
     background: var(--card);
     padding: 16px 18px;
   }
+
+  .needs {
+    margin-top: 28px;
+    padding: 16px 18px;
+    border-left: 8px solid var(--yellow);
+  }
+  .needs__t { font-weight: 800; margin: 0 0 6px; }
+  .needs__d { margin: 0; }
 
   @media (max-width: 520px) {
     .install__steps > li { padding: 14px; gap: 10px; }

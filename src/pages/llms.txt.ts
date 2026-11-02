@@ -27,7 +27,7 @@ export const GET: APIRoute = async ({ site }) => {
   const body = `# Minnie
 
 > A free macOS desktop pet that runs the AI coding agent you already use —
-> Claude Code, Gemini CLI, Codex, Antigravity or any command-line agent. She
+> Claude Code, Codex or Gemini CLI, and needs one of them as her brain. She
 > gives the agent a face and a voice, and asks out loud before it does anything
 > it cannot take back.
 

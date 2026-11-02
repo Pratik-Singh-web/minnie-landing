@@ -15,11 +15,15 @@ export const faqs = [
   },
   {
     q: "Does Minnie cost extra to run the AI?",
-    a: "No. She drives the agent CLI you already use; it holds its own auth and does the reasoning. Zero extra AI cost.",
+    a: "No. She drives the agent CLI you already use; it holds its own auth and does the reasoning. Zero extra AI cost. She does need one, though: see the next question.",
+  },
+  {
+    q: "Do I need my own AI?",
+    a: "Yes. Minnie is the body; an AI you already use is her brain. Any one of these works: a Claude Pro or Max plan (through Claude Code), a ChatGPT plan (through Codex), a Google account with Gemini (through Gemini CLI), or an API key from Anthropic, OpenAI or Google. Without one she can still move, talk and listen, but she cannot do real tasks. Her onboarding helps you connect whichever you have.",
   },
   {
     q: "Which agents work?",
-    a: "Claude Code today, with the full experience. Gemini CLI, Codex, Antigravity and custom command-line agents work too — they run more autonomously, since the voice-consent flow is Claude Code only for now.",
+    a: "Claude Code, Codex and Gemini CLI. Claude Code is the full experience; Codex and Gemini CLI run more autonomously, since the voice-consent flow is Claude Code only for now.",
   },
   {
     q: "Is my code private?",
@@ -27,7 +31,7 @@ export const faqs = [
   },
   {
     q: "Do I need to set anything up?",
-    a: "Two things, both one-off. Sign in to Minnie with Google — that is free and it is the only thing she asks for — and install the agent CLI you want her to drive (Claude Code, say) and log into that. Her onboarding walks you through both.",
+    a: "Two things, both one-off. Sign in to Minnie with Google, which is free, and connect the AI that will be her brain: Claude, ChatGPT (Codex), Gemini, or an API key. Her onboarding walks you through both.",
   },
   {
     q: "Can I connect my own tools?",
