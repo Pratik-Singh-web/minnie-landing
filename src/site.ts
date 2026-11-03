@@ -35,7 +35,7 @@ export const faqs = [
   },
   {
     q: "Can I connect my own tools?",
-    a: "Yes — a one-click MCP catalog (GitHub, Notion, Slack, Postgres, Figma…), custom servers, and native Sign in with Google for Gmail, Calendar and Chat.",
+    a: "Yes, with the Claude Code brain — a one-click MCP catalog (GitHub, Notion, Linear, Jira, Figma, Sentry…), any custom MCP server, and native Sign in with Google for Gmail, Calendar and Chat.",
   },
   {
     q: "Does it work on Windows?",
