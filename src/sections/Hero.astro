@@ -1,6 +1,9 @@
 ---
 import Minnie from "../components/Minnie.astro";
 const base = import.meta.env.BASE_URL;
+// A phone can't install a Mac app (R5d), so on touch screens the download button
+// becomes a mailto that hands the visitor the link for later. No form, no data.
+const mailLink = `mailto:?subject=${encodeURIComponent("Minnie for my Mac")}&body=${encodeURIComponent("Download Minnie on your Mac: " + new URL(`${base}download/`, Astro.site).href)}`;
 ---
 
 <section class="hero wrap">
@@ -12,12 +15,14 @@ const base = import.meta.env.BASE_URL;
     </h1>
 
     <p class="hero__lede">
-      A free macOS desktop pet that runs the AI coding agent you already use — Claude Code,
-      Gemini CLI or Codex. Talk to her, watch her work, and say yes before she touches anything.
+      Minnie is a free Mac app: a desktop pet that runs the AI agent you already pay for —
+      Claude Code, Codex or Gemini CLI. Talk to her out loud and she does the work. No credits,
+      no second AI bill. With Claude Code, she asks before anything risky.
     </p>
 
     <div class="hero__actions">
-      <a href={`${base}download/`} class="btn">Download free for Mac</a>
+      <a href={`${base}download/`} class="btn cta-mac">Download free for Mac</a>
+      <a href={mailLink} class="btn cta-phone">Email myself the link</a>
       <a href={`${base}#features`} class="btn btn--card">See what she does</a>
     </div>
     <ul class="hero__facts">

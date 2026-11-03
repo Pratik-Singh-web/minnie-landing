@@ -1013,3 +1013,12 @@ textarea {
   color: var(--on-accent);
 }
 .post__body .say-it__note { margin: 0; font-size: 14.5px; }
+
+/* Phone vs Mac download (R5d). A touch-only device can't run the DMG, so it gets
+   the mailto instead. Keyed on the input, not the width: a narrow Mac window
+   still downloads, an iPad does not. */
+.cta-phone { display: none !important; }
+@media (hover: none) and (pointer: coarse) {
+  .cta-mac { display: none !important; }
+  .cta-phone { display: inline-flex !important; }
+}
