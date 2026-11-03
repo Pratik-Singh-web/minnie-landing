@@ -1,5 +1,4 @@
 ---
-import Minnie from "../components/Minnie.astro";
 const base = import.meta.env.BASE_URL;
 
 // Claude Code is the full experience; the others run more autonomously because
@@ -9,7 +8,16 @@ const main = [
   { name: "Gemini CLI", body: "Runs more autonomously. Consent prompts are Claude Code only for now." },
   { name: "Codex", body: "Sign in with ChatGPT. Same as Gemini CLI: real tasks, fewer interruptions." },
 ];
-const tools = ["GitHub", "Notion", "Slack", "Postgres", "Figma", "Google Workspace", "Custom MCP"];
+// Only what the app's Integrations pane really offers (MCPCatalog.swift + the
+// Google sign-in). Slack and Postgres were dropped from the app on 2026-09-19;
+// keep this list in step with the catalog. Connections reach the Claude Code
+// brain only (Gemini and Codex run as one-shot subprocesses without them).
+const tools = ["GitHub", "Notion", "Linear", "Gmail & Calendar", "Jira & Confluence", "Figma", "Sentry", "Stripe", "Any MCP server"];
+const steps = [
+  { t: "Settings ▸ Integrations ▸ Notion ▸ Sign in.", s: "Once. The token stays in your macOS Keychain." },
+  { t: "“What did I write about pricing last week?”", s: "She reads your pages and answers out loud." },
+  { t: "“Add that to my launch page.”", s: "A change, so she asks first. You say yes." },
+];
 ---
 
 <section id="agents" class="wrap blk">
@@ -45,7 +53,7 @@ const tools = ["GitHub", "Notion", "Slack", "Postgres", "Figma", "Google Workspa
 
     <div id="mcp" class="card stack__card">
       <h3 class="stack__h">Connect your tools.</h3>
-      <p class="stack__sub">A one-click catalog over Model Context Protocol.</p>
+      <p class="stack__sub">One click over Model Context Protocol. No JSON config.</p>
 
       <p class="stack__label">Your connections</p>
       <div class="stack__chips">
@@ -54,12 +62,17 @@ const tools = ["GitHub", "Notion", "Slack", "Postgres", "Figma", "Google Workspa
         ))}
       </div>
 
-      <div class="stack__pet">
-        <Minnie state="think" size={120} />
-        <p class="quip">She still asks before using them.</p>
-      </div>
+      <p class="stack__label stack__label--gap">Connect Notion, then just ask</p>
+      <ol class="stack__steps">
+        {steps.map((st) => (
+          <li>
+            <strong>{st.t}</strong>
+            <span>{st.s}</span>
+          </li>
+        ))}
+      </ol>
 
-      <p class="stack__note">Tokens live in your macOS Keychain. Sign in with Google for Gmail, Calendar and Chat.</p>
+      <p class="stack__note">Connections work with the Claude Code brain. Sign in with Google once for Gmail and Calendar.</p>
     </div>
   </div>
 </section>
@@ -148,13 +161,41 @@ const tools = ["GitHub", "Notion", "Slack", "Postgres", "Figma", "Google Workspa
   }
   .stack__chip[aria-pressed="true"]::before { content: "✓ "; color: var(--accent-ink); }
 
-  .stack__pet {
-    display: flex;
-    align-items: center;
-    gap: 22px;
-    margin-top: 26px;
+  .stack__label--gap { margin-top: 24px; }
+  .stack__steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    counter-reset: step;
   }
-  .stack__pet .quip { font-size: 16px; }
+  .stack__steps li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    column-gap: 10px;
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+    color: var(--ink-dim);
+  }
+  .stack__steps li::before {
+    content: counter(step);
+    grid-row: span 2;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent-ink);
+    border: 1px solid currentColor;
+  }
+  .stack__steps strong {
+    font-size: 15px;
+    color: var(--ink);
+  }
 </style>
 
 <script>

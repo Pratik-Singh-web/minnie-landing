@@ -39,11 +39,20 @@ const pageTitle = title;
 // and each hears the half of Minnie that matches what they came for. Claims
 // stay inside what the site already says (agents, Claude-only approvals,
 // Apple Silicon, free).
+// MCP posts carry ~40% of the site's search impressions (TASKS R9), so they get
+// their own pitch: the connections Minnie sets up for you. Those reach the
+// Claude Code brain only, so the line says so.
 const isPetPost = tags.includes("desktop pet") && !tags.includes("claude code");
+const isMcpPost = tags.includes("mcp");
 const cta = isPetPost
   ? {
       h: "A desktop pet that also does work",
       p: "Minnie lives on your Mac like Shimeji or Bongo Cat. Ask her out loud and she runs Claude Code, Codex or Gemini CLI for you.",
+    }
+  : isMcpPost
+  ? {
+      h: "Your MCP servers, without the JSON",
+      p: "Minnie connects Notion, Linear, GitHub and more in one click, then you just ask out loud. Works with Claude Code.",
     }
   : {
       h: "Skip the terminal window",
