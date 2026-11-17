@@ -1,8 +1,8 @@
 ---
-title: "zsh: command not found: claude on Mac, fixed"
-description: "Usually a one-line fix: add ~/.local/bin to your PATH. The exact command for zsh and bash, plus the four other causes in the order to check them."
+title: "Fix \"zsh: command not found: claude\" on Mac in one line"
+description: "Seeing \"command not found: claude\" or \"~/.local/bin is not in your PATH\" after installing? Paste one line to fix it in zsh or bash, plus the four rarer causes."
 pubDate: 2026-10-14
-updatedDate: 2026-11-02
+updatedDate: 2026-11-17
 tags: ["claude code", "macos", "install"]
 draft: false
 hero:
@@ -238,7 +238,9 @@ Two less common problems on a Mac:
 
 - **`dyld: Symbol not found` or `Abort trap: 6`** means your macOS is too
   old. Claude Code needs macOS 13 Ventura or later, and installing through
-  Homebrew instead won't change that.
+  Homebrew instead won't change that. [Claude Code "dyld: Symbol not found"
+  on Mac, fixed](/blog/claude-code-dyld-symbol-not-found-mac/) shows how to
+  confirm it and what to do if you can't update.
 - **`syntax error near unexpected token '<'` during install** means the
   install URL returned a web page, not the script. This is usually a network,
   proxy or region problem, not a problem with your Mac.

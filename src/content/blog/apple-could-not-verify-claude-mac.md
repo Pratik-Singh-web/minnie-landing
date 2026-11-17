@@ -2,6 +2,7 @@
 title: "\"Apple could not verify claude\" on Mac: is it safe?"
 description: "macOS blocked Claude Code with a malware warning. Why it happens, a one-command check that it's really Anthropic's, and the safe fixes in order."
 pubDate: 2026-10-25
+updatedDate: 2026-11-17
 tags: ["claude code", "macos", "gatekeeper"]
 draft: false
 hero:
@@ -173,7 +174,10 @@ unnotarized build keeps running whatever you do. [zsh: command not found:
 claude on Mac, fixed](/blog/claude-command-not-found-mac/) covers untangling
 that. If you want to start completely clean, [Uninstall Claude Code from a
 Mac completely](/blog/uninstall-claude-code-mac/) removes every copy and its
-leftovers.
+leftovers. If the prompt you're seeing instead asks whether a version number
+like “2.1.218” may access data from other apps, that's a different macOS
+prompt: see [Claude Code keeps asking to access data from other
+apps](/blog/claude-code-macos-privacy-prompts/).
 
 ## The habit worth keeping
 

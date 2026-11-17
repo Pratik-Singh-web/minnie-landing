@@ -2,7 +2,7 @@
 title: "Install Claude Code on a Mac, start to finish"
 description: "The short path to a working Claude Code on macOS: which installer to use, how to log in, what to do in your first repo, and what usually goes wrong."
 pubDate: 2026-10-07
-updatedDate: 2026-10-14
+updatedDate: 2026-11-17
 tags: ["claude code", "macos", "install"]
 draft: false
 hero:
@@ -108,7 +108,10 @@ prints the line to add instead, and it is easy to scroll past. Add it to
 [zsh: command not found: claude on Mac, fixed](/blog/claude-command-not-found-mac/)
 walks through this and the four other causes. If macOS refuses to run `claude`
 with a malware warning instead, see ["Apple could not verify claude" on Mac: is
-it safe?](/blog/apple-could-not-verify-claude-mac/).
+it safe?](/blog/apple-could-not-verify-claude-mac/). And if it fails with
+`dyld: Symbol not found` or `Abort trap: 6`, your macOS is older than Claude
+Code supports: [Claude Code "dyld: Symbol not found" on Mac,
+fixed](/blog/claude-code-dyld-symbol-not-found-mac/).
 
 **Two installs fighting.** `which -a claude` lists every one on your `PATH`. If
 there is more than one, remove all but the one you intend to keep. If you
@@ -128,6 +131,11 @@ babysitting](/blog/claude-code-permission-prompts/).
 ## After it works
 
 A few things are worth doing next.
+
+**Check your terminal.** Claude Code runs in any Mac terminal, but they
+differ on notifications, Shift+Enter and copy and paste. [Claude Code on Mac:
+Terminal vs iTerm2 vs Ghostty](/blog/claude-code-terminal-mac/) has the one
+setting each needs.
 
 **Connect your tools.** Model Context Protocol lets the agent reach GitHub,
 Notion, Slack, your database and so on, rather than being limited to the files in

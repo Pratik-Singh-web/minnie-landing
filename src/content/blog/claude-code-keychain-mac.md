@@ -2,6 +2,7 @@
 title: "Claude Code and the Mac keychain: login errors, fixed"
 description: "\"Couldn't save your login\", \"Keychain is not writable\" or a password prompt that won't stop. Why Claude Code fights the macOS keychain, and the fix."
 pubDate: 2026-11-02
+updatedDate: 2026-11-17
 tags: ["claude code", "macos", "errors"]
 draft: false
 hero:
@@ -150,7 +151,10 @@ If you want to remove Claude Code's login from the keychain entirely,
 completely](/blog/uninstall-claude-code-mac/) shows how to find and delete
 the `Claude Code-credentials` entries. If the `claude` command itself won't
 run, see [zsh: command not found: claude on Mac,
-fixed](/blog/claude-command-not-found-mac/).
+fixed](/blog/claude-command-not-found-mac/). And if macOS keeps asking
+whether an app named only by a version number, like “2.1.218”, may access
+data from other apps, that's Claude Code too: [Claude Code keeps asking to
+access data from other apps](/blog/claude-code-macos-privacy-prompts/).
 
 [Minnie](/download/), our desktop pet for the Mac, keeps the tokens for the
 tools you connect in the macOS keychain too, encrypted by the system rather

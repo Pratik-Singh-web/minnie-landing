@@ -1,8 +1,8 @@
 ---
-title: "Shimeji for Mac in 2026: how to run it on Apple Silicon"
-description: "Yes, Shimeji still runs on a Mac. The free app that works on Apple Silicon, how to add your own shimeji, and the option for Intel Macs."
+title: "Shimeji on Mac in 2026: yes it works, no Java needed"
+description: "Does Shimeji work on a Mac? Yes. The free app for Apple Silicon (no Java to install), the option for Intel Macs, adding your own shimeji, and the \"damaged\" fix."
 pubDate: 2026-10-13
-updatedDate: 2026-11-02
+updatedDate: 2026-11-17
 tags: ["desktop pet", "macos", "install"]
 draft: false
 hero:

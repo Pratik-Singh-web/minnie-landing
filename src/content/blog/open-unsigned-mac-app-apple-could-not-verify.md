@@ -1,8 +1,8 @@
 ---
-title: "\"Apple could not verify\" this app: what it means"
-description: "Why macOS warns about unsigned apps, what the warning does and doesn't tell you, how to check an app yourself, and how to open one you trust."
+title: "\"Apple could not verify\" an app is free of malware: how to open it"
+description: "Apple could not verify an app is free of malware, or the developer can't be verified? What the warning means, how to check the app, and how to open it on Sequoia."
 pubDate: 2026-10-02
-updatedDate: 2026-10-14
+updatedDate: 2026-11-17
 tags: ["macos", "gatekeeper", "install"]
 draft: false
 hero:

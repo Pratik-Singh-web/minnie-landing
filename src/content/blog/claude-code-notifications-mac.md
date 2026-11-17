@@ -1,8 +1,8 @@
 ---
-title: "Claude Code notifications not working on Mac? Fix it"
-description: "No alert when Claude Code finishes or asks permission? Which terminals notify out of the box, the one iTerm2 setting, and the fix for every other terminal."
+title: "No alert when Claude Code finishes on Mac? Fix it in any terminal"
+description: "Claude Code notifications not showing on your Mac? Ghostty notifies on its own, iTerm2 needs one setting, and Terminal, Warp and VS Code need a bell or a hook."
 pubDate: 2026-10-13
-updatedDate: 2026-11-02
+updatedDate: 2026-11-17
 tags: ["claude code", "macos", "permissions"]
 draft: false
 hero:
@@ -36,7 +36,9 @@ turns into something you see depends on which terminal you use:
 
 If you use one of the "no" terminals, nothing is broken. Claude Code just has
 no way to raise a desktop notification from there, and you need one of the
-fixes further down.
+fixes further down. If you're open to switching, [Claude Code on Mac: Terminal
+vs iTerm2 vs Ghostty](/blog/claude-code-terminal-mac/) compares the three on
+notifications and everything else Claude Code needs from a terminal.
 
 **iTerm2:** open Settings → Profiles → Terminal, check **Notification Center
 Alerts**, then click **Filter Alerts** and enable **Send escape
