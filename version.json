@@ -1,8 +1,8 @@
 {
-  "latest": "0.9.14",
-  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.14-beta/Minnie-0.9.14-beta.dmg",
-  "sha256": "80a17156d44a47a7483315176495c8574513c93e17de8e5692cb6172671db8ae",
-  "notes": "No AI connected? She now says so and takes you to the fix. Setup asks which AI you use: Claude, ChatGPT or Gemini. Opening apps and sites, timers and volume work with no AI at all. After this update you may be asked to sign in once more.",
+  "latest": "0.9.15",
+  "url": "https://github.com/Pratik-Singh-web/minnie-landing/releases/download/v0.9.15-beta/Minnie-0.9.15-beta.dmg",
+  "sha256": "35ca7c339cae9ce19e51bfce156558d3312c8f8873383f9ace85ff248ea4053d",
+  "notes": "With Apple Intelligence on, she thinks on your Mac with no account and no cost. Gemini is no longer cut off, a refused model fixes itself, long tasks say they're still working, and a free Gemini key is now step by step. After this update you may be asked to sign in once more.",
   "mandatory": false,
   "minSupportedVersion": ""
 }
