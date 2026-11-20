@@ -4,7 +4,7 @@
 // a post, an email, a tweet. `?src=` names where the link was, e.g. /get/?src=blog.
 //
 // It counts the visit (src/scripts/count-download.ts), then hands the browser
-// the DMG. The download page's own button counts the same way but stays on that
+// the DMG — unless the chip guess says Intel (W4-2), when it explains instead. The download page's own button counts the same way but stays on that
 // page, so the install steps stay in front of the person.
 //
 // Without JavaScript nothing is counted and the link below still works.
@@ -12,6 +12,7 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import CantOpen from "../components/CantOpen.astro";
 import { version, dmgURL } from "../site";
 
 const base = import.meta.env.BASE_URL;
@@ -27,27 +28,61 @@ const base = import.meta.env.BASE_URL;
   <main class="legal" id="get" data-version={version} data-dmg={dmgURL}>
     <h1 class="legal__h1">Downloading Minnie {version}…</h1>
     <p class="prose-p" style="margin-top:28px;">
-      Your download should start by itself. If it doesn't,
+      Your download should start by itself. If it doesn't,{" "}
       <a class="prose-a" href={dmgURL}>click here</a>.
     </p>
     <p class="prose-p">
       Then follow the <a class="prose-a" href={`${base}download/#install`}>install steps</a>.
       macOS will probably warn you once, because Minnie isn't signed by Apple yet.
     </p>
+
+    <!-- W4-2. Shown instead of starting the download when the chip guess is
+         confidently Intel; the link still works in case the guess is wrong. -->
+    <div class="card get__intel" id="get-intel" hidden>
+      <p class="prose-p" style="margin:0;">
+        <strong>This looks like an Intel Mac.</strong> Minnie only runs on Apple Silicon (M1 or
+        later) for now, so she won't open here. To check: Apple menu ▸ About This Mac, where{" "}
+        <em>Chip: Apple M…</em> means she will work.{" "}
+        <a class="prose-a" href={dmgURL} id="get-anyway">Download anyway</a>
+      </p>
+    </div>
+
+    <div style="margin-top:28px;"><CantOpen /></div>
   </main>
 
   <Footer />
 </Layout>
 
+<style>
+  .get__intel { margin-top: 20px; padding: 16px 18px; border-left: 8px solid var(--pink); }
+  .get__intel[hidden] { display: none; }
+</style>
+
 <script>
-  import { countDownload } from "../scripts/count-download";
+  import { countDownload, sendSignal } from "../scripts/count-download";
+  import { guessArchWithin } from "../scripts/chip";
 
   const el = document.getElementById("get");
   const version = el?.dataset.version ?? "";
   const dmg = el?.dataset.dmg ?? "";
   const src = new URLSearchParams(location.search).get("src") || "get";
-  countDownload(version, src);
-  // A DMG link doesn't leave the page, so this page (and its link to the
-  // install steps) stays on screen while the file arrives.
-  if (dmg) setTimeout(() => { location.href = dmg; }, 50);
+
+  // W4-2. Wait at most 400 ms for the chip guess. A confident Intel guess stops the
+  // automatic download and says why; "Download anyway" still counts and downloads.
+  // Anything else starts the download as before, with the guess on the row.
+  guessArchWithin(400).then((arch) => {
+    if (arch === "intel") {
+      const warn = document.getElementById("get-intel");
+      if (warn) warn.hidden = false;
+      sendSignal(version, "intel_warned");
+      document.getElementById("get-anyway")?.addEventListener("click", () =>
+        countDownload(version, `${src}_anyway`.slice(0, 32), arch),
+      );
+      return;
+    }
+    countDownload(version, src, arch);
+    // A DMG link doesn't leave the page, so this page (and its link to the
+    // install steps) stays on screen while the file arrives.
+    if (dmg) setTimeout(() => { location.href = dmg; }, 50);
+  });
 </script>

@@ -8,6 +8,7 @@ const site = Astro.site?.href ?? "https://heyminnie.com/";
 
 // Version and DMG link live in src/site.ts (keep in step with version.json).
 import { version, dmgURL, pageLd } from "../site";
+import CantOpen from "../components/CantOpen.astro";
 const expires = "18 February 2027";
 
 const downloadURL = new URL("download/", site).href;
@@ -33,7 +34,7 @@ const howToLd = {
   estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: "0" },
   supply: [
     { "@type": "HowToSupply", name: "An Apple Silicon Mac running macOS 14 or later" },
-    { "@type": "HowToSupply", name: "An AI to be Minnie's brain: Claude (through Claude Code), ChatGPT (through Codex), Gemini (an API key, through Gemini CLI), or an API key" },
+    { "@type": "HowToSupply", name: "Optional, for bigger jobs: an AI you already use — Claude (through Claude Code), ChatGPT (through Codex) or Gemini (through Gemini CLI)" },
   ],
   tool: [{ "@type": "HowToTool", name: "Terminal" }],
   step: [
@@ -86,28 +87,42 @@ const link = "prose-a";
 
     <p class={p} style="margin-top:28px;">
       Minnie is in open beta, and she's free — the pet, her voice, the wake word and real
-      tasks on your Mac, with no trial and no subscription. She runs the AI coding agent you
-      already have, so there's no extra AI bill either — but you do need your own agent.
+      tasks on your Mac, with no trial and no subscription. For bigger jobs she runs the AI
+      you already have, so there's no extra AI bill either.
       Minnie asks you to <strong>sign in with Google</strong> — that is the only thing she
       asks for. It is free, nothing is charged now or later, and it is what lets your setup
       follow you to a new Mac or a reinstall.
     </p>
 
-    <!-- ACTIVATION_PLAN W1-2. The first strangers installed, signed in, and then
-         found every task failing because no AI was connected. Say it before the
-         download, not after: this is the one thing she can't do without. -->
+    <!-- ACTIVATION_PLAN W1-2, rewritten for 0.9.15 (W4-5). It used to say "Minnie
+         needs an AI brain", which stopped being true when she gained a built-in one.
+         Careful: the Apple brain is macOS 26 + Apple Intelligence only — 2 of the
+         first 8 strangers were on macOS 15. Don't promise it to every Mac. -->
     <div class="needs card">
-      <p class="needs__t">Minnie needs an AI brain.</p>
+      <p class="needs__t">What she thinks with</p>
       <p class="needs__d">
-        She's the body; an AI you already use does the thinking. Any one of these:{" "}
-        <strong>Claude</strong> (Pro or Max), <strong>ChatGPT</strong> (through Codex),{" "}
-        <strong>Gemini</strong> (an API key, through Gemini CLI), or an API key from Anthropic,
-        OpenAI or Google. Without one she can move, talk and listen, but she can't do
-        real tasks. Onboarding helps you connect whichever you have.
+        On <strong>every Mac</strong> she opens apps and websites, sets timers, changes the
+        volume and looks in folders, with no AI at all. On <strong>macOS 26 with Apple
+        Intelligence</strong> on, she also answers questions on the Mac itself, free. For
+        bigger jobs, connect an AI you already use: <strong>Claude</strong>,{" "}
+        <strong>ChatGPT</strong> (through Codex) or <strong>Gemini</strong> (a free API key
+        works). Onboarding walks you through it.
       </p>
     </div>
 
-    <p style="margin:28px 0 12px;">
+    <!-- W4-2. Shown instead of the button only when the chip guess is confidently
+         Intel. "Download anyway" stays: the guess can be wrong. -->
+    <div class="intel card" id="intel-warn" hidden>
+      <p class="needs__t">This looks like an Intel Mac</p>
+      <p class="needs__d">
+        Minnie only runs on Apple Silicon (M1 or later) for now, so she won't open on this
+        Mac. To check: Apple menu ▸ <strong>About This Mac</strong>, where <em>Chip: Apple M…</em>{" "}
+        means she will work.{" "}
+        <a class="prose-a" href={dmgURL} id="dl-anyway" data-version={version}>Download anyway</a>
+      </p>
+    </div>
+
+    <p style="margin:28px 0 12px;" id="dl-wrap">
       <a href={dmgURL} class="btn" id="dl-btn" data-version={version}>Download Minnie {version} →</a>
     </p>
     <p class="mono" style="opacity:.7;font-size:14px;">
@@ -174,15 +189,27 @@ open /Applications/Minnie.app</code></pre>
         </li>
       </ol>
 
-      <div class="install__note">
-        <p class="install__t">Still blocked?</p>
-        <p class="install__d">
-          If macOS says <em>"Apple could not verify Minnie is free of malware"</em>, open
-          <strong>System Settings ▸ Privacy &amp; Security</strong>, scroll to the bottom, and
-          click <strong>Open Anyway</strong> next to Minnie. You'll only ever do this once.
-        </p>
-      </div>
+      <!-- W4-1. A <details> so opening it can be counted (`still_blocked_open`).
+           The one-line hint stays in the <summary>, visible without a click. -->
+      <details class="install__note" id="still-blocked" data-version={version}>
+        <summary>
+          <span class="install__t">Still blocked?</span>
+          <span class="install__d">
+            If macOS says <em>"Apple could not verify Minnie is free of malware"</em>, click{" "}
+            <strong>Open Anyway</strong> in <strong>System Settings ▸ Privacy &amp; Security</strong>.{" "}
+            <span class="install__more">Show me how →</span>
+          </span>
+        </summary>
+        <ol class="install__d install__blocked">
+          <li>Double-click Minnie in Applications once. When macOS says it can't verify her, click <strong>Done</strong> (not Move to Trash).</li>
+          <li>Open <strong>System Settings ▸ Privacy &amp; Security</strong> and scroll down to <strong>Security</strong>.</li>
+          <li>Next to <em>"Minnie" was blocked</em>, click <strong>Open Anyway</strong> and enter your Mac password.</li>
+          <li>Click <strong>Open Anyway</strong> once more. You'll only ever do this once.</li>
+        </ol>
+      </details>
     </div>
+
+    <CantOpen />
 
     <p class={p}>
       Why the commands instead of dragging her to Applications? macOS marks the downloaded disk
@@ -195,8 +222,8 @@ open /Applications/Minnie.app</code></pre>
       <li><strong>An Apple Silicon Mac</strong> (M1 or later). Intel Macs aren't supported yet.</li>
       <li><strong>macOS 14 Sonoma</strong> or later.</li>
       <li>
-        <strong>Your own AI coding agent</strong> — Claude Code, Gemini CLI, Codex, or a custom
-        command. Minnie drives the agent you already pay for; she doesn't resell AI.
+        <strong>For bigger jobs, your own AI</strong>: Claude Code, Gemini CLI, Codex, or a custom
+        command. Minnie drives the agent you already use; she doesn't resell AI.
       </li>
       <li>A microphone, if you want to talk to her. Typing works fine too.</li>
     </ul>
@@ -215,7 +242,7 @@ open /Applications/Minnie.app</code></pre>
     </ul>
 
     <p class={p} style="margin-top:28px;">
-      Something broken, confusing, or delightful?
+      Something broken, confusing, or delightful?{" "}
       <a href="mailto:pratiksingh30701@gmail.com" class={link}>Email me</a> — beta feedback goes
       straight to the person who wrote it.
     </p>
@@ -321,6 +348,22 @@ open /Applications/Minnie.app</code></pre>
     padding: 16px 18px;
   }
 
+  .install__note summary { cursor: pointer; list-style: none; display: block; }
+  .install__note summary::-webkit-details-marker { display: none; }
+  .install__note summary .install__t { display: block; }
+  .install__note summary .install__d { display: block; }
+  .install__more { font-weight: 800; color: var(--ink); white-space: nowrap; }
+  .install__note[open] .install__more { display: none; }
+  .install__blocked { margin: 10px 0 0; padding-left: 20px; list-style: decimal; }
+  .install__blocked li + li { margin-top: 4px; }
+
+  .intel[hidden], #dl-wrap[hidden] { display: none; }
+  .intel {
+    margin-top: 28px;
+    padding: 16px 18px;
+    border-left: 8px solid var(--pink);
+  }
+
   .needs {
     margin-top: 28px;
     padding: 16px 18px;
@@ -339,14 +382,40 @@ open /Applications/Minnie.app</code></pre>
   // Count the click (ACTIVATION_PLAN W1-1), then let the link do its job. The
   // DMG starts and this page, with its install steps, stays on screen. Without
   // JavaScript the link still works; it just isn't counted.
-  import { countDownload } from "../scripts/count-download";
+  import { countDownload, sendSignal } from "../scripts/count-download";
+  import { guessArch, type Arch } from "../scripts/chip";
+
   const dl = document.getElementById("dl-btn");
-  dl?.addEventListener("click", () => countDownload(dl.dataset.version ?? "", "download"));
+  const version = dl?.dataset.version ?? "";
+
+  // W4-2. Guess the chip once, on load. The click doesn't wait for it: whatever is
+  // known by then goes on the row, and a DMG link never leaves this page anyway.
+  let arch: Arch = "unknown";
+  guessArch().then((a) => {
+    arch = a;
+    if (a !== "intel") return;
+    const warn = document.getElementById("intel-warn");
+    const wrap = document.getElementById("dl-wrap");
+    if (warn) warn.hidden = false;
+    if (wrap) wrap.hidden = true;
+    sendSignal(version, "intel_warned");
+  });
+
+  dl?.addEventListener("click", () => countDownload(version, "download", arch));
+  const anyway = document.getElementById("dl-anyway");
+  anyway?.addEventListener("click", () => countDownload(version, "download_anyway", arch));
+
+  // W4-1. Opening "Still blocked?" means they reached Gatekeeper.
+  const blocked = document.getElementById("still-blocked") as HTMLDetailsElement | null;
+  blocked?.addEventListener("toggle", () => {
+    if (blocked.open) sendSignal(version, "still_blocked_open");
+  });
 
   // The command is three lines and easy to mistype; a wrong path fails silently.
   const btn = document.getElementById("copy-install");
   const src = document.getElementById("install-cmd");
   btn?.addEventListener("click", async () => {
+    sendSignal(version, "copy_install");
     try {
       await navigator.clipboard.writeText(src?.textContent?.trim() ?? "");
       btn.textContent = "copied ✓";

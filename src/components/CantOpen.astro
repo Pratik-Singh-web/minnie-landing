@@ -1,0 +1,158 @@
+---
+// "Couldn't open Minnie?" — Minnie repo, docs/ACTIVATION_PLAN.md W4-3.
+//
+// Half the people who clicked Download (Nov 2026) never opened the app, and
+// nothing between the click and the first launch told us why. This asks, with
+// five fixed answers, and then helps with the one they picked. A tap sends one
+// `cant_open` signal with the answer's slug: no free text, no id, once per page view.
+//
+// Used on /download (under the install card) and /get.
+import { version, dmgURL } from "../site";
+const base = import.meta.env.BASE_URL;
+
+const answers = [
+  { slug: "didnt_finish", label: "The download didn't finish" },
+  { slug: "terminal", label: "The Terminal step confused me" },
+  { slug: "blocked", label: "macOS blocked it" },
+  { slug: "intel", label: "My Mac has an Intel chip" },
+  { slug: "other", label: "Something else" },
+];
+---
+
+<div class="cant card" data-cant-open data-version={version}>
+  <button type="button" class="cant__toggle" aria-expanded="false" data-cant-toggle>
+    Couldn't open Minnie? <span aria-hidden="true">→</span>
+  </button>
+
+  <div class="cant__panel" hidden data-cant-panel>
+    <p class="cant__q">What happened? Pick the closest one and I'll help with it.</p>
+    <div class="cant__answers">
+      {answers.map((a) => (
+        <button type="button" class="cant__answer" data-answer={a.slug} aria-pressed="false">
+          {a.label}
+        </button>
+      ))}
+    </div>
+
+    <div class="cant__help" hidden data-help="didnt_finish">
+      <p>
+        The file is about 148 MB. Look in your <strong>Downloads</strong> folder for{" "}
+        <code>Minnie-{version}-beta.dmg</code>. If it isn't there, or your browser shows it as
+        failed, <a class="prose-a" href={dmgURL}>download it again</a>. Safari sometimes asks
+        before it downloads from GitHub: click <strong>Allow</strong>.
+      </p>
+    </div>
+
+    <div class="cant__help" hidden data-help="terminal">
+      <ol>
+        <li>Double-click the <code>.dmg</code> in Downloads first, and leave its window open.</li>
+        <li>Open Terminal: press <kbd>⌘</kbd> <kbd>Space</kbd>, type <strong>Terminal</strong>, press Return.</li>
+        <li>Press <strong>copy</strong> on the <a class="prose-a" href={`${base}download/#install`}>install card</a>, click in Terminal, press <kbd>⌘</kbd> <kbd>V</kbd>, then Return.</li>
+      </ol>
+      <p>
+        What the three lines do: copy Minnie into Applications, remove the "downloaded from
+        the internet" mark macOS put on her, and open her. Nothing else.
+      </p>
+      <p>
+        <strong>Rather not use Terminal?</strong> Drag Minnie from the disk image into
+        Applications, double-click her, then follow the "macOS blocked it" steps.
+      </p>
+    </div>
+
+    <div class="cant__help" hidden data-help="blocked">
+      <ol>
+        <li>Double-click Minnie in Applications once. When macOS says it can't verify her, click <strong>Done</strong> (not Move to Trash).</li>
+        <li>Open <strong>System Settings ▸ Privacy &amp; Security</strong> and scroll down to <strong>Security</strong>.</li>
+        <li>Next to <em>"Minnie" was blocked</em>, click <strong>Open Anyway</strong> and enter your Mac password.</li>
+        <li>Click <strong>Open Anyway</strong> once more. You'll only ever do this once.</li>
+      </ol>
+      <p>
+        macOS does this to every app that isn't signed by Apple yet. Minnie will be signed
+        once the beta ends.
+      </p>
+    </div>
+
+    <div class="cant__help" hidden data-help="intel">
+      <p>
+        Sorry, Minnie only runs on <strong>Apple Silicon</strong> (M1 or later) for now. To
+        check: Apple menu ▸ <strong>About This Mac</strong>. <em>Chip: Apple M…</em> means
+        she should work; <em>Processor: Intel</em> means she won't yet.
+      </p>
+    </div>
+
+    <div class="cant__help" hidden data-help="other">
+      <p>
+        Tell me what you saw, and a screenshot helps a lot:{" "}
+        <a class="prose-a" href="mailto:support@heyminnie.com?subject=Couldn't%20open%20Minnie">support@heyminnie.com</a>.
+        I read every one.
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cant { margin: 0 0 28px; padding: 0; overflow: hidden; }
+  .cant__toggle {
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border: 0;
+    background: var(--card);
+    color: var(--ink);
+    font: inherit;
+    font-weight: 800;
+    padding: 14px 18px;
+  }
+  .cant__toggle:hover { background: var(--yellow); }
+  .cant__panel[hidden], .cant__help[hidden] { display: none; }
+  .cant__panel { border-top: 1px solid var(--line); padding: 14px 18px 16px; }
+  .cant__q { margin: 0 0 10px; color: var(--ink-dim); }
+  .cant__answers { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cant__answer {
+    cursor: pointer;
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    font: inherit;
+    font-size: 14px;
+    padding: 7px 12px;
+    box-shadow: var(--sh-sm);
+  }
+  .cant__answer:hover,
+  .cant__answer[aria-pressed="true"] { background: var(--yellow); }
+  .cant__help { margin-top: 14px; color: var(--ink-dim); line-height: 1.55; }
+  .cant__help p { margin: 0 0 8px; }
+  .cant__help ol { margin: 0 0 8px; padding-left: 20px; list-style: decimal; }
+  .cant__help li + li { margin-top: 4px; }
+  .cant__help code { overflow-wrap: anywhere; }
+</style>
+
+<script>
+  import { sendSignal } from "../scripts/count-download";
+
+  document.querySelectorAll<HTMLElement>("[data-cant-open]").forEach((root) => {
+    const version = root.dataset.version ?? "";
+    const toggle = root.querySelector<HTMLButtonElement>("[data-cant-toggle]");
+    const panel = root.querySelector<HTMLElement>("[data-cant-panel]");
+
+    toggle?.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") !== "true";
+      toggle.setAttribute("aria-expanded", String(open));
+      if (panel) panel.hidden = !open;
+    });
+
+    root.querySelectorAll<HTMLButtonElement>("[data-answer]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const answer = btn.dataset.answer ?? "";
+        // Only the first answer of a visit is counted; the rest just show their help.
+        sendSignal(version, "cant_open", answer);
+        root.querySelectorAll<HTMLButtonElement>("[data-answer]").forEach((b) =>
+          b.setAttribute("aria-pressed", String(b === btn)),
+        );
+        root.querySelectorAll<HTMLElement>("[data-help]").forEach((h) => {
+          h.hidden = h.dataset.help !== answer;
+        });
+      });
+    });
+  });
+</script>

@@ -15,11 +15,11 @@ export const faqs = [
   },
   {
     q: "Does Minnie cost extra to run the AI?",
-    a: "No. She drives the agent CLI you already use; it holds its own auth and does the reasoning. Zero extra AI cost. She does need one, though: see the next question.",
+    a: "No. For bigger jobs she drives the agent CLI you already use; it holds its own auth and does the reasoning. Zero extra AI cost. See the next question for what works without one.",
   },
   {
     q: "Do I need my own AI?",
-    a: "Yes. Minnie is the body; an AI you already use is her brain. Any one of these works: a Claude Pro or Max plan (through Claude Code), a ChatGPT plan (through Codex), a Gemini API key (through Gemini CLI), or an API key from Anthropic, OpenAI or Google. Without one she can still move, talk and listen, but she cannot do real tasks. Her onboarding helps you connect whichever you have.",
+    a: "Not to start. On every Mac she opens apps and websites, sets timers, changes the volume and looks in folders with no AI at all, and on macOS 26 with Apple Intelligence on she also answers questions on the Mac itself, for free. For bigger jobs (email, files, code, the web) connect an AI you already use: a Claude Pro or Max plan (through Claude Code), a ChatGPT plan (through Codex), a Gemini API key (a free one works, through Gemini CLI), or an API key from Anthropic, OpenAI or Google. Her onboarding walks you through it.",
   },
   {
     q: "Which agents work?",
