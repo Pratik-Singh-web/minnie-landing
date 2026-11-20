@@ -51,7 +51,11 @@ const ogImage = new URL(`${base}${ogImagePath ?? "og/home.png"}`, site).href;
 // Cloudflare Web Analytics (cookieless, privacy-first). To enable:
 //   Cloudflare dashboard → Analytics & Logs → Web Analytics → "Add a site" →
 //   copy the beacon token → paste it below. The script loads only once it's set.
-const CF_ANALYTICS_TOKEN = "d0fa9b521df5404090089c004d4ace87"; // Cloudflare Web Analytics beacon token (public by design)
+// The site must be in "Enable with JS Snippet installation" mode, NOT automatic
+// injection: DNS is grey-cloud (GitHub Pages serves directly), so Cloudflare never
+// sees the pages and auto-injection does nothing. The old token here recorded 0
+// visits for months; replaced 2026-11-20 with the token of the heyminnie.com site.
+const CF_ANALYTICS_TOKEN = "aa39e1685eeb4df79f46933f8f90f9dc"; // Cloudflare Web Analytics beacon token (public by design)
 
 // Structured data (§12) — SoftwareApplication + FAQPage for rich results.
 const logo = new URL(`${base}icon-512x512.png`, site).href;
