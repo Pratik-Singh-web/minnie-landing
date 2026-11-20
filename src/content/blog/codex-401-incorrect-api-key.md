@@ -2,6 +2,11 @@
 title: "Codex \"401 Unauthorized: Incorrect API key provided: sk-svcac\", fixed"
 description: "Codex says your API key is incorrect, but it's a key you never made. When it's an OpenAI outage you should wait out, and when signing in again fixes it."
 pubDate: 2026-11-22
+# Finished, but held back on 2026-11-20: no post published after 15 Oct has
+# appeared in Google yet (20 Nov Search Console export). To un-hold: set draft
+# back to false AND set pubDate to the go-live day (an old pubDate falls outside
+# the notify script's 2-day IndexNow window, so the post would never be sent).
+draft: true
 tags: ["codex", "errors"]
 hero:
   motif: terminal

@@ -7,6 +7,8 @@ type Post = CollectionEntry<"blog">["data"];
 // deploy in .github/workflows/deploy.yml rebuilds just after that, so a post
 // written ahead of time publishes itself on its date. Keep `draft: true` for
 // posts that aren't finished; a future pubDate alone is enough to hold one back.
+// `draft: true` is also how to hold a FINISHED post with no end date (say why in
+// a frontmatter comment); a future pubDate would only delay it.
 export const isLive = (data: Post) => !data.draft && data.pubDate.getTime() <= Date.now();
 
 // `astro dev` shows everything, drafts and future posts included, so you can
