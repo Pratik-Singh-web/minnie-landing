@@ -1,6 +1,6 @@
 ---
 title: "\"Apple could not verify\" an app is free of malware: how to open it"
-description: "Apple could not verify an app is free of malware, or the developer can't be verified? What the warning means, how to check the app, and how to open it on Sequoia."
+description: "Apple could not verify an app is free of malware, or the developer can't be verified? What it means, how to check the app, and how to open it on Sequoia."
 pubDate: 2026-10-02
 updatedDate: 2026-11-17
 tags: ["macos", "gatekeeper", "install"]
