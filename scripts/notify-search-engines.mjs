@@ -96,9 +96,13 @@ async function resubmitSitemap() {
 
 const urls = await recentUrls();
 if (urls.length === 0) {
-  console.log("No posts went live or changed in the last 2 days; nothing to send.");
+  console.log("IndexNow: no posts went live or changed in the last 2 days; nothing to send.");
 } else {
   console.log("New or updated:\n  " + urls.join("\n  "));
   await indexNow(urls);
-  await resubmitSitemap();
 }
+// The sitemap goes to Google on every run, not only when a post is new: it is
+// one cheap, idempotent request, and Google stopped re-reading the sitemap on
+// its own after 26 Oct 2026, which left every later post unknown to it. Running
+// daily also shows, in each deploy log, whether the secret still works.
+await resubmitSitemap();
